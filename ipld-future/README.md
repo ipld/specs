@@ -44,13 +44,16 @@ TODO: introduce attributes and the link object
 ### Link Object
 ```
 TODO: describe the link object
+- the `/` keyword and accepted values
+```
+
+## Pointers (or IRI format)
+
+```
+TODO: define the different components of an IRI
 - CID (multicodec, multihash, versioning, etc)
 - Path
 ```
-
-## Pointers
-
-Components
 
 ## Representations
 ```
@@ -82,10 +85,18 @@ TODO: describe possible errors:
 
 ```
 TODO:
+- no secret information required to generate or verify a name, names are secure and self-evident
+  - corollary: causal links
+- disclosure of names does not disclose the referenced object but may enable the attacker to determine the contents referenced
 - note about hash collision and probabilistic guarantees
+- hash functions can break
 ```
 
 ## Examples
+
+### Hello World
+### File system example
+### Social network example
 
 ## Acknowledgements
 
