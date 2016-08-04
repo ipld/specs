@@ -7,6 +7,8 @@
 TODO: Why?
 - interoperability note
 - blockchain, dhts
+- link breaks
+- guarantees & secure content
 ```
 
 ```
