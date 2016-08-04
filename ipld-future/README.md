@@ -1,6 +1,11 @@
-# IPLD Spec
+# IPLD v1 Spec
 
 > Abstract
+
+## Table of content
+```
+TODO: auto generate table of content
+```
 
 ## Introduction
 ```
@@ -29,10 +34,10 @@ TODO: define the scope of this spec
 ## Basic Concepts
 ```
 TODO: different terminologies
-- hash
-- pointer
-- multihash
-- identifiers
+- hash and data pointer (a la json pointer)
+- secure links
+  - integrity
+  - immutability
 ```
 
 ## Data Model
@@ -47,14 +52,31 @@ TODO: introduce attributes and the link object
 ```
 TODO: describe the link object
 - the `/` keyword and accepted values
+- pointers can be of these forms:
+  - relative (?)
+  - pointers: (for further understanding of pointers, see below)
+    - only hash 
+    - hash + path
 ```
+
+### Examples
+#### Basic node
+#### Linking between nodes
+
 
 ## Pointers (or IRI format)
 
 ```
 TODO: define the different components of an IRI
+- A Pointer is "Protocol(optional?) + CID + Path"
 - CID (multicodec, multihash, versioning, etc)
-- Path
+- Path (optional)
+  - must respect the shape of the object or will result in a error
+```
+
+```
+TODO: format
+- restricted char
 ```
 
 ## Representations
