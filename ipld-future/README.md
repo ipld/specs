@@ -1,6 +1,7 @@
 # IPLD v1 Spec
 
-> Abstract
+> Inter-Planetary Linked Data (IPLD) defines a data model and a path scheme for linking data with cryptographic hashes.
+
 
 ## Table of content
 ```
@@ -8,12 +9,19 @@ TODO: auto generate table of content
 ```
 
 ## Introduction
+
+Using cryptographic hashes as pointers for data object is not new, successful applications (e.g. Bitcoin, Git, Certificate Transparency) and existing specs (e.g. RFC 6920) used this strategy to authenticate their datasets, generate global identifiers or to secure their systems `TODO: not really`.
+
+Using cryptographic hashes as pointers gives to the implementors strong probabilistic guarantees about their data: integrity and immutability. A hash pointer can only point to the content it was generated from, altering one bit is enough to make the hash pointer not matching the new content. In other words, hash pointers ensure (with high probability) that the content has not been altered and that all the graph of data pointing to each other is immutable.
+
+Existing applications have implemented a different data model and pointer format that do not interoperate, making it difficult to reuse the same data across applications. Furthermore, vertical implementations are application specific (e.g. forcing a particular data model) and can hardly be used elsewhere `TODO: strong claim`. `TODO: note that they are difficult to upgrade`
+
+This specification introduces IPLD, a generic data model for structured and unstructured data and pointers to address a particular data point that can be used to link across data objects. `TODO: maybe make it simpler`
+
 ```
 TODO: Why?
-- interoperability note
-- blockchain, dhts
-- link breaks
-- guarantees & secure content
+- link breaks (?)
+- guarantees & secure content (?)
 ```
 
 ```
@@ -23,6 +31,13 @@ TODO: introduce the ideas of:
 ```
 
 ## Design goals
+
+### Scope
+
+The scope of this specification is only limited to the data model, the link and pointer format. This work does not address dereferencing of cryptographic hashes to content.
+
+### Goals
+
 ```
 TODO: define the scope of this spec
 - simplicity
@@ -78,6 +93,8 @@ TODO: define the different components of an IRI
 TODO: format
 - restricted char
 ```
+
+### Upgrade on hash function breakage
 
 ## Representations
 ```
