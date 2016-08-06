@@ -2,6 +2,7 @@
 
 > Inter-Planetary Linked Data (IPLD) defines a data model and a path scheme for linking data with cryptographic hashes.
 
+
 ## Table of content
 ```
 TODO: auto generate table of content
@@ -33,7 +34,7 @@ TODO: introduce the ideas of:
 
 ### Scope
 
-The scope of this specification is only limited to the data model, the link and pointer format. This work does not address dereferencing of cryptographic hashes to content
+The scope of this specification is only limited to the data model, the link and pointer format. This work does not address dereferencing of cryptographic hashes to content.
 
 ### Goals
 
