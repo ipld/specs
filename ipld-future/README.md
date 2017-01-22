@@ -20,6 +20,8 @@ Editor: Nicola Greco, MIT
 - [Acknowledgements](#acknowledgements)
 - [References](#references)
 
+---
+
 ## Introduction
 Naming things with hashes solves three fundamental problems for the decentralized web:
 
