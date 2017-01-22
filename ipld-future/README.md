@@ -61,7 +61,7 @@ In this section we cover some basic concepts on which IPLD builds upon.
 
 **Merkle DAGs**. We refer to directed acyclic graphs linked via cryptographic hashes as Merkle DAGs. Systems such as Git, IPFS, Bittorrent, Bitcoin use different type of hash-based direct acyclic graphs.
 
-### Objectives
+## Objectives
 
 Objectives of the IPLD data model:
 
@@ -78,7 +78,7 @@ Objectives of the IPLD naming scheme:
 ## Terminology
 
 | Name | Description |
-| ---- | :---- |
+| :---- | :---- |
 | Resource | Any piece of data, structured or unstructured that can be addressed via cryptographic hash. |
 | IPLD Objects | semi-structured data (similar to JSON) that consists of attribute-value pairs objects that conform to the IPLD Objects Data Model. |
 | IPLD Link Object | The value of an attribute in an IPLD Object can be a Link Object, a special object that describes a link to another resource. |
@@ -88,7 +88,6 @@ Objectives of the IPLD naming scheme:
 | IPLD Types | The process of serialization/deserialization of an IPLD object into/from a special data structure (e.g. Ethereum block) |
 
 ## IPLD Data Model
-
 
 ### IPLD Objects
 
