@@ -61,9 +61,9 @@ In this section we cover some basic concepts on which IPLD builds upon.
 
 **Merkle DAGs**. We refer to directed acyclic graphs linked via cryptographic hashes as Merkle DAGs. Systems such as Git, IPFS, Bittorrent, Bitcoin use different type of hash-based direct acyclic graphs.
 
-# IPLD
+## IPLD
 
-## Objectives
+### Objectives
 
 The objectives of the IPLD data model builds on the CBOR's Section 1.1.
 
@@ -78,12 +78,12 @@ The objectives of the IPLD naming scheme
 3. The naming scheme must be respect conventions used in the Unix file system and on the World Wide Web.
 
 
-## IPLD Data Model
+### IPLD Data Model
 In IPLD, any binary data is considered a *resource*.
 - Semi-structured data that conform to the IPLD object data model are referred to *IPLD objects*
 
 
-### IPLD Objects
+#### IPLD Objects
 
 IPLD objects consists of attribute–value pairs (similar to JSON).
 
@@ -94,7 +94,7 @@ A value can be of four types:
 - an IPLD Link Object
 - an ordered array of the previous
 
-### Link Object
+#### Link Object
 ```
 TODO: describe the link object
 - the `/` keyword and accepted values
