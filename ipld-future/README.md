@@ -38,7 +38,7 @@ This specification defines:
 - **IPLD Data Model**: a data model to describe unstructured and structured data and representing Merkle DAGs.
 - **IPLD Naming Scheme**: a unix-like naming scheme that is self-authenticating, it can be used to point to data or subsets of it.
 
-The IPLD data model and naming scheme defined here follow specific design goals that are not currently met by other existing standards. The underlining data model is an extension of the JSON [[RFC4627]](https://www.ietf.org/rfc/rfc4627.txt) and the CBOR data model [[RFC7049]](https://tools.ietf.org/html/rfc7049). The naming scheme is built upon JSON Pointer [[RFC6901]](https://tools.ietf.org/html/rfc6901). It is important to note that this is not a proposal of a data format but an abstract data model that can be serialized in multiple formats.
+The IPLD Data Model and Naming Scheme defined follow specific design goals that are not currently met by other existing standards. The underlining data model is an extension of the JSON [[RFC4627]](https://www.ietf.org/rfc/rfc4627.txt) and the CBOR data model [[RFC7049]](https://tools.ietf.org/html/rfc7049). The Naming Scheme is built upon JSON Pointer [[RFC6901]](https://tools.ietf.org/html/rfc6901). It is important to note that this is not a proposal of a data format but an abstract data model that can be serialized in multiple formats.
 
 Related specs: CID
 
@@ -63,17 +63,17 @@ In this section we cover some basic concepts on which IPLD builds upon.
 
 ## Objectives
 
-Objectives of the IPLD data model:
+Objectives of the IPLD Data Model:
 
 1. Data must be able to be decoded without a schema description.
 2. The Data model must support all the JSON data types for conversion from and to JSON.
 3. The representation must be able to unambiguously encode most common data formats, as well as existing data structures used in Internet and Web standards.
 
-Objectives of the IPLD naming scheme:
+Objectives of the IPLD Naming Scheme:
 
 1. Names must be self-descriptive on how they are encoded, what type of content they contain and the hash functions used
-2. The naming scheme must be extensible, new hash functions and new encoding must be able to be introduced without loosing backward compatibility.
-3. The naming scheme must be respect conventions used in the Unix file system and on the World Wide Web.
+2. The Naming Scheme must be extensible, new hash functions and new encoding must be able to be introduced without loosing backward compatibility.
+3. The Naming Scheme must be respect conventions used in the Unix file system and on the World Wide Web.
 
 ## Terminology
 
