@@ -8,9 +8,17 @@ Editor: Nicola Greco, MIT
 
 
 ## Table of content
-```
-TODO: auto generate table of content
-```
+
+- [Introduction](#introduction)
+- [Basic Concepts](#basic-concepts)
+- [IPLD](#ipld)
+  - [Data Model](#data-model)
+  - [Naming Scheme](#naming-scheme)
+- [Serialization](#serialization)
+- [Security Considerations](#security-considerations)
+- [Examples](#examples)
+- [Acknowledgements](#acknowledgements)
+- [References](#references)
 
 ## Introduction
 Naming things with hashes solves three fundamental problems for the decentralized web:
