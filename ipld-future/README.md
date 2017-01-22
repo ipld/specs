@@ -61,29 +61,34 @@ In this section we cover some basic concepts on which IPLD builds upon.
 
 **Merkle DAGs**. We refer to directed acyclic graphs linked via cryptographic hashes as Merkle DAGs. Systems such as Git, IPFS, Bittorrent, Bitcoin use different type of hash-based direct acyclic graphs.
 
-## IPLD
-
 ### Objectives
 
-The objectives of the IPLD data model builds on the CBOR's Section 1.1.
+Objectives of the IPLD data model:
 
 1. Data must be able to be decoded without a schema description.
 2. The Data model must support all the JSON data types for conversion from and to JSON.
 3. The representation must be able to unambiguously encode most common data formats, as well as existing data structures used in Internet and Web standards.
 
-The objectives of the IPLD naming scheme
+Objectives of the IPLD naming scheme:
 
 1. Names must be self-descriptive on how they are encoded, what type of content they contain and the hash functions used
 2. The naming scheme must be extensible, new hash functions and new encoding must be able to be introduced without loosing backward compatibility.
 3. The naming scheme must be respect conventions used in the Unix file system and on the World Wide Web.
 
+## Terminology
 
-### IPLD Data Model
-In IPLD, any binary data is considered a *resource*.
-- Semi-structured data that conform to the IPLD object data model are referred to *IPLD objects*
+- **Resource**: Any piece of data, structured or unstructured that can be addressed via cryptographic hash.
+- **IPLD Objects**: semi-structured data (similar to JSON) that consists of attribute-value pairs objects that conform to the IPLD Objects Data Model.
+- **IPLD Link Object**: The value of an attribute in an IPLD Object can be a Link Object, a special object that describes a link to another resource.
+- **CID**: The cryptographic hash of a resource prefixed by bits that describe the type of data, the cryptographic hash function used and the encoding of the hash.
+- **IPLD Address**: A name combined of the CID and an optional path scheme that points to a resource or an attribute in an IPLD Object.
+- **IPLD Formats**: The process of serialization/deserialization of an IPLD Object into/from a data format (e.g. CBOR, JSON)
+- **IPLD Types**: The process of serialization/deserialization of an IPLD object into/from a special data structure (e.g. Ethereum block)
+
+## IPLD Data Model
 
 
-#### IPLD Objects
+### IPLD Objects
 
 IPLD objects consists of attribute–value pairs (similar to JSON).
 
@@ -94,7 +99,7 @@ A value can be of four types:
 - an IPLD Link Object
 - an ordered array of the previous
 
-#### Link Object
+### Link Object
 ```
 TODO: describe the link object
 - the `/` keyword and accepted values
@@ -106,13 +111,7 @@ TODO: describe the link object
 ```
 
 
-
-### Examples
-#### Basic node
-#### Linking between nodes
-
-
-## Pointers (or IRI format)
+## IPLD Naming Scheme
 
 ```
 TODO: define the different components of an IRI
