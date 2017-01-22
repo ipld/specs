@@ -77,13 +77,15 @@ Objectives of the IPLD naming scheme:
 
 ## Terminology
 
-- **Resource**: Any piece of data, structured or unstructured that can be addressed via cryptographic hash.
-- **IPLD Objects**: semi-structured data (similar to JSON) that consists of attribute-value pairs objects that conform to the IPLD Objects Data Model.
-- **IPLD Link Object**: The value of an attribute in an IPLD Object can be a Link Object, a special object that describes a link to another resource.
-- **CID**: The cryptographic hash of a resource prefixed by bits that describe the type of data, the cryptographic hash function used and the encoding of the hash.
-- **IPLD Address**: A name combined of the CID and an optional path scheme that points to a resource or an attribute in an IPLD Object.
-- **IPLD Formats**: The process of serialization/deserialization of an IPLD Object into/from a data format (e.g. CBOR, JSON)
-- **IPLD Types**: The process of serialization/deserialization of an IPLD object into/from a special data structure (e.g. Ethereum block)
+| Name | Description |
+| ---- | ----: |
+| **Resource** | Any piece of data, structured or unstructured that can be addressed via cryptographic hash. |
+| **IPLD Objects** | semi-structured data (similar to JSON) that consists of attribute-value pairs objects that conform to the IPLD Objects Data Model. |
+| **IPLD Link Object** | The value of an attribute in an IPLD Object can be a Link Object, a special object that describes a link to another resource. |
+| **CID** | The cryptographic hash of a resource prefixed by bits that describe the type of data, the cryptographic hash function used and the encoding of the hash. |
+| **IPLD Address** | A name combined of the CID and an optional path scheme that points to a resource or an attribute in an IPLD Object. |
+| **IPLD Formats** | The process of serialization/deserialization of an IPLD Object into/from a data format (e.g. CBOR, JSON) |
+| **IPLD Types** | The process of serialization/deserialization of an IPLD object into/from a special data structure (e.g. Ethereum block) |
 
 ## IPLD Data Model
 
