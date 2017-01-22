@@ -1,4 +1,6 @@
-# IPLD v1 Spec
+# IPLD Spec v1
+
+Editor: Nicola Greco, MIT
 
 > This specification defines a data model and a naming scheme for linking data with cryptographic hashes.
 >
@@ -20,29 +22,34 @@ Naming things with hashes solves three fundamental problems for the decentralize
 Using cryptographic hashes as pointers for data object is not new, successful applications (e.g. Bitcoin, Git, Certificate Transparency) and existing specs ([[RFC6920]](https://tools.ietf.org/html/rfc6920)) used this strategy to authenticate their datasets, generate global identifiers or to provide end-to-end integrity to their systems. However existing applications have implemented a different data model and pointer format that do not interoperate, making it difficult to reuse the same data across applications. Furthermore, vertical implementations are application specific (e.g. forcing a particular data model) and can hardly be used elsewhere
 
 IPLD is a forest of hash-linked directed acyclic graphs, also referred to as Merkle DAGs (or generically, tree-based authenticated data structures).
-IPLD aims at being the way to address any authenticated data structure under the IPLD namespace `/ipld/`, followed by the hash of the data, conceptually, any bittorrent, git, blockchain data resides in this namespace, solving, in this way, the described interoperability problem.
+IPLD aims at being the way to address any authenticated data structure under the IPLD namespace `/ipld/`, followed by the hash of the data, conceptually, any Bittorrent, Git, Blockchain data resides in this namespace, solving, in this way, the described interoperability problem.
+
+This specification defines:
+- **IPLD Data Model**: a data model to describe unstructured and structured data and representing Merkle DAGs.
+- **IPLD Naming Scheme**: a unix-like naming scheme that is self-authenticating, it can be used to point to data or subsets of it.
 
 The IPLD data model and naming scheme defined here follow specific design goals that are not currently met by other existing standards. The underlining data model is an extension of the JSON [[RFC4627]](https://www.ietf.org/rfc/rfc4627.txt) and the CBOR data model [[RFC7049]](https://tools.ietf.org/html/rfc7049). The naming scheme is built upon JSON Pointer [[RFC6901]](https://tools.ietf.org/html/rfc6901). It is important to note that this is not a proposal of a data format but an abstract data model that can be serialized in multiple formats.
 
 Related specs: CID
 
-## Design goals
+<!-- ## Design goals
 ```
 TODO: define the scope of this spec
 - simplicity
 - transparent pathing
 - upgradability
 - usable as RDF
-```
+``` -->
 
 ## Basic Concepts
-```
-TODO: different terminologies
-- hash and data pointer (a la json pointer)
-- secure links
-  - integrity
-  - immutability
-```
+
+In this section we cover some basic concepts on which IPLD builds upon.
+
+**Cryptographic integrity**. Cryptographic hash functions are one way functions that can be used to map any binary data to a specific string, called a digest or a hash. A cryptographic hash function gives strong probabilistic guarantees that different content don't *collide* on the same hash, meaning that no two different content can have the same hash. By naming content with hashes, we can guarantee that the data has not been altered during storage or transmission, since when obtaining a file, the receiver can themselves regenerate the hash of the content received.
+
+**Range verifiability**. A cryptographic hash provides integrity guarantees not only to the content it directly dereferences to, as well as the entire graph of the content that it is linked from it.
+
+**Merkle DAGs**. We refer to directed acyclic graphs linked via cryptographic hashes as Merkle DAGs. Systems such as Git, IPFS, Bittorrent, Bitcoin use different type of hash-based direct acyclic graphs.
 
 ## Data Model
 
