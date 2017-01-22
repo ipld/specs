@@ -61,13 +61,38 @@ In this section we cover some basic concepts on which IPLD builds upon.
 
 **Merkle DAGs**. We refer to directed acyclic graphs linked via cryptographic hashes as Merkle DAGs. Systems such as Git, IPFS, Bittorrent, Bitcoin use different type of hash-based direct acyclic graphs.
 
-## Data Model
+# IPLD
 
-```
-TODO: introduce attributes and the link object
-- define datamodel (object, arrays, numbers and strings)
-- define the link object to be a keyword
-```
+## Objectives
+
+The objectives of the IPLD data model builds on the CBOR's Section 1.1.
+
+1. Data must be able to be decoded without a schema description.
+2. The Data model must support all the JSON data types for conversion from and to JSON.
+3. The representation must be able to unambiguously encode most common data formats, as well as existing data structures used in Internet and Web standards.
+
+The objectives of the IPLD naming scheme
+
+1. Names must be self-descriptive on how they are encoded, what type of content they contain and the hash functions used
+2. The naming scheme must be extensible, new hash functions and new encoding must be able to be introduced without loosing backward compatibility.
+3. The naming scheme must be respect conventions used in the Unix file system and on the World Wide Web.
+
+
+## IPLD Data Model
+In IPLD, any binary data is considered a *resource*.
+- Semi-structured data that conform to the IPLD object data model are referred to *IPLD objects*
+
+
+### IPLD Objects
+
+IPLD objects consists of attribute–value pairs (similar to JSON).
+
+An object has a set of attribute each of which has a corresponding value.
+A value can be of four types:
+- a terminal: which can be a string, an integer, a real number, a boolean
+- an IPLD Object (recursive definition)
+- an IPLD Link Object
+- an ordered array of the previous
 
 ### Link Object
 ```
@@ -79,6 +104,8 @@ TODO: describe the link object
     - only hash 
     - hash + path
 ```
+
+
 
 ### Examples
 #### Basic node
