@@ -4,7 +4,7 @@ Editor: Nicola Greco, MIT
 
 > This specification defines a data model and a naming scheme for linking data with cryptographic hashes.
 >
-> The InterPlanetary Linked Data (IPLD) is an information space of inter-linked data, where content addresses and links are expressed using the content's cryptographic hash. IPLD is designed to universally address and link to any data in a way that does not require a central naming authority, the integrity of the data can be verified and untrusted parties can help distribute the data. This specification describes a data model for structured data and a naming scheme to point to data, or parts of it. These design goals make it different from earlier data models such as JSON, RDF and naming scheme such as NI [[RFC6920]](https://tools.ietf.org/html/rfc6920), Magnet URI.
+> InterPlanetary Linked Data (IPLD) is an information space of inter-linked data, where content addresses and links are expressed using the content's cryptographic hash. IPLD is designed to universally address and link to any data so that the data does not require a central naming authority, the integrity of the data can be verified, and untrusted parties can help distribute the data. This specification describes a data model for structured data and a naming scheme to point to data and subsets of the data. These design goals make it different from earlier data models such as JSON or RDF, and naming schemes such as NI [[RFC6920]](https://tools.ietf.org/html/rfc6920), or Magnet URI.
 
 
 ## Table of content
@@ -25,20 +25,20 @@ Editor: Nicola Greco, MIT
 ## Introduction
 Naming things with hashes solves three fundamental problems for the decentralized web:
 
-1. **Data integrity**: URLs give no guarantees that the data we receive hasn't been compromised, the IPLD naming system ensures that no one can lie about the data they are serving
-2. **Distributed naming**: only the owner of a domain name can serve you the data behind a URL; in IPLD any computer - trusted and untrusted - that has the data can help and participate in distributing it
-3. **Immutable Content**: The content behind URLs can change or disappear, making our links broken or not pointing anymore to what we were expecting. IPLD links cannot mutate.
+1. **Data integrity**: URLs give no guarantees that the data we receive hasn't been compromised. The IPLD naming system ensures that no one can lie about the data they are serving.
+2. **Distributed naming**: Only the owner of a domain name can serve you the data behind a URL; in IPLD, any computer - trusted and untrusted - that has the data can participate in distributing it.
+3. **Immutable Content**: The content behind URLs can change or disappear, breaking links or pointing to unexpected content. IPLD links cannot mutate.
 
-Using cryptographic hashes as pointers for data object is not new, successful applications (e.g. Bitcoin, Git, Certificate Transparency) and existing specs ([[RFC6920]](https://tools.ietf.org/html/rfc6920)) used this strategy to authenticate their datasets, generate global identifiers or to provide end-to-end integrity to their systems. However existing applications have implemented a different data model and pointer format that do not interoperate, making it difficult to reuse the same data across applications. Furthermore, vertical implementations are application specific (e.g. forcing a particular data model) and can hardly be used elsewhere
+Using cryptographic hashes as pointers for data objects is not a new concept. Successful applications (e.g. Bitcoin, Git, Certificate Transparency) and existing specs ([[RFC6920]](https://tools.ietf.org/html/rfc6920)) used this strategy to authenticate their datasets, generate global identifiers and to provide end-to-end integrity to their systems. However existing applications have implemented a different data model and pointer format which does not interoperate, making it difficult to re-use the same data across applications. Furthermore, vertical implementations are application specific (e.g. forcing a particular data model) and can hardly be used elsewhere.
 
 IPLD is a forest of hash-linked directed acyclic graphs, also referred to as Merkle DAGs (or generically, tree-based authenticated data structures).
-IPLD aims at being the way to address any authenticated data structure under the IPLD namespace `/ipld/`, followed by the hash of the data, conceptually, any Bittorrent, Git, Blockchain data resides in this namespace, solving, in this way, the described interoperability problem.
+IPLD aims at being the way to address any authenticated data structure under the IPLD namespace `/ipld/`, followed by the hash of the data. Conceptually, any Bittorrent, Git, or Blockchain data also resides in this namespace, thus solving the described interoperability problem.
 
 This specification defines:
-- **IPLD Data Model**: a data model to describe unstructured and structured data and representing Merkle DAGs.
-- **IPLD Naming Scheme**: a unix-like naming scheme that is self-authenticating, it can be used to point to data or subsets of it.
+- **IPLD Data Model**: a data model to describe unstructured and structured data and to represent Merkle DAGs.
+- **IPLD Naming Scheme**: a UNIX-like naming scheme that is self-authenticating. It can be used to point to data or subsets of it.
 
-The IPLD Data Model and Naming Scheme defined follow specific design goals that are not currently met by other existing standards. The underlining data model is an extension of the JSON [[RFC4627]](https://www.ietf.org/rfc/rfc4627.txt) and the CBOR data model [[RFC7049]](https://tools.ietf.org/html/rfc7049). The Naming Scheme is built upon JSON Pointer [[RFC6901]](https://tools.ietf.org/html/rfc6901). It is important to note that this is not a proposal of a data format but an abstract data model that can be serialized in multiple formats.
+The IPLD Data Model and Naming Scheme defined bellow follow specific design goals that are not currently met by other existing standards. The underlining data model is an extension of the JSON [[RFC4627]](https://www.ietf.org/rfc/rfc4627.txt) and the CBOR data model [[RFC7049]](https://tools.ietf.org/html/rfc7049). The Naming Scheme is built upon JSON Pointer [[RFC6901]](https://tools.ietf.org/html/rfc6901). It is important to note that this is not a proposal of a data format, but an abstract data model that can be serialized in multiple formats.
 
 Related specs: CID
 
