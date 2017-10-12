@@ -7,6 +7,8 @@ Specifications (specs)
 
 > This repository contains the specs for InterPlanetary Linked Data (IPLD).
 
+IPLD is a specification for a heirarchical data format that describes connections between IPFS objects, and metadata about the objects.  It is the format used to group IPFS blocks into structures like "files" and "directories".
+
 ## Work In Progress
 
 **Warning**: this is a work in progress. IPLD is a young body of work and we want to get it right. We will continue to evaluate and re-think pieces.
