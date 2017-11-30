@@ -70,7 +70,7 @@ If an application wants to use objects with a single `/` key for other purposes,
 
 ### What is a _merkle-graph_ or a _merkle-dag_?
 
-Objects with merkle-links form a Graph (merkle-graph), which necessarily is both Directed, and which can be counted on to be Acyclic, iff the properties of the cryptographic hash function hold. I.e. a _merkle-dag_. Hence all graphs which use _merkle-linking_ (_merkle-graph_) are necessarily also Directed Acyclic Graphs (DAGs, hence _merkle-dag_).
+Objects with merkle-links form a Graph (merkle-graph), which necessarily is both Directed, and which can be counted on to be Acyclic, if the properties of the cryptographic hash function hold. I.e. a _merkle-dag_. Hence all graphs which use _merkle-linking_ (_merkle-graph_) are necessarily also Directed Acyclic Graphs (DAGs, hence _merkle-dag_).
 
 ### What is a _merkle-path_?
 
