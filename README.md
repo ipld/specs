@@ -26,6 +26,7 @@ Nothing in this spec repository is `permanent` yet. As in many IPLD repositories
   - ![](https://img.shields.io/badge/status-wip-orange.svg?style=flat-square) `IPLD Transformations` - spec about the language to trasform an IPLD graph into another
   - ![](https://img.shields.io/badge/status-reliable-green.svg?style=flat-square) [`CID (Content IDentifier)`](https://github.com/ipld/cid)
   - ![](https://img.shields.io/badge/status-wip-orange.svg?style=flat-square) [`IPLD Formats`](https://github.com/ipld/interface-ipld-format) - interface definition for adding support to different formats
+  - ![](https://img.shields.io/badge/status-wip-orange.svg?style=flat-square) [`CAR`](/CAR.md) - Content Addressable Archives
 
 ## Discussion
 

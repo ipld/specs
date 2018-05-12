@@ -1,3 +1,5 @@
+**This document contains a draft from a proposed spec for an older version of IPLD. It remains here until we have published the new spec**
+
 # IPLD Spec v1
 
 Editor: Nicola Greco, MIT
