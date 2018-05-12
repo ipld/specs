@@ -1,5 +1,5 @@
-Specifications (specs)
-==============
+IPLD Specifications
+===================
 
 [![](https://img.shields.io/badge/made%20by-Protocol%20Labs-blue.svg?style=flat-square)](http://ipn.io)
 [![](https://img.shields.io/badge/project-IPLD-blue.svg?style=flat-square)](http://github.com/ipld/ipld)
@@ -7,11 +7,7 @@ Specifications (specs)
 
 > This repository contains the specs for InterPlanetary Linked Data (IPLD).
 
-IPLD is a specification for a heirarchical data format that describes connections between IPFS objects, and metadata about the objects.  It is the format used to group IPFS blocks into structures like "files" and "directories".
-
-## Work In Progress
-
-**Warning**: this is a work in progress. IPLD is a young body of work and we want to get it right. We will continue to evaluate and re-think pieces.
+**What is IPLD**: IPLD is a specification for a heirarchical data format that describes connections between IPFS objects, and metadata about the objects.  It is the format used to group IPFS blocks into structures like "files" and "directories".
 
 **Specs are not finished yet. We use the following tag system to identify their state:**
 
@@ -21,22 +17,30 @@ IPLD is a specification for a heirarchical data format that describes connection
 - ![](https://img.shields.io/badge/status-stable-brightgreen.svg?style=flat-square) - this spec is likely to improve, but not change fundamentally.
 - ![](https://img.shields.io/badge/status-permanent-blue.svg?style=flat-square) - this spec will not change.
 
-Nothing in this spec repository is `permanent` yet. The most important pieces of IPLD are now `reliable` or `stable`. Many subsystems remain as `draft`.
+Nothing in this spec repository is `permanent` yet. As in many IPLD repositories, most of the work is happening in [the issues](https://github.com/ipld/specs/issues/) or in [active pull requests](https://github.com/ipld/specs/pulls/). Go take a look!
 
-Note that, as in many IPFS repositories, most of the work is happening in [the issues](https://github.com/ipld/specs/issues/) or in [active pull requests](https://github.com/ipld/specs/pulls/). Go take a look!
+## Documents
 
-## Specs
+- [**Roadmap**](/ROADMAP.md)
+- **Specifications:**
+  - ![](https://img.shields.io/badge/status-wip-orange.svg?style=flat-square) [`IPLD`](/IPLD.md) - spec about the data model, pointers and link formats
+  - ![](https://img.shields.io/badge/status-wip-orange.svg?style=flat-square) `IPLD Selectors` - spec about simple language to select multiple unknown nodes in a graph
+  - ![](https://img.shields.io/badge/status-wip-orange.svg?style=flat-square) `IPLD Transformations` - spec about the language to trasform an IPLD graph into another
+  - ![](https://img.shields.io/badge/status-reliable-green.svg?style=flat-square) [`CID (Content IDentifier)`](https://github.com/ipld/cid)
+  - ![](https://img.shields.io/badge/status-wip-orange.svg?style=flat-square) [`IPLD Formats`](https://github.com/ipld/interface-ipld-format) - interface definition for adding support to different formats
 
-The specs contained in this repository are:
+## Discussion
 
-**IPLD:**
-- [IPLD](/ipld) ![](https://img.shields.io/badge/status-reliable-green.svg?style=flat-square) - spec about the data model, pointers and link formats
-- IPLD Selectors ![](https://img.shields.io/badge/status-wip-orange.svg?style=flat-square) - spec about simple language to select multiple unknown nodes in a graph
-- IPLD Transformations ![](https://img.shields.io/badge/status-wip-orange.svg?style=flat-square) - spec about the language to trasform an IPLD graph into another
+Join the discussion for:
 
-## Maintainers
+- Specs - https://github.com/ipld/specs/issues
+- General IPLD - https://github.com/ipld/ipld/issues
+- JavaScript Implementation - https://github.com/ipld/js-ipld/issues
+- Golang Implementation - https://github.com/ipfs/go-ipld-format
 
-[@nicola](https://github.com/nicola)
+## Weekly Hangout
+
+TBA soon™
 
 ## Contribute
 

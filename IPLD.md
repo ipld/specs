@@ -9,7 +9,7 @@ UPDATE: we re-drafted this spec to deal with links. We hope to re-finalize it sh
 There are a variety of systems that use merkle-tree and hash-chain inspired datastructures (e.g. git, bittorrent, ipfs, tahoe-lafs, sfsro). IPLD (Inter Planetary Linked Data) defines:
 
 - **_merkle-links_**: the core unit of a merkle-graph
-- **_merkle-dag_**: any graphs whose edges are _merkle-links_.
+- **_merkle-dag_**: any graphs whose edges are _merkle-links_. `dag` stands for "directed acyclic graph"
 - **_merkle-paths_**: unix-style paths for traversing _merkle-dags_ with _named merkle-links_
 - **IPLD Data Model**: a flexible, JSON-based data model for representing merkle-dags.
 - **IPLD Serialized Formats**: a set of formats in which IPLD objects can be represented, for example JSON, CBOR, CSON, YAML, Protobuf, XML, RDF, etc.
@@ -148,7 +148,7 @@ Some Constraints:
 - Definining new datastructures MUST be trivially easy. It should not be cumbersome -- or require much knowledge -- to experiment with new definitions on top of IPLD.
 - Since IPLD is based on the JSON data model, it is fully compatible with RDF and Linked Data standards through JSON-LD.
 - IPLD Serialized Formats (on disk and on the wire) MUST be fast and space efficient. (should not use JSON as the storage format, and instead use CBOR or similar formats)
-- IPLD cryptographic hashes MUST be upgradeable (use [multihash](https://github.com/jbenet/multihash))
+- IPLD cryptographic hashes MUST be upgradeable (use [multihash](https://github.com/multiformats/multihash))
 
 Some nice-to-haves:
 - IPLD SHOULD NOT carry over mistakes, e.g. the lack of integers in JSON.
@@ -366,9 +366,9 @@ On the subject of integers, there exist a variety of formats which represent int
 
 ## Serialized Data Formats
 
-IPLD supports a variety of serialized data formats through [multicodec](https://github.com/jbenet/multicodec). These can be used however is idiomatic to the format, for example in `CBOR`, we can use `CBOR` type tags to represent the merkle-link, and avoid writing out the full string key `@link`. Users are encouraged to use the formats to their fullest, and to store and transmit IPLD data in whatever format makes the most sense. The only requirement **is that there MUST be a well-defined one-to-one mapping with the IPLD Canonical format.** This is so that data can be transformed from one format to another, and back, without changing its meaning nor its cryptographic hashes.
+IPLD supports a variety of serialized data formats through [multicodec](https://github.com/multiformats/multicodec). These can be used however is idiomatic to the format, for example in `CBOR`, we can use `CBOR` type tags to represent the merkle-link, and avoid writing out the full string key `@link`. Users are encouraged to use the formats to their fullest, and to store and transmit IPLD data in whatever format makes the most sense. The only requirement **is that there MUST be a well-defined one-to-one mapping with the IPLD Canonical format.** This is so that data can be transformed from one format to another, and back, without changing its meaning nor its cryptographic hashes.
 
-### Serialised CBOR with tags
+### Serialized CBOR with tags
 
 IPLD links can be represented in CBOR using tags which are defined in [RFC 7049 section 2.4](http://tools.ietf.org/html/rfc7049#section-2.4).
 
@@ -377,7 +377,7 @@ A tag `<tag-link-object>` is defined. This tag can be followed by a text string 
 When encoding an IPLD "link object" to CBOR, use this algorithm:
 
 - The *link value* is extracted.
-- If the *link value* is a valid [multiaddress](https://github.com/jbenet/multiaddr) and converting that link text to the multiaddress binary string and back to text is guaranteed to result to the exact same text, the link is converted to a binary multiaddress stored in CBOR as a byte string (major type 2).
+- If the *link value* is a valid [multiaddress](https://github.com/multiformats/multiaddr) and converting that link text to the multiaddress binary string and back to text is guaranteed to result to the exact same text, the link is converted to a binary multiaddress stored in CBOR as a byte string (major type 2).
 - Else, the *link value* is stored as text (major type 3)
 - The resulting encoding is the `<tag-link-object>` followed by the CBOR representation of the *link value*
 
