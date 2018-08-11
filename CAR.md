@@ -106,3 +106,7 @@ we deal with them?
 So, a topological sort makes it really easy to traverse the CAR, even when
 streaming. However producing a topologically sorted DAG is a bit trickier. Note:
 whatever we choose, it won't have any affect on the asymptotic runtime (memory or time).
+
+## Implementations
+
+- [go](https://github.com/ipfs/go-car)
