@@ -23,12 +23,12 @@ A logical separation exists in any given IPLD codec between the **format** and t
 +--------------------+             +---------------------+
 ```
 
-A codec may represent object types and tree structures any way it wishes.
-This includes existing representations (JSON, BSON, CBOR, Protobuf, msgpack,
-etc) or even new custom serializations. We will refer to this as the
-**representation**.
+A **format** may represent object types and tree structures any
+way it wishes. This includes existing representations (JSON, BSON, CBOR,
+Protobuf, msgpack, etc) or even new custom serializations. We will refer to
+this as the **representation**.
 
-Therefor, a **format** is the standardized representation of IPLD Links and Paths in a given **representation**.
+Therefor, a **format** is the standardized representation of IPLD Links and Paths in a given **representation**. It describes how to translate between structured data and binary.
 
 It is worth noting that **serializers** and **deserializers** differ by programming language while the **format** does not and MUST remain consistent across all codec implementations.
 
@@ -39,10 +39,6 @@ representation of link encoding. The canonical representation is an object with 
 
 ```json
 {"/": "base-encoded-cid-string"}
-```
-
-```yaml
-/: base-encoded-cid-string
 ```
 
 However, **formats** are not required to represent links in this format and
