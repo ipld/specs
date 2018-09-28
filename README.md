@@ -123,7 +123,7 @@ links did for HTML web pages.
 
 Rather than referring to content by a string identifier or URL, content addressable systems refer to content
 by a cryptographic hash. This allows complete decentralization of the content as the identifier
-does not specific the retreival method and provides a secure way to verify the content.
+does not specify the retrieval method and provides a secure way to verify the content.
 
 ## IPLD Terms
 
@@ -131,12 +131,12 @@ does not specific the retreival method and provides a secure way to verify the c
 
 Multihash is hash format that is not specific to a single hashing algorithm.
 
-Multihashes describe the algorithm used for the hash as well as the hash value.
+A multihash describes the algorithm used for the hash as well as the hash value.
 
 ```
-+---------+------------------------------+
++-----------+----------------------------+
 | Hash Type | Hash Value                 |
-+---------+------------------------------+
++-----------+----------------------------+
 ```
 
 SHA-256 example.
@@ -151,7 +151,9 @@ Note: these examples are simplifications of the concepts. For a complete descrip
 
 ### CID (Content Identifier)
 
-Hash based content identifier. Includes the `codec` and
+Hash based content identifier. Includes the `codec` and `multihash`.
+
+CID's
 
 ```
 +-------+------------------------------+
