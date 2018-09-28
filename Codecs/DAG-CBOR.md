@@ -2,11 +2,13 @@
 
 DAG-CBOR supports the full ["IPLD Data Model v1."](../IPLD-Data-Model-v1.md)
 
-## Simple Types
+## Format
+
+### Simple Types
 
 CBOR already natively supports all "IPLD Data Model v1: Simple Types."
 
-## Link Type
+### Link Type
 
 IPLD links can be represented in CBOR using tags which are defined in [RFC 7049 section 2.4](http://tools.ietf.org/html/rfc7049#section-2.4).
 
