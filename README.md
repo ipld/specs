@@ -1,7 +1,7 @@
 IPLD Specifications
 ===================
 
-IPLD is not a simple specification, it is a set of specifications built on each other.
+IPLD is not a single specification, it is a set of specifications.
 
 ```
                         The IPLD Stack
@@ -37,7 +37,7 @@ IPLD is not a simple specification, it is a set of specifications built on each 
                 +--------------------------------------------------------------+
 ```
 
-The goal of this technology stack is to enable decentralized data-structures
+The goal of this stack is to enable decentralized data-structures
 which in turn will enable more decentralized applications.
 
 Many of the specifications in this stack are inter-dependent.
@@ -78,14 +78,14 @@ Structured Data | VR, Geo, SQL, etc. <----------------+
 
 ## Specification Repo Layout
 
-* /IPLD-Data-Model-v1.md
-* /IPLD-Path.md
-* /CID.md
-* /Codecs
-  * /Codecs/DAG-JSON.md
-  * /Codecs/DAG-CBOR.md
-* /Data-Structures
-  * /Data-Structures/HAMT.md
+* [/IPLD-Data-Model-v1.md](/IPLD-Data-Model-v1.md)
+* [/IPLD-Path.md](/IPLD-Path.md)
+* [/CID.md](/CID.md)
+* [/Codecs](/Codecs)
+  * [/Codecs/DAG-JSON.md](/Codecs/DAG-JSON.md)
+  * [/Codecs/DAG-CBOR.md](/Codecs/DAG-CBOR.md)
+* [/Data-Structures](/Data-Structures)
+  * [/Data-Structures/HAMT.md](/Data-Structures/HAMT.md)
 
 ## Discussion
 
