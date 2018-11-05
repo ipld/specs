@@ -1,4 +1,10 @@
-# DagCBOR Spec
+# [WIP] DagCBOR Spec
+
+DAG-CBOR supports the full ["IPLD Data Model v1."](../IPLD-Data-Model-v1.md)
+
+CBOR already natively supports all ["IPLD Data Model v1: Simple Types."](../IPLD-Data-Model-v1.md#simple-types)
+
+## Format
 
 The CBOR IPLD format is called DagCBOR to disambiguate it from regular CBOR.
 Most CBOR objects are valid DagCBOR. The only hard restriction is that any field
