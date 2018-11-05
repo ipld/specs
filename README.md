@@ -4,7 +4,8 @@ IPLD Specifications
 IPLD is not a single specification, it is a set of specifications.
 
 ```
-                        The IPLD Stack
+                                     The IPLD Stack
+
                                 +-----------------------------+
                 +-------------+ |                             |
                 |             | | End-User Application Stacks |
@@ -12,29 +13,29 @@ IPLD is not a single specification, it is a set of specifications.
                 |             | +-----------------------------+
                 +-------------+ |                             |
                 |             | | Structured Data w/ indexes  |
-                |  unixfs v2  | |     VR, Geo, SQL, etc.      |     +----------+
-                |             | |                             |     |          |
-                +-------------+ +-----------------------------+     |  MFS in  |
-                |             | |                             |     |   IPFS   |
-                |    HAMT     | |   Sorted Index (sharded)    |     |          |
-                |             | |                             |     +----------+
-                +-------------+-+-----------------------------+     |          |
-                |                                             |     |  unixfs  |
-                |          Complex Data Structures            |     |    v1    |
-                |                                             |     |          |
-+------------------------------------------------------------------------------+
-|               |                                             |     |          |
-|               |        dag-json         dag-cbor            |     |          |
-|               |                                             |     |          |
-|    Codecs     +---------------------------------------------+ git |  dag-pb  |
-|               |                                             |     |          |
-|               |               IPLD Data Model               |     |          |
-|               |                                             |     |          |
-+-------------------------------------------------------------+-----+----------+
-                |                                                              |
-                |                CID                      Path                 |
-                |                                                              |
-                +--------------------------------------------------------------+
+                |  unixfs v2  | |     VR, Geo, SQL, etc.      |                +----------+
+                |             | |                             |                |          |
+                +-------------+ +-----------------------------+                |  MFS in  |
+                |             | |                             |                |   IPFS   |
+                |    HAMT     | |   Sorted Index (sharded)    |                |          |
+                |             | |                             |                +----------+
+                +-------------+-+-----------------------------+                |          |
+                |                                             |                |  unixfs  |
+                |          Complex Data Structures            |                |    v1    |
+                |                                             |                |          |
++-----------------------------------------------------------------------------------------+
+|               |                                             |                |          |
+|               |        dag-json         dag-cbor            |    ipld-git    |          |
+|               |                                             |                |          |
+|    Codecs     +---------------------------------------------+    ipld-btc    |  dag-pb  |
+|               |                                             |                |          |
+|               |               IPLD Data Model               |   ipld-zcash   |          |
+|               |                                             |                |          |
++-------------------------------------------------------------+----------------+----------+
+                |                                                                         |
+                |                CID                      Path                            |
+                |                                                                         |
+                +-------------------------------------------------------------------------+
 ```
 
 The goal of this stack is to enable decentralized data-structures
