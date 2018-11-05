@@ -6,6 +6,7 @@
 * Null
 * String
 * Integer
+  * Must support BigInt
 * Float
 * Array
 * Object (Hash Map)
