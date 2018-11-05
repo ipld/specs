@@ -175,7 +175,7 @@ The long version
 +------------------------------+
 ```
 
-Note: these examples are simplifications of the concepts. For a complete description visit the [spec](/CID.md).
+Note: these examples are simplifications of the concepts. For a complete description visit the [spec](./CID.md).
 
 ### Block
 
@@ -207,12 +207,13 @@ The long version.
 
 ### IPLD Path
 
-TODO:
+A string identifier used for deep references into IPLD
+graphs. Follows similar escape and segmentation rules as URI Paths.
 
 ### IPLD Data Model
 
 The IPLD Data Model describes a set of base types. Codecs that support these base types
-can be used by any of the Data-Structures built on top of the IPLD Data Model.
+can be used by any of the data-structures built on top of the IPLD Data Model.
 
 Codecs that support the IPLD Data Model:
 
@@ -222,7 +223,7 @@ Codecs that support the IPLD Data Model:
 ### Codec
 
 A codec exposes serialization and deserialization for IPLD blocks. If it also supports
-content addressable links then the codec also exposes those links as `CID`'s. A codec
+content addressable links then the codec exposes those links as `CID`'s. A codec
 also supports atomic IPLD Path lookups on the block.
 
 #### Serializer, Deserializer and Format
@@ -247,9 +248,12 @@ A logical separation exists in any given IPLD codec between the **format** and t
 
 A **format** may represent object types and tree structures any
 way it wishes. This includes existing representations (JSON, BSON, CBOR,
-Protobuf, msgpack, etc) or even new custom serializations. We will refer to
-this as the **representation**.
+Protobuf, msgpack, etc) or even new custom serializations.
 
-Therefor, a **format** is the standardized representation of IPLD Links and Paths in a given **representation**. It describes how to translate between structured data and binary.
+Therefor, a **format** is the standardized representation of IPLD Links and Paths. It describes how to translate between structured data and binary.
 
 It is worth noting that **serializers** and **deserializers** differ by programming language while the **format** does not and MUST remain consistent across all codec implementations.
+
+#### Representation
+
+The in-memory representation of a de-serialized IPLD value.
