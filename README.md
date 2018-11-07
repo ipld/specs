@@ -210,6 +210,8 @@ The long version.
 A string identifier used for deep references into IPLD
 graphs. Follows similar escape and segmentation rules as URI Paths.
 
+[Read the full specification for more details.](./IPLD-Path.md)
+
 ### IPLD Data Model
 
 The IPLD Data Model describes a set of base types. Codecs that support these base types
