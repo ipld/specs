@@ -16,4 +16,6 @@ Block level path resolutionis defined by individual codecs.
 Full path resolution should use block level resolution through each block.
 When a block level resolver returns an `IPLD Link` a full path resolution
 should retreive that block, load its codec, and continue on with additional
-block level resolution until the full path is resolved.
+block level resolution until the full path is resolved. Finally, path resolution
+should return a [**representation**](./IPLD-Path.md#representation)
+of the value for the given path.
