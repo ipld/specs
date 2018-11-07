@@ -12,7 +12,6 @@ Similarly, the string `?` is reserved for future use as a query separator.
 Path resolution is broken into two parts: full path resolution and block level resolution.
 
 Block level path resolutionis defined by individual codecs.
-For most common codecs each path segment is a property lookup.
 
 Full path resolution should use block level resolution through each block.
 When a block level resolver returns an `IPLD Link` a full path resolution
