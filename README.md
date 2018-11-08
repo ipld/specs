@@ -46,9 +46,9 @@ Many of the specifications in this stack are inter-dependent.
 ```
        IPLD Dependency Graph
 
-+---+                          +-----+        +---------+
-|CID+-----------+-------------->Block+-------->Raw Block|
-+---+           |              +--+--+        +---------+
++---+                          +----------+
+|CID+-----------+-------------->Raw Blocks|
++---+           |              +--+-------+
          +------v-------------+   |
 +----+   |Links (Conceptually)|   |
 |Path|   +------+-------------+   |             +-----------+
