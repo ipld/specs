@@ -76,16 +76,24 @@ message GraphsyncMessage {
     bytes extra = 3;
   }
 
+  message BlockMetadata {
+    int32 id = 1; // the request id
+    bytes block = 2; // CID for block this metadata refers to
+    repeated string path = 3; // IPLD path for this block from root
+    bytes control_message = 4; // information about this CID, such as it being missing
+  }
+
   message Block {
   	bytes prefix = 1; // CID prefix (cid version, multicodec and multihash prefix (type + length)
   	bytes data = 2;
   }
 
   // the actual data included in this message
-  bool completeRequestList    = 1; // This request list includes *all* requests, replacing outstanding requests.
-  repeated Request  requests  = 2; // The list of requests.
-  repeated Response responses = 3; // The list of responses.
-  repeated Block    data      = 4; // Blocks related to the responses
+  bool completeRequestList         = 1; // This request list includes *all* requests, replacing outstanding requests.
+  repeated Request       requests  = 2; // The list of requests.
+  repeated Response      responses = 3; // The list of responses.
+  repeated Block         data      = 4; // Blocks related to the responses
+  repeated BlockMetadata metadata  = 5; 
 }
 ```
 
