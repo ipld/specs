@@ -105,6 +105,7 @@ message GraphsyncMessage {
 11   Additional Peers. PeerIDs in extra.
 12   Not enough vespene gas ($)
 13   Other Protocol - info in extra.
+14   Partial Response, may include blocks and metadata
 
 # success - terminal
 20   Request Completed, full content.
