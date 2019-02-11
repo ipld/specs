@@ -43,6 +43,7 @@ type Graphsync interface {
 }
 
 type Request struct {
+    Root     Cid
     Selector Selector
     Priority Priority      // optional
     Expires  time.Duration // optional
@@ -62,10 +63,11 @@ message GraphsyncMessage {
 
   message Request {
     int32 id = 1;       // unique id set on the requester side
-    bytes selector = 2; // ipld selector to retrieve
-    bytes extra = 3;    // aux information. useful for other protocols
-    int32 priority = 4;	// the priority (normalized). default to 1
-    bool  cancel = 5;   // whether this cancels a request
+    bytes root = 2;     // root CID from which to apply the selector
+    bytes selector = 3; // ipld selector to retrieve
+    bytes extra = 4;    // aux information. useful for other protocols
+    int32 priority = 5;	// the priority (normalized). default to 1
+    bool  cancel = 6;   // whether this cancels a request
   }
 
   message Response {
