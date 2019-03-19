@@ -113,19 +113,23 @@ These components imply or expand into the following things:
 Selector types
 --------------
 
-### CID Selector
-
-Selects a single CID.
-
-
 ### Path Selector
 
 Selects a single path segment.
 
 
-### Array Selector
+### Array Selectors
 
-Selects a slice or single item of an array of items.
+There's three selectors that operate on arrays:
+
+ - Array All Selector: selects all items of an array
+ - Array Slice Selector: selects a given range of an array
+ - Array Position Selector: selects a single element from an array
+
+
+### Map All Selector
+
+Selects all elements of a map structure.
 
 
 ### Recursive Selector
