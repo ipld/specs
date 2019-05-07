@@ -14,20 +14,20 @@ This layer model is a simplified heirarchy of IPLD concepts and requirements.
 
 ```
 ┌──────────────────────────────────────────────────┐
-|                                                  | 
-|                   Schema Layer                   |
-|  (advanced types, multi-block data structures)   |
-|                                                  |
+│                                                  │ 
+│                   Schema Layer                   │
+│  (advanced types, multi-block data structures)   │
+│                                                  │
 ├──────────────────────────────────────────────────┤
-|                                                  |
-|                 Data Model Layer                 |
-|   (basic types, single-block data structures)    |
-|                                                  |
+│                                                  │
+│                 Data Model Layer                 │
+│   (basic types, single-block data structures)    │
+│                                                  │
 ├──────────────────────────────────────────────────┤
-|                                                  |
-|                   Block Layer                    |
-|               (cid, data, codec)                 |           
-|                                                  |
+│                                                  │
+│                   Block Layer                    │
+│               (cid, data, codec)                 │           
+│                                                  │
 └──────────────────────────────────────────────────┘
 ```
 
