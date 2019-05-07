@@ -16,12 +16,12 @@ This layer model is a simplified heirarchy of IPLD concepts and requirements.
 ┌──────────────────────────────────────────────────┐
 │                                                  │ 
 │                   Schema Layer                   │
-│  (advanced types, multi-block data structures)   │
+│ (advanced types for multi-block data structures) │
 │                                                  │
 ├──────────────────────────────────────────────────┤
 │                                                  │
 │                 Data Model Layer                 │
-│   (basic types, single-block data structures)    │
+│  (basic types for single-block data structures)  │
 │                                                  │
 ├──────────────────────────────────────────────────┤
 │                                                  │
@@ -34,10 +34,11 @@ This layer model is a simplified heirarchy of IPLD concepts and requirements.
 ## Block Layer (Layer 0)
 
 The block layer encompasses all content addressed block formats and specifies how blocks
-are addressed,how they self-describe their codec for encoding/decoding, and how block link
+are addressed,how they self-describe their codec for encoding/decoding, and how blocks link
 between each other.
 
-This layer alone is enough to accomplish basic graph replication across a variety of formats (eth, bitcoin, git, etc).
+This layer alone is enough to accomplish basic graph replication across a variety of formats (eth, bitcoin, git, 
+dag-pb, dag-cbor, etc).
 
 This layer does not define data structures or types, although many codecs may convert these formats into native types,
 there are no type requirements or assurances about types at the block layer.
@@ -50,13 +51,25 @@ With these basic types authors can create various single-block data structures w
 paths and selectors.
 
 With just the data model layer, several data structures can be authored and put into a single block. These data 
-structures can also link to one another, but a *single* data structures's namespace cannot be spread across many
-blocks. This limitation means that collections authored in only the Data Model layer are limited by the maximum
-block size (typically 2 megabytes).
+structures can also link to one another, but a *single* collection (Map or List) cannot be spread across many
+blocks with only the Data Model.
+
+Since different systems and transports may impose block size limits (often 2mb or more) in order to control memory usage,
+larger collections need to be sharded over many blocks at the Schema Layer.
 
 ## Schema Layer (Layer 2)
 
-TODO: Schema Layer description.
+IPLD Schemas define a mapping from the Data Model Layer (Layer 1) to
+instantiated data structures comprising complex layouts. The Schema Layer
+adds the ability to extend the IPLD Data Model to the wide variety of types
+required for typical programatic interaction with a data source without the
+need to implement custom translation abstractions.
+
+The Schema Layer will also serve as an enabling layer for complex multi-block
+data structures by providing stability and consistency of data model use within
+individual blocks and defined interaction points for the logic required for
+building and interacting with advanced data layouts, such as multi-block Maps,
+Lists and Sets.
 
 # Specification Repo Layout
 
