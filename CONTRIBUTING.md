@@ -13,9 +13,9 @@
 Prescriptive specifications are intended to describe future 
 implementations or, in some cases, changes to existing implementations.
 
-Descriptive specifications describe existing behavior. In many cases
-these specifications are not intended to drive new implementations and
-are only written to understand existing behaviors.
+Specification documents should include a descriptor in their heading that 
+indicates their status in the staging process. e.g. "Prescriptive - Draft", 
+or "Descriptive - Final".
 
 ## Governance
 
