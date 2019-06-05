@@ -12,6 +12,7 @@ Contents:
 
   * [Motivation](#motivation)
   * [Requirements](#requirements)
+  * [Operations](#operations)
   * [Implementations](#implementations)
 
 ## Motivation
@@ -54,7 +55,7 @@ The map must contain the following properties.
 
   * `name` must be a string identifier.
   * `engine` must be one of the following:
-	  * `”IPLD/Engine/WASM/0”`
+	* `”IPLD/Engine/WASM/0”`
 
 Each additional property describes the implementation of every operation.
 
@@ -74,6 +75,19 @@ Use to produce an iterator of every top level property available in the data str
 
 ## Implementations
 
+While each implementation has a language specific API there is a fair amount in common between implementations that is specified here.
+
+The interface for every operation can do the following:
+
+  * Return a result.
+  * Perform multiple calls of **any** operation on multiple targets of `value` or `path`
+	  *  `value` is an IPLD Data Model value.
+	  *  `path` is a IPLD Path relative to the node performing the operation.
+		  *  This path should be interpreted as *Layer 1* within the node and *Layer 2* once the path leaves the current block.
+      * The result of these operations should be passed back into the original operation as a continuation of some kind.
+
+### Languages
+
   * JavaScript
 	  * [Spec]()
-	  * [Code]()
+		* [Code]()
