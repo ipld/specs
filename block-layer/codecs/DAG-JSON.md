@@ -42,7 +42,7 @@ Example internal format:
 
 ```javascript
 { "/": { "_": 1 },
-  "data": { "hello": "world": { "obj": { "array": [0, 0] } } },
+  "data": { "hello": "world", { "obj": { "array": [0, 0] } } },
   "meta": {
     base64: [
       [[ "key" ], "dmFsdWU="],
