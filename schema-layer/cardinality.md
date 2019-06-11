@@ -1,5 +1,4 @@
-Cardinality
------------
+# Concept: Cardinality
 
 "Cardinality" means "[the number of elements in a set](https://en.wikipedia.org/wiki/Cardinality)".
 
