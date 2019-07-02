@@ -19,8 +19,10 @@
 
 ## Introduction
 
-The `SectorSet` is an integer set implemented with a simple array mapped tree.
-Integer indexes range from 0 to infinity (TODO practical bounds / bounds implied by encoding?).
+The `AMT` is an array mapped trie, used to efficiently represent sparse sets of data. They are used in
+IPLD by specifiying `{UInt:<SomeType>}<AMT>`. So the keys must be unsigned integers and the values can be
+any type. The keys are interpreted as the indicies of the values.
+
 
 ## Structure
 
@@ -73,15 +75,15 @@ type Value union {
 
 ### `Get(index)`
 
-Lookup takes in an integer sectorID and returns a LeafNode value if this index
-is stored in the SectorSet.  Each node has a `height`, a node's child has a
-`height` one less than its own height and the first node has a `height` of the
-root node's max depth.  Leaf nodes have a height of 1.
+`Get` takes in an `UInt` and returns a `Value` value if this index is stored. Otherwise return and empty value(as appropriate for the implementation platform).
+
+Each node has a `height`, a node's child has a `height` one less than its own height and the first
+node has a `height` of the root node's max depth. Leaf nodes have a height of 1.
 
 At each node the next child is chosen by examining the index and determining
-which ordered subtree the index fits into.  This can be calculated by taking
-the quotient `index / S^(h - 1)`.  The index for the recursive search on the
-child node is set to the remainder `index % S^(h-1)`
+which ordered subtree the index fits into. This can be calculated by taking
+the quotient `index / S`<sup>`(h - 1)`</sup>. The index for the recursive search on the
+child node is set to the remainder `index % S`<sup>`(h-1)`</sup>
 
 1. Return `RecursiveGet(index, currentHeight, rootNode)`
 
@@ -96,7 +98,7 @@ child node is set to the remainder `index % S^(h-1)`
 
 First Expand the tree as needed given the input value.
 
-Now run the Lookup traversal.  If the traversal leads to a node at the max depth
+Now run the `Get(index)` traversal. If the traversal leads to a node at the max depth
 (height of 1), then set the `Value` field at `index % childRange` to the insert value.
 
 If the traversal needs to resolve a pointer link but that link does not exist,
@@ -106,20 +108,19 @@ of nodes until reaching the leaf node and set the node's pointer Value at
 
 #### `Expand()`
 
-As the `SectorSet` grows it becomes necessary to expand the tree to insert
-values with higher indexes.  When given an index `b` that exceeds the tree's
-capacity, the `SectorSet` adds enough parent nodes to the node pointed to by
-the root that the `SectorSet` has capacity for its existing indices and `b`.
+As the `AMT` grows it becomes necessary to expand the tree to insert
+values with higher indexes. When given an index `b` that exceeds the tree's
+capacity, the `AMT` adds enough parent nodes to the node pointed to by
+the root that the `AMT` has capacity for its existing indices and `b`.
 Pointers are then updated in these new nodes so that there is a path from
 the new node with the highest height to the existing node pointed to by root.
 Finally the root node updates to point to the node with highest height.
 
 ### `Delete(index)`
 
-Run the Lookup traversal. If the value is found delete its value from the
-`Pointers` array.  If the `Pointers` array is empty after this deletion then
-update the parent pointer to have a nil link.  Continue checking if parents
-are empty of links and removing until reaching a parent that is not empty.
+1. Run the `Get` traversal.
+2. If the value is found delete its value from the `data` list.
+  2.1. If the `data` list is empty now, then prune links until a non empty `data` entry is reached.
 
 ### `Keys(), Values() and Entries()`
 
