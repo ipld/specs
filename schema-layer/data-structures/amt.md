@@ -26,13 +26,10 @@ any type. The keys are interpreted as the indicies of the values.
 
 ## Structure
 
-### Constants
-
-- `S = 256`
-
 ### Parameters
 
-- `bitWidth`
+- `s`
+- `width`
 - `maxDepth`
 
 ### Node Properties
@@ -42,7 +39,8 @@ any type. The keys are interpreted as the indicies of the values.
 ```sh
 # Root node layout
 type AmtRoot struct {
-  bitWidth UInt
+  s UInt
+  width UInt
   maxDepth UInt
   map Bytes
   data [ Element ]
@@ -82,14 +80,14 @@ node has a `height` of the root node's max depth. Leaf nodes have a height of 1.
 
 At each node the next child is chosen by examining the index and determining
 which ordered subtree the index fits into. This can be calculated by taking
-the quotient `index / S`<sup>`(h - 1)`</sup>. The index for the recursive search on the
-child node is set to the remainder `index % S`<sup>`(h-1)`</sup>
+the quotient `index / s`<sup>`(h - 1)`</sup>. The index for the recursive search on the
+child node is set to the remainder `index % s`<sup>`(h-1)`</sup>
 
 1. Return `RecursiveGet(index, currentHeight, rootNode)`
 
 #### `RecursiveGet(index, currentHeight, currentNode)`
 
-1. Set `childRange` to `S`<sup>`currentHeight - 1`</sup>
+1. Set `childRange` to `s`<sup>`currentHeight - 1`</sup>
 2. Set `elementIndex` to `index / childRange`
 3. If `currentHeight` is equal to `1`, return `currentNode.data[elementIndex]`
 4. Return `RecursiveGet(currentHeight - 1, index % childRange, currentNode.data[elementIndex])`
