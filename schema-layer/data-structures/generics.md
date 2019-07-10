@@ -42,6 +42,8 @@ IPLD Composites cannot be implemented without:
 
 Composite definitions describe how to find an implementation of the data structure. When encoded into the data these also serve as a the self-description mechanism.
 
+A Composite Definition may be applied in a number of ways, either "out-of-band" by applications or "in-band" using something like the the "Fat Pointers" discussed briefly below.
+
 ***Open Issue: Fat Pointers***
 
 Early experiments simply reserved the `_type` property for composites to describe themselves. Reserving this property by default across any data in any block is highly problematic and makes it impossible to express certain data in IPLD.
@@ -50,7 +52,7 @@ What we need in order to move forward is some extension/modification to `CID` in
 
 ### Version 1
 
-The `_type` property is a string identifier. This identifier is used to lookup the implementation and if it cannot be found by the host environment any operation is expected to throw an exception. Implementations MUST NOT fallback to *Layer 1* operations of the contents of the node if they do not have an implementation.
+The `_type` property is a string identifier. This identifier is used to lookup the implementation and if it cannot be found by the host environment any operation is expected to throw an exception. When a Composite Definition is applied, implementations MUST NOT fallback to *Layer 1* operations on the contents of the node if they do not have an implementation.
 
 Example:
 
