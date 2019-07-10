@@ -55,7 +55,7 @@ The `_type` property is a string identifier. This identifier is used to lookup t
 Example:
 
 ```json
-{ “_type”: “IPLD/Experimental/HAMT/0” }
+{ "_type": "IPLD/Experimental/HAMT/0" }
 ```
 
 ### Version 2
