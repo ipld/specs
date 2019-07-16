@@ -48,7 +48,10 @@ A Composite Definition may be applied in a number of ways, either "out-of-band" 
 
 Early experiments simply reserved the `_type` property for composites to describe themselves. Reserving this property by default across any data in any block is highly problematic and makes it impossible to express certain data in IPLD.
 
-What we need in order to move forward is some extension/modification to `CID` in order to signal that “the data being linked to is a composite definition” at which point we can safely ad semantics to `_type` or other properties without reserving any property universally.
+What we need in order to move forward to enable some version of "fat pointer" is still under discussion. Some 
+extension/modification to `CID` in order to signal that “the data being linked to is a composite definition” at 
+which point we can safely ad semantics to `_type` or other properties without reserving any property universally 
+would work but there may be other options we have yet to explore.
 
 ### Version 1
 
