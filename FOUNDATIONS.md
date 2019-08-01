@@ -13,15 +13,12 @@ ensure the success of future improvements (especially type systems).
 
 ## Linked
 
-IPLD must support linking to any IPLD node (even if the node is in the middle of
-a block). That is, IPLD must support arbitrary IPLD paths in links.
+The IPLD Data Model includes Links. A Link can be resolved to reach another IPLD Node.
 
-**Motivation:** Considering this in the context of programming languages, not
-being able to *store* a pointer to a struct *inside* of another struct would be
-severely limiting.
-
-NOTE: We don't currently support arbitrary paths but, in the context of
-programming, we really need to.
+**Motivation:** Linking makes it possible to build data structures which are
+theoretically unbounded in size, while still being traversable, consistent,
+authenticated and immutable.  This unlocks the potential for a host of
+decentralized applications and is part of IPLD's fundamental purpose.
 
 ## Immutable
 
@@ -127,34 +124,3 @@ The "recommended" IPLD format (currently DagCBOR) needs to support *at a minimum
 * A bottom type (null).
 
 **Motivation:** Convenience, really.
-
-## Non-Cyclic, Block-Local Relative Links
-
-That is, relative links that don't traverse out the back of an object. See the
-conclusions from: [#1](https://github.com/ipld/specs/issues/1).
-
-**Motivation:** This is required to efficiently represent a highly connected DAG
-of tiny nodes.
-
-**Caveat:** This brings in some sticky issues around mutability. Depending on
-the implementation, relative links within an object may be act like mutable
-links (from the perspective of the user). The concern here is that we don't want
-users to bundle nodes together into single block *because* they want this
-mutability.
-
-# To Do
-
-Working through this, I realized we have a few things we really need to finish a few things before we can
-call IPLD ready.
-
-* **Path links.** Pointers that can only point to objects at block boundaries
-  are useful but severely gimped. We've been fine up till now because we
-  generally don't *edit* complicated datastructures but this will change.
-  ([#83](https://github.com/ipld/specs/issues/83))
-* **Slice links.** For the same reason, we really should support
-  `/ipld/QmID/start..stop` as a syntax for slicing an array. Most programming
-  languages support this so *not* supporting it would be a bit awkward.
-  ([#84](https://github.com/ipld/specs/issues/84))
-* **Link Spec.** We need to specify a complete and formal link spec and stick
-  with it.
-* **Relative Links.** [#1](https://github.com/ipld/specs/issues/1).
