@@ -109,13 +109,9 @@ type HashMapNode struct {
 }
 
 type Element union {
-  | Child "child"
-  | Bucket "bucket"
-} representation keyed
-
-type Child union {
-  | Link link
   | HashMapNode map
+  | &HashMapNode link
+  | Bucket list
 } representation kinded
 
 type Bucket list [ BucketEntry ]
