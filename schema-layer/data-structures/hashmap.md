@@ -9,6 +9,9 @@
   * [Parameters](#Parameters)
   * [Node properties](#Node-properties)
   * [Schema](#Schema)
+* [Key hashing](#Key-hashing)
+  * [Bytes](#Bytes)
+  * [Strings](#Strings)
 * [Algorithm in detail](#Algorithm-in-detail)
   * [`Get(key)`](#Getkey)
   * [`Set(key, value)`](#Setkey-value)
@@ -16,7 +19,7 @@
   * [`Keys()`, `Values()` and `Entries()`](#Keys-Values-and-Entries)
   * [Differences to CHAMP](#Differences-to-CHAMP)
   * [Canonical form](#Canonical-form)
-* [Use as a "Set"](#Use-as-a-%22Set%22)
+* [Use as a "Set"](#Use-as-a-Set)
 * [Implementation defaults](#Implementation-defaults)
   * [`hashAlg`](#hashAlg)
   * [`bitWidth`](#bitWidth)
@@ -116,9 +119,14 @@ type Element union {
 type Bucket list [ BucketEntry ]
 
 type BucketEntry struct {
-  key Bytes
+  key Key
   value Value (implicit "null")
 } representation tuple
+
+type Key union {
+  | String string
+  | Bytes bytes
+} kinded
 
 type Value union {
   | Bool bool
@@ -138,15 +146,31 @@ Notes:
 * `bitWidth` in the root block must be at least `3`, making the minimum `map` size 1 byte.
 * `bitWidth` is not present in the root block as it is inferred from the size of the `map` byte array with the equation `log2(byteLength(map) x 8)`, being the inverse of the `map` size equation `2`<sup>`bitWidth`</sup>` / 8`.
 * `bucketSize` in the root block must be at least `1`.
-* Keys are stored in `Byte` form.
+* `Key` is a kinded union that supports storing a key as either `bytes` or `string`, see below.
 * `Element` is a kinded union that supports storing either a `Bucket` (as kind list), a link to a child node (as kind link), or as an inline, non-linked child node (as kind map).
+
+## Key hashing
+
+For look-up or set operation involving a `key`, a hash is required of that key for the purpose of finding the index of that key at each level of the tree structure. As such, we need clear rules about how the allowed `key` data model kinds should be hashed.
+
+Regardless of hashing mechanism, it is recommended that the raw key as supplied by the user in its data model kind form (i.e. either `string` or `bytes`), is to be serialized in that form in its bucket location in the block. Mutating the key to a hashable form is only an internal operation for the purpose of generating a consistent hash across implementations.
+
+It is assumed that hash algorithms being used by the HashMap operate directly on byte arrays.
+
+### Bytes
+
+If a key is a byte array, the entirety of the byte array should be passed to the hash algorithm directly as-is.
+
+### Strings
+
+If a key is a string, it should be converted to a byte array representing the bytes that make up the entirety of the string, and then passed to the hash algorithm. It is assumed that strings may be in UTF-8 form and that the resulting bytes representing that string are consistent across platforms. Non-UTF-8 string encodings are currently not considered in this specification.
 
 ## Algorithm in detail
 
 ### `Get(key)`
 
 1. Set a `depth` value to `0`, indicating the root block
-2. The `key` is hashed, using `hashAlg`.
+2. The `key` is hashed, using `hashAlg`, according to the data model hashing rules above.
 3. Take the left-most `bitWidth` bits, offset by `depth x bitWidth`, from the hash to form an `index`. At each level of the data structure, we increment the section of bits we take from the hash so that the `index` comprises a different set of bits as we move down.
 4. If the `index` bit in the node's `map` is `0`, we can be certain that the `key` does not exist in this data structure, so return an empty value (as appropriate for the implementation platform).
 5. If the `index` bit in the node's `map` is `1`, the value may exist. Perform a `popcount()` on the `map` up to `index` such that we count the number of `1` bits up to the `index` bit-position. This gives us `dataIndex`, an index in the `data` array to look up the value or insert a new bucket.
@@ -158,7 +182,7 @@ Notes:
 ### `Set(key, value)`
 
 1. Set a `depth` value to `0`, indicating the root block
-2. The `key` is hashed, using `hashAlg`.
+2. The `key` is hashed, using `hashAlg`, according to the data model hashing rules above.
 3. Take the left-most `bitWidth` bits, offset by `depth x bitWidth`, from the hash to form an `index`. At each level of the data structure, we increment the section of bits we take from the hash so that the `index` comprises a different set of bits as we move down.
 4. If the `index` bit in the node's `map` is `0`, a new bucket needs to be created at the current node. If the `index` bit in the node's `map` is `1`, a value exists for this `index` in the node's `data` which may be a bucket (which may be full) or may be a link to a child node or an inline child node.
 5. Perform a `popcount()` on the `map` up to `index` such that we count the number of `1` bits up to the `index` bit-position. This gives us `dataIndex`, an index in the `data` array to look up the value or insert a new bucket.
@@ -181,7 +205,7 @@ Notes:
       3. Proceed to create new CIDs for the current block and each parent as per step **6.c**. until we have a new root block and its CID.
    3. If the `dataIndex` element of `data` contains a bucket (array) and the bucket's size is `bucketSize`:
       1. Create a new empty node
-      2. For each element of the bucket, perform a `Set(key, value)` on the new empty node with a `depth` set to `depth + 1`, proceeding from step **2**. This should create a new node with `bucketSize` elements distributed approximately evenly through its `data` array. This operation will only result in more than one new node being created if all `key`s being set have the same `bitWidth` bits of their hashes at `bitWidth` position `depth + 1` (and so on). A sufficiently random hash algorithm should prevent this from occuring.
+      2. For each element of the bucket, perform a `Set(key, value)` on the new empty node with a `depth` set to `depth + 1`, proceeding from step **2**. This should create a new node with `bucketSize` elements distributed approximately evenly through its `data` array. This operation will only result in more than one new node being created if all `key`s being set have the same `bitWidth` bits of their hashes at `bitWidth` position `depth + 1` (and so on). A sufficiently random hash algorithm should prevent this from occurring.
       3.  Create a CID for the new child node.
       4.  Mutate the current node (create a copy)
       5.  Replace `dataIndex` of `data` with a link to the new child node.
@@ -192,7 +216,7 @@ Notes:
 The deletion algorithm below is presented as an iterative operation. It can also be usefully conceived of as a recursive algorithm, which is particularly helpful in the case of node collapsing. See section "4.2 Deletion Algorithm" of the [CHAMP paper](https://michael.steindorfer.name/publications/oopsla15.pdf) for a description of this algorithm. Note that the linked paper does not make use of buckets so note the importance of counting entries in a node and comparing to `bucketSize` in the algorithm below.
 
 1. Set a `depth` value to `0`, indicating the root block
-2. The `key` is hashed, using `hashAlg`.
+2. The `key` is hashed, using `hashAlg`, according to the data model hashing rules above.
 3. Take the left-most `bitWidth` bits, offset by `depth x bitWidth`, from the hash to form an `index`. At each level of the data structure, we increment the section of bits we take from the hash so that the `index` comprises a different set of bits as we move down.
 4. If the `index` bit in the node's `map` is `0`, we can be certain that the `key` does not exist in this data structure, so there is no need to proceed.
 5. If the `index` bit in the node's `map` is `1`, the value may exist. Perform a `popcount()` on the `map` up to `index` such that we count the number of `1` bits up to the `index` bit-position. This gives us `dataIndex`, an index in the `data` array to look up the value or insert a new bucket.
@@ -224,6 +248,8 @@ These collection-spanning iteration operations are **optional** for implementati
 The storage order of entries in an IPLD HashMap is entirely dependent on the hash algorithm and `bitWidth`. Therefore IPLD HashMaps are considered to be random for practical purposes (as opposed to ordered-by-construction or ordered-by-comparator, see [IPLD Multi-block Collections / Collection types](https://github.com/ipld/specs/blob/master/schema-layer/data-structures/multiblock-collections.md#collection-types])). It is left to the implementation to decide the tree-traversal order and algorithm used to iterate over entries.
 
 An implementation should only emit any given `key`, `value` or `key` / `value` entry pair once per iteration.
+
+The original data model kind for each `key` should be what is returned to the user for `Keys()` and `Entries()` operations.
 
 ### Differences to CHAMP
 
