@@ -11,6 +11,7 @@ Documentation:
 - [Schema Kinds](./schema-kinds.md)
 - [Representations](./representations.md)
 - [Schema DSL](./schema-dsl.md)
+- [Advanced Layouts](./advanced-layouts.md)
 
 Examples:
 
