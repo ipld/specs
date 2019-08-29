@@ -117,7 +117,7 @@ type Element union {
 type Bucket list [ BucketEntry ]
 
 type BucketEntry struct {
-  key Bytes
+  key String
   value Value (implicit "null")
 } representation tuple
 
@@ -138,7 +138,6 @@ Notes:
 * `hashAlg` in the root block is a string identifier for a hash algorithm. The identifier should correspond to a [multihash](https://github.com/multiformats/multihash) identifier as found in the [multiformats table](https://github.com/multiformats/multicodec/blob/master/table.csv).
 * `bitWidth` in the root block should be at least `3`.
 * `bucketSize` in the root block must be at least `1`.
-* Keys are stored in `Byte` form.
 * The size of `map` is determined by `bitWidth` since it holds one bit per possible data element. It must be `1` or `2`<sup>`bitWidth`</sup>` / 8` bytes long, whichever is largest.
 
 ## Algorithm in detail
@@ -181,7 +180,7 @@ Notes:
       3. Proceed to create new CIDs for the current block and each parent as per step **6.c**. until we have a new root block and its CID.
    3. If the `dataIndex` element of `data` contains a bucket (array) and the bucket's size is `bucketSize`:
       1. Create a new empty node
-      2. For each element of the bucket, perform a `Set(key, value)` on the new empty node with a `depth` set to `depth + 1`, proceeding from step **2**. This should create a new node with `bucketSize` elements distributed approximately evenly through its `data` array. This operation will only result in more than one new node being created if all `key`s being set have the same `bitWidth` bits of their hashes at `bitWidth` position `depth + 1` (and so on). A sufficiently random hash algorithm should prevent this from occuring.
+      2. For each element of the bucket, perform a `Set(key, value)` on the new empty node with a `depth` set to `depth + 1`, proceeding from step **2**. This should create a new node with `bucketSize` elements distributed approximately evenly through its `data` array. This operation will only result in more than one new node being created if all `key`s being set have the same `bitWidth` bits of their hashes at `bitWidth` position `depth + 1` (and so on). A sufficiently random hash algorithm should prevent this from occurring.
       3.  Create a CID for the new child node.
       4.  Mutate the current node (create a copy)
       5.  Replace `dataIndex` of `data` with a link to the new child node.
