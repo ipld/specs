@@ -118,3 +118,28 @@ If we were to take an IPLD node, and assert that it is of type `BigConfidentialC
 5. The `data` property of the `map` is of `map` kind, which itself should conform to the `HashMapRoot` type specification, but must be interacted through with the logic associated with `HashMap` in order to make sense of it (which may also involve loading further blocks to traverse the sharded data).
 
 If `ROT13` and `HashMap` were to omit their `root` descriptor, we could only make assertions 1 and 2 above.
+
+## Representation parameterization
+
+The IPLD HashMap spec defines some possible parameters that may be used at instantiation time. These parameters are stored in the root block so the parameters used to write the `HashMap` are known when reading the `HashMap`. Such parameters are generally provided programatically, but we may use our advanced layout definition to dictate strict requirements.
+
+```ipldsch
+advanced HashMap {
+  root HashMapRoot
+  parameter hashAlg String
+  parameter bucketSize Int
+  parameter bitWidth Int
+}
+```
+
+Here we declare that a `HashMap` has three parameters that vary its operation. Writing a `HashMap` with variations in any of these parameters will result in a different storage layout at the data model layer. In a certain use-case, we may wish these parameters to be fixed within the schema because know our `HashMap`s are consistent and always have the same parameters, whether reading or writing. Thanks to the `parameter` definitions, we can use these in our referenced `representation` block:
+
+```ipldsch
+type MyPredictableMap { String : Name } representation HashMap {
+  hashAlg "murmur3-32"
+  bucketSize 2
+  bitWidth 10
+}
+```
+
+We have now introduced the potential for stronger validation of data model forms that exist underneath any node described as a `MyPredictableMap`. Within the `HashMap` logic, we may expect that whenever it loads its root node that it can not only assert that it is of `HashMapRoot` form but that the parameters provided in the schema use match those found within that root. In this specific case, that `hashAlg` _is_ `"murmur3-32"`, `bucketSize` _is_ `2` and `map` is the expected length for a `bitWidth` of `10`. In addition, any new data created as a `MyPredictableMap`, will have these parameters. These are internal concerns for the logic behind our advanced layout. As such, these assertions are not able to be made by a schema validator since it cannot know how these parameters translate to data model forms (e.g. the indirect relationship between `bitWidth` and `map`, or perhaps such parameters are omitted entirely).
