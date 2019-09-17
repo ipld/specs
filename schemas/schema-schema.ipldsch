@@ -32,6 +32,18 @@ type TypeName string
 ##
 type SchemaMap {TypeName:Type}
 
+## AdvancedDataLayoutName defines the name of an ADL as a string.
+##
+## The same constraints and conventions apply as for TypeName.
+##
+type AdvancedDataLayoutName string
+
+## AdvancedDataLayoutMap defines the set of ADLs found within the schema. It
+## maps the name (AdvancedDataLayoutName) to the AdvancedDataLayout, which is
+## currently an empty map.
+##
+type AdvancedDataLayoutMap {AdvancedDataLayoutName:AdvancedDataLayout}
+
 ## Schema is a single-member union, which can be used in serialization
 ## to make a form of "nominative type declaration".
 ##
@@ -47,9 +59,10 @@ type SchemaMap {TypeName:Type}
 ## }
 ## ```
 ##
-type Schema union {
-	| SchemaMap "schema"
-} representation keyed
+type Schema struct {
+	types SchemaMap
+	advanced AdvancedDataLayoutMap
+}
 
 ## The types of Type are a union.
 ##
@@ -148,27 +161,26 @@ type AnyScalar union {
 	| Float float
 } representation kinded
 
-## AdvancedDataLayout holds `advanced` definitions which currently only require
-## a name.
+## AdvancedDataLayout defines `advanced` definitions which are stored in the
+## top-level "advanced" map (AdvancedDataLayoutMap)
 ##
-## Use `advanced Foo` rather than `type Foo` to indicate an advanced data layout
-## (ADL) with that name which can be used as a representation for type
+## Used as `advanced Foo` rather than `type Foo` to indicate an advanced data
+## layout (ADL) with that name which can be used as a representation for type
 ## definitions whose kind the ADL is able to support.
 ##
-## The ADL name is currently the only identifier that can be used to make a
-## connection with the algorithm/logic behind this ADL. Future iterations may
-## formalize this connection by some other means.
+## The AdvancedDataLayoutName is currently the only identifier that can be used
+## to make a connection with the algorithm/logic behind this ADL. Future
+## iterations may formalize this connection by some other means.
 ##
-type AdvancedDataLayout struct {
-	name String
-}
+type AdvancedDataLayout struct {}
 
 ## AdvancedRepresentation allows for "advanced" representations on all of
 ## basic types. Currently it only requires a "name", which is supplied short-
 ## hand after the `advanced` keyword
+##
 ## (e.g. `type Foo string representation advanced Bar`) where "Bar" is the
-## name. This name should match an ADL definition that exists elsewhere in the
-## schema.
+## name. This name should match an AdvancedDataLayoutName in the
+## "advanced" AdvancedDataLayoutMap map that exists elsewhere in the schema.
 ##
 type AdvancedRepresentation struct {
 	name String
@@ -176,43 +188,11 @@ type AdvancedRepresentation struct {
 
 ## TypeBool describes a simple boolean type.
 ##
-type TypeBool struct {
-	representation BoolRepresentation
-}
-
-## BoolRepresentation specifies how a TypeBool is to be serialized. By default
-## it will be stored as a bool in the data model but it may be replaced with an
-## ADL.
-##
-type BoolRepresentation union {
-	| BoolRepresentation_Bool "bool"
-	| AdvancedRepresentation "advanced"
-} representation keyed
-
-## BoolRepresentation_Bool is the default representation for TypeBool and will
-## be used implicitly if no representation is specified.
-##
-type BoolRepresentation_Bool struct {}
+type TypeBool struct {}
 
 ## TypeString describes a simple string type.
 ##
-type TypeString struct {
-	representation StringRepresentation
-}
-
-## StringRepresentation specifies how a TypeString is to be serialized. By
-## default it will be stored as a string in the data model but it may be
-## replaced with an ADL.
-##
-type StringRepresentation union {
-	| StringRepresentation_String "string"
-	| AdvancedRepresentation "advanced"
-} representation keyed
-
-## StringRepresentation_String is the default representation for TypeString and
-## will be used implicitly if no representation is specified.
-##
-type StringRepresentation_String struct {}
+type TypeString struct {}
 
 ## TypeBytes describes a simple byte array type.
 ##
@@ -236,43 +216,11 @@ type BytesRepresentation_Bytes struct {}
 
 ## TypeInt describes a simple integer numeric type.
 ##
-type TypeInt struct {
-	representation IntRepresentation
-}
-
-## IntRepresentation specifies how a TypeInt is to be serialized. By
-## default it will be stored as an int in the data model but it may be replaced
-## with an ADL.
-##
-type IntRepresentation union {
-	| IntRepresentation_Int "int"
-	| AdvancedRepresentation "advanced"
-} representation keyed
-
-## IntRepresentation_Int is the default representation for TypeInt and
-## will be used implicitly if no representation is specified.
-##
-type IntRepresentation_Int struct {}
+type TypeInt struct {}
 
 ## TypeFloat describes a simple floating point numeric type.
 ##
-type TypeFloat struct {
-	representation FloatRepresentation
-}
-
-## FloatRepresentation specifies how a TypeFloat is to be serialized. By
-## default it will be stored as a float in the data model but it may be
-## replaced with an ADL.
-##
-type FloatRepresentation union {
-	| FloatRepresentation_Float "float"
-	| AdvancedRepresentation "advanced"
-} representation keyed
-
-## FloatRepresentation_Float is the default representation for TypeFloat and
-## will be used implicitly if no representation is specified.
-##
-type FloatRepresentation_Float struct {}
+type TypeFloat struct {}
 
 ## TypeMap describes a key-value map.
 ## The keys and values of the map have some specific type of their own.
@@ -376,22 +324,7 @@ type ListRepresentation_List struct {}
 ##
 type TypeLink struct {
 	expectedType String (implicit "Any")
-	representation LinkRepresentation
 }
-
-## LinkRepresentation specifies how a TypeLink is to be serialized. By
-## default it will be stored as a data model link (CID) but it may be
-## replaced with an ADL that performs the same role.
-##
-type LinkRepresentation union {
-	| LinkRepresentation_Link "link"
-	| AdvancedRepresentation "advanced"
-} representation keyed
-
-## LinkRepresentation_Link is the default representation for TypeLink and
-## will be used implicitly if no representation is specified.
-##
-type LinkRepresentation_Link struct {}
 
 ## TypeUnion describes a union (sometimes called a "sum type", or
 ## more verbosely, a "discriminated union").
@@ -426,7 +359,6 @@ type UnionRepresentation union {
 	| UnionRepresentation_Keyed "keyed"
 	| UnionRepresentation_Envelope "envelope"
 	| UnionRepresentation_Inline "inline"
-	| AdvancedRepresentation "advanced"
 } representation keyed
 
 ## "Kinded" union representations describe a bidirectional mapping between
@@ -590,7 +522,6 @@ type StructRepresentation union {
 	| StructRepresentation_StringPairs "stringpairs"
 	| StructRepresentation_StringJoin "stringjoin"
 	| StructRepresentation_ListPairs "listpairs"
-	| AdvancedRepresentation "advanced"
 } representation keyed
 
 ## StructRepresentation_Map describes a way to map a struct type onto a map
@@ -695,19 +626,4 @@ type StructRepresentation_ListPairs struct {}
 ##
 type TypeEnum struct {
 	members {String:Null}
-	representation EnumRepresentation
 }
-
-## EnumRepresentation specifies how a TypeEnum is to be serialized. By default
-## it will be stored as a string in the data model but it may be replaced with
-## an ADL.
-##
-type EnumRepresentation union {
-	| EnumRepresentation_String "string"
-	| AdvancedRepresentation "advanced"
-} representation keyed
-
-## EnumRepresentation_String is the default representation for TypeEnum and
-## will be used implicitly if no representation is specified.
-##
-type EnumRepresentation_String struct {}

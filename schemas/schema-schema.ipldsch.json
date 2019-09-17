@@ -1,5 +1,5 @@
 {
-	"schema": {
+	"types": {
 		"TypeName": {
 			"kind": "string"
 		},
@@ -8,12 +8,26 @@
 			"keyType": "TypeName",
 			"valueType": "Type"
 		},
+		"AdvancedDataLayoutName": {
+			"kind": "string"
+		},
+		"AdvancedDataLayoutMap": {
+			"kind": "map",
+			"keyType": "AdvancedDataLayoutName",
+			"valueType": "AdvancedDataLayout"
+		},
 		"Schema": {
-			"kind": "union",
-			"representation": {
-				"keyed": {
-					"schema": "SchemaMap"
+			"kind": "struct",
+			"fields": {
+				"types": {
+					"type": "SchemaMap"
+				},
+				"advanced": {
+					"type": "AdvancedDataLayoutMap"
 				}
+			},
+			"representation": {
+				"map": {}
 			}
 		},
 		"Type": {
@@ -80,11 +94,7 @@
 		},
 		"AdvancedDataLayout": {
 			"kind": "struct",
-			"fields": {
-				"name": {
-					"type": "String"
-				}
-			},
+			"fields": {},
 			"representation": {
 				"map": {}
 			}
@@ -102,52 +112,12 @@
 		},
 		"TypeBool": {
 			"kind": "struct",
-			"fields": {
-				"representation": {
-					"type": "BoolRepresentation"
-				}
-			},
-			"representation": {
-				"map": {}
-			}
-		},
-		"BoolRepresentation": {
-			"kind": "union",
-			"representation": {
-				"keyed": {
-					"bool": "BoolRepresentation_Bool",
-					"advanced": "AdvancedRepresentation"
-				}
-			}
-		},
-		"BoolRepresentation_Bool": {
-			"kind": "struct",
 			"fields": {},
 			"representation": {
 				"map": {}
 			}
 		},
 		"TypeString": {
-			"kind": "struct",
-			"fields": {
-				"representation": {
-					"type": "StringRepresentation"
-				}
-			},
-			"representation": {
-				"map": {}
-			}
-		},
-		"StringRepresentation": {
-			"kind": "union",
-			"representation": {
-				"keyed": {
-					"string": "StringRepresentation_String",
-					"advanced": "AdvancedRepresentation"
-				}
-			}
-		},
-		"StringRepresentation_String": {
 			"kind": "struct",
 			"fields": {},
 			"representation": {
@@ -183,52 +153,12 @@
 		},
 		"TypeInt": {
 			"kind": "struct",
-			"fields": {
-				"representation": {
-					"type": "IntRepresentation"
-				}
-			},
-			"representation": {
-				"map": {}
-			}
-		},
-		"IntRepresentation": {
-			"kind": "union",
-			"representation": {
-				"keyed": {
-					"int": "IntRepresentation_Int",
-					"advanced": "AdvancedRepresentation"
-				}
-			}
-		},
-		"IntRepresentation_Int": {
-			"kind": "struct",
 			"fields": {},
 			"representation": {
 				"map": {}
 			}
 		},
 		"TypeFloat": {
-			"kind": "struct",
-			"fields": {
-				"representation": {
-					"type": "FloatRepresentation"
-				}
-			},
-			"representation": {
-				"map": {}
-			}
-		},
-		"FloatRepresentation": {
-			"kind": "union",
-			"representation": {
-				"keyed": {
-					"float": "FloatRepresentation_Float",
-					"advanced": "AdvancedRepresentation"
-				}
-			}
-		},
-		"FloatRepresentation_Float": {
 			"kind": "struct",
 			"fields": {},
 			"representation": {
@@ -344,9 +274,6 @@
 			"fields": {
 				"expectedType": {
 					"type": "String"
-				},
-				"representation": {
-					"type": "LinkRepresentation"
 				}
 			},
 			"representation": {
@@ -357,22 +284,6 @@
 						}
 					}
 				}
-			}
-		},
-		"LinkRepresentation": {
-			"kind": "union",
-			"representation": {
-				"keyed": {
-					"link": "LinkRepresentation_Link",
-					"advanced": "AdvancedRepresentation"
-				}
-			}
-		},
-		"LinkRepresentation_Link": {
-			"kind": "struct",
-			"fields": {},
-			"representation": {
-				"map": {}
 			}
 		},
 		"TypeUnion": {
@@ -393,8 +304,7 @@
 					"kinded": "UnionRepresentation_Kinded",
 					"keyed": "UnionRepresentation_Keyed",
 					"envelope": "UnionRepresentation_Envelope",
-					"inline": "UnionRepresentation_Inline",
-					"advanced": "AdvancedRepresentation"
+					"inline": "UnionRepresentation_Inline"
 				}
 			}
 		},
@@ -523,8 +433,7 @@
 					"tuple": "StructRepresentation_Tuple",
 					"stringpairs": "StructRepresentation_StringPairs",
 					"stringjoin": "StructRepresentation_StringJoin",
-					"listpairs": "StructRepresentation_ListPairs",
-					"advanced": "AdvancedRepresentation"
+					"listpairs": "StructRepresentation_ListPairs"
 				}
 			}
 		},
@@ -623,27 +532,8 @@
 						"keyType": "String",
 						"valueType": "Null"
 					}
-				},
-				"representation": {
-					"type": "EnumRepresentation"
 				}
 			},
-			"representation": {
-				"map": {}
-			}
-		},
-		"EnumRepresentation": {
-			"kind": "union",
-			"representation": {
-				"keyed": {
-					"string": "EnumRepresentation_String",
-					"advanced": "AdvancedRepresentation"
-				}
-			}
-		},
-		"EnumRepresentation_String": {
-			"kind": "struct",
-			"fields": {},
 			"representation": {
 				"map": {}
 			}
