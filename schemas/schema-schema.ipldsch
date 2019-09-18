@@ -183,7 +183,7 @@ type AdvancedDataLayout struct {}
 ## "advanced" AdvancedDataLayoutMap map that exists elsewhere in the schema.
 ##
 type AdvancedRepresentation struct {
-	name String
+	name AdvancedDataLayoutName
 }
 
 ## TypeBool describes a simple boolean type.

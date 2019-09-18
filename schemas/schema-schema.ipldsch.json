@@ -103,7 +103,7 @@
 			"kind": "struct",
 			"fields": {
 				"name": {
-					"type": "String"
+					"type": "AdvancedDataLayoutName"
 				}
 			},
 			"representation": {
