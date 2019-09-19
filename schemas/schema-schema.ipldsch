@@ -179,10 +179,12 @@ type AnyScalar union {
 type AdvancedDataLayout struct {}
 
 ## TypeBool describes a simple boolean type.
+## It has no details.
 ##
 type TypeBool struct {}
 
 ## TypeString describes a simple string type.
+## It has no details.
 ##
 type TypeString struct {}
 
@@ -207,10 +209,12 @@ type BytesRepresentation union {
 type BytesRepresentation_Bytes struct {}
 
 ## TypeInt describes a simple integer numeric type.
+## It has no details.
 ##
 type TypeInt struct {}
 
 ## TypeFloat describes a simple floating point numeric type.
+## It has no details.
 ##
 type TypeFloat struct {}
 
