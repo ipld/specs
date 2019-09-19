@@ -99,17 +99,6 @@
 				"map": {}
 			}
 		},
-		"AdvancedRepresentation": {
-			"kind": "struct",
-			"fields": {
-				"name": {
-					"type": "AdvancedDataLayoutName"
-				}
-			},
-			"representation": {
-				"map": {}
-			}
-		},
 		"TypeBool": {
 			"kind": "struct",
 			"fields": {},
@@ -140,7 +129,7 @@
 			"representation": {
 				"keyed": {
 					"bytes": "BytesRepresentation_Bytes",
-					"advanced": "AdvancedRepresentation"
+					"advanced": "AdvancedDataLayoutName"
 				}
 			}
 		},
@@ -198,7 +187,7 @@
 					"map": "MapRepresentation_Map",
 					"stringpairs": "MapRepresentation_StringPairs",
 					"listpairs": "MapRepresentation_ListPairs",
-					"advanced": "AdvancedRepresentation"
+					"advanced": "AdvancedDataLayoutName"
 				}
 			}
 		},
@@ -258,7 +247,7 @@
 			"representation": {
 				"keyed": {
 					"list": "ListRepresentation_List",
-					"advanced": "AdvancedRepresentation"
+					"advanced": "AdvancedDataLayoutName"
 				}
 			}
 		},

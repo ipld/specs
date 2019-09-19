@@ -36,6 +36,10 @@ type SchemaMap {TypeName:Type}
 ##
 ## The same constraints and conventions apply as for TypeName.
 ##
+## This identifier is used for keys in the AdvancedDataLayoutMap and also as
+## references to ADLs where the "advanced" representation strategy is used for
+## the types that support it.
+##
 type AdvancedDataLayoutName string
 
 ## AdvancedDataLayoutMap defines the set of ADLs found within the schema. It
@@ -174,18 +178,6 @@ type AnyScalar union {
 ##
 type AdvancedDataLayout struct {}
 
-## AdvancedRepresentation allows for "advanced" representations on all of
-## basic types. Currently it only requires a "name", which is supplied short-
-## hand after the `advanced` keyword
-##
-## (e.g. `type Foo string representation advanced Bar`) where "Bar" is the
-## name. This name should match an AdvancedDataLayoutName in the
-## "advanced" AdvancedDataLayoutMap map that exists elsewhere in the schema.
-##
-type AdvancedRepresentation struct {
-	name AdvancedDataLayoutName
-}
-
 ## TypeBool describes a simple boolean type.
 ##
 type TypeBool struct {}
@@ -206,7 +198,7 @@ type TypeBytes struct {
 ##
 type BytesRepresentation union {
 	| BytesRepresentation_Bytes "bytes"
-	| AdvancedRepresentation "advanced"
+	| AdvancedDataLayoutName "advanced"
 } representation keyed
 
 ## BytesRepresentation_Bytes is the default representation for TypeBytes and
@@ -240,7 +232,7 @@ type MapRepresentation union {
 	| MapRepresentation_Map "map"
 	| MapRepresentation_StringPairs "stringpairs"
 	| MapRepresentation_ListPairs "listpairs"
-	| AdvancedRepresentation "advanced"
+	| AdvancedDataLayoutName "advanced"
 } representation keyed
 
 ## MapRepresentation_Map describes that a map should be encoded as
@@ -296,7 +288,7 @@ type TypeList struct {
 ##
 type ListRepresentation union {
 	| ListRepresentation_List "list"
-	| AdvancedRepresentation "advanced"
+	| AdvancedDataLayoutName "advanced"
 } representation keyed
 
 ## ListRepresentation_List is the default representation for TypeList and
