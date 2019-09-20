@@ -1,25 +1,34 @@
 Schema Kinds
 ------------
 
-Recursive types contain additional type definitions for either their
-keys (in the case of maps),
-values (in the case of maps and lists),
+IPLD Schemas define a set of "kinds" that are built upon the
+[IPLD Data Model](https://github.com/ipld/specs/blob/master/data-model-layer/data-model.md#kinds):
+
+ - **Null**
+ - **Boolean**
+ - **Integer**
+ - **Float**
+ - **String**
+ - **Bytes**
+ - **List**
+ - **Map**
+ - **Link**
+ - **Union** - represented as a **map** in the data model for `keyed`,
+   `envelope` and `inline` representations, and varying data model kinds for
+   `kinded` unions, as described by [representations.md](representations.md).
+ - **Struct** - represented as a **map** in the data model by default but may be
+   used to describe **string** and **list** encodings, as described by
+   [representations.md](representations.md).
+ - **Enum** - represented as either a **string** or **int** in the data model,
+   as described by [representations.md](representations.md).
+ - **Copy** - a special kind that indicates that a type should be implemented
+   and encoded the same as another type but with an alternate name. This is not
+   the same as an alias, but a short-hand to avoid defining multiple types of
+   the same shape and encoding but with different names.
+
+The recursive (non-data model) types contain additional type definitions for
+either their keys (in the case of maps), values (in the case of maps and lists),
 or fields (in the case of structs).
-
-### table
-
-- Null
-- Boolean
-- Integer
-- Float
-- String
-- Bytes
-- List
-- Map
-- Link
-- Union
-- Struct
-- Enum
 
 
 Value Type Modifiers
