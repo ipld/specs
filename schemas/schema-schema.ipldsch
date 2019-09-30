@@ -648,11 +648,11 @@ type TypeEnum struct {
 }
 
 ## TypeCopy describes a special "copy" unit that indicates that a type name
-## should copy the type descriptor of another type. While similar to an
-## "alias", a TypeCopy doesn't redirect a name to another type, it copies the
-## entire type definition and assigns it to another type.
+## should copy the type descriptor of another type. TypeCopy does not redirect a
+## name to another type. Instead, it copies the entire type definition and
+## assigns it to another type.
 ##
-## The DSL defines a TypeCopy as `type NewThing CopiedThing`, where
+## The DSL defines a TypeCopy as `type NewThing = CopiedThing`, where
 ## "CopiedThing" refers to a `type` defined elsewhere in a schema and is not
 ## one of TypeKind or an inline type descriptor (`{}`, `[]`, `&`).
 ##

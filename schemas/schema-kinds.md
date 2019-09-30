@@ -1,38 +1,65 @@
-Schema Kinds
-------------
+# Schema Kinds
+
+* [Extending the IPLD Data Model](#extending-the-ipld-data-model)
+  * [Data Model Kinds](#data-model-kinds)
+  * [Recursive Kinds](#recursive-kinds)
+  * [Meta Kinds](#meta-kinds)
+* [Value Type Modifiers](#value-type-modifiers)
+  * [Nullable Values](#nullable-values)
+  * [Optional Fields](#optional-fields)
+  * [Fields with Defaults](#fields-with-defaults)
+  * [Combining Nullable, Optional, and Default](#combining-nullable-optional-and-default)
+* [Understanding Cardinality](#understanding-cardinality)
+  * [Cardinality Examples](#cardinality-examples)
+
+
+## Extending the IPLD Data Model
 
 IPLD Schemas define a set of "kinds" that are built upon the
 [IPLD Data Model](https://github.com/ipld/specs/blob/master/data-model-layer/data-model.md#kinds):
 
- - **Null**
- - **Boolean**
- - **Integer**
- - **Float**
- - **String**
- - **Bytes**
- - **List**
- - **Map**
- - **Link**
- - **Union** - represented as a **map** in the data model for `keyed`,
-   `envelope` and `inline` representations, and varying data model kinds for
-   `kinded` unions, as described by [representations.md](representations.md).
- - **Struct** - represented as a **map** in the data model by default but may be
-   used to describe **string** and **list** encodings, as described by
-   [representations.md](representations.md).
- - **Enum** - represented as either a **string** or **int** in the data model,
-   as described by [representations.md](representations.md).
- - **Copy** - a special kind that indicates that a type should be implemented
-   and encoded the same as another type but with an alternate name. This is not
-   the same as an alias, but a short-hand to avoid defining multiple types of
-   the same shape and encoding but with different names.
+### Data Model Kinds
 
-The recursive (non-data model) types contain additional type definitions for
+  - **Null**
+  - **Boolean**
+  - **Integer**
+  - **Float**
+  - **String**
+  - **Bytes**
+  - **List**
+  - **Map**
+  - **Link**
+
+### Recursive Kinds
+
+The recursive (non-data model) kinds contain additional type definitions for
 either their keys (in the case of maps), values (in the case of maps and lists),
-or fields (in the case of structs).
+or fields (in the case of structs). They are composed of data model kinds and
+provide the primary mechanism through which IPLD Schemas can be used to describe
+non-trivial data structures.
+
+  - **Union** - represented as a **map** in the data model for `keyed`,
+    `envelope` and `inline` representations, and varying data model kinds for
+    `kinded` unions, as described by [representations.md](representations.md).
+  - **Struct** - represented as a **map** in the data model by default but may be
+    used to describe **string** and **list** encodings, as described by
+    [representations.md](representations.md).
+  - **Enum** - represented as either a **string** or **int** in the data model,
+    as described by [representations.md](representations.md).
+
+### Meta Kinds
+
+A meta kind is useful for simplifying schema authoring and/or increasing the
+descriptiveness of a schema for the purpose of documentation. It exists only
+within schema tooling and is not exposed to user-facing code or data.
+
+  - **Copy** - a special kind that indicates that a type should be implemented
+    and encoded the same as another type but with an alternate name. This is a
+    short-hand to avoid defining multiple types of the same shape and encoding
+    but with different names.
 
 
-Value Type Modifiers
---------------------
+## Value Type Modifiers
 
 Values and fields in recursive types can have modifiers.
 
@@ -84,8 +111,7 @@ The `nullable` and `default` modifiers may be freely combined without issue.
 It is not valid to combine the `optional` and `default` modifiers.
 
 
-Understanding Cardinality
--------------------------
+## Understanding Cardinality
 
 ### Cardinality Examples
 
