@@ -54,35 +54,37 @@
 		},
 		"TypeKind": {
 			"kind": "enum",
+			"members": {
+				"Bool": null,
+				"String": null,
+				"Bytes": null,
+				"Int": null,
+				"Float": null,
+				"Map": null,
+				"List": null,
+				"Link": null,
+				"Union": null,
+				"Struct": null,
+				"Enum": null
+			},
 			"representation": {
-				"string": {
-					"bool": null,
-					"string": null,
-					"bytes": null,
-					"int": null,
-					"float": null,
-					"map": null,
-					"list": null,
-					"link": null,
-					"union": null,
-					"struct": null,
-					"enum": null
-				}
+				"string": {}
 			}
 		},
 		"RepresentationKind": {
 			"kind": "enum",
+			"members": {
+				"Bool": null,
+				"String": null,
+				"Bytes": null,
+				"Int": null,
+				"Float": null,
+				"Map": null,
+				"List": null,
+				"Link": null
+			},
 			"representation": {
-				"string": {
-					"bool": null,
-					"string": null,
-					"bytes": null,
-					"int": null,
-					"float": null,
-					"map": null,
-					"list": null,
-					"link": null
-				}
+				"string": {}
 			}
 		},
 		"AnyScalar": {
@@ -536,6 +538,13 @@
 		"TypeEnum": {
 			"kind": "struct",
 			"fields": {
+				"members": {
+					"type": {
+						"kind": "map",
+						"keyType": "EnumValue",
+						"valueType": "Null"
+					 }
+				},
 				"representation": {
 					"type": "EnumRepresentation"
 				}
@@ -559,7 +568,7 @@
 		"EnumRepresentation_String": {
 			"kind": "map",
 			"keyType": "EnumValue",
-			"valueType": "Null"
+			"valueType": "String"
 		},
 		"EnumRepresentation_Int": {
 			"kind": "map",

@@ -339,6 +339,22 @@ type Status enum {
 This enum dictates that where `Status` is used, we should find one of `"NOPE"`,
 `"YEP"` or `"MAYBE"`.  No other value is valid where `Status` is used.
 
+Where the serialized strings are different to the values used for the enum, they
+may be provided in parens:
+
+**Example**
+
+```ipldsch
+type Status enum {
+	| NOPE ("NAY")
+	| YEP  ("YAY")
+	| MAYBE
+}
+```
+
+In this example, the serialization expects, and uses, the strings `NAY`, `YAY`
+and `MAYBE`.
+
 ### enum int representation
 
 An alternative representation for enums is the "int" representation that is
@@ -350,13 +366,17 @@ mapping to integers, so the user can dictate the appropriate data model values.
 
 ```ipldsch
 type Status enum {
-	| NOPE  0
-	| YEP   1
-	| MAYBE 100
+	| NOPE  ("0")
+	| YEP   ("1")
+	| MAYBE ("100")
 } representation int
 ```
 
-Note that for an "int" representation enum we don't quote the strings as they
-are no longer our data model values. Instead, the ints provided after each of
-the names are the values we find in the data model. In this case, this enum
-dictates that where `Status` is used, we should find one of `0`, `1` or `100`.
+As with the "string" representaiton, "int" representation enums still quote the
+integer strings. Schema tooling will convert them to integers when using.
+
+There are no optional values, as for "string" representation enums, all values
+must be provided when using "int" representation enums.
+
+In our example, serialization expects, and uses, data model integer values `0`,
+`1`, and `100`. No other values at this position are valid.
