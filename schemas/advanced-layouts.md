@@ -37,3 +37,40 @@ type MyMap { String : &Any } representation advanced ShardedMap
 ```
 
 From this usage, we may infer that `ShardedMap` can (1) present a familiar `map` kind interface and (2) store `link`s as values (with no specific "expectedType"), referenced by standard data model `string`s. Other operating modes for `ShardedMap` may also be possible (it may be able to store other value kinds, or it may even be able to act as a `bytes` kind in spite of its name!).
+
+## Defining underlying data layout
+
+When defining an `advanced` data layout, we can also describe the underlying data behind it with a `rootType` which may be as complex as necessary.
+
+```ipldsch
+type ROT13EncodedString string
+
+advanced ROT13 {
+  rootType ROT13EncodedString
+}
+
+type MyString string representation advanced ROT13
+```
+
+In this instance, we describe a data structure `MyString` which acts as a `string`, is serialized as a `string` but encoded and decoded through a programatic interface called `ROT13`.
+
+A more advanced example of a `rootType` could include complex, nested data structures:
+
+```ipldsch
+advanced HashMap {
+  rootType HashMapRoot
+}
+
+type HashMapRoot struct {
+  hashAlg String
+  bucketSize Int
+  map Bytes
+  data [ Element ]
+}
+
+# .. additional type definitions to for `Element` and other types
+
+type MyMap { String : &Any } representation advanced HashMap
+```
+
+Our `HashMapRoot` contains internal details needed to implement the `HashMap` but these are opaque to the consumer of our advanced data layout. `HashMap` presents as standard `map` kind when consumed in `MyMap`.

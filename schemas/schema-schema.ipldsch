@@ -177,7 +177,12 @@ type AnyScalar union {
 ## to make a connection with the algorithm/logic behind this ADL. Future
 ## iterations may formalize this connection by some other means.
 ##
-type AdvancedDataLayout struct {}
+## When specifying a `rootType`, we indicate that the serialized form is
+## structured according to the TypeTerm provided.
+##
+type AdvancedDataLayout struct {
+  rootType optional TypeTerm
+}
 
 ## TypeBool describes a simple boolean type.
 ## It has no details.
