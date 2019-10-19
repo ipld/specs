@@ -59,4 +59,4 @@ with any combination of these data structures using any layout algorithm you cho
 Readers only need to concern themselves with implementing the read methods, they **do not**
 need to understand the algorithms used to generate the layouts. This gives a lot of flexibility
 in the future to define new layout algorithms as necessary without needing to worry about
-updating prior impelementation's.
+updating prior impelementations.
