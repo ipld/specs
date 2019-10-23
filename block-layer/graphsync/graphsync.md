@@ -74,7 +74,8 @@ message GraphsyncMessage {
   message Response {
     int32 id = 1;     // the request id
     int32 status = 2; // a status code.
-    map<string, bytes> extensions = 3;    // side channel information
+    bytes metadata = 3; // metadata about response
+    map<string, bytes> extensions = 4;    // side channel information
   }
 
   message Block {
@@ -90,6 +91,40 @@ message GraphsyncMessage {
 }
 ```
 
+### Response Metadata
+
+Response metadata provides information about the response to help the requestor more efficiently verify that the blocks sent back from the responder are valid for the requested IPLD selector. It contains information about the CIDs the responder traversed, in order, during the course of performing the selector query, and whether or not the corresponding block was present in its local block store. Telling the requestor immediately that the query passed over a block the responder did not have allows the requestor to advance its local query, and return a seperate error for that particular block.
+
+How it works:
+
+When the responder sends responses, it should include a CBOR-encoded IPLD node in the metadata field of each response. The node should have the format:
+
+```json
+[
+  {
+    "link": "cidabcdef",
+    "blockPresent": true
+  },
+  {
+    "link": "abcdedf443",
+    "blockPresent": false
+  },
+  ...
+]
+```
+
+or in IPLD Schema:
+
+```ipldsch
+type LinkMetadata struct {
+  link Cid
+  blockPresent Bool
+}
+
+type ResponseMetadata [LinkMetadata]
+```
+
+This field is required as well to help protect from DOS attacks by malicious responders.
 
 ### Extensions
 
