@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>IPLD Schema Kinds | IPLD Specifications</title>
+    <meta name="description" content="Specifications for the Inter-planetary Linked Data project">
+    
+    
+    <link rel="preload" href="/assets/css/0.styles.8b4919c9.css" as="style"><link rel="preload" href="/assets/js/app.6b3b8a5b.js" as="script"><link rel="preload" href="/assets/js/2.1a099048.js" as="script"><link rel="preload" href="/assets/js/17.1d34b642.js" as="script"><link rel="prefetch" href="/assets/js/10.2d46b0d0.js"><link rel="prefetch" href="/assets/js/11.63108233.js"><link rel="prefetch" href="/assets/js/12.efadf5e6.js"><link rel="prefetch" href="/assets/js/13.5d4d4dac.js"><link rel="prefetch" href="/assets/js/14.9f795e94.js"><link rel="prefetch" href="/assets/js/15.3a14b740.js"><link rel="prefetch" href="/assets/js/16.80268b69.js"><link rel="prefetch" href="/assets/js/18.37de45dc.js"><link rel="prefetch" href="/assets/js/19.57b4998f.js"><link rel="prefetch" href="/assets/js/20.21c47159.js"><link rel="prefetch" href="/assets/js/3.0815f1d8.js"><link rel="prefetch" href="/assets/js/4.dd356c84.js"><link rel="prefetch" href="/assets/js/5.ca1edd40.js"><link rel="prefetch" href="/assets/js/6.bad7c51b.js"><link rel="prefetch" href="/assets/js/7.ec310dab.js"><link rel="prefetch" href="/assets/js/8.049873bb.js"><link rel="prefetch" href="/assets/js/9.75a50e6f.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.8b4919c9.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/" class="home-link router-link-active"><!----> <span class="site-name">IPLD Specifications</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/" class="nav-link">Home</a></div><div class="nav-item"><a href="/schemas/" class="nav-link router-link-active">IPLD Schemas</a></div> <a href="https://github.com/ipld/specs" target="_blank" rel="noopener noreferrer" class="repo-link">
+    GitHub
+    <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/" class="nav-link">Home</a></div><div class="nav-item"><a href="/schemas/" class="nav-link router-link-active">IPLD Schemas</a></div> <a href="https://github.com/ipld/specs" target="_blank" rel="noopener noreferrer" class="repo-link">
+    GitHub
+    <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></nav>  <ul class="sidebar-links"><li><section class="sidebar-group depth-0"><p class="sidebar-heading open"><span>IPLD Schemas</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/schemas/goals.html" class="sidebar-link">Goals</a></li><li><a href="/schemas/feature-summary.html" class="sidebar-link">Feature Summary</a></li><li><a href="/schemas/introduction.html" class="sidebar-link">Introduction</a></li><li><a href="/schemas/authoring-guide.html" class="sidebar-link">Authoring Guide</a></li><li><a href="/schemas/links.html" class="sidebar-link">Links and IPLD Schemas</a></li><li><a href="/schemas/schema-kinds.html" class="active sidebar-link">IPLD Schema Kinds</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/schemas/schema-kinds.html#extending-the-ipld-data-model" class="sidebar-link">Extending the IPLD Data Model</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/schemas/schema-kinds.html#data-model-kinds" class="sidebar-link">Data Model Kinds</a></li><li class="sidebar-sub-header"><a href="/schemas/schema-kinds.html#schema-kinds" class="sidebar-link">Schema Kinds</a></li></ul></li><li class="sidebar-sub-header"><a href="/schemas/schema-kinds.html#value-type-modifiers" class="sidebar-link">Value Type Modifiers</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/schemas/schema-kinds.html#nullable-values" class="sidebar-link">Nullable Values</a></li><li class="sidebar-sub-header"><a href="/schemas/schema-kinds.html#optional-fields" class="sidebar-link">Optional Fields</a></li><li class="sidebar-sub-header"><a href="/schemas/schema-kinds.html#fields-with-implicit-values" class="sidebar-link">Fields with Implicit Values</a></li><li class="sidebar-sub-header"><a href="/schemas/schema-kinds.html#combining-nullable-optional-and-implicit" class="sidebar-link">Combining Nullable, Optional, and Implicit</a></li><li class="sidebar-sub-header"><a href="/schemas/schema-kinds.html#choosing-between-optional-and-implicit" class="sidebar-link">Choosing between Optional and Implicit</a></li></ul></li><li class="sidebar-sub-header"><a href="/schemas/schema-kinds.html#understanding-cardinality" class="sidebar-link">Understanding Cardinality</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/schemas/schema-kinds.html#cardinality-examples" class="sidebar-link">Cardinality Examples</a></li></ul></li></ul></li><li><a href="/schemas/representations.html" class="sidebar-link">Representations</a></li><li><a href="/schemas/advanced-layouts.html" class="sidebar-link">Advanced Layouts</a></li></ul></section></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="ipld-schema-kinds"><a href="#ipld-schema-kinds" class="header-anchor">#</a> IPLD Schema Kinds</h1> <ul><li><a href="#Extending-the-IPLD-Data-Model">Extending the IPLD Data Model</a> <ul><li><a href="#Data-Model-Kinds">Data Model Kinds</a></li> <li><a href="#Schema-Kinds">Schema Kinds</a> <ul><li><a href="#List">List</a></li> <li><a href="#Map">Map</a></li> <li><a href="#Union">Union</a></li> <li><a href="#Struct">Struct</a></li> <li><a href="#Enum">Enum</a></li> <li><a href="#Copy">Copy</a></li></ul></li></ul></li> <li><a href="#Value-Type-Modifiers">Value Type Modifiers</a> <ul><li><a href="#Nullable-Values">Nullable Values</a></li> <li><a href="#Optional-Fields">Optional Fields</a></li> <li><a href="#Fields-with-Implicit-Values">Fields with Implicit Values</a></li> <li><a href="#Combining-Nullable-Optional-and-Implicit">Combining Nullable, Optional, and Implicit</a></li> <li><a href="#Choosing-between-Optional-and-Implicit">Choosing between Optional and Implicit</a></li></ul></li> <li><a href="#Understanding-Cardinality">Understanding Cardinality</a> <ul><li><a href="#Cardinality-Examples">Cardinality Examples</a></li></ul></li></ul> <h2 id="extending-the-ipld-data-model"><a href="#extending-the-ipld-data-model" class="header-anchor">#</a> Extending the IPLD Data Model</h2> <h3 id="data-model-kinds"><a href="#data-model-kinds" class="header-anchor">#</a> Data Model Kinds</h3> <p>IPLD Schemas define a set of &quot;kinds&quot; that are built upon the
+<a href="https://github.com/ipld/specs/blob/master/data-model-layer/data-model.md#kinds" target="_blank" rel="noopener noreferrer">IPLD Data Model<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>.
+The Data Model defines the basic set of data types (kinds) that are easily
+representable by common programming languages and are supportable by expressive
+serialization formats such as JSON and CBOR. The Data Model defines its list of
+kinds as:</p> <ul><li>Null</li> <li>Boolean</li> <li>Integer</li> <li>Float</li> <li>String</li> <li>Bytes</li> <li>List</li> <li>Map</li> <li>Link</li></ul> <h3 id="schema-kinds"><a href="#schema-kinds" class="header-anchor">#</a> Schema Kinds</h3> <p>IPLD Schemas, while built upon the data model, enables the definition of data
+structures that give us new discrete kinds, thus extending the Data Model Kinds
+into a new list of Schema Kinds:</p> <ul><li>Null</li> <li>Boolean</li> <li>Integer</li> <li>Float</li> <li>String</li> <li>Bytes</li> <li>List</li> <li>Map</li> <li>Link</li> <li><strong>Union</strong></li> <li><strong>Struct</strong></li> <li><strong>Enum</strong></li> <li><strong>Copy</strong></li></ul> <p>We define <em><strong>&quot;Recursive Kinds&quot;</strong></em> as the kinds that are comprised of other
+kinds: List, Map, Union, Struct, and Enum. These kinds provide the primary
+mechanism through which IPLD Schemas can be used to describe non-trivial
+data structures.</p> <p>Further, we define Copy as a <em><strong>&quot;Meta Kind&quot;</strong></em> because it is useful for
+simplifying schema authoring and/or increasing the descriptiveness of a schema
+for the purpose of documentation. It exists only within schema tooling and is
+not exposed to user-facing code or data.</p> <h4 id="list"><a href="#list" class="header-anchor">#</a> List</h4> <p>As a Schema Kind, Lists have more restrictions in the data they can contain. In
+the data model, a List is defined simply as a list of arbitrary data model
+kinds with no strict restrictions that may require uniformity. At the schema
+layer, a List is defined as a list of one specific schema type. For example,
+<code>type Foo [String]</code> defines a list of Strings, and <em>only</em> matches a list of
+Strings. This restriction isn't as limiting as it may appear because Unions
+allow for significant flexibility, particularly in the case of <code>kinded</code> Unions.</p> <h4 id="map"><a href="#map" class="header-anchor">#</a> Map</h4> <p>Similar to List, a Map at the schema layer requires a strict definition of the
+value types. The data model dictates that IPLD only supports string keys, so any
+type used as keys in schema Maps must be represented as strings. The value types
+have the same restrictions as for List element types. For example,
+<code>type Bar {String:Float}</code> matches a map with Float values, and <em>only</em> Float
+values. But as in List, Unions allow for additional flexibility in the data
+model kinds that may appear as values.</p> <h4 id="union"><a href="#union" class="header-anchor">#</a> Union</h4> <p>Unions are represented as a <strong>Map</strong> in the data model for <code>keyed</code>, <code>envelope</code>
+and <code>inline</code> representations, and varying data model kinds for <code>kinded</code> unions,
+as described by <a href="/schemas/representations.html">representations.md</a>.</p> <h4 id="struct"><a href="#struct" class="header-anchor">#</a> Struct</h4> <p>Structs are represented as a <strong>Map</strong> in the data model by default but may be
+used to describe <strong>String</strong> and <strong>List</strong> encodings, as described by
+<a href="/schemas/representations.html">representations.md</a>.</p> <h4 id="enum"><a href="#enum" class="header-anchor">#</a> Enum</h4> <p>Enums are represented as either a <strong>String</strong> or <strong>Int</strong> in the data model, as
+described by <a href="/schemas/representations.html">representations.md</a>.</p> <h4 id="copy"><a href="#copy" class="header-anchor">#</a> Copy</h4> <p>Copy is a Meta Kind that indicates that a type should be implemented and encoded
+the same as another type but with an alternate name. This is a short-hand to
+avoid defining multiple types of the same shape and encoding but with different
+names.</p> <h2 id="value-type-modifiers"><a href="#value-type-modifiers" class="header-anchor">#</a> Value Type Modifiers</h2> <p>Values and fields in recursive types can have modifiers.
+These modifiers are:</p> <ul><li><code>nullable</code> for map values, list values, and struct fields</li> <li><code>optional</code> for struct fields</li> <li><code>implicit</code> for struct fields -- in some representations</li></ul> <h3 id="nullable-values"><a href="#nullable-values" class="header-anchor">#</a> Nullable Values</h3> <p>The <code>nullable</code> modifier means that either the modified type may be present,
+<strong>or</strong> its place may be occupied by the null value.</p> <p>The <code>nullable</code> modifier is valid on map values, list values, and struct fields.</p> <p>The presence of a <code>nullable</code> modifier increases the cardinality of a field's
+valid members by one -- see the &quot;Cardinality Examples&quot; table below.</p> <h3 id="optional-fields"><a href="#optional-fields" class="header-anchor">#</a> Optional Fields</h3> <p>The <code>optional</code> modifier means that either the modified type may be present,
+<strong>or</strong> it may be missing entirely in the data.  This is distinct from null:
+for example, in a map, optionality regards if the key is <em>missing</em>,
+in contrast to the key being present but with a value of null.</p> <p>The <code>optional</code> modifier is only valid on struct fields (and only for some
+representation strategies; structs represented as maps and structs represented
+as lists have slightly different optionality semantics (e.g. list-based
+representations may only allow optionals at the beginning and end of the list)).</p> <p>The presence of an <code>optional</code> modifier increases the cardinality of a field's
+valid members by one -- see the &quot;Cardinality Examples&quot; table below.</p> <p>The <code>optional</code> modifier may be stacked with the <code>nullable</code> modifier.</p> <h3 id="fields-with-implicit-values"><a href="#fields-with-implicit-values" class="header-anchor">#</a> Fields with Implicit Values</h3> <p>An <code>implicit</code> modifier declares that when a field is found absent in data,
+it should instead be treated as some other value in the domain.
+At the same time, if an application sets the field to that value,
+it will be mapped to absense of that field when represented.</p> <p>Implicit values may be considered similar to &quot;defaults&quot; -- and if you're looking
+for defaults, you should look at implicits -- but we've chosen a distinctive
+name for implicits because &quot;defaults&quot; are often a one-way conversion;
+whereas we've designed the implicit value system specifically to work
+bidirectionally -- both during serialization and deserialization -- without
+losing information.</p> <p>It may be interesting to note that implicits are a concept that resides in
+the <em>representation</em> clause rather than the <em>type</em> definition clause.
+This is the case because implicits do not change the cardinality of the type
+(see the <a href="#understanding-cardinality">Understanding Cardinality</a> table
+later in this document for more examples of what this means, and how it
+compares in semantics with the other modifiers).
+As a representational rather than type definition feature, the syntatic
+position for an implicit declaration is on the end of the line declaring a
+field, and in paranthesis (the same as where the 'rename' and other
+representation-level directives can be found).</p> <p>The precise semantics of implicit values may vary per representation strategy;
+the discussion here is only for the general pattern, and you should also
+refer to the <a href="/schemas/representations.html#representation-strategy-reference">reference documentation for representation strategies</a>
+for more details specific to the representations strategies you use.</p> <h3 id="combining-nullable-optional-and-implicit"><a href="#combining-nullable-optional-and-implicit" class="header-anchor">#</a> Combining Nullable, Optional, and Implicit</h3> <p>The <code>nullable</code> and <code>optional</code> modifiers may be freely combined without issue,
+as may be the <code>nullable</code> and <code>implicit</code> modifiers.</p> <p>It is not valid to combine the <code>optional</code> and <code>implicit</code> modifiers -- since
+both regard behavior around struct fields when the data is absent in the serial
+form, it only makes sense to use exclusively one or the other on a field.</p> <p>There may be additional restrictions on whether <code>optional</code> and <code>implicit</code>
+modifiers may be used on a struct field based on what kind of representation
+strategy the struct has.  For example, <code>optional</code> and <code>implicit</code> cannot be
+used in fields in the middle of a struct when the representation is as tuple,
+because this could make parsing ambiguous.  The
+<a href="/schemas/representations.html#representation-strategy-reference">reference documentation for representation strategies</a>
+should provide more detailed information on this.</p> <h3 id="choosing-between-optional-and-implicit"><a href="#choosing-between-optional-and-implicit" class="header-anchor">#</a> Choosing between Optional and Implicit</h3> <p>Use <code>implicit</code> when the absense of a value should be treated as another
+value that fits unambiguously into your domain; use <code>optional</code> when there's
+no such in-domain value.</p> <p>For example, if you have some integer field, and if <code>0</code> is distinctive from
+from the field being absent, use <code>optional</code>.
+If <code>0</code> (or some other value of your choice like <code>-1</code>) can be used as a
+sentinel value in your application logic, while not being serialized as such,
+then you may wish to consider using <code>implicit</code>.</p> <p>One usage pattern to particularly note: imagine writing a schema for defining
+configuration that a user may provide, and it has some concept of &quot;defaults&quot;.
+If your application also needs to be able to <em>remember</em> whether a value was
+the default or explicitly user-provided (e.g. to re-emit the config without
+altering this), you want to use <code>optional</code>!
+In this situation, <code>implicit</code> may cause the provided value to be lost at the
+application-layer if it was equal to the default, whereas <code>optional</code> will
+expose and correctly preserve the value's presense or absence.</p> <h2 id="understanding-cardinality"><a href="#understanding-cardinality" class="header-anchor">#</a> Understanding Cardinality</h2> <h3 id="cardinality-examples"><a href="#cardinality-examples" class="header-anchor">#</a> Cardinality Examples</h3> <table><tr><th>Schema</th> <th>Valid Matching Representations</th> <th>Cardinality</th> <th>Comments</th></tr> <tr><td width="40%"><div class="language-ipldsch extra-class"><pre class="language-ipldsch"><code><span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">Foo</span></span> <span class="token builtin">struct</span> <span class="token punctuation">{</span>
+	bar Bool
+<span class="token punctuation">}</span>
+</code></pre></div></td> <td width="20%"><code>{&quot;bar&quot;: true}</code><br> <code>{&quot;bar&quot;: false}</code><br></td> <td>2</td> <td>The cardinality of `Bool` is 2; the struct has no other members, so that's it.
+</td></tr> <tr><td><div class="language-ipldsch extra-class"><pre class="language-ipldsch"><code><span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">Foo</span></span> <span class="token builtin">struct</span> <span class="token punctuation">{</span>
+	bar <span class="token keyword">nullable</span> Bool
+<span class="token punctuation">}</span>
+</code></pre></div></td> <td><code>{&quot;bar&quot;: true}</code><br> <code>{&quot;bar&quot;: false}</code><br> <code>{&quot;bar&quot;: null}</code><br></td> <td>3</td> <td>2+1.  The `nullable` modifier adds one to the cardinality, since a null value is now a valid match.</td></tr> <tr><td><div class="language-ipldsch extra-class"><pre class="language-ipldsch"><code><span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">Foo</span></span> <span class="token builtin">struct</span> <span class="token punctuation">{</span>
+	bar <span class="token keyword">optional</span> Bool
+<span class="token punctuation">}</span>
+</code></pre></div></td> <td><code>{&quot;bar&quot;: true}</code><br> <code>{&quot;bar&quot;: false}</code><br> <code>{}</code><br></td> <td>3</td> <td>2+1.  The `optional` modifier adds one to the cardinality, since a map missing the key is now a valid match.</td></tr> <tr><td><div class="language-ipldsch extra-class"><pre class="language-ipldsch"><code><span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">Foo</span></span> <span class="token builtin">struct</span> <span class="token punctuation">{</span>
+	bar <span class="token keyword">optional</span> <span class="token keyword">nullable</span> Bool
+<span class="token punctuation">}</span>
+</code></pre></div></td> <td><code>{&quot;bar&quot;: true}</code><br> <code>{&quot;bar&quot;: false}</code><br> <code>{&quot;bar&quot;: null}</code><br> <code>{}</code><br></td> <td><b>4</b></td> <td>2+1+1.  *Each* of the modifiers cumulatively adds one valid matching representation, and thus add one to the cardinality.</td></tr> <tr><td><div class="language-ipldsch extra-class"><pre class="language-ipldsch"><code><span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">Foo</span></span> <span class="token builtin">struct</span> <span class="token punctuation">{</span>
+	bar Bool
+<span class="token representation">} <span class="token builtin">representation</span></span> map <span class="token punctuation">{</span>
+	field bar default <span class="token string">&quot;false&quot;</span>
+<span class="token punctuation">}</span>
+</code></pre></div></td> <td><code>{&quot;bar&quot;: true}</code><br> <code>{}</code><br></td> <td>2</td> <td>Default values mean that encoding should never include the value if it's the default.  That means the set of valid representations *changes*, but it doesn't *grow* because one representation becomes invalid at the same time as a new representation is added.</td></tr></table></div> <footer class="page-edit"><div class="edit-link"><a href="https://github.com/ipld/specs/edit/master/schemas/schema-kinds.md" target="_blank" rel="noopener noreferrer">Edit this page on GitHub</a> <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></div> <!----></footer> <div class="page-nav"><p class="inner"><span class="prev">
+      ←
+      <a href="/schemas/links.html" class="prev">Links and IPLD Schemas</a></span> <span class="next"><a href="/schemas/representations.html">Representations</a>
+      →
+    </span></p></div> </main></div><div class="global-ui"></div></div>
+    <script src="/assets/js/app.6b3b8a5b.js" defer></script><script src="/assets/js/2.1a099048.js" defer></script><script src="/assets/js/17.1d34b642.js" defer></script>
+  </body>
+</html>
