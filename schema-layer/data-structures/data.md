@@ -1,9 +1,12 @@
 `Data` is an advanced layout for representing binary data.
 
-It is flexibible enough to support very small and very large (multi-block) binary data.
+It is flexible enough to support very small and very large (multi-block) binary data.
 
 ```sh
-type Index [Int]
+type Index struct {
+ offset Int
+ length Int
+} representation tuple
 type IndexList [Index]
 type ByteUnionList [&BytesUnion]
 
@@ -27,13 +30,13 @@ type ByteLinksLayout struct {
 
 advanced ByteLinksLayoutAdvanced {
   rootType ByteLinksLayout
- }
+}
 type ByteLinks bytes representation advanced ByteLinksLayoutAdvanced
 
 type BytesUnion union {
-  | Bytes "bytes"
-  | &Bytes "bytesLink"
-  | ByteLinks "byteLinks"
+  | Bytes "b"
+  | &Bytes "bl"
+  | ByteLinks "bls"
   | NestedByteList "nbl"
 } representation keyed
 
