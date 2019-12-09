@@ -39,7 +39,7 @@ dags via NestedByteList that can themselves contain additional NestedByteLists, 
 Bytes.
 
 An implementation must define binary read methods for the 3 advanced layouts (DataAdvanced,
-ByteLinksAdvanced and NestedByteLinksAdvanced). Once implemented, you can build a DAG
+NestedByteLinksAdvanced). Once implemented, you can build a DAG
 with any combination of these data structures using any layout algorithm you choose.
 
 Readers only need to concern themselves with implementing the read methods, they **do not**
