@@ -3,11 +3,11 @@
 It is flexible enough to support very small and very large (multi-block) binary data.
 
 ```sh
-type Index [Int]
+type Lengths [Int]
 type ByteUnionList [&BytesUnion]
 
 type NestedByteListLayout struct {
-  index Index
+  lengths Lengths
   parts ByteUnionList
   algo optional String
 }
@@ -20,7 +20,7 @@ type NestedByteList bytes representation advanced NestedByteListLayoutAdvanced
 type ByteList [&Bytes]
 
 type ByteLinksLayout struct {
-  indexes Index
+  lengths Lengths
   parts ByteList
 }
 
@@ -48,10 +48,10 @@ type Data bytes representation advanced DataLayoutAdvanced
 ```
 
 `Data` uses a potentially recursive union type. This allows you to build very large nested
-dags via NestedByteList that can themselves contain additional NestedByteLists, ByteLinks, or 
+dags via NestedByteList that can themselves contain additional NestedByteLists, ByteLinks, or
 Bytes.
 
-An implementation must define binary read methods for the 3 advanced layouts (DataAdvanced, 
+An implementation must define binary read methods for the 3 advanced layouts (DataAdvanced,
 ByteLinksAdvanced and NestedByteLinksAdvanced). Once implemented, you can build a DAG
 with any combination of these data structures using any layout algorithm you choose.
 
