@@ -18,10 +18,10 @@ advanced NestedByteListAdvanced {
 type NestedByteList bytes representation advanced NestedByteListLayoutAdvanced
 
 type BytesUnion union {
-  | Bytes "b"
-  | &Bytes "bl"
-  | NestedByteList "nbl"
-} representation keyed
+  | Bytes bytes
+  | &Bytes link
+  | NestedByteList map
+} representation kinded
 
 type DataLayout struct {
   bytes BytesUnion
