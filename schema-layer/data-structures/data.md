@@ -3,17 +3,13 @@
 It is flexible enough to support very small and very large (multi-block) binary data.
 
 ```sh
-type Index struct {
- offset Int
- length Int
-} representation tuple
-type IndexList [Index]
+type Index [Int]
 type ByteUnionList [&BytesUnion]
 
 type NestedByteListLayout struct {
-  indexes IndexList
+  index Index
   parts ByteUnionList
-  algo String
+  algo optional String
 }
 
 advanced NestedByteListAdvanced {
@@ -24,7 +20,7 @@ type NestedByteList bytes representation advanced NestedByteListLayoutAdvanced
 type ByteList [&Bytes]
 
 type ByteLinksLayout struct {
-  indexes IndexList
+  indexes Index
   parts ByteList
 }
 
