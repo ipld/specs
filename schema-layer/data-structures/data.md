@@ -17,22 +17,9 @@ advanced NestedByteListAdvanced {
 }
 type NestedByteList bytes representation advanced NestedByteListLayoutAdvanced
 
-type ByteList [&Bytes]
-
-type ByteLinksLayout struct {
-  lengths Lengths
-  parts ByteList
-}
-
-advanced ByteLinksLayoutAdvanced {
-  rootType ByteLinksLayout
-}
-type ByteLinks bytes representation advanced ByteLinksLayoutAdvanced
-
 type BytesUnion union {
   | Bytes "b"
   | &Bytes "bl"
-  | ByteLinks "bls"
   | NestedByteList "nbl"
 } representation keyed
 
