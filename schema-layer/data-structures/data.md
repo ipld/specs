@@ -30,7 +30,7 @@ type Data bytes representation advanced DataLayoutAdvanced
 ```
 
 `Data` uses a potentially recursive union type. This allows you to build very large nested
-dags via NestedByteList that can themselves contain additional NestedByteLists, ByteLinks, or
+dags via NestedByteList that can themselves contain additional NestedByteLists, links to Bytes or
 Bytes.
 
 An implementation must define binary read methods for Data that can read data agnostic
