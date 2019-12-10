@@ -6,7 +6,7 @@ It is flexible enough to support very small and very large (multi-block) binary 
 type Lengths [Int]
 type ByteUnionList [&BytesUnion]
 
-type NestedByteListLayout struct {
+type NestedByteList struct {
   lengths Lengths
   parts ByteUnionList
   algo optional String
@@ -23,17 +23,17 @@ type DataLayout struct {
   size Int
 }
 
-advanced DataLayoutAdvanced {
+advanced AdvancedData {
   rootType DataLayout
 }
-type Data bytes representation advanced DataLayoutAdvanced
 ```
+
 
 `Data` uses a potentially recursive union type. This allows you to build very large nested
 dags via NestedByteList that can themselves contain additional NestedByteLists, links to Bytes or
 Bytes.
 
-An implementation must define binary read methods for Data that can read data agnostic
+An implementation must define binary read methods for AdvancedData that can read data agnostic
 of the underlying byte layout. Once implemented, you can build a DAG
 with any combination of these data structures using any layout algorithm you choose.
 
