@@ -7,8 +7,8 @@
     <meta name="description" content="Specifications for the Inter-planetary Linked Data project">
     
     
-    <link rel="preload" href="/assets/css/0.styles.8b4919c9.css" as="style"><link rel="preload" href="/assets/js/app.5c4c7ea4.js" as="script"><link rel="preload" href="/assets/js/2.1a099048.js" as="script"><link rel="preload" href="/assets/js/17.74bb23b3.js" as="script"><link rel="prefetch" href="/assets/js/10.2d46b0d0.js"><link rel="prefetch" href="/assets/js/11.63108233.js"><link rel="prefetch" href="/assets/js/12.efadf5e6.js"><link rel="prefetch" href="/assets/js/13.eace8576.js"><link rel="prefetch" href="/assets/js/14.9f795e94.js"><link rel="prefetch" href="/assets/js/15.3a14b740.js"><link rel="prefetch" href="/assets/js/16.240b3965.js"><link rel="prefetch" href="/assets/js/18.37de45dc.js"><link rel="prefetch" href="/assets/js/19.57b4998f.js"><link rel="prefetch" href="/assets/js/20.21c47159.js"><link rel="prefetch" href="/assets/js/3.0815f1d8.js"><link rel="prefetch" href="/assets/js/4.dd356c84.js"><link rel="prefetch" href="/assets/js/5.ca1edd40.js"><link rel="prefetch" href="/assets/js/6.bad7c51b.js"><link rel="prefetch" href="/assets/js/7.ec310dab.js"><link rel="prefetch" href="/assets/js/8.8f84dca2.js"><link rel="prefetch" href="/assets/js/9.75a50e6f.js">
-    <link rel="stylesheet" href="/assets/css/0.styles.8b4919c9.css">
+    <link rel="preload" href="/assets/css/0.styles.988469c8.css" as="style"><link rel="preload" href="/assets/js/app.a51ba9ab.js" as="script"><link rel="preload" href="/assets/js/2.181fa3f1.js" as="script"><link rel="preload" href="/assets/js/17.ec9d6dc7.js" as="script"><link rel="prefetch" href="/assets/js/10.cdd29756.js"><link rel="prefetch" href="/assets/js/11.8acb5a71.js"><link rel="prefetch" href="/assets/js/12.3a9c9349.js"><link rel="prefetch" href="/assets/js/13.64b014c4.js"><link rel="prefetch" href="/assets/js/14.e1de9389.js"><link rel="prefetch" href="/assets/js/15.5413ff2d.js"><link rel="prefetch" href="/assets/js/16.02ee2755.js"><link rel="prefetch" href="/assets/js/18.000db2c6.js"><link rel="prefetch" href="/assets/js/19.9b58d85d.js"><link rel="prefetch" href="/assets/js/20.007c2854.js"><link rel="prefetch" href="/assets/js/3.f352ca4b.js"><link rel="prefetch" href="/assets/js/4.62097597.js"><link rel="prefetch" href="/assets/js/5.f6958bf7.js"><link rel="prefetch" href="/assets/js/6.b1246d7f.js"><link rel="prefetch" href="/assets/js/7.be996869.js"><link rel="prefetch" href="/assets/js/8.3bd3be24.js"><link rel="prefetch" href="/assets/js/9.655a6dc7.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.988469c8.css">
   </head>
   <body>
     <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/" class="home-link router-link-active"><!----> <span class="site-name">IPLD Specifications</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/" class="nav-link">Home</a></div><div class="nav-item"><a href="/schemas/" class="nav-link router-link-active">IPLD Schemas</a></div> <a href="https://github.com/ipld/specs" target="_blank" rel="noopener noreferrer" class="repo-link">
@@ -61,7 +61,7 @@ representations may only allow optionals at the beginning and end of the list)).
 valid members by one -- see the &quot;Cardinality Examples&quot; table below.</p> <p>The <code>optional</code> modifier may be stacked with the <code>nullable</code> modifier.</p> <h3 id="fields-with-implicit-values"><a href="#fields-with-implicit-values" class="header-anchor">#</a> Fields with Implicit Values</h3> <p>An <code>implicit</code> modifier declares that when a field is found absent in data,
 it should instead be treated as some other value in the domain.
 At the same time, if an application sets the field to that value,
-it will be mapped to absense of that field when represented.</p> <p>Implicit values may be considered similar to &quot;defaults&quot; -- and if you're looking
+it will be mapped to absence of that field when represented.</p> <p>Implicit values may be considered similar to &quot;defaults&quot; -- and if you're looking
 for defaults, you should look at implicits -- but we've chosen a distinctive
 name for implicits because &quot;defaults&quot; are often a one-way conversion;
 whereas we've designed the implicit value system specifically to work
@@ -74,7 +74,7 @@ later in this document for more examples of what this means, and how it
 compares in semantics with the other modifiers).
 As a representational rather than type definition feature, the syntatic
 position for an implicit declaration is on the end of the line declaring a
-field, and in paranthesis (the same as where the 'rename' and other
+field, and in parenthesis (the same as where the 'rename' and other
 representation-level directives can be found).</p> <p>The precise semantics of implicit values may vary per representation strategy;
 the discussion here is only for the general pattern, and you should also
 refer to the <a href="/schemas/representations.html#representation-strategy-reference">reference documentation for representation strategies</a>
@@ -87,7 +87,7 @@ strategy the struct has.  For example, <code>optional</code> and <code>implicit<
 used in fields in the middle of a struct when the representation is as tuple,
 because this could make parsing ambiguous.  The
 <a href="/schemas/representations.html#representation-strategy-reference">reference documentation for representation strategies</a>
-should provide more detailed information on this.</p> <h3 id="choosing-between-optional-and-implicit"><a href="#choosing-between-optional-and-implicit" class="header-anchor">#</a> Choosing between Optional and Implicit</h3> <p>Use <code>implicit</code> when the absense of a value should be treated as another
+should provide more detailed information on this.</p> <h3 id="choosing-between-optional-and-implicit"><a href="#choosing-between-optional-and-implicit" class="header-anchor">#</a> Choosing between Optional and Implicit</h3> <p>Use <code>implicit</code> when the absence of a value should be treated as another
 value that fits unambiguously into your domain; use <code>optional</code> when there's
 no such in-domain value.</p> <p>For example, if you have some integer field, and if <code>0</code> is distinctive from
 from the field being absent, use <code>optional</code>.
@@ -123,6 +123,6 @@ expose and correctly preserve the value's presense or absence.</p> <h2 id="under
       <a href="/schemas/links.html" class="prev">Links and IPLD Schemas</a></span> <span class="next"><a href="/schemas/representations.html">Representations</a>
       →
     </span></p></div> </main></div><div class="global-ui"></div></div>
-    <script src="/assets/js/app.5c4c7ea4.js" defer></script><script src="/assets/js/2.1a099048.js" defer></script><script src="/assets/js/17.74bb23b3.js" defer></script>
+    <script src="/assets/js/app.a51ba9ab.js" defer></script><script src="/assets/js/2.181fa3f1.js" defer></script><script src="/assets/js/17.ec9d6dc7.js" defer></script>
   </body>
 </html>
