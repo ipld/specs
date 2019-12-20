@@ -9,7 +9,7 @@ A .car file is a serialized representation of any IPLD DAG as the concatenation 
 This diagram shows how IPLD blocks, their root CID, and a file header combine to form a .car file:
 ![Certified Archive Files Diagram](certifiedarchives.png)
 
-### .car file header
+### File header format
 
 TODO - describe header structure, size, etc.
 
