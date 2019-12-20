@@ -7,7 +7,7 @@ When storing IPLD data in sequences of bytes, we can use the .car format (Certif
 A .car file is a serialized representation of any IPLD DAG as the concatenation of its blocks, plus a header that describes the graphs in the file (w/ root CIDs). The overhead is tiny (just the header) as the blocks themselves are just the raw graph data encoded with its native IPLD codec. Think of it as a super simple .tar file, but for IPLD DAGs. 
 
 This diagram shows how IPLD blocks, their root CID, and a file header combine to form a .car file:
-![certifiedarchives.png](Certified Archive Files Diagram)
+![Certified Archive Files Diagram](certifiedarchives.png)
 
 ### .car file header
 
