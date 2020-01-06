@@ -256,3 +256,16 @@ call IPLD ready.
 * **Link Spec.** We need to specify a complete and formal link spec and stick
   with it.
 * **Relative Links.** [#1](https://github.com/ipld/specs/issues/1).
+
+
+## Related
+
+Following are some existing standards and projects which are similar or related to the IPLD project.
+
+- https://tools.ietf.org/html/rfc6920
+
+- https://tools.ietf.org/id/draft-farrell-ni-00.xml 
+
+- https://tools.ietf.org/html/draft-shi-p2psip-hier-arch-00
+
+- https://tools.ietf.org/html/draft-farrell-decade-ni-06
