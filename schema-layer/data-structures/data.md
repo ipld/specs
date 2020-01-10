@@ -14,7 +14,6 @@ type NestedByteList struct {
 
 type BytesUnion union {
   | Bytes bytes
-  | &Bytes link
   | NestedByteList map
 } representation kinded
 
