@@ -19,6 +19,7 @@ message PBLink {
   optional string Name = 2;
 
   // cumulative size of target object
+  // deprecated, do not use
   optional uint64 Tsize = 3;
 }
 
@@ -44,7 +45,7 @@ The Go and JavaScript implementation both support pathing with link names: `/<na
 
 In Go, this is the only way, which implies that is is impossible to path through nodes that don't name their links. Also neither the Data section nor the Links section/metadata are accessible through paths.
 
-In the JavaScript implementation, there is an additional way to path through the data. It's based purely on the structure of object, i.e. `/Links/<index>/Hash/…`. This way you have direct access to the `Data`, `Links`, and `size` fields, e.g. `/Links/<index>/Hash/Data`.
+In the JavaScript implementation, there is an additional way to path through the data. It's based purely on the structure of object, i.e. `/Links/<index>/Hash/…`. This way you have direct access to the `Data` and `Links` fields, e.g. `/Links/<index>/Hash/Data`.
 
 These two ways of pathing can be combined, so you can access e.g. the `Data` field of a named link via `/<name/Data`. You can also use both approaches within a single path, e.g. `/<name1>/Links/0/Hash/Data` or `/Links/<index>/Hash/<name>/Data`. When using the DAG API in js-ipfs, then the pathing over the structure has precedence, so you won't be able to use named pathing on a named link called `Links`, you would need to use the index of the link instead.
 
@@ -63,3 +64,13 @@ a bug in the initial protobuf encoder that was used in the first implementation
 of ipfs. Take care to maintain this ordering for full compatibility.
 
 [issue #55]: https://github.com/ipld/specs/issues/55
+
+## Deprecation of PBLink Tsize property
+
+The `Tsize` property of `PBLinks` is deprecated and should not be used.
+
+1. It is imposible to verify the `Tsize` value without first inspecting the target object, at which point you have the target object so it is redundant
+2. It is expensive to calculate as you need to have the target object which may involve fetching it from the network
+3. It means you cannot create DAGs from just CIDs limiting flexibility
+
+It is left in the protobuf definition in order to maintain backwards compatibility.
