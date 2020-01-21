@@ -2,6 +2,30 @@
 
 **Status: Draft**
 
+* [Summary](#summary)
+* [Format Description](#format-description)
+  * [Header](#header)
+    * [Constraints](#constraints)
+  * [Data](#data)
+    * [Length](#length)
+    * [CID](#cid)
+    * [Data](#data-1)
+* [Additional Considerations](#additional-considerations)
+  * [Determinism](#determinism)
+  * [Performance](#performance)
+  * [Security and Verifiability](#security-and-verifiability)
+  * [Indexing and Seeking Reads](#indexing-and-seeking-reads)
+  * [Padding](#padding)
+* [Implementations](#implementations)
+  * [Go](#go)
+  * [JavaScript](#javascript)
+* [Unresolved Items](#unresolved-items)
+  * [Zero roots](#zero-roots)
+  * [Zero blocks](#zero-blocks)
+  * [Root CID block existence](#root-cid-block-existence)
+  * [CID version](#cid-version)
+  * [Duplicate Blocks](#duplicate-blocks)
+
 ## Summary
 
 The CAR format (Content Addressable aRchives) can be used to store content addressable objects in the form of IPLD block data as a sequence of bytes; typically in a file with a `.car` filename extension.
@@ -17,6 +41,8 @@ In addition to the binary block data, storage overhead for the CAR format consis
 This diagram shows how IPLD blocks, their root CID, and a header combine to form a CAR.
 
 ![Content Addressable aRchive Diagram](content-addressable-archives.png)
+
+The name _Certified ARchive_ has also [previously been used](https://github.com/ipfs/archive-format) to refer to the CAR format.
 
 ## Format Description
 
@@ -46,9 +72,11 @@ type CarHeader struct {
 
 An empty `roots` array is valid, but indicates that the CAR does not necessarily contain blocks forming a coherent DAG. Such a CAR may, for instance, form part of a collection of archives that, when combined, contain an entire DAG.
 
+_(Caveat: see [Zero roots](#zero-roots) under Unresolved Issues.)_
+
 ### Data
 
-Immediately following the Header block, **zero or more** IPLD blocks are concatenated to form the _Data_ section of the CAR format. Each block is encoded into a _Section_ by the concatenation of the following values:
+Immediately following the Header block, **zero or more** IPLD blocks are concatenated to form the _Data_ section of the CAR format. _(Caveat: see [Zero blocks](#zero-blocks) under Unresolved Issues.)_ Each block is encoded into a _Section_ by the concatenation of the following values:
 
 1. Length in bytes of the combined CID and data in this Section, encoded as a varint
 2. CID of the block in this Section, encoded in the raw byte form of the CID
@@ -60,7 +88,7 @@ Each Section begins with a varint representation of an unsigned integer indicati
 
 #### CID
 
-Following the Length, the CID of the block is included in raw byte form. A decoder reading a Section must decode the CID according to CID byte encoding rules, which don't provide a stable length. See https://github.com/multiformats/cid for details on the encoding of a CID. CIDv0 and CIDv1 are currently supported.
+Following the Length, the CID of the block is included in raw byte form. A decoder reading a Section must decode the CID according to CID byte encoding rules, which don't provide a stable length. See https://github.com/multiformats/cid for details on the encoding of a CID. CIDv0 and CIDv1 are currently supported. _(Caveat: see [CID version](#cid-version) under Unresolved Issues.)_
 
 **CID byte decoding summary**
 
@@ -88,6 +116,16 @@ The remainder of a Section, after length-prefix and CID, comprises the raw byte 
 
 ## Additional Considerations
 
+### Determinism
+
+Deterministic CAR creation is not covered by this specification. However, deterministic generation of a CAR from a given graph is possible and is relied upon by certain uses of the format, most notably, [Filecoin](https://filecoin-project.github.io/specs).
+
+Additional rules for the generation of the CAR format may be applied in order to ensure that the same CAR is always generated from the same data. The burden of this determinism is primarily placed on [selectors](../selectors/selectors.md) whereby a given selector applied to a given graph will always yield blocks in the same order regardless of implementation.
+
+Care regarding the ordering of the root array as well as consideration for CID version _(see [below](#cid-version))_ and avoidance of duplicate blocks _(see [below](#duplicate-blocks))_ may also be required for strict determinism.
+
+All such considerations are deferred to the user of the CAR format and should be documented there as this specification does not inherently support determinism.
+
 ### Performance
 
 Some considerations regarding performance:
@@ -105,15 +143,11 @@ The CAR format contains no internal means, beyond the IPLD block formats and the
 
 ### Indexing and Seeking Reads
 
-The CAR format contains no internal indexing, any indexing must be stored externally to a CAR. However, such indexing is possible and makes seeking reads practical. An index storing byte offset (of section start or block data start) and length (of section or block data), keyed by CID, will enable a single block read by seeking to the offset and reading the block data. The format of any such index is not specified here and is left up to CAR format parsing implementations.
+The CAR format contains no internal indexing, any indexing must be stored externally to a CAR. However, such indexing is possible and makes seeking reads practical. An index storing byte offset (of Section start or block data start) and length (of Section or block data), keyed by CID, will enable a single block read by seeking to the offset and reading the block data. The format of any such index is not specified here and is left up to CAR format parsing implementations.
 
 ### Padding
 
 The CAR format contains no specified means of padding to achieve specific total archive sizes or internal byte offset alignment of block data. Because it is not a requirement that each block be part of a coherent DAG under one of the roots of the CAR, dummy block entries may be used to achieve padding. Such padding should also account for the size of the length-prefix varint and the CID for a section. All sections must be valid and dummy entries should still decode to valid IPLD blocks.
-
-### Duplicate Blocks
-
-The possibility of duplicate blocks in a single CAR (such as for padding) is currently not specified.
 
 ## Implementations
 
@@ -148,3 +182,25 @@ async CarDatastore.writeStream(stream)
 ```
 
 Also supports an `indexer()` that parses a file or stream and yields block index data including CID, offset and length, in addition to a `readRaw()` to read individual blocks according to their index data.
+
+## Unresolved Items
+
+### Zero roots
+
+Current Go implementation and usage of the CAR format requires at least one CID in the roots array of the Header. It is unresolved whether the length of the roots array should be "zero or more" or "one or more" for the purpose of this specification.
+
+### Zero blocks
+
+It is unresolved whether a valid CAR must contain _at least one_ block or whether the empty CAR is a valid format and should be accepted by encoders and decoders.
+
+### Root CID block existence
+
+It is unresolved whether an implementation must verify that a CID present in the roots array of the Header also appears as a block in the archive. While it is expected that this would be the case, it is unresolved whether encoders and decoders must validate the existence of root blocks in the archive.
+
+### CID version
+
+It is unresolved whether both CID versions 0 and 1 format are valid in the roots array and at the start of each block Section. Current implementations do not check CID version in the roots array, and both CUD versions are also acceptable in each block Section. Discussions on this specification have suggested limiting CIDs used throughout the format (not within blocks) to CIDv1&mdash;requiring conversion if an encoder is provided with a CIDv0 and requiring readers of a CAR to ensure CIDv1 is the only available block key.
+
+### Duplicate Blocks
+
+The possibility of duplicate blocks in a single CAR (such as for padding) is currently not specified.
