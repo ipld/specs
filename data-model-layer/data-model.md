@@ -115,7 +115,7 @@ Map is a recursive kind.
 Values in maps are accessed by their "key".  Maps can also be iterated over,
 yielding key+value pairs.
 
-**Maps must be serialized in a deterministic way (key sorting should be consistent regardless of insertion order or language specific sorting).** The sorting is not defined by the data model, each codec should find the best sorting algorithm, but the sorting must be consitent between languages and is most often implemented as additional code during serialization since most formats do not already have deterministic maps.
+Maps must be serialized in a deterministic way (key sorting should be consistent regardless of insertion order or language specific sorting). The sorting is not defined by the data model, each codec should find the best sorting algorithm, but the sorting must be consitent between languages and is most often implemented as additional code during serialization since most formats do not already have deterministic maps.
 
 #### Link kind
 
