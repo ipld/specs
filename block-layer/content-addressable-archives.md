@@ -30,13 +30,13 @@
 
 The CAR format (Content Addressable aRchives) can be used to store content addressable objects in the form of IPLD block data as a sequence of bytes; typically in a file with a `.car` filename extension.
 
-The CAR format is intended as a serialized representation of any IPLD DAG (graph) as the concatenation of its blocks, plus a header that describes the graphs in the file (via root CIDs). The requirement for the blocks in a CAR to form coherent DAGs is not strict, so the CAR format may also be used to store any arbitrary list of IPLD blocks.
+The CAR format is intended as a serialized representation of any IPLD DAG (graph) as the concatenation of its blocks, plus a header that describes the graphs in the file (via root CIDs). The requirement for the blocks in a CAR to form coherent DAGs is not strict, so the CAR format may also be used to store arbitrary IPLD blocks.
 
 In addition to the binary block data, storage overhead for the CAR format consists of:
 
  * A header block encoded as [DAG-CBOR](codecs/dag-cbor.md) containing the format version and an array of root CIDs
  * A CID for each block preceding its binary data
- * A compressed integer prefixing each block, including the header block, indicating the total length of that block including CID
+ * A compressed integer prefixing each block (including the header block) indicating the total length of that block, including the length of the encoded CID
 
 This diagram shows how IPLD blocks, their root CID, and a header combine to form a CAR.
 
@@ -68,15 +68,13 @@ type CarHeader struct {
 #### Constraints
 
 * The `version` is always a value of `1`. Future iterations of this specification may make use of `version` to introduce variations of the format.
-* The `roots` array must contain **zero or more** CIDs, each of which must be present somewhere in the remainder of the CAR.
+* The `roots` array must contain **one or more** CIDs, each of which should be present somewhere in the remainder of the CAR.
 
-An empty `roots` array is valid, but indicates that the CAR does not necessarily contain blocks forming a coherent DAG. Such a CAR may, for instance, form part of a collection of archives that, when combined, contain an entire DAG.
-
-_(Caveat: see [Zero roots](#zero-roots) under Unresolved Issues.)_
+_(Caveats: see [Zero roots](#zero-roots) and [Root CID block existence](#root-cid-block-existence) under Unresolved Issues.)_
 
 ### Data
 
-Immediately following the Header block, **zero or more** IPLD blocks are concatenated to form the _Data_ section of the CAR format. _(Caveat: see [Zero blocks](#zero-blocks) under Unresolved Issues.)_ Each block is encoded into a _Section_ by the concatenation of the following values:
+Immediately following the Header block, **one or more** IPLD blocks are concatenated to form the _Data_ section of the CAR format. _(Caveat: see [Zero blocks](#zero-blocks) under Unresolved Issues.)_ Each block is encoded into a _Section_ by the concatenation of the following values:
 
 1. Length in bytes of the combined CID and data in this Section, encoded as a varint
 2. CID of the block in this Section, encoded in the raw byte form of the CID
@@ -122,7 +120,7 @@ Deterministic CAR creation is not covered by this specification. However, determ
 
 Additional rules for the generation of the CAR format may be applied in order to ensure that the same CAR is always generated from the same data. The burden of this determinism is primarily placed on [selectors](../selectors/selectors.md) whereby a given selector applied to a given graph will always yield blocks in the same order regardless of implementation.
 
-Care regarding the ordering of the root array as well as consideration for CID version _(see [below](#cid-version))_ and avoidance of duplicate blocks _(see [below](#duplicate-blocks))_ may also be required for strict determinism.
+Care regarding the ordering of the `roots` array in the Header, as well as consideration for CID version _(see [below](#cid-version))_ and avoidance of duplicate blocks _(see [below](#duplicate-blocks))_ may also be required for strict determinism.
 
 All such considerations are deferred to the user of the CAR format and should be documented there as this specification does not inherently support determinism.
 
