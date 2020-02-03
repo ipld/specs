@@ -20,7 +20,7 @@
   * [Go](#go)
   * [JavaScript](#javascript)
 * [Unresolved Items](#unresolved-items)
-  * [Zero roots](#zero-roots)
+  * [Number of roots](#number-of-roots)
   * [Zero blocks](#zero-blocks)
   * [Root CID block existence](#root-cid-block-existence)
   * [CID version](#cid-version)
@@ -70,7 +70,7 @@ type CarHeader struct {
 * The `version` is always a value of `1`. Future iterations of this specification may make use of `version` to introduce variations of the format.
 * The `roots` array must contain **one or more** CIDs, each of which should be present somewhere in the remainder of the CAR.
 
-_(Caveats: see [Zero roots](#zero-roots) and [Root CID block existence](#root-cid-block-existence) under Unresolved Issues.)_
+_(Caveats: see [Number of roots](#number-of-roots) and [Root CID block existence](#root-cid-block-existence) under Unresolved Issues.)_
 
 ### Data
 
@@ -183,9 +183,16 @@ Also supports an `indexer()` that parses a file or stream and yields block index
 
 ## Unresolved Items
 
-### Zero roots
+### Number of roots
 
-Current Go implementation and usage of the CAR format requires at least one CID in the roots array of the Header. It is unresolved whether the length of the roots array should be "zero or more" or "one or more" for the purpose of this specification.
+Regarding the `roots` property of the Header block:
+
+* The current Go implementation assumes at least one CID when creating a CAR
+* The current Go implementation requires at least one CID when reading a CAR
+* The current JavaScript implementation allows for zero or more roots
+* Current usage of the CAR format in Filecoin requires exactly one CID
+
+It is unresolved how the `roots` array should be constrained, but it is recommended that only a single root CID be used in this version of the CAR format.
 
 ### Zero blocks
 
