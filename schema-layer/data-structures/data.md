@@ -1,4 +1,4 @@
-`Data Layout` is an advanced layout for representing binary data.
+`Flexible Byte Layout` is an advanced layout for representing binary data.
 
 It is flexible enough to support very small and very large (multi-block) binary data.
 
@@ -17,15 +17,14 @@ type BytesUnion union {
   | NestedByteList map
 } representation kinded
 
-type DataLayout struct {
+type FlexibleByteLayout struct {
   bytes BytesUnion
   size Int
 }
 ```
 
-`Data` uses a potentially recursive union type. This allows you to build very large nested
-dags via NestedByteList that can themselves contain additional NestedByteLists, links to Bytes or
-Bytes.
+`FlexibleByteLayout` uses a potentially recursive union type. This allows you to build very large nested
+dags via NestedByteList that can themselves contain additional NestedByteLists, links to BytesUnions.
 
 An implementation must define a custom function for reading ranges of binary
 data but once implemented, you can read data regardless of the layout algorithm used.
