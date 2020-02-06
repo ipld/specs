@@ -85,7 +85,7 @@ type ExploreFields struct {
 ## Note that this can be implemented using ExploreFields, but ExplorePath can be optimized
 ## optimized in terms of serialization size and execution speed.
 type ExplorePath struct {
-	path String (rename 'p')
+	path [String] (rename 'p')
 	next Selector (rename ">")
 }
 
