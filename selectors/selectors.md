@@ -52,6 +52,7 @@ type Selector union {
 	| Matcher "."
 	| ExploreAll "a"
 	| ExploreFields "f"
+	| ExplorePath "p"
 	| ExploreIndex "i"
 	| ExploreRange "r"
 	| ExploreRecursive "R"
@@ -72,9 +73,20 @@ type ExploreAll struct {
 ##
 ## Note that a concept of exploring a whole path (e.g. "foo/bar/baz") can be
 ## represented as a set of three nexted ExploreFields selectors, each
-## specifying one field.
+## specifying one field.  But it could be optimized using ExplorePath
 type ExploreFields struct {
 	fields {String:Selector} (rename "f>")
+}
+
+## ExplorePath traverses named fields in a list of path segments (or equivalently, struct, if
+## traversing on typed/schema nodes) and applies a next selector to the
+## reached node.
+##
+## Note that this can be implemented using ExploreFields, but ExplorePath can be optimized
+## optimized in terms of serialization size and execution speed.
+type ExplorePath struct {
+	path String (rename 'p')
+	next Selector (rename ">")
 }
 
 ## ExploreIndex traverses a specific index in a list, and applies a next
