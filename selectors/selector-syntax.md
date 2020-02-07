@@ -383,7 +383,7 @@ For example:
 
 ### String Tokenization
 
-Strings are tokenized simply by switching modes based on the presense of `"'"` characters.  We enable quote escaping with a rule that whenever two string literals are next to eachother, they are combined into a single string.
+Strings are tokenized simply by switching modes based on the presense of `"'"` characters.  We enable quote escaping with a rule that whenever two string literals are next to eachother, they are combined into a single string with a single quote inserted between them.
 
 ```ipldsel
 'I am a string'      # "I am a string"
