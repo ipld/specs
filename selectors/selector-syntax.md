@@ -48,7 +48,7 @@ This means it should be terser than the JSON or YAML representations of the IPLD
 
 This means it should allow flexibility with whitespace as well as allowing optional symbols and annotations to make structure easier to see visually.
 
-The exact same selector for git shallow clone from above can also we written in the following form using this exact same syntax: (This is not another mode, it's the same syntax):
+The exact same selector for git shallow clone from above can also be written in the following style: (This is not another mode, it's the same syntax):
 
 ```ipldsel
 recursive(limit=5
