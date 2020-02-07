@@ -10,7 +10,7 @@ Introduction
 
 *Prerequisites: [Selectors](https://github.com/ipld/specs/blob/master/selectors/selectors.md).
 
-IPLD Selectors are represented as IPLD data nodes.  This is great for embedding them in a structured way, but authoring them or viewing them in this format isn't the easiest.  This Syntax provides a textual DSL for reading/writing selectors in a more text friendly format.
+IPLD Selectors are represented as IPLD data nodes.  This is great for embedding them in a structured way, but authoring them or viewing them in this format isn't the easiest.  This syntax provides a textual DSL for reading/writing selectors in a more text friendly format.
 
 Tooling can be used to convert between formats and even various styles optimized for the use-case at hand.
 
@@ -48,7 +48,7 @@ This means it should be terser than the JSON or YAML representations of the IPLD
 
 This means it should allow flexibility with whitespace as well as allowing optional symbols and annotations to make structure easier to see visually.
 
-The exact same selector for gt shallow clone from above can also we written in the following form using this exact same syntax: (This is not another mode, it's the same syntax):
+The exact same selector for git shallow clone from above can also we written in the following form using this exact same syntax: (This is not another mode, it's the same syntax):
 
 ```ipldsel
 recursive(limit=5
@@ -330,7 +330,7 @@ Notice that whitespace is ignored.
 
 ### Whitespace and Comments
 
-Comments are allowed in this syntax and will be preserved by auto-formatters wen possible, but will be stripped when converting to URL style and are not included in the IPLD representation of the selector.
+Comments are allowed in this syntax and will be preserved by auto-formatters when possible, but will be stripped when converting to URL style and are not included in the IPLD representation of the selector.
 
 A comment starts at `#` and ends at end of line.
 
