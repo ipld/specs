@@ -96,18 +96,6 @@ This is the default style for maximum terseness.  It minifies everything possibl
 f'characters'f'kathryn-janeway'f'birthday'f'year'.
 ```
 
-#### Using multi-segment-path extension.
-
-We can add some syntax sugar extensions as macros for common use cases as they come up.
-
-```ipldsel
-p'characters/kathryn-janeway/birthday/year'.
-```
-
-This example is sugar for a deeply nested path using a new `"paths"`/`"p"` keyword.  It's a version of `"f"` that splits its input on `/` and creates nested selectors.
-
-This can be done as a macro-like sugar at this level.  Another option is for the selector spec to add `ExplorePaths` as a new selector with optimized representation and execution.
-
 ### Getting a certain number of parent blocks in a blockchain
 
 This is based on [this sample](example-selectors.md#getting-a-certain-number-of-parent-blocks-in-a-blockchain).
@@ -132,18 +120,6 @@ fields('parent'(
 
 # Short Form
 f'parent'f'parent'f'parent'f'parent'f'parent'.
-```
-
-Shorter using paths extension:
-
-```ipldsel
-# Long Form
-paths('parent/parent/parent/parent/parent'(
-  match
-))
-
-# Short Form
-p'parent/parent/parent/parent/parent'.
 ```
 
 #### Parents Using Recursion
@@ -277,16 +253,11 @@ Some of the selectors accept literal values as parameters.  These are currently 
 
 #### Integers
 
-Integers can be encoded using common integer literals found in programming languages:
+Positive integers can be encoded using base 110:
 
 ```
 123 # Decimal
-0xfeed # Hex
-0o644 # Octal
-0b1001010 # Binary
 ```
-
-Note these are case insensitive for both the hex digits as well as the base prefixes.
 
 #### Strings
 
@@ -300,8 +271,6 @@ strings'
 'two'_'strings'
 ```
 
-Technically, any character possible in the selector itself (likely unicode) is allowed in here.  Also this means we cannot have two strings appearing next to eachother without a `_` separator between them.  Currently this never happens since no selector accepts two strings in a row.
-
 #### Maps
 
 We need to be able to encode the keys for the `fields` selector.  This is done using multiple string literals followed by nested contents.
@@ -312,21 +281,6 @@ fields(
   'bar'(...)
 )
 ```
-
-#### Bytes
-
-Selectors don't yet use bytes, but should ExploreFields be modified to allow binary keys, we are specifying a way to encode bytes.
-
-This is done using hex pairs surrounded by `!` characters.
-
-```
-!48 65 6c 6c 6f!
-!48656c6c6f!
-!48656
- c6c6f!
-```
-
-Notice that whitespace is ignored.
 
 ### Whitespace and Comments
 
