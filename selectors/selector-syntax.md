@@ -70,7 +70,7 @@ Examples
 
 ### Deeply Nested Path
 
-Based on [this example](https://github.com/creationix/specs/blob/selector_text_syntax/selectors/example-selectors.md#deeply-nested-path).
+Based on [this example](example-selectors.md#deeply-nested-path).
 
 A selector to extract the year:
 
@@ -110,7 +110,7 @@ This can be done as a macro-like sugar at this level.  Another option is for the
 
 ### Getting a certain number of parent blocks in a blockchain
 
-This is based on [this sample](https://github.com/creationix/specs/blob/selector_text_syntax/selectors/example-selectors.md#getting-a-certain-number-of-parent-blocks-in-a-blockchain).
+This is based on [this sample](example-selectors.md#getting-a-certain-number-of-parent-blocks-in-a-blockchain).
 
 #### Parents Without Recursion
 
@@ -162,7 +162,7 @@ R5f'parent'~
 
 ### Getting changes up to a certain one
 
-Based on [this example](https://github.com/creationix/specs/blob/selector_text_syntax/selectors/example-selectors.md#getting-changes-up-to-a-certain-one).
+Based on [this example](example-selectors.md#getting-changes-up-to-a-certain-one).
 
 ```ipldsel
 # Long Form
@@ -180,7 +180,7 @@ R100f'prev'~... # Conditions are not specified yet
 
 ### Retrieving data recursively
 
-Based on [this example](https://github.com/creationix/specs/blob/selector_text_syntax/selectors/example-selectors.md#retrieving-data-recursively).
+Based on [this example](example-selectors.md#retrieving-data-recursively).
 
 The following selector visits all `links` and matches all `data` fields:
 
