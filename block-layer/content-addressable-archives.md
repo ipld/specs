@@ -106,7 +106,7 @@ Described as an IPLD Schema:
 
 ```ipldsch
 type CarRoot struct {
-  root Link
+  root &Any
   selector optional Selector   # see the Selectors specification, SelectorEnvelope not necessary
 } representation tuple
 
