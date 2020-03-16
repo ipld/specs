@@ -8,7 +8,7 @@ Introduction
 
 ### Motivation - What is Selectors Syntax
 
-*Prerequisites: [Selectors](https://github.com/ipld/specs/blob/master/selectors/selectors.md).
+*Prerequisites: [Selectors](selectors.md).
 
 IPLD Selectors are represented as IPLD data nodes.  This is great for embedding them in a structured way, but authoring them or viewing them in this format isn't the easiest.  This syntax provides a textual DSL for reading/writing selectors in a more text friendly format.
 
