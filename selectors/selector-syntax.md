@@ -204,14 +204,16 @@ This mode-less flexibility, combined with tools to automatically translate in bu
 
 Whitespace is completely ignored by the parser except for inside quoted strings.
 
-When extending this in the future, be aware that whitespace cannot be used as keyword boundaries (`"ab cd"` is identical to `"a bc d"`).
-We should have enough space for dozens of long and short names, but will want to write a tool to automatically look for ambiguities as well as improve developer experience with auto formatters and smart highlighters.
+Line comments are also ignored even if they contain things that look like quoted strings
 
 ### Parentheses are Usually Optional
 
 Parentheses annotate structure and are sometimes required for ambigious cases such as unions which contain an arbitrary number of selectors or selectors with optional parameters of conflicting types.
 
-However the parser can usually infer the structure without them because most selectors have a fixed or semi-fixed arity and certain types are only allowed at certain places.
+For example `union(union match match)` is interpreted as `union(union(match match))` and not `union(union(match) match)` because in the first, the last match will be part of the inner union and not the outer union.  When minimizing, some parentheses might be kept to preserve semantics.
+
+- `uu..` -> `{ selector: { '|': [ { '|': [ { '.': {} }, { '.': {} } ] } ] } }`
+- `uu(.).` -> `{ selector: { '|': [ { '|': [ { '.': {} } ] }, { '.': {} } ] } }`
 
 The best practice (and what the default formatting styles will enforce) is for human readable selectors to use parentheses liberally while URL embedding style will only contain the required ones.
 
@@ -244,31 +246,40 @@ Best practice is to annotate `limit`, but not `sequence` for human readable, and
 # Human Readable
 recursive(limit=5 ...)
 # URL Embeddable
-R(5...)
+R5...
 ```
 
 ### Literal Values
 
-Some of the selectors accept literal values as parameters.  These are currently `String`, `{String:Selector}`, and `int`.
+Some of the selectors accept literal values as parameters.  These are currently `String`, `{String:Selector}`, and `Int`.
 
 #### Integers
 
-Positive integers can be encoded using base 110:
+Integers can be encoded using base 10 with optional leadin sign:
 
 ```
 123 # Decimal
+-123 # Negative decimal
 ```
 
 #### Strings
 
-Strings are quoted using single quote, they can be escaped using double single quote.  You can include non url-safe characters between the quotes, but will need to escape the entire selector properly when embedding in a URL.
+Strings are quoted using single quote.  They can contain any characters including newlines and unicode characters.  The following characters can be escaped using backslash (`\`) followed by a special character.  If the backslash is followed by a character not in the list, it's considered a syntax error.
+
+- \b  Backspace (ascii code 08)
+- \f  Form feed (ascii code 0C)
+- \n  New line
+- \r  Carriage return
+- \t  Tab
+- \'  Single quote
+- \\  Backslash character
 
 ```
 'Hello World'
-'It''s a lovely day'
+'It\'s a lovely day'
 'Multiline
 strings'
-'two'_'strings'
+'Multiline\nstrings'
 ```
 
 #### Maps
@@ -291,27 +302,26 @@ A comment starts at `#` and ends at end of line.
 Parser Specification
 --------------------
 
-### String and Comment Modes
+# Initial Stripping
 
-The selector text is normally treated initially as a stream of characters.  For purposes of parsing, strings and comments create modal changes to the rules.
-
-- When in normal mode:
-  - Finding `"'"` changes to string mode.
-  - Finding `"#"` changes to comment mode. (Also discard it).
-  - Discard whitespace, defined as `"\r"`, `"\n"`, `"\t"`, and `" "`.
-- When in string mode:
-  - Finding `"'"` changes back to normal mode.
-  - Preserve all characters.
-- When in comment mode:
-  - Finding newline changes back to normal mode.
-  - Discard all characters.
-
-If comments and strings overlap, whichever comes first is the correct mode:
+The parser must act as is there was an initial pass that removed all whitespace not inside strings and all line comments.
 
 ```ipldsch
 # This is a comment 'this is not a string'
 'This # is # a string' this is normal
 this is also normal
+
+# Keywords get merged
+hello world
+helloworld
+
+# Comments get stripped
+'a string' # and comment
+'a string'
+
+# Strings inside comments are still comments
+empty # a comment with a 'string'
+empty
 ```
 
 ### Identifier Tokenization
@@ -321,27 +331,6 @@ The parser knows a fixed set of built-ins to look for.  This is the long and sho
 ```ipldsel
 # This will match `fields` first and not even try `f`.
 fields...
-```
-
-### Number Tokenization
-
-Numbers are tokenized similar to the identifier method. If a single zero is followed by `x`, `o`, or `b` and then one or more digits belonging to that base, it will be tokenized as that base.  Otherwise it will be a zero.  Normal decimal numbers are also parsed greedily.
-
-For example:
-
-```ipldsel
-123   # this is 123
-0xdeg # this is 0xde or 222 with `g` leftover to tokenize.
-0123  # this is 123
-```
-
-### String Tokenization
-
-Strings are tokenized simply by switching modes based on the presense of `"'"` characters.  We enable quote escaping with a rule that whenever two string literals are next to eachother, they are combined into a single string with a single quote inserted between them.
-
-```ipldsel
-'I am a string'      # "I am a string"
-'I''m a string too'  # "I'm a string too"
 ```
 
 ### Parentheses and Parse Order
@@ -363,7 +352,7 @@ We could have added parentheses to this, but they were not needed since the defa
 fields('fieldname'(match))
 ```
 
-When parentheses are added, it sets constraints on what level tokens live on.  It goes up with every `"("` and down with every `")"`.  All parameters to a single consumer must have the same nesting level or they don't match.
+When parentheses are added, they can override the default greedy behavior in some otherwise ambigious cases.  Again, the example ``union union match match`` is not `union(union(match) match)` but is `union(union(match match))` because the innermost union gets to greedily match first.  Extra parentheses can be added as `union union(match) match)`, or in short form`uu(.).` vs `uu..`
 
 Known issues
 ------------
