@@ -37,7 +37,7 @@ For example, this selector simulates a git shallow clone by recursively walking 
 
 ```ipldsel
 # Starting at the commit block.
-R5f'tree'R*~'parents'*~
+R5f'tree'Rn*~'parents'*~
 ```
 
 #### Human Friendly
@@ -54,7 +54,7 @@ The exact same selector for git shallow clone from above can also be written in 
 recursive(limit=5
   fields(
     'tree'(
-      recursive(
+      recursive(limit=none
         all(recurse)
       )
     )
