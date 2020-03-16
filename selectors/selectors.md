@@ -118,24 +118,15 @@ type ExploreRange struct {
 ## it can easily cause very large traversals (especially if used in combination
 ## with selectors like ExploreAll inside the sequence).
 ##
-## limit is a union type -- it can have an integer depth value (key "depth") or
-## no value (key "none"). If limit has no value it is up to the 
+## limit is an optional integer type. If limit is not set, it is up to the 
 ## implementation library using selectors to identify an appropriate max depth
 ## as neccesary so that recursion is not infinite
 
 type ExploreRecursive struct {
 	sequence Selector (rename ":>")
-	limit RecursionLimit (rename "l")
+	limit optional Int (rename "l")
 	stopAt optional Condition (rename "!") # if a node matches, we won't match it nor explore its children.
 }
-
-type RecursionLimit union {
-	| RecursionLimit_None "none"
-	| RecursionLimit_Depth "depth"
-} representation keyed
-
-type RecursionLimit_None struct {}
-type RecursionLimit_Depth int
 
 ## ExploreRecursiveEdge is a special sentinel value which is used to mark
 ## the end of a sequence started by an ExploreRecursive selector: the recursion
