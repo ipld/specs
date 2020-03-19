@@ -1,5 +1,4 @@
-Links and IPLD Schemas
----------------------
+# Links and IPLD Schemas
 
 IPLD Schemas are designed to describe data bounded by blocks. They are intentionally _not_ agnostic to block boundaries to contain the complexity of validation. You ought to be able to apply a schema to a block and have enough information to make fast, complete, validation.
 
@@ -22,13 +21,15 @@ type MyKeyedUnion union {
   | Bar "bar"
 } representation keyed
 
-type Foo struct { froz Bool }
+type Foo struct {
+  froz Bool
+}
 type Bar link
 ```
 
 This works for and for `envelope` `union`s, and also `kinded` `union`s, as `link` is a kind that can be discriminated. `inline` `union`s, however, currently describe complex types (structs) so cannot directly describe `link`s, although the containing `struct`s may contain `link`s.
 
-## Link destination type hinting
+## Link Destination Type Hinting
 
 In many cases it is helpful to describe what is intended to occur across block boundaries, even though this cannot be verified by schemas in their per-block usage. For the purpose of codegen and as a documentation tool, we can provide "hinting" regarding the shape of the data (in schema terms) on the other side of a link.
 
@@ -60,7 +61,9 @@ type MyKeyedUnion union {
   | &Grop "bar"
 } representation keyed
 
-type Foo struct { froz Bool }
+type Foo struct {
+  froz Bool
+}
 ```
 
 There is no facility in IPLD Schemas for implicitly describing a "may be a link, or may be inline" data structure. However we can do this explicitly with `kinded` `union`s, although without strong guarantees regarding what we might find when we follow a link:
@@ -80,6 +83,6 @@ type Element union {
 # ... further definitions for `Bucket`
 ```
 
-In this example, from the [HashMap](../schema-layer/data-structures/hashmap.md) spec, we describe a `map`, named `HashMapNode` that contains a `data` property which is a list of `Element`s. These `Element`s may be one of three things: a `map` that contains another `HashMapNode` (an inlined child for a tree data structure), a `link` which is assumed to lead to a `HashMapNode` (a linked child) or a `Bucket` (not described here) which comprises a `list`.
+In this example, from the [HashMap](https://github.com/ipld/specs/blob/master/data-structures/hashmap.md) specification, we describe a `map`, named `HashMapNode` that contains a `data` property which is a list of `Element`s. These `Element`s may be one of three things: a `map` that contains another `HashMapNode` (an inlined child for a tree data structure), a `link` which is assumed to lead to a `HashMapNode` (a linked child) or a `Bucket` (not described here) which comprises a `list`.
 
 Our validator can scan the `data` list and check that each element is one of: `map`, `link` and `list`. We make no strong assertions that the `link` actually yields a `HashMapNode` but such assertions may be built into code generated from this schema _when_ the link is loaded and validated.

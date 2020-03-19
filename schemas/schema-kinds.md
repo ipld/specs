@@ -1,4 +1,4 @@
-# Schema Kinds
+# IPLD Schema Kinds
 
 * [Extending the IPLD Data Model](#extending-the-ipld-data-model)
   * [Data Model Kinds](#data-model-kinds)
@@ -12,8 +12,9 @@
 * [Value Type Modifiers](#value-type-modifiers)
   * [Nullable Values](#nullable-values)
   * [Optional Fields](#optional-fields)
-  * [Fields with Defaults](#fields-with-defaults)
-  * [Combining Nullable, Optional, and Default](#combining-nullable-optional-and-default)
+  * [Fields with Implicit Values](#fields-with-implicit-values)
+  * [Combining Nullable, Optional, and Implicit](#combining-nullable-optional-and-implicit)
+  * [Choosing between Optional and Implicit](#choosing-between-optional-and-implicit)
 * [Understanding Cardinality](#understanding-cardinality)
   * [Cardinality Examples](#cardinality-examples)
 
@@ -153,7 +154,7 @@ The `optional` modifier may be stacked with the `nullable` modifier.
 An `implicit` modifier declares that when a field is found absent in data,
 it should instead be treated as some other value in the domain.
 At the same time, if an application sets the field to that value,
-it will be mapped to absense of that field when represented.
+it will be mapped to absence of that field when represented.
 
 Implicit values may be considered similar to "defaults" -- and if you're looking
 for defaults, you should look at implicits -- but we've chosen a distinctive
@@ -170,7 +171,7 @@ later in this document for more examples of what this means, and how it
 compares in semantics with the other modifiers).
 As a representational rather than type definition feature, the syntatic
 position for an implicit declaration is on the end of the line declaring a
-field, and in paranthesis (the same as where the 'rename' and other
+field, and in parenthesis (the same as where the 'rename' and other
 representation-level directives can be found).
 
 The precise semantics of implicit values may vary per representation strategy;
@@ -197,7 +198,7 @@ should provide more detailed information on this.
 
 ### Choosing between Optional and Implicit
 
-Use `implicit` when the absense of a value should be treated as another
+Use `implicit` when the absence of a value should be treated as another
 value that fits unambiguously into your domain; use `optional` when there's
 no such in-domain value.
 
@@ -216,8 +217,6 @@ In this situation, `implicit` may cause the provided value to be lost at the
 application-layer if it was equal to the default, whereas `optional` will
 expose and correctly preserve the value's presense or absence.
 
-
-
 ## Understanding Cardinality
 
 ### Cardinality Examples
@@ -234,11 +233,15 @@ expose and correctly preserve the value's presense or absence.
 </tr>
 
 <tr>
-<td width=40%><pre>
+<td width=40%>
+
+```ipldsch
 type Foo struct {
 	bar Bool
 }
-</pre></td>
+```
+
+</td>
 <td width=20%>
 <code>{"bar": true}</code><br>
 <code>{"bar": false}</code><br>
@@ -248,11 +251,15 @@ type Foo struct {
 </tr>
 
 <tr>
-<td><pre>
+<td>
+
+```ipldsch
 type Foo struct {
 	bar nullable Bool
 }
-</pre></td>
+```
+
+</td>
 <td>
 <code>{"bar": true}</code><br>
 <code>{"bar": false}</code><br>
@@ -263,11 +270,15 @@ type Foo struct {
 </tr>
 
 <tr>
-<td><pre>
+<td>
+
+```ipldsch
 type Foo struct {
 	bar optional Bool
 }
-</pre></td>
+```
+
+</td>
 <td>
 <code>{"bar": true}</code><br>
 <code>{"bar": false}</code><br>
@@ -278,11 +289,15 @@ type Foo struct {
 </tr>
 
 <tr>
-<td><pre>
+<td>
+
+```ipldsch
 type Foo struct {
 	bar optional nullable Bool
 }
-</pre></td>
+```
+
+</td>
 <td>
 <code>{"bar": true}</code><br>
 <code>{"bar": false}</code><br>
@@ -294,13 +309,17 @@ type Foo struct {
 </tr>
 
 <tr>
-<td><pre>
+<td>
+
+```ipldsch
 type Foo struct {
 	bar Bool
 } representation map {
 	field bar default "false"
 }
-</pre></td>
+```
+
+</td>
 <td>
 <code>{"bar": true}</code><br>
 <code>{}</code><br>

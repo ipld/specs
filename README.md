@@ -5,12 +5,12 @@ The goal of IPLD is to enable decentralized data-structures that are universally
 These data-structures allow us to do for data what URLs and links did for HTML web pages.
 Read more about the principles that are guiding the ongoing development of IPLD in **[IPLD Foundational Principles](FOUNDATIONS.md)**.
 
-IPLD is not a single specification it is a set of specifications.
+IPLD is not a single specification, it is a set of specifications.
 Many of the specifications in IPLD are inter-dependent.
 
 ## Glossary
 
-* **DAG**: Short for ["Directred Acyclic Graph."](https://en.m.wikipedia.org/wiki/Directed_acyclic_graph) 
+* **DAG**: Short for ["Directed Acyclic Graph."](https://en.m.wikipedia.org/wiki/Directed_acyclic_graph) 
 It's a tree where two branches can point to the same sub-branch, but only in one direction 
 so there's no possibility of recursion.
 
@@ -58,6 +58,7 @@ This layer does not define data structures or types, although many codecs may co
 | [Specification: DAG-JSON](block-layer/codecs/DAG-JSON.md) | [block-layer/codecs/DAG-JSON.md](block-layer/codecs/DAG-JSON.md) |
 | [Specification: IPLD Selectors](selectors/selectors.md) | [selectors/selectors.md](selectors/selectors.md) |
 | [Specification: Graphsync](block-layer/graphsync/graphsync.md) | [block-layer/graphsync/graphsync.md](block-layer/graphsync/graphsync.md) |
+| [Specification: Content Addressable aRchives (CAR / .car)](block-layer/content-addressable-archives.md) | [block-layer/content-addressable-archives.md](block-layer/content-addressable-archives.md) |
 
 ### Data Model Layer (Layer 1)
 
@@ -88,9 +89,9 @@ The Schema Layer will also serve as an enabling layer for complex multi-block da
 
 |     |      |
 |-----|------|
-| [Concept: IPLD Multi-block Collections](schema-layer/data-structures/multiblock-collections.md) | [schema-layer/data-structures/multiblock-collections.md](schema-layer/data-structures/multiblock-collections.md) |
+| [Concept: IPLD Multi-block Collections](data-structures/multiblock-collections.md) | [data-structures/multiblock-collections.md](data-structures/multiblock-collections.md) |
 | [Specification: IPLD Schemas](schemas/README.md) | [schemas/README.md](schemas/README.md) |
-| [Specification: HashMap](schema-layer/data-structures/hashmap.md) | [schema-layer/data-structures/hashmap.md](schema-layer/data-structures/hashmap.md) |
+| [Specification: HashMap](data-structures/hashmap.md) | [data-structures/hashmap.md](data-structures/hashmap.md) |
 
 ## Specification document status
 
