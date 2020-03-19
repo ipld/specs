@@ -4,7 +4,7 @@ It is flexible enough to support very small and very large (multi-block) binary 
 
 ```sh
 type Lengths [Int]
-type ByteUnionList [&BytesUnion]
+type ByteUnionList [&FlexibleByteLayout]
 
 type NestedByteList struct {
   lengths Lengths
@@ -12,15 +12,10 @@ type NestedByteList struct {
   algo optional String
 }
 
-type BytesUnion union {
+type FlexibleByteLayout union {
   | Bytes bytes
   | NestedByteList map
 } representation kinded
-
-type FlexibleByteLayout struct {
-  bytes BytesUnion
-  size Int
-}
 ```
 
 `FlexibleByteLayout` uses a potentially recursive union type. This allows you to build very large nested
