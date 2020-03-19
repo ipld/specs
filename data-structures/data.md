@@ -9,7 +9,6 @@ type ByteUnionList [&FlexibleByteLayout]
 type NestedByteList struct {
   lengths Lengths
   parts ByteUnionList
-  algo optional String
 }
 
 type FlexibleByteLayout union {
