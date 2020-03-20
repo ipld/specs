@@ -4,7 +4,7 @@ It is flexible enough to support very small and very large (multi-block) binary 
 
 ```sh
 type NestedByte struct {
-  length Int
+  lengthHint Int
   part &FlexibleByteList
 } representation tuple
 
