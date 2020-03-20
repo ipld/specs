@@ -3,17 +3,16 @@
 It is flexible enough to support very small and very large (multi-block) binary data.
 
 ```sh
-type Lengths [Int]
-type ByteUnionList [&FlexibleByteLayout]
+type NestedByte struct {
+  length Int
+  part &FlexibleByteList
+} representation tuple
 
-type NestedByteList struct {
-  lengths Lengths
-  parts ByteUnionList
-}
+type NestedByteList [ NestedByte ]
 
 type FlexibleByteLayout union {
   | Bytes bytes
-  | NestedByteList map
+  | NestedByteList list
 } representation kinded
 ```
 
