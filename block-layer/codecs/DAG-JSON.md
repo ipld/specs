@@ -11,8 +11,8 @@ DAG-JSON supports the full [IPLD Data Model](../data-model-layer/data-model.md).
 While it is unlikely de-serializers will enforce the following rules, codec implementors
 **SHOULD** do the following in order to ensure hashes consistently match for the same block data.
 
-* utf8 sort object keys
-* strip whitespace
+ - Sort object keys by their (UTF-8) encoded representation, i.e. with byte comparisons
+ - Strip whitespace
 
 This produces the most compact and consistent representation which will ensure that two codecs
 producing the same data end up with matching block hashes.
