@@ -8,8 +8,7 @@ DAG-JSON supports the full [IPLD Data Model](../data-model-layer/data-model.md).
 
 ### Serialization
 
-While it is unlikely de-serializers will enforce the following rules, codec implementors
-**SHOULD** do the following in order to ensure hashes consistently match for the same block data.
+Codec implementors **MUST** do the following in order to ensure hashes consistently match for the same block data.
 
  - Sort object keys by their (UTF-8) encoded representation, i.e. with byte comparisons
  - Strip whitespace
