@@ -7,7 +7,7 @@
     <meta name="generator" content="VuePress 1.4.1">
     
     <meta name="description" content="Specifications for the Inter-planetary Linked Data project">
-    <link rel="preload" href="/assets/css/0.styles.dc352d43.css" as="style"><link rel="preload" href="/assets/js/app.65339030.js" as="script"><link rel="preload" href="/assets/js/2.e90ea02f.js" as="script"><link rel="preload" href="/assets/js/17.f472f41b.js" as="script"><link rel="prefetch" href="/assets/js/10.29c8f85f.js"><link rel="prefetch" href="/assets/js/11.0dcb3b5d.js"><link rel="prefetch" href="/assets/js/12.17cd1611.js"><link rel="prefetch" href="/assets/js/13.62747599.js"><link rel="prefetch" href="/assets/js/14.6adbe743.js"><link rel="prefetch" href="/assets/js/15.29b8c948.js"><link rel="prefetch" href="/assets/js/16.d473f764.js"><link rel="prefetch" href="/assets/js/18.c6920c0f.js"><link rel="prefetch" href="/assets/js/19.7f614020.js"><link rel="prefetch" href="/assets/js/20.ddc5089f.js"><link rel="prefetch" href="/assets/js/3.1acc07d9.js"><link rel="prefetch" href="/assets/js/4.c0018b85.js"><link rel="prefetch" href="/assets/js/5.21a9ea5a.js"><link rel="prefetch" href="/assets/js/6.3f312d1a.js"><link rel="prefetch" href="/assets/js/7.b784776d.js"><link rel="prefetch" href="/assets/js/8.605fe13d.js"><link rel="prefetch" href="/assets/js/9.d0c67de9.js">
+    <link rel="preload" href="/assets/css/0.styles.dc352d43.css" as="style"><link rel="preload" href="/assets/js/app.cbcda5f5.js" as="script"><link rel="preload" href="/assets/js/2.e90ea02f.js" as="script"><link rel="preload" href="/assets/js/17.d8489785.js" as="script"><link rel="prefetch" href="/assets/js/10.29c8f85f.js"><link rel="prefetch" href="/assets/js/11.0dcb3b5d.js"><link rel="prefetch" href="/assets/js/12.17cd1611.js"><link rel="prefetch" href="/assets/js/13.62747599.js"><link rel="prefetch" href="/assets/js/14.6adbe743.js"><link rel="prefetch" href="/assets/js/15.29b8c948.js"><link rel="prefetch" href="/assets/js/16.d473f764.js"><link rel="prefetch" href="/assets/js/18.c6920c0f.js"><link rel="prefetch" href="/assets/js/19.7f614020.js"><link rel="prefetch" href="/assets/js/20.ddc5089f.js"><link rel="prefetch" href="/assets/js/3.1acc07d9.js"><link rel="prefetch" href="/assets/js/4.c0018b85.js"><link rel="prefetch" href="/assets/js/5.21a9ea5a.js"><link rel="prefetch" href="/assets/js/6.3f312d1a.js"><link rel="prefetch" href="/assets/js/7.b784776d.js"><link rel="prefetch" href="/assets/js/8.605fe13d.js"><link rel="prefetch" href="/assets/js/9.d0c67de9.js">
     <link rel="stylesheet" href="/assets/css/0.styles.dc352d43.css">
   </head>
   <body>
@@ -108,7 +108,10 @@ the default or explicitly user-provided (e.g. to re-emit the config without
 altering this), you want to use <code>optional</code>!
 In this situation, <code>implicit</code> may cause the provided value to be lost at the
 application-layer if it was equal to the default, whereas <code>optional</code> will
-expose and correctly preserve the value's presense or absence.</p> <h2 id="understanding-cardinality"><a href="#understanding-cardinality" class="header-anchor">#</a> Understanding Cardinality</h2> <h3 id="cardinality-examples"><a href="#cardinality-examples" class="header-anchor">#</a> Cardinality Examples</h3> <table><tr><th>Schema</th> <th>Valid Matching Representations</th> <th>Cardinality</th> <th>Comments</th></tr> <tr><td width="40%"><div class="language-ipldsch extra-class"><pre class="language-ipldsch"><code><span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">Foo</span></span> <span class="token builtin">struct</span> <span class="token punctuation">{</span>
+expose and correctly preserve the value's presense or absence.</p> <h2 id="understanding-cardinality"><a href="#understanding-cardinality" class="header-anchor">#</a> Understanding Cardinality</h2> <p>For more information on cardinality and the basics of how we reason about it,
+check out the <a href="/concepts/type-theory-glossary.html">Type Theory Glossary</a>
+from the <a href="/concepts/">Concepts</a> documentation.</p> <h3 id="cardinality-examples"><a href="#cardinality-examples" class="header-anchor">#</a> Cardinality Examples</h3> <p>These examples show how we count cardinality in IPLD Schemas
+in the presence of the <code>nullable</code> and <code>optional</code> keywords:</p> <table><tr><th>Schema</th> <th>Valid Matching Representations</th> <th>Cardinality</th> <th>Comments</th></tr> <tr><td width="40%"><div class="language-ipldsch extra-class"><pre class="language-ipldsch"><code><span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">Foo</span></span> <span class="token builtin">struct</span> <span class="token punctuation">{</span>
 	bar Bool
 <span class="token punctuation">}</span>
 </code></pre></div></td> <td width="20%"><code>{&quot;bar&quot;: true}</code><br> <code>{&quot;bar&quot;: false}</code><br></td> <td>2</td> <td>The cardinality of `Bool` is 2; the struct has no other members, so that's it.
@@ -135,6 +138,6 @@ expose and correctly preserve the value's presense or absence.</p> <h2 id="under
       </a>
       →
     </span></p></div> </main></div><div class="global-ui"></div></div>
-    <script src="/assets/js/app.65339030.js" defer></script><script src="/assets/js/2.e90ea02f.js" defer></script><script src="/assets/js/17.f472f41b.js" defer></script>
+    <script src="/assets/js/app.cbcda5f5.js" defer></script><script src="/assets/js/2.e90ea02f.js" defer></script><script src="/assets/js/17.d8489785.js" defer></script>
   </body>
 </html>
