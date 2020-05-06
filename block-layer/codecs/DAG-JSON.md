@@ -42,8 +42,8 @@ The Bytes kind is represented as an object with `"bytes"` as key and a [Multibas
 A link is represented as a base encoded CID. CIDv0 and CIDv1 are encoded differently.
 
  - CIDv1 is represented as a Multibase Base32 encoded string. The Base32 encoding is the one described in [RFC 4648, section 6](https://tools.ietf.org/html/rfc4648#section-6) without padding, hence the Multibase prefix is `b`.
- - CIDv0 is represented in its only possible Base58 encoding. The Base58 encoding is the one described in [Base58 draft](https://tools.ietf.org/html/draft-msporny-base58), hence the Multibase prefix is `Q`.
+ - CIDv0 is represented in its only possible Base58 encoding. The Base58 encoding is the one described in [Base58 draft](https://tools.ietf.org/html/draft-msporny-base58).
 
 ```javascript
-{"/": String /* Multibase Base58 encoded CIDv0 or Multibase Base32 encoded CIDv1 */}
+{"/": String /* Base58 encoded CIDv0 or Multibase Base32 encoded CIDv1 */}
 ```
