@@ -1,3 +1,7 @@
+# Specification: Flexible Byte Layout
+
+**Status: Prescriptive - Draft**
+
 `Flexible Byte Layout` is an advanced layout for representing binary data.
 
 It is flexible enough to support very small and very large (multi-block) binary data.
