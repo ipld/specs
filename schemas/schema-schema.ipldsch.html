@@ -7,7 +7,7 @@
     <meta name="generator" content="VuePress 1.5.2">
     
     <meta name="description" content="Specifications for the Inter-planetary Linked Data project">
-    <link rel="preload" href="/assets/css/0.styles.f00a7be1.css" as="style"><link rel="preload" href="/assets/js/app.233a8411.js" as="script"><link rel="preload" href="/assets/js/2.f8121aae.js" as="script"><link rel="preload" href="/assets/js/19.9ef83445.js" as="script"><link rel="prefetch" href="/assets/js/10.7f846f6c.js"><link rel="prefetch" href="/assets/js/11.a7b1e1a8.js"><link rel="prefetch" href="/assets/js/12.13d67b71.js"><link rel="prefetch" href="/assets/js/13.1d529afe.js"><link rel="prefetch" href="/assets/js/14.8a021691.js"><link rel="prefetch" href="/assets/js/15.9656016a.js"><link rel="prefetch" href="/assets/js/16.4da11a4e.js"><link rel="prefetch" href="/assets/js/17.ee48d690.js"><link rel="prefetch" href="/assets/js/18.255d8101.js"><link rel="prefetch" href="/assets/js/3.0741c22e.js"><link rel="prefetch" href="/assets/js/4.4c2ac560.js"><link rel="prefetch" href="/assets/js/5.a37dfd26.js"><link rel="prefetch" href="/assets/js/6.d7eaf7f7.js"><link rel="prefetch" href="/assets/js/7.b32df105.js"><link rel="prefetch" href="/assets/js/8.7f016f90.js"><link rel="prefetch" href="/assets/js/9.f59e4a13.js">
+    <link rel="preload" href="/assets/css/0.styles.f00a7be1.css" as="style"><link rel="preload" href="/assets/js/app.ae476d74.js" as="script"><link rel="preload" href="/assets/js/2.f8121aae.js" as="script"><link rel="preload" href="/assets/js/19.11dcf4f3.js" as="script"><link rel="prefetch" href="/assets/js/10.7f846f6c.js"><link rel="prefetch" href="/assets/js/11.a7b1e1a8.js"><link rel="prefetch" href="/assets/js/12.13d67b71.js"><link rel="prefetch" href="/assets/js/13.1d529afe.js"><link rel="prefetch" href="/assets/js/14.8a021691.js"><link rel="prefetch" href="/assets/js/15.9656016a.js"><link rel="prefetch" href="/assets/js/16.4da11a4e.js"><link rel="prefetch" href="/assets/js/17.ee48d690.js"><link rel="prefetch" href="/assets/js/18.f56f1379.js"><link rel="prefetch" href="/assets/js/3.0741c22e.js"><link rel="prefetch" href="/assets/js/4.4c2ac560.js"><link rel="prefetch" href="/assets/js/5.a37dfd26.js"><link rel="prefetch" href="/assets/js/6.d7eaf7f7.js"><link rel="prefetch" href="/assets/js/7.b32df105.js"><link rel="prefetch" href="/assets/js/8.7f016f90.js"><link rel="prefetch" href="/assets/js/9.f59e4a13.js">
     <link rel="stylesheet" href="/assets/css/0.styles.f00a7be1.css">
   </head>
   <body>
@@ -28,6 +28,7 @@
 <span class="token comment">## Yes, it's self-describing! :)</span>
 <span class="token comment">## -----</span>
 
+<span class="token comment">##</span>
 <span class="token comment">## Type names are a simple alias of string.</span>
 <span class="token comment">##</span>
 <span class="token comment">## There are some additional rules that should be applied. Type names:</span>
@@ -247,12 +248,16 @@
 <span class="token comment">## TypeMap describes a key-value map.</span>
 <span class="token comment">## The keys and values of the map have some specific type of their own.</span>
 <span class="token comment">##</span>
+<span class="token comment">## A constraint on keyType is that the referenced type must have a string</span>
+<span class="token comment">## representation kind. The IPLD Data Model only allows for string keys on maps,</span>
+<span class="token comment">## so this constraint is imposed here.</span>
+<span class="token comment">##</span>
 <span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">TypeMap</span></span> <span class="token builtin">struct</span> <span class="token punctuation">{</span>
-	keyType TypeName <span class="token comment"># additionally, the referenced type must be reprkind==string.</span>
+	keyType TypeName
 	valueType TypeTerm
 	valueNullable Bool <span class="token punctuation">(</span>implicit <span class="token string">&quot;false&quot;</span><span class="token punctuation">)</span>
 	representation MapRepresentation
-<span class="token representation">} <span class="token builtin">representation</span></span> map
+<span class="token punctuation">}</span>
 
 <span class="token comment">## MapRepresentation describes how a map type should be mapped onto</span>
 <span class="token comment">## its IPLD Data Model representation.  By default a map is a map in the</span>
@@ -310,7 +315,7 @@
 	valueType TypeTerm
 	valueNullable Bool <span class="token punctuation">(</span>implicit <span class="token string">&quot;false&quot;</span><span class="token punctuation">)</span>
 	representation ListRepresentation
-<span class="token representation">} <span class="token builtin">representation</span></span> map
+<span class="token punctuation">}</span>
 
 <span class="token comment">## ListRepresentation describes how a map type should be mapped onto</span>
 <span class="token comment">## its IPLD Data Model representation.  By default a list is a list in the</span>
@@ -515,7 +520,7 @@
 <span class="token typedef"><span class="token keyword">	type</span> <span class="token class-name">TypeTerm</span></span>
 	<span class="token keyword">optional</span> Bool <span class="token punctuation">(</span>implicit <span class="token string">&quot;false&quot;</span><span class="token punctuation">)</span>
 	<span class="token keyword">nullable</span> Bool <span class="token punctuation">(</span>implicit <span class="token string">&quot;false&quot;</span><span class="token punctuation">)</span>
-<span class="token representation">} <span class="token builtin">representation</span></span> map
+<span class="token punctuation">}</span>
 
 <span class="token comment">## TypeTerm is a union of either TypeName or an InlineDefn. th It's used for the</span>
 <span class="token comment">## value type in the recursive types (maps, lists, and the fields of structs),</span>
@@ -675,7 +680,7 @@
 <span class="token comment">## all int values are required.</span>
 <span class="token comment">##</span>
 <span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">TypeEnum</span></span> <span class="token builtin">struct</span> <span class="token punctuation">{</span>
-  members <span class="token punctuation">{</span>EnumValue<span class="token punctuation">:</span>Null<span class="token punctuation">}</span>
+	members <span class="token punctuation">{</span>EnumValue<span class="token punctuation">:</span>Null<span class="token punctuation">}</span>
 	representation EnumRepresentation
 <span class="token punctuation">}</span>
 
@@ -723,6 +728,6 @@
 	fromType TypeName
 <span class="token punctuation">}</span>
 </code></pre></div></div> <footer class="page-edit"><!----> <!----></footer> <!----> </main></div><div class="global-ui"></div></div>
-    <script src="/assets/js/app.233a8411.js" defer></script><script src="/assets/js/2.f8121aae.js" defer></script><script src="/assets/js/19.9ef83445.js" defer></script>
+    <script src="/assets/js/app.ae476d74.js" defer></script><script src="/assets/js/2.f8121aae.js" defer></script><script src="/assets/js/19.11dcf4f3.js" defer></script>
   </body>
 </html>
