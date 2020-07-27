@@ -10,6 +10,8 @@
 * [Implementations](#implementations)
   * [JavaScript](#javascript)
   * [Go](#go)
+* [Limitations](#limitations)
+  * [JavaScript](#javascript-1)
 
 DAG-CBOR supports the full [IPLD Data Model].
 
@@ -78,6 +80,30 @@ One of these approaches will be chosen and the libraries for the other language 
  * Strictness is not yet enforced on decode, blocks encoded that don't follow the strictness rules are not rejected
  * All floating point value are encoded as 64-bits
 
+## Limitations
+
+### JavaScript
+
+Users of DAG-CBOR that expect that their data may be consumed or produced by JavaScript at some point should be aware of limitations that the language imposes on its use of DAG-CBOR, specifically concerning numbers.
+
+All JavaScript numbers, both floating point and integer, (using the [`Number`] primitive wrapper) are represented internally as 64-bit [IEEE 754] floating-point values (i.e. double-precision). Some implications within JavaScript of this design choice are:
+
+ * By convention, JavaScript engines and developers usually omit the decimal point when representing whole numbers, simulating integers where the number is not actually stored as an integer.
+ * There is no clear differentiation between a pure integer type and a floating-point number where a developer may wish to have such a differentiation.
+ * There are limits on maximum and minimum safe integer sizes representable in JavaScript that are lower than those of languages where there are pure 64-bit integer types. Numbers outside of the range of `Number.MAX_SAFE_INTEGER` (`2`<sup>`53`</sup>` - 1`) and `Number.MIN_SAFE_INTEGER` (`-(2`<sup>`53`</sup>` - 1)`) cannot be safely manipulated of inspected as they incur rounding effects imposed by the IEEE 754 representation.
+ * Bit-wise operations are not able to be performed outside of the 32-bit range.
+
+The current CBOR library used by the primary JavaScript DAG-CBOR implementation uses the [bignumber.js] library to handle large numbers, although reliance on its wrapper type is _not_ recommended by DAG-CBOR users.
+
+The implications for DAG-CBOR of these limitaitons are:
+
+ * Any `Number` serialized by the JavaScript CBOR encoder relies on a whole-number (`x % 1 === 0`) check to determine whether it should be encoded as an integer or a float.
+ * Any float deserialized by the JavaScript CBOR decoder that does not have a fractional component will be indistinguishable from an integer to a JavaScript program.
+ * Any `Number` greater than `Number.MAX_SAFE_INTEGER` or less than `Number.MIN_SAFE_INTEGER` cannot be properly inspected for its whole-number status and is therefore encoded by the JavaScript CBOR encoder as float regardless of whether it is a whole-number or has a fractional component.
+ * Any integer deserialized by the JavaScript CBOR decoder greater than `Number.MAX_SAFE_INTEGER` or less than `Number.MIN_SAFE_INTEGER` will be returned as a bignumber.js wrapper type, which may be unexpected to consumers.
+
+A new [BigInt] built-in type is currently being adopted across JavaScript engines. Once support is widely available, it is expected that this type will assist with some of these challenges.
+
 [IPLD Data Model]: ../../data-model-layer/data-model.md
 [Concise Binary Object Representation (CBOR)]: https://tools.ietf.org/html/rfc7049
 [IPLD Data Model Kinds]: ../../data-model-layer/data-model.md#kinds
@@ -93,3 +119,7 @@ One of these approaches will be chosen and the libraries for the other language 
 [ipld-prime]: http://github.com/ipld/go-ipld-prime
 [ipld]: https://github.com/ipld/js-ipld
 [@ipld/block]: https://github.com/ipld/js-block
+[`Number`]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number
+[IEEE 754]: https://en.wikipedia.org/wiki/Floating-point_arithmetic
+[bignumber.js]: https://github.com/MikeMcl/bignumber.js
+[BigInt]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/BigInt
