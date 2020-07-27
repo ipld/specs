@@ -309,7 +309,7 @@ The reference Go implementation for the Filecoin HAMT is used by the [Lotus](htt
 
 The Filecoin HAMT _does not_ use an explicit root block (`HashMapRoot`) to encode its parameters within the data. Instead it is expected that consumers of the data understand the parameters from a combination of the Filecoin specification and versioning of the blockchain over time. All HAMT nodes take the same form, there is no differentiation for a root node and an implementation must bring implicit parameters when decoding each node.
 
-* `hashAlg`: The hash algorithm used by the Filecoin HAMT is the x64 form of the 64-bit [MurmurHash3](https://github.com/aappleby/smhasher). _(TODO: this may be changed to SHA2-256 prior to Filecoin mainnet: https://github.com/filecoin-project/specs-actors/issues/517)_
+* `hashAlg`: The hash algorithm used by the Filecoin HAMT is SHA2-256.
 * `bitWidth`: The Filecoin HAMT fixes the bit width to `5`, meaning that each node of the HAMT can contain up to `2`<sup>`5`</sup> (`32`) elements containing either buckets or links to child nodes.
 * `bucketSize`: The Filecoin HAMT fixes the maximum length of its buckets to `3`, meaning a maximally full HAMT leaf node can contain `32 x 3` (`96`) key/value pairs.
 
