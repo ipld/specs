@@ -10,7 +10,7 @@ type Symlink struct {
 }
 
 type DirEnt struct {
-	attribs Attribs
+	attribs optional Attribs
 	content AnyFile
 }
 
