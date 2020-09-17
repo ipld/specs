@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>IPLD Specifications</title>
+    <meta name="generator" content="VuePress 1.5.4">
+    
+    <meta name="description" content="Specifications for the Inter-planetary Linked Data project">
+    <link rel="preload" href="/assets/css/0.styles.af5e56d4.css" as="style"><link rel="preload" href="/assets/js/app.20f730e6.js" as="script"><link rel="preload" href="/assets/js/2.2d6107ed.js" as="script"><link rel="preload" href="/assets/js/5.02f47f72.js" as="script"><link rel="prefetch" href="/assets/js/10.36f99d26.js"><link rel="prefetch" href="/assets/js/11.59f24366.js"><link rel="prefetch" href="/assets/js/12.0d0ab97f.js"><link rel="prefetch" href="/assets/js/13.cfaa19c7.js"><link rel="prefetch" href="/assets/js/14.fd2903ea.js"><link rel="prefetch" href="/assets/js/15.8e535de7.js"><link rel="prefetch" href="/assets/js/16.8535e938.js"><link rel="prefetch" href="/assets/js/17.28d6338b.js"><link rel="prefetch" href="/assets/js/18.d035f88f.js"><link rel="prefetch" href="/assets/js/19.f4aedf5a.js"><link rel="prefetch" href="/assets/js/20.2f4b96a1.js"><link rel="prefetch" href="/assets/js/21.c06b674e.js"><link rel="prefetch" href="/assets/js/22.a5474984.js"><link rel="prefetch" href="/assets/js/23.9520c5cd.js"><link rel="prefetch" href="/assets/js/24.f78ef168.js"><link rel="prefetch" href="/assets/js/25.9dc1e40c.js"><link rel="prefetch" href="/assets/js/26.e53eaca3.js"><link rel="prefetch" href="/assets/js/27.3e4cf2aa.js"><link rel="prefetch" href="/assets/js/28.816fe4e3.js"><link rel="prefetch" href="/assets/js/29.cd52a63f.js"><link rel="prefetch" href="/assets/js/3.067b1da1.js"><link rel="prefetch" href="/assets/js/30.d6ef6a85.js"><link rel="prefetch" href="/assets/js/31.831bbb05.js"><link rel="prefetch" href="/assets/js/32.bfb50562.js"><link rel="prefetch" href="/assets/js/33.5f99915b.js"><link rel="prefetch" href="/assets/js/34.62ee9991.js"><link rel="prefetch" href="/assets/js/35.8a4b296e.js"><link rel="prefetch" href="/assets/js/36.a9ad770e.js"><link rel="prefetch" href="/assets/js/37.9f8deb1c.js"><link rel="prefetch" href="/assets/js/38.c96f42fa.js"><link rel="prefetch" href="/assets/js/39.0d3d9d13.js"><link rel="prefetch" href="/assets/js/4.ee4abcf1.js"><link rel="prefetch" href="/assets/js/40.f7327dc4.js"><link rel="prefetch" href="/assets/js/41.85e040d3.js"><link rel="prefetch" href="/assets/js/42.185ebaf8.js"><link rel="prefetch" href="/assets/js/43.32f51fb1.js"><link rel="prefetch" href="/assets/js/44.097cea13.js"><link rel="prefetch" href="/assets/js/45.8a99faf7.js"><link rel="prefetch" href="/assets/js/46.eb54faa0.js"><link rel="prefetch" href="/assets/js/47.129e4258.js"><link rel="prefetch" href="/assets/js/48.d822c0c4.js"><link rel="prefetch" href="/assets/js/49.9f9b1d03.js"><link rel="prefetch" href="/assets/js/50.fef10e7e.js"><link rel="prefetch" href="/assets/js/51.9a481eb8.js"><link rel="prefetch" href="/assets/js/52.71ed10d7.js"><link rel="prefetch" href="/assets/js/53.cdbf0b81.js"><link rel="prefetch" href="/assets/js/54.c1f38729.js"><link rel="prefetch" href="/assets/js/55.c9452da2.js"><link rel="prefetch" href="/assets/js/56.d6d25929.js"><link rel="prefetch" href="/assets/js/57.e20626b6.js"><link rel="prefetch" href="/assets/js/58.c8f9c033.js"><link rel="prefetch" href="/assets/js/59.c1b155f2.js"><link rel="prefetch" href="/assets/js/6.d29fd7af.js"><link rel="prefetch" href="/assets/js/60.32d4379a.js"><link rel="prefetch" href="/assets/js/61.33804ab8.js"><link rel="prefetch" href="/assets/js/62.592be5de.js"><link rel="prefetch" href="/assets/js/63.a7233cf1.js"><link rel="prefetch" href="/assets/js/64.8e3d382c.js"><link rel="prefetch" href="/assets/js/65.6d9f8dfa.js"><link rel="prefetch" href="/assets/js/66.0bc3a5f5.js"><link rel="prefetch" href="/assets/js/67.fc1c3bd3.js"><link rel="prefetch" href="/assets/js/68.d62191bf.js"><link rel="prefetch" href="/assets/js/69.d9131a8b.js"><link rel="prefetch" href="/assets/js/7.aac06655.js"><link rel="prefetch" href="/assets/js/70.1c2d30fc.js"><link rel="prefetch" href="/assets/js/71.ca26ea64.js"><link rel="prefetch" href="/assets/js/72.d290d096.js"><link rel="prefetch" href="/assets/js/73.dc0b6f75.js"><link rel="prefetch" href="/assets/js/74.97b91c2f.js"><link rel="prefetch" href="/assets/js/75.1ae7617b.js"><link rel="prefetch" href="/assets/js/76.3055e13e.js"><link rel="prefetch" href="/assets/js/8.623a5dd0.js"><link rel="prefetch" href="/assets/js/9.05249855.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.af5e56d4.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/" class="home-link router-link-active"><!----> <span class="site-name">IPLD Specifications</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/" class="nav-link">
+  Home
+</a></div><div class="nav-item"><a href="/schemas/" class="nav-link">
+  IPLD Schemas
+</a></div> <a href="https://github.com/ipld/specs" target="_blank" rel="noopener noreferrer" class="repo-link">
+    GitHub
+    <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/" class="nav-link">
+  Home
+</a></div><div class="nav-item"><a href="/schemas/" class="nav-link">
+  IPLD Schemas
+</a></div> <a href="https://github.com/ipld/specs" target="_blank" rel="noopener noreferrer" class="repo-link">
+    GitHub
+    <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></nav>  <ul class="sidebar-links"><li><section class="sidebar-group depth-0"><p class="sidebar-heading open"><span></span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/selectors/selectors.html#introduction" class="sidebar-link">Introduction</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/selectors/selectors.html#motivation-what-are-selectors" class="sidebar-link">Motivation - what are Selectors?</a></li></ul></li><li><a href="/selectors/selectors.html#specification" class="sidebar-link">Specification</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/selectors/selectors.html#schema" class="sidebar-link">Schema</a></li></ul></li><li><a href="/selectors/selectors.html#known-issues" class="sidebar-link">Known issues</a><ul class="sidebar-sub-headers"></ul></li><li><a href="/selectors/selectors.html#other-related-work" class="sidebar-link">Other related work</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/selectors/selectors.html#implementations" class="sidebar-link">Implementations</a></li><li class="sidebar-sub-header"><a href="/selectors/selectors.html#design-history" class="sidebar-link">Design History</a></li></ul></li></ul></section></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="specification-ipld-selectors"><a href="#specification-ipld-selectors" class="header-anchor">#</a> Specification: IPLD Selectors</h1> <p><strong>Status: Prescriptive - Draft</strong></p> <h2 id="introduction"><a href="#introduction" class="header-anchor">#</a> Introduction</h2> <h3 id="motivation-what-are-selectors"><a href="#motivation-what-are-selectors" class="header-anchor">#</a> Motivation - what are Selectors?</h3> <p><em>Prerequisites: <a href="https://github.com/ipld/ipld" target="_blank" rel="noopener noreferrer">IPLD<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>, IPLD data model, <a href="https://github.com/ipld/cid" target="_blank" rel="noopener noreferrer">CID<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>.</em></p> <p>IPLD Selectors are expressions that identify (&quot;select&quot;) a subset of nodes in an IPLD dag.</p> <p>This is a useful primitive to use along with: (a) systems that require distributing or pinning dags (IPFS, Filecoin, bitswap, graphsync, ipfs-cluster), (b) applications that require fetching subsets of data in specific orders or at specific times (video players, dataset viewers, file systems), (c) programs that transform graphs into other graphs (data transformations, ETL, etc). In short, it is a fundamental primitive required by most systems and applications in the IPLD and IPFS ecosystems, as important as <a href="https://github.com/multiformats/multihash" target="_blank" rel="noopener noreferrer">multihash<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>, <a href="https://github.com/ipld/cid" target="_blank" rel="noopener noreferrer">CIDs<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>, <a href="https://github.com/ipld/" target="_blank" rel="noopener noreferrer">IPLD Formats<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>, and more.</p> <p><img src="/assets/img/selectors.816ebf8a.jpg" alt=""></p> <p>(Note: syntaxes in the image are for quick understanding, but are not literal selector syntaxes (yet; we have an extension pathway).)</p> <h2 id="specification"><a href="#specification" class="header-anchor">#</a> Specification</h2> <p>Selectors are defined by an &quot;AST&quot; (Abstract Syntax Tree) which is itself
+specified in IPLD, and uses IPLD Schemas for clarity.</p> <p>Implementations of Selectors read this &quot;AST&quot; and evaluate its instructions to
+traverse a graph, and select nodes in it.</p> <h3 id="schema"><a href="#schema" class="header-anchor">#</a> Schema</h3> <p>This code block describes Selectors using <a href="/schemas/">IPLD Schemas</a> syntax.</p> <p>Descriptions of how each node should be evaluated can be found in comments
+inline in the schema.</p> <div class="language-ipldsch extra-class"><pre class="language-ipldsch"><code><span class="token comment">## SelectorEnvelope is the recommended top-level value for serialized messages</span>
+<span class="token comment">## that don't have established existing context with marks the start of a selector:</span>
+<span class="token comment">## it's a single-member union used to kick us towards &quot;nominative typing&quot;.</span>
+<span class="token comment">##</span>
+<span class="token comment">## See https://github.com/ipld/specs/tree/master/schemas/migration.md</span>
+<span class="token comment">## for a background on the theory behind this gentle-nominative concept.</span>
+<span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">SelectorEnvelope</span></span> <span class="token builtin">union</span> <span class="token punctuation">{</span>
+	<span class="token punctuation">|</span> Selector <span class="token string">&quot;selector&quot;</span>
+<span class="token representation">} <span class="token builtin">representation</span></span> keyed
+
+<span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">Selector</span></span> <span class="token builtin">union</span> <span class="token punctuation">{</span>
+	<span class="token punctuation">|</span> Matcher <span class="token string">&quot;.&quot;</span>
+	<span class="token punctuation">|</span> ExploreAll <span class="token string">&quot;a&quot;</span>
+	<span class="token punctuation">|</span> ExploreFields <span class="token string">&quot;f&quot;</span>
+	<span class="token punctuation">|</span> ExploreIndex <span class="token string">&quot;i&quot;</span>
+	<span class="token punctuation">|</span> ExploreRange <span class="token string">&quot;r&quot;</span>
+	<span class="token punctuation">|</span> ExploreRecursive <span class="token string">&quot;R&quot;</span>
+	<span class="token punctuation">|</span> ExploreUnion <span class="token string">&quot;|&quot;</span>
+	<span class="token punctuation">|</span> ExploreConditional <span class="token string">&quot;&amp;&quot;</span>
+	<span class="token punctuation">|</span> ExploreRecursiveEdge <span class="token string">&quot;@&quot;</span> <span class="token comment"># sentinel value; only valid in some positions.</span>
+<span class="token representation">} <span class="token builtin">representation</span></span> keyed
+
+<span class="token comment">## ExploreAll is similar to a `*` -- it traverses all elements of an array,</span>
+<span class="token comment">## or all entries in a map, and applies a next selector to the reached nodes.</span>
+<span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">ExploreAll</span></span> <span class="token builtin">struct</span> <span class="token punctuation">{</span>
+	next Selector <span class="token punctuation">(</span>rename <span class="token string">&quot;&gt;&quot;</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">## ExploreFields traverses named fields in a map (or equivalently, struct, if</span>
+<span class="token comment">## traversing on typed/schema nodes) and applies a next selector to the</span>
+<span class="token comment">## reached nodes.</span>
+<span class="token comment">##</span>
+<span class="token comment">## Note that a concept of exploring a whole path (e.g. &quot;foo/bar/baz&quot;) can be</span>
+<span class="token comment">## represented as a set of three nexted ExploreFields selectors, each</span>
+<span class="token comment">## specifying one field.</span>
+<span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">ExploreFields</span></span> <span class="token builtin">struct</span> <span class="token punctuation">{</span>
+	fields <span class="token punctuation">{</span>String<span class="token punctuation">:</span>Selector<span class="token punctuation">}</span> <span class="token punctuation">(</span>rename <span class="token string">&quot;f&gt;&quot;</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">## ExploreIndex traverses a specific index in a list, and applies a next</span>
+<span class="token comment">## selector to the reached node.</span>
+<span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">ExploreIndex</span></span> <span class="token builtin">struct</span> <span class="token punctuation">{</span>
+	index Int <span class="token punctuation">(</span>rename <span class="token string">&quot;i&quot;</span><span class="token punctuation">)</span>
+	next Selector <span class="token punctuation">(</span>rename <span class="token string">&quot;&gt;&quot;</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">## ExploreRange traverses a list, and for each element in the range specified,</span>
+<span class="token comment">## will apply a next selector to those reached nodes.</span>
+<span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">ExploreRange</span></span> <span class="token builtin">struct</span> <span class="token punctuation">{</span>
+	start Int <span class="token punctuation">(</span>rename <span class="token string">&quot;^&quot;</span><span class="token punctuation">)</span>
+	end Int <span class="token punctuation">(</span>rename <span class="token string">&quot;$&quot;</span><span class="token punctuation">)</span>
+	next Selector <span class="token punctuation">(</span>rename <span class="token string">&quot;&gt;&quot;</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">## ExploreRecursive traverses some structure recursively.</span>
+<span class="token comment">## To guide this exploration, it uses a &quot;sequence&quot;, which is another Selector</span>
+<span class="token comment">## tree; some leaf node in this sequence should contain an ExploreRecursiveEdge</span>
+<span class="token comment">## selector, which denotes the place recursion should occur.</span>
+<span class="token comment">##</span>
+<span class="token comment">## In implementation, whenever evaluation reaches an ExploreRecursiveEdge marker</span>
+<span class="token comment">## in the recursion sequence's Selector tree, the implementation logically</span>
+<span class="token comment">## produces another new Selector which is a copy of the original</span>
+<span class="token comment">## ExploreRecursive selector, but with a decremented depth parameter for limit</span>
+<span class="token comment">## (if limit is of type depth), and continues evaluation thusly.</span>
+<span class="token comment">##</span>
+<span class="token comment">## It is not valid for an ExploreRecursive selector's sequence to contain</span>
+<span class="token comment">## no instances of ExploreRecursiveEdge; it *is* valid for it to contain</span>
+<span class="token comment">## more than one ExploreRecursiveEdge.</span>
+<span class="token comment">##</span>
+<span class="token comment">## ExploreRecursive can contain a nested ExploreRecursive!</span>
+<span class="token comment">## This is comparable to a nested for-loop.</span>
+<span class="token comment">## In these cases, any ExploreRecursiveEdge instance always refers to the</span>
+<span class="token comment">## nearest parent ExploreRecursive (in other words, ExploreRecursiveEdge can</span>
+<span class="token comment">## be thought of like the 'continue' statement, or end of a for-loop body;</span>
+<span class="token comment">## it is *not* a 'goto' statement).</span>
+<span class="token comment">##</span>
+<span class="token comment">## Be careful when using ExploreRecursive with a large depth limit parameter;</span>
+<span class="token comment">## it can easily cause very large traversals (especially if used in combination</span>
+<span class="token comment">## with selectors like ExploreAll inside the sequence).</span>
+<span class="token comment">##</span>
+<span class="token comment">## limit is a union type -- it can have an integer depth value (key &quot;depth&quot;) or</span>
+<span class="token comment">## no value (key &quot;none&quot;). If limit has no value it is up to the </span>
+<span class="token comment">## implementation library using selectors to identify an appropriate max depth</span>
+<span class="token comment">## as neccesary so that recursion is not infinite</span>
+
+<span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">ExploreRecursive</span></span> <span class="token builtin">struct</span> <span class="token punctuation">{</span>
+	sequence Selector <span class="token punctuation">(</span>rename <span class="token string">&quot;:&gt;&quot;</span><span class="token punctuation">)</span>
+	limit RecursionLimit <span class="token punctuation">(</span>rename <span class="token string">&quot;l&quot;</span><span class="token punctuation">)</span>
+	stopAt <span class="token keyword">optional</span> Condition <span class="token punctuation">(</span>rename <span class="token string">&quot;!&quot;</span><span class="token punctuation">)</span> <span class="token comment"># if a node matches, we won't match it nor explore its children.</span>
+<span class="token punctuation">}</span>
+
+<span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">RecursionLimit</span></span> <span class="token builtin">union</span> <span class="token punctuation">{</span>
+	<span class="token punctuation">|</span> RecursionLimit_None <span class="token string">&quot;none&quot;</span>
+	<span class="token punctuation">|</span> RecursionLimit_Depth <span class="token string">&quot;depth&quot;</span>
+<span class="token representation">} <span class="token builtin">representation</span></span> keyed
+
+<span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">RecursionLimit_None</span></span> <span class="token builtin">struct</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+<span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">RecursionLimit_Depth</span></span> <span class="token keyword">int</span>
+
+<span class="token comment">## ExploreRecursiveEdge is a special sentinel value which is used to mark</span>
+<span class="token comment">## the end of a sequence started by an ExploreRecursive selector: the recursion</span>
+<span class="token comment">## goes back to the initial state of the earlier ExploreRecursive selector,</span>
+<span class="token comment">## and proceeds again (with a decremented maxDepth value).</span>
+<span class="token comment">##</span>
+<span class="token comment">## An ExploreRecursive selector that doesn't contain an ExploreRecursiveEdge</span>
+<span class="token comment">## is nonsensical.  Containing more than one ExploreRecursiveEdge is valid.</span>
+<span class="token comment">## An ExploreRecursiveEdge without an enclosing ExploreRecursive is an error.</span>
+<span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">ExploreRecursiveEdge</span></span> <span class="token builtin">struct</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+
+<span class="token comment">## ExploreUnion allows selection to continue with two or more distinct selectors</span>
+<span class="token comment">## while exploring the same tree of data.</span>
+<span class="token comment">##</span>
+<span class="token comment">## ExploreUnion can be used to apply a Matcher on one node (causing it to</span>
+<span class="token comment">## be considered part of a (possibly labelled) result set), while simultaneously</span>
+<span class="token comment">## continuing to explore deeper parts of the tree with another selector,</span>
+<span class="token comment">## for example.</span>
+<span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">ExploreUnion</span></span> <span class="token punctuation">[</span>Selector<span class="token punctuation">]</span>
+
+<span class="token comment">## Note that ExploreConditional versus a Matcher with a Condition are distinct:</span>
+<span class="token comment">## ExploreConditional progresses deeper into a tree;</span>
+<span class="token comment">## whereas a Matcher with a Condition may look deeper to make its decision,</span>
+<span class="token comment">## but returns a match for the node it's on rather any of the deeper values.</span>
+<span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">ExploreConditional</span></span> <span class="token builtin">struct</span> <span class="token punctuation">{</span>
+	condition Condition <span class="token punctuation">(</span>rename <span class="token string">&quot;&amp;&quot;</span><span class="token punctuation">)</span>
+	next Selector <span class="token punctuation">(</span>rename <span class="token string">&quot;&gt;&quot;</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">## Matcher marks a node to be included in the &quot;result&quot; set.</span>
+<span class="token comment">## (All nodes traversed by a selector are in the &quot;covered&quot; set (which is a.k.a.</span>
+<span class="token comment">## &quot;the merkle proof&quot;); the &quot;result&quot; set is a subset of the &quot;covered&quot; set.)</span>
+<span class="token comment">##</span>
+<span class="token comment">## In libraries using selectors, the &quot;result&quot; set is typically provided to</span>
+<span class="token comment">## some user-specified callback.</span>
+<span class="token comment">##</span>
+<span class="token comment">## A selector tree with only &quot;explore*&quot;-type selectors and no Matcher selectors</span>
+<span class="token comment">## is valid; it will just generate a &quot;covered&quot; set of nodes and no &quot;result&quot; set.</span>
+<span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">Matcher</span></span> <span class="token builtin">struct</span> <span class="token punctuation">{</span>
+	onlyIf <span class="token keyword">optional</span> Condition <span class="token comment"># match is true based on position alone if this is not set.</span>
+	label <span class="token keyword">optional</span> String <span class="token comment"># labels can be used to match multiple different structures in one selection.</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">## Condition is expresses a predicate with a boolean result.</span>
+<span class="token comment">##</span>
+<span class="token comment">## Condition clauses are used several places:</span>
+<span class="token comment">##   - in Matcher, to determine if a node is selected.</span>
+<span class="token comment">##   - in ExploreRecursive, to halt exploration.</span>
+<span class="token comment">##   - in ExploreConditional,</span>
+<span class="token comment">##</span>
+<span class="token comment">##</span>
+<span class="token comment">## TODO -- Condition is very skeletal and incomplete.</span>
+<span class="token comment">## The place where Condition appears in other structs is correct;</span>
+<span class="token comment">## the rest of the details inside it are not final nor even completely drafted.</span>
+<span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">Condition</span></span> <span class="token builtin">union</span> <span class="token punctuation">{</span>
+	<span class="token comment"># We can come back to this and expand it later...</span>
+	<span class="token comment"># TODO: figure out how to make this recurse correctly, so I can say &quot;hasField{hasField{or{hasValue{1}, hasValue{2}}}}&quot;.</span>
+	<span class="token punctuation">|</span> Condition_HasField <span class="token string">&quot;hasField&quot;</span>
+	<span class="token punctuation">|</span> Condition_HasValue <span class="token string">&quot;=&quot;</span> <span class="token comment"># will need to contain a kinded union, lol.  these conditions are gonna get deep.)</span>
+	<span class="token punctuation">|</span> Condition_HasKind <span class="token string">&quot;%&quot;</span> <span class="token comment"># will ideally want to refer to the DataModel ReprKind enum...!  will we replicate that here?  don't want to block on cross-schema references, but it's interesting that we've finally found a good example wanting it.</span>
+	<span class="token punctuation">|</span> Condition_IsLink <span class="token string">&quot;/&quot;</span> <span class="token comment"># will need this so we can use it in recursions to say &quot;stop at CID QmFoo&quot;.</span>
+	<span class="token punctuation">|</span> Condition_GreaterThan <span class="token string">&quot;greaterThan&quot;</span>
+	<span class="token punctuation">|</span> Condition_LessThan <span class="token string">&quot;lessThan&quot;</span>
+	<span class="token punctuation">|</span> Condition_And <span class="token string">&quot;and&quot;</span>
+	<span class="token punctuation">|</span> Condition_Or <span class="token string">&quot;or&quot;</span>
+	<span class="token comment"># REVIEW: since we introduced &quot;and&quot; and &quot;or&quot; here, we're getting into dangertown again.  we'll need a &quot;max conditionals limit&quot; (a la 'gas' of some kind) near here.</span>
+<span class="token representation">} <span class="token builtin">representation</span></span> keyed
+</code></pre></div><h2 id="known-issues"><a href="#known-issues" class="header-anchor">#</a> Known issues</h2> <ul><li>Note that the status of this document is &quot;Draft&quot;!</li> <li>The &quot;Condition&quot; system is not fully specified -- it is a placeholder awaiting further design.</li></ul> <h2 id="other-related-work"><a href="#other-related-work" class="header-anchor">#</a> Other related work</h2> <h3 id="implementations"><a href="#implementations" class="header-anchor">#</a> Implementations</h3> <ul><li><a href="https://github.com/ipld/go-ipld-prime/tree/master/traversal/selector" target="_blank" rel="noopener noreferrer">Selectors package in go-ipld-prime<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a> <ul><li><a href="https://godoc.org/github.com/ipld/go-ipld-prime/traversal#Traverse" target="_blank" rel="noopener noreferrer">Traversal func which uses Selectors<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li> <li>note that these are still skeletal PoC implementations and not yet feature-complete</li></ul></li></ul> <h3 id="design-history"><a href="#design-history" class="header-anchor">#</a> Design History</h3> <ul><li>See <a href="/design/history/exploration-reports/2018.10-selectors-design-goals.html">Selector Design Goals</a> (2018).</li></ul></div> <footer class="page-edit"><div class="edit-link"><a href="https://github.com/ipld/specs/edit/master/selectors/selectors.md" target="_blank" rel="noopener noreferrer">Edit this page on GitHub</a> <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></div> <div class="last-updated"><span class="prefix">Last Updated:</span> <span class="time">9/17/2020, 3:17:59 AM</span></div></footer> <!----> </main></div><div class="global-ui"></div></div>
+    <script src="/assets/js/app.20f730e6.js" defer></script><script src="/assets/js/2.2d6107ed.js" defer></script><script src="/assets/js/5.02f47f72.js" defer></script>
+  </body>
+</html>

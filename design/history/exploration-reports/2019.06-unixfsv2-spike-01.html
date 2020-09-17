@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>IPLD Specifications</title>
+    <meta name="generator" content="VuePress 1.5.4">
+    
+    <meta name="description" content="Specifications for the Inter-planetary Linked Data project">
+    <link rel="preload" href="/assets/css/0.styles.af5e56d4.css" as="style"><link rel="preload" href="/assets/js/app.20f730e6.js" as="script"><link rel="preload" href="/assets/js/2.2d6107ed.js" as="script"><link rel="preload" href="/assets/js/43.32f51fb1.js" as="script"><link rel="prefetch" href="/assets/js/10.36f99d26.js"><link rel="prefetch" href="/assets/js/11.59f24366.js"><link rel="prefetch" href="/assets/js/12.0d0ab97f.js"><link rel="prefetch" href="/assets/js/13.cfaa19c7.js"><link rel="prefetch" href="/assets/js/14.fd2903ea.js"><link rel="prefetch" href="/assets/js/15.8e535de7.js"><link rel="prefetch" href="/assets/js/16.8535e938.js"><link rel="prefetch" href="/assets/js/17.28d6338b.js"><link rel="prefetch" href="/assets/js/18.d035f88f.js"><link rel="prefetch" href="/assets/js/19.f4aedf5a.js"><link rel="prefetch" href="/assets/js/20.2f4b96a1.js"><link rel="prefetch" href="/assets/js/21.c06b674e.js"><link rel="prefetch" href="/assets/js/22.a5474984.js"><link rel="prefetch" href="/assets/js/23.9520c5cd.js"><link rel="prefetch" href="/assets/js/24.f78ef168.js"><link rel="prefetch" href="/assets/js/25.9dc1e40c.js"><link rel="prefetch" href="/assets/js/26.e53eaca3.js"><link rel="prefetch" href="/assets/js/27.3e4cf2aa.js"><link rel="prefetch" href="/assets/js/28.816fe4e3.js"><link rel="prefetch" href="/assets/js/29.cd52a63f.js"><link rel="prefetch" href="/assets/js/3.067b1da1.js"><link rel="prefetch" href="/assets/js/30.d6ef6a85.js"><link rel="prefetch" href="/assets/js/31.831bbb05.js"><link rel="prefetch" href="/assets/js/32.bfb50562.js"><link rel="prefetch" href="/assets/js/33.5f99915b.js"><link rel="prefetch" href="/assets/js/34.62ee9991.js"><link rel="prefetch" href="/assets/js/35.8a4b296e.js"><link rel="prefetch" href="/assets/js/36.a9ad770e.js"><link rel="prefetch" href="/assets/js/37.9f8deb1c.js"><link rel="prefetch" href="/assets/js/38.c96f42fa.js"><link rel="prefetch" href="/assets/js/39.0d3d9d13.js"><link rel="prefetch" href="/assets/js/4.ee4abcf1.js"><link rel="prefetch" href="/assets/js/40.f7327dc4.js"><link rel="prefetch" href="/assets/js/41.85e040d3.js"><link rel="prefetch" href="/assets/js/42.185ebaf8.js"><link rel="prefetch" href="/assets/js/44.097cea13.js"><link rel="prefetch" href="/assets/js/45.8a99faf7.js"><link rel="prefetch" href="/assets/js/46.eb54faa0.js"><link rel="prefetch" href="/assets/js/47.129e4258.js"><link rel="prefetch" href="/assets/js/48.d822c0c4.js"><link rel="prefetch" href="/assets/js/49.9f9b1d03.js"><link rel="prefetch" href="/assets/js/5.02f47f72.js"><link rel="prefetch" href="/assets/js/50.fef10e7e.js"><link rel="prefetch" href="/assets/js/51.9a481eb8.js"><link rel="prefetch" href="/assets/js/52.71ed10d7.js"><link rel="prefetch" href="/assets/js/53.cdbf0b81.js"><link rel="prefetch" href="/assets/js/54.c1f38729.js"><link rel="prefetch" href="/assets/js/55.c9452da2.js"><link rel="prefetch" href="/assets/js/56.d6d25929.js"><link rel="prefetch" href="/assets/js/57.e20626b6.js"><link rel="prefetch" href="/assets/js/58.c8f9c033.js"><link rel="prefetch" href="/assets/js/59.c1b155f2.js"><link rel="prefetch" href="/assets/js/6.d29fd7af.js"><link rel="prefetch" href="/assets/js/60.32d4379a.js"><link rel="prefetch" href="/assets/js/61.33804ab8.js"><link rel="prefetch" href="/assets/js/62.592be5de.js"><link rel="prefetch" href="/assets/js/63.a7233cf1.js"><link rel="prefetch" href="/assets/js/64.8e3d382c.js"><link rel="prefetch" href="/assets/js/65.6d9f8dfa.js"><link rel="prefetch" href="/assets/js/66.0bc3a5f5.js"><link rel="prefetch" href="/assets/js/67.fc1c3bd3.js"><link rel="prefetch" href="/assets/js/68.d62191bf.js"><link rel="prefetch" href="/assets/js/69.d9131a8b.js"><link rel="prefetch" href="/assets/js/7.aac06655.js"><link rel="prefetch" href="/assets/js/70.1c2d30fc.js"><link rel="prefetch" href="/assets/js/71.ca26ea64.js"><link rel="prefetch" href="/assets/js/72.d290d096.js"><link rel="prefetch" href="/assets/js/73.dc0b6f75.js"><link rel="prefetch" href="/assets/js/74.97b91c2f.js"><link rel="prefetch" href="/assets/js/75.1ae7617b.js"><link rel="prefetch" href="/assets/js/76.3055e13e.js"><link rel="prefetch" href="/assets/js/8.623a5dd0.js"><link rel="prefetch" href="/assets/js/9.05249855.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.af5e56d4.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/" class="home-link router-link-active"><!----> <span class="site-name">IPLD Specifications</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/" class="nav-link">
+  Home
+</a></div><div class="nav-item"><a href="/schemas/" class="nav-link">
+  IPLD Schemas
+</a></div> <a href="https://github.com/ipld/specs" target="_blank" rel="noopener noreferrer" class="repo-link">
+    GitHub
+    <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/" class="nav-link">
+  Home
+</a></div><div class="nav-item"><a href="/schemas/" class="nav-link">
+  IPLD Schemas
+</a></div> <a href="https://github.com/ipld/specs" target="_blank" rel="noopener noreferrer" class="repo-link">
+    GitHub
+    <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></nav>  <ul class="sidebar-links"><li><section class="sidebar-group depth-0"><p class="sidebar-heading open"><span></span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/design/history/exploration-reports/2019.06-unixfsv2-spike-01.html#schema" class="sidebar-link">Schema</a><ul class="sidebar-sub-headers"></ul></li><li><a href="/design/history/exploration-reports/2019.06-unixfsv2-spike-01.html#interesting-highlights" class="sidebar-link">Interesting Highlights</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/design/history/exploration-reports/2019.06-unixfsv2-spike-01.html#using-various-schemas-as-a-feature" class="sidebar-link">Using various schemas as a feature!</a></li><li class="sidebar-sub-header"><a href="/design/history/exploration-reports/2019.06-unixfsv2-spike-01.html#advanced-layout-usage-sites-are-marked-with-angle-brackets" class="sidebar-link">Advanced layout usage sites are marked with angle brackets</a></li><li class="sidebar-sub-header"><a href="/design/history/exploration-reports/2019.06-unixfsv2-spike-01.html#advanced-layout-usage-sites-are-marked" class="sidebar-link">Advanced layout usage sites are marked</a></li><li class="sidebar-sub-header"><a href="/design/history/exploration-reports/2019.06-unixfsv2-spike-01.html#advanced-layouts-promising-a-kind" class="sidebar-link">Advanced layouts promising a kind?</a></li><li class="sidebar-sub-header"><a href="/design/history/exploration-reports/2019.06-unixfsv2-spike-01.html#advanced-layout-implementation-strings" class="sidebar-link">Advanced layout implementation strings</a></li><li class="sidebar-sub-header"><a href="/design/history/exploration-reports/2019.06-unixfsv2-spike-01.html#what-are-executables-anyway" class="sidebar-link">What are executables, anyway?</a></li><li class="sidebar-sub-header"><a href="/design/history/exploration-reports/2019.06-unixfsv2-spike-01.html#ugh-int-sizes" class="sidebar-link">Ugh, int sizes</a></li><li class="sidebar-sub-header"><a href="/design/history/exploration-reports/2019.06-unixfsv2-spike-01.html#links" class="sidebar-link">Links</a></li><li class="sidebar-sub-header"><a href="/design/history/exploration-reports/2019.06-unixfsv2-spike-01.html#did-you-notice-we-still-don-t-have-enough-information-to-determine-cids" class="sidebar-link">Did you notice we still don't have enough information to determine CIDs?</a></li><li class="sidebar-sub-header"><a href="/design/history/exploration-reports/2019.06-unixfsv2-spike-01.html#do-advanced-layouts-deserve-parameters" class="sidebar-link">Do advanced layouts deserve parameters?</a></li></ul></li><li><a href="/design/history/exploration-reports/2019.06-unixfsv2-spike-01.html#some-errata" class="sidebar-link">Some Errata</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/design/history/exploration-reports/2019.06-unixfsv2-spike-01.html#some-unixfs-naming-notes" class="sidebar-link">Some unixfs naming notes</a></li><li class="sidebar-sub-header"><a href="/design/history/exploration-reports/2019.06-unixfsv2-spike-01.html#things-not-included-for-brevity" class="sidebar-link">Things not included for brevity</a></li><li class="sidebar-sub-header"><a href="/design/history/exploration-reports/2019.06-unixfsv2-spike-01.html#remember-selectors-are-coming" class="sidebar-link">Remember, Selectors Are Coming</a></li><li class="sidebar-sub-header"><a href="/design/history/exploration-reports/2019.06-unixfsv2-spike-01.html#inb4-timezones" class="sidebar-link">inb4 timezones</a></li></ul></li></ul></section></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="a-unixfsv2-spike-using-schemas"><a href="#a-unixfsv2-spike-using-schemas" class="header-anchor">#</a> A unixfsv2 spike, using schemas</h1> <p>This document is an exploration of what a hypothetical &quot;unixfs v2&quot; might look like,
+using schemas as a design language for describing the data structures.</p> <p>This is not a final proposal, but rather a lens to explore both unixfsv2
+concepts and schemas themselves at the same time, and how we expect them
+to contribute to each other.  Several concepts in schemas, advanced layouts,
+their interactions, and their syntaxes will be trialled here; they are not final.</p> <p>Without further ado...</p> <h2 id="schema"><a href="#schema" class="header-anchor">#</a> Schema</h2> <div class="language- extra-class"><pre class="language-text"><code>type AnyFile union {
+	| File &quot;f&quot;
+	| Dir &quot;d&quot;
+	| Symlink &quot;s&quot;
+} representation keyed
+
+type Filename string
+
+type Dir struct {
+	members {Filename:DirEnt}&lt;HAMT&gt;
+}
+
+type DirEnt struct {
+	content &amp;AnyFile
+	attribs Attribs
+}
+
+type File struct {
+	content Bytes&lt;Rabin&gt;
+}
+
+type Symlink struct {
+	target String
+}
+
+advanced Rabin {
+	kind bytes
+	implementation &quot;IPLD/experimental/rabin/v1&quot;
+}
+
+advanced HAMT {
+	kind map
+	implementation &quot;IPLD/experimental/HAMT/v1&quot;
+}
+
+type Attribs struct {
+	mtime Int # Danger danger will robinson; int sizes will rear their ugly head.
+	posix Int # Can we just... do the standard 0777 mask packing here?  I don't think anything else is *less* work.
+	sticky Bool (implicit: false)
+	setuid Bool (implicit: false)
+	setgid Bool (implicit: false)
+	uid Int # make another schema which deliberately excludes this.  try to match this one (the one with more info) first.
+	gid Int # make another schema which deliberately excludes this.  try to match this one (the one with more info) first.
+}
+
+# You should be able to imagine sending a fancy graphsync request with some structure like:
+#
+#  {&quot;schema&quot;: {{schemaCIDofUnixfs}}, &quot;selector&quot;: {{selectorSpec}},
+#   &quot;schemaPatch&quot;: {&quot;./dir/transparently/through/to/file&quot;: {{schemaCIDofRabinLayout}},
+#   &quot;startAt&quot;: {{rootBlockCID+path}} }
+#
+# This kind of fancy graphsync request can be used to make a query which does &quot;the right thing&quot; with
+# all advanced layouts transparently; then when reaching the 'patch' area, perhaps the selector spec
+# wants to use the seeded-psuedorandomness feature, so it can issue queries like this across many peers.
+#
+# Perhaps we won't actually need the 'patch' feature, because in practice if doing queries with lots
+# of fancy sharded requests, prooobably you'll do the path *up to* that first, in a separate query,
+# But either way, you can see how using schemas for signaling is useful here.
+</code></pre></div><h2 id="interesting-highlights"><a href="#interesting-highlights" class="header-anchor">#</a> Interesting Highlights</h2> <h3 id="using-various-schemas-as-a-feature"><a href="#using-various-schemas-as-a-feature" class="header-anchor">#</a> Using various schemas as a feature!</h3> <p>Observe the comments on the <code>Attribs.uid</code> and <code>Attribs.gid</code> fields.</p> <p>By using several different (but significantly overlapping) schemas to describe variations
+in which attributes we're storing, we can make unixfsv2 into an extensible yet still
+very well defined system.</p> <p>Concretely: If the <code>uid</code> and <code>gid</code> elements are found present in the first <code>Attribs</code> map
+processed in a tree of data, then we match the first schema (the one with more info),
+and we can now expect <em>all future</em> <code>Attribs</code> maps to consistently include the same data.
+If the <code>uid</code> or <code>gid</code> elements are found to be missing, we would flunk out of matching
+the first schema, and try a second schema which does not include them... and again,
+now expect <em>all future</em> <code>Attribs</code> maps to consistently <em>not</em> include these data.</p> <p>This kind of deep consistency makes it easier to build applications,
+especially applications which may want to change their behavior
+or apply distinct transformations depending on which of the schemas matches.</p> <h3 id="advanced-layout-usage-sites-are-marked-with-angle-brackets"><a href="#advanced-layout-usage-sites-are-marked-with-angle-brackets" class="header-anchor">#</a> Advanced layout usage sites are marked with angle brackets</h3> <p>E.g., on the line <code>members {Filename:DirEnt}&lt;HAMT&gt;</code>, it's the <code>&lt;</code> and <code>&gt;</code>
+characters which denote that we'll be using an advanced layout here.</p> <p>We might also consider using different characters for this denotation.
+(Angle brackets are reminiscent of generics in Java syntax;
+this may or may not be a helpful reminiscence.)</p> <p>We might also consider a different approach entirely: ditching the ability to
+declare advanced layouts on inline type terms at all, and instead using
+something more like the <code>representation</code> keyword.
+Such an approach would syntactically require a fully named type for any
+structure that wants to use an advanced layout.
+Given that the most common applications of advanced layouts are for map, list,
+and byte kinds, all of which tend to be used via anonymous inline types,
+this could result in a substantial increase in syntax volume
+(e.g., in this example, it would've lead to two new named types).</p> <p>(Note that the previous paragraph has only considered schema <em>DSL syntax</em>;
+perhaps the issue looks differently if considered via the IPLD-native &quot;AST&quot;.)</p> <h3 id="advanced-layout-usage-sites-are-marked"><a href="#advanced-layout-usage-sites-are-marked" class="header-anchor">#</a> Advanced layout usage sites are marked</h3> <p>See https://github.com/ipld/specs/issues/130 -- specifically,
+the &quot;signaling&quot; problem -- for more discussion of this.</p> <p>We're exploring the &quot;explicit signaling&quot; approach, and doing so
+using schemas as the vehicle, here.</p> <h3 id="advanced-layouts-promising-a-kind"><a href="#advanced-layouts-promising-a-kind" class="header-anchor">#</a> Advanced layouts promising a kind?</h3> <p>The <code>kind map</code> and <code>kind bytes</code> markings in the <code>advanced</code> blocks are a hypothesis.</p> <p>In the cases shown in this example, we definitely know that these are the kinds
+we expect the advanced layout algorithms in question to behave as.
+This may not always be true (e.g. in the encryption user story, not explored here).</p> <p>The kind is also indicated at the usage site -- e.g. the <code>{</code> character
+at the start of the usage site <code>members {Filename:DirEnt}&lt;HAMT&gt;</code> already
+makes it quite clear that we're dealing with a map kind -- so perhaps
+kind indicators in the <code>advanced</code> block is redundant.  Or, perhaps by the
+other side of the same coin, they're a good sanity-check landmark.</p> <h3 id="advanced-layout-implementation-strings"><a href="#advanced-layout-implementation-strings" class="header-anchor">#</a> Advanced layout implementation strings</h3> <p>See https://github.com/ipld/specs/issues/130 -- specifically,
+the &quot;referencing&quot; (or &quot;rendezvous&quot;) problem -- for more discussion of this.</p> <p>We're exploring with the &quot;behavioral specification&quot; approach here.</p> <h3 id="what-are-executables-anyway"><a href="#what-are-executables-anyway" class="header-anchor">#</a> What are executables, anyway?</h3> <p>In this schema, the executablity bit is in the <code>Attribs.posix</code> bitfield...
+as three distinct bools, once per user/group/everyone (the <code>0111</code> mask).</p> <p>Another way to regard executablity which would often (often!) be valid is
+to have a single bool per file.</p> <p>These are two different opinions application design might take in regarding
+unix<em>ish</em> filesystems.  Logically consistent arguments can be made for both.
+Perhaps this is another situation where two different schemas would be useful;
+we can support both, and do so clearly, if we think it's useful to do so.</p> <h3 id="ugh-int-sizes"><a href="#ugh-int-sizes" class="header-anchor">#</a> Ugh, int sizes</h3> <blockquote><p>mtime Int</p></blockquote> <p>In designing the IPLD Data Model itself, we still have some deferred decisions
+about how we want to regard integer precision (as well as what we expect,
+in practice, when client implementations in various languages hit their
+host language's natural limitations).</p> <p>We should probably give particular attention to timestamps in such decisions.
+They're a very common user story.</p> <p>Additionally, regardless of what precisely we decide to do about integer sizes,
+we should aim to have documentation with recommendations of best practices
+for the timestamp user story.</p> <h3 id="links"><a href="#links" class="header-anchor">#</a> Links</h3> <p>The <code>&amp;</code> syntax seen in <code>content &amp;AnyFile</code> denotes that the <code>AnyFile</code> is
+expected on the far side of a Link in that position.</p> <p>Denotation of the position of a link is important because It Matters To The Hash,
+as well as mattering to the overall understanding of topology of the larger DAG;
+yet it's terse because it doesn't matter to the semantics of the design (much).</p> <p>The single character sigil would seem to imply that there's no such thing as an <code>&amp;&amp;Foo</code> or <code>&amp;&amp;&amp;Foo</code>.
+Which indeed I hope there isn't: this author can't think of any situations
+where that expresses a sane thing.  (It's rare enough in programming with pointers;
+it's an entirely separate thing to propose in a merkle-DAG, which has no mutablity
+semantics in the first place, which removes even the 'rare' excuses.)
+We haven't officially explored or documented this anywhere yet.  Probably we should.</p> <h3 id="did-you-notice-we-still-don-t-have-enough-information-to-determine-cids"><a href="#did-you-notice-we-still-don-t-have-enough-information-to-determine-cids" class="header-anchor">#</a> Did you notice we still don't have enough information to determine CIDs?</h3> <p>This schema does not specify which:</p> <ul><li>CID version;</li> <li>multicodec;</li> <li>nor multihash</li></ul> <p>... to use when serializing any block data and constructing links.</p> <p>It also doesn't specify any restrictions for those values when reading data.</p> <p>That's... interesting.  What does this imply for work that's still left to do
+in systems which build using these tools?</p> <h3 id="do-advanced-layouts-deserve-parameters"><a href="#do-advanced-layouts-deserve-parameters" class="header-anchor">#</a> Do advanced layouts deserve parameters?</h3> <p>We could imagine having blocks with details such as this in the schema:</p> <div class="language- extra-class"><pre class="language-text"><code>advanced Rabin {
+	kind bytes
+	implementation &quot;IPLD/experimental/rabin/v1&quot;
+	bitmatch 14
+	minchunksize 256
+	maxchunksize 262144
+}
+
+advanced HAMT {
+	kind map
+	implementation &quot;IPLD/experimental/HAMT/v1&quot;
+	bitwidth 14
+}
+</code></pre></div><p>Would this be better?</p> <p>See the &quot;Other&quot; heading in https://github.com/ipld/specs/issues/130
+for another introduction of this question.</p> <p>A separate, but co-located, question is whether such parameters
+(if we have them) should be serialized in the internal data of the advanced
+layout (e.g. typically in the 'root block' of that structure), or if
+they should be here in the schema.
+This author tends to think the answer may be &quot;both&quot;; it certainly seems
+they must be in the schema if schemas are to fulfill their purpose
+as a design language and provide sufficient information for it to be
+possible to make diverse implementations in new languages.</p> <p>The full schema at the top of the document explores the choices
+of &quot;no&quot;, and is thus ambiguous on that second question.</p> <h2 id="some-errata"><a href="#some-errata" class="header-anchor">#</a> Some Errata</h2> <h3 id="some-unixfs-naming-notes"><a href="#some-unixfs-naming-notes" class="header-anchor">#</a> Some unixfs naming notes</h3> <p><code>AnyFile</code> may be a clunky name.  Suggestions welcome.</p> <p>One possible alternative that we've already chosen to avoid here is &quot;inode&quot;,
+because that term has a lot of associations with mutable filesystems (and
+currently MFS does already have such a concept).</p> <h3 id="things-not-included-for-brevity"><a href="#things-not-included-for-brevity" class="header-anchor">#</a> Things not included for brevity</h3> <p>It's likely the real Unixfsv2 will include more members of <code>AnyFile</code>,
+such as unix socket files, device node properties, etc.
+These are omitted here for brevity; omission here is not meant to suggest that
+such things don't belong in later more complete documents which are
+on a path to becoming specs.</p> <h3 id="remember-selectors-are-coming"><a href="#remember-selectors-are-coming" class="header-anchor">#</a> Remember, Selectors Are Coming</h3> <p>It should be noted that there have been previous discussions about whether or not,
+and to what degree, it is important to be able to &quot;inline&quot; small objects.</p> <p>To the best of this author's understanding, much (all?) of the reason to
+wish for the ability to &quot;inline&quot; small objects is loading a link is cheap
+only when the content is local, and may become significantly high latency
+if the content requires retrieval over a network (especially if that retrieval
+requires a search for a peer who has the content!).</p> <p>Selectors are a feature which make it possible to describe fetching whole
+graphs of linked data at once, rather than in an &quot;N+1 query&quot; fashion,
+and so they dramatically change the field of play here: possibly reducing
+the performance penalties of &quot;unnecessary&quot; blocks/links to infinitesimal.</p> <p>We're expecting this feature to land &quot;soon&quot; (on the same timescale, and
+almost certainly before, any final unixfsv2 specs themselves), so it seems
+valid to design link placements with that improvement in mind.</p> <h3 id="inb4-timezones"><a href="#inb4-timezones" class="header-anchor">#</a> inb4 timezones</h3> <blockquote><p>mtime Int</p></blockquote> <p>Yes, the posix syscalls use raw integers for modification times on files.</p> <p>No, it does not include timezones.</p> <p>Yes, really.</p></div> <footer class="page-edit"><div class="edit-link"><a href="https://github.com/ipld/specs/edit/master/design/history/exploration-reports/2019.06-unixfsv2-spike-01.md" target="_blank" rel="noopener noreferrer">Edit this page on GitHub</a> <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></div> <div class="last-updated"><span class="prefix">Last Updated:</span> <span class="time">9/17/2020, 3:17:59 AM</span></div></footer> <!----> </main></div><div class="global-ui"></div></div>
+    <script src="/assets/js/app.20f730e6.js" defer></script><script src="/assets/js/2.2d6107ed.js" defer></script><script src="/assets/js/43.32f51fb1.js" defer></script>
+  </body>
+</html>

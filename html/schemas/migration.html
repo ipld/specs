@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>IPLD Specifications</title>
+    <meta name="generator" content="VuePress 1.5.4">
+    
+    <meta name="description" content="Specifications for the Inter-planetary Linked Data project">
+    <link rel="preload" href="/assets/css/0.styles.af5e56d4.css" as="style"><link rel="preload" href="/assets/js/app.20f730e6.js" as="script"><link rel="preload" href="/assets/js/2.2d6107ed.js" as="script"><link rel="preload" href="/assets/js/61.33804ab8.js" as="script"><link rel="prefetch" href="/assets/js/10.36f99d26.js"><link rel="prefetch" href="/assets/js/11.59f24366.js"><link rel="prefetch" href="/assets/js/12.0d0ab97f.js"><link rel="prefetch" href="/assets/js/13.cfaa19c7.js"><link rel="prefetch" href="/assets/js/14.fd2903ea.js"><link rel="prefetch" href="/assets/js/15.8e535de7.js"><link rel="prefetch" href="/assets/js/16.8535e938.js"><link rel="prefetch" href="/assets/js/17.28d6338b.js"><link rel="prefetch" href="/assets/js/18.d035f88f.js"><link rel="prefetch" href="/assets/js/19.f4aedf5a.js"><link rel="prefetch" href="/assets/js/20.2f4b96a1.js"><link rel="prefetch" href="/assets/js/21.c06b674e.js"><link rel="prefetch" href="/assets/js/22.a5474984.js"><link rel="prefetch" href="/assets/js/23.9520c5cd.js"><link rel="prefetch" href="/assets/js/24.f78ef168.js"><link rel="prefetch" href="/assets/js/25.9dc1e40c.js"><link rel="prefetch" href="/assets/js/26.e53eaca3.js"><link rel="prefetch" href="/assets/js/27.3e4cf2aa.js"><link rel="prefetch" href="/assets/js/28.816fe4e3.js"><link rel="prefetch" href="/assets/js/29.cd52a63f.js"><link rel="prefetch" href="/assets/js/3.067b1da1.js"><link rel="prefetch" href="/assets/js/30.d6ef6a85.js"><link rel="prefetch" href="/assets/js/31.831bbb05.js"><link rel="prefetch" href="/assets/js/32.bfb50562.js"><link rel="prefetch" href="/assets/js/33.5f99915b.js"><link rel="prefetch" href="/assets/js/34.62ee9991.js"><link rel="prefetch" href="/assets/js/35.8a4b296e.js"><link rel="prefetch" href="/assets/js/36.a9ad770e.js"><link rel="prefetch" href="/assets/js/37.9f8deb1c.js"><link rel="prefetch" href="/assets/js/38.c96f42fa.js"><link rel="prefetch" href="/assets/js/39.0d3d9d13.js"><link rel="prefetch" href="/assets/js/4.ee4abcf1.js"><link rel="prefetch" href="/assets/js/40.f7327dc4.js"><link rel="prefetch" href="/assets/js/41.85e040d3.js"><link rel="prefetch" href="/assets/js/42.185ebaf8.js"><link rel="prefetch" href="/assets/js/43.32f51fb1.js"><link rel="prefetch" href="/assets/js/44.097cea13.js"><link rel="prefetch" href="/assets/js/45.8a99faf7.js"><link rel="prefetch" href="/assets/js/46.eb54faa0.js"><link rel="prefetch" href="/assets/js/47.129e4258.js"><link rel="prefetch" href="/assets/js/48.d822c0c4.js"><link rel="prefetch" href="/assets/js/49.9f9b1d03.js"><link rel="prefetch" href="/assets/js/5.02f47f72.js"><link rel="prefetch" href="/assets/js/50.fef10e7e.js"><link rel="prefetch" href="/assets/js/51.9a481eb8.js"><link rel="prefetch" href="/assets/js/52.71ed10d7.js"><link rel="prefetch" href="/assets/js/53.cdbf0b81.js"><link rel="prefetch" href="/assets/js/54.c1f38729.js"><link rel="prefetch" href="/assets/js/55.c9452da2.js"><link rel="prefetch" href="/assets/js/56.d6d25929.js"><link rel="prefetch" href="/assets/js/57.e20626b6.js"><link rel="prefetch" href="/assets/js/58.c8f9c033.js"><link rel="prefetch" href="/assets/js/59.c1b155f2.js"><link rel="prefetch" href="/assets/js/6.d29fd7af.js"><link rel="prefetch" href="/assets/js/60.32d4379a.js"><link rel="prefetch" href="/assets/js/62.592be5de.js"><link rel="prefetch" href="/assets/js/63.a7233cf1.js"><link rel="prefetch" href="/assets/js/64.8e3d382c.js"><link rel="prefetch" href="/assets/js/65.6d9f8dfa.js"><link rel="prefetch" href="/assets/js/66.0bc3a5f5.js"><link rel="prefetch" href="/assets/js/67.fc1c3bd3.js"><link rel="prefetch" href="/assets/js/68.d62191bf.js"><link rel="prefetch" href="/assets/js/69.d9131a8b.js"><link rel="prefetch" href="/assets/js/7.aac06655.js"><link rel="prefetch" href="/assets/js/70.1c2d30fc.js"><link rel="prefetch" href="/assets/js/71.ca26ea64.js"><link rel="prefetch" href="/assets/js/72.d290d096.js"><link rel="prefetch" href="/assets/js/73.dc0b6f75.js"><link rel="prefetch" href="/assets/js/74.97b91c2f.js"><link rel="prefetch" href="/assets/js/75.1ae7617b.js"><link rel="prefetch" href="/assets/js/76.3055e13e.js"><link rel="prefetch" href="/assets/js/8.623a5dd0.js"><link rel="prefetch" href="/assets/js/9.05249855.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.af5e56d4.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/" class="home-link router-link-active"><!----> <span class="site-name">IPLD Specifications</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/" class="nav-link">
+  Home
+</a></div><div class="nav-item"><a href="/schemas/" class="nav-link">
+  IPLD Schemas
+</a></div> <a href="https://github.com/ipld/specs" target="_blank" rel="noopener noreferrer" class="repo-link">
+    GitHub
+    <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/" class="nav-link">
+  Home
+</a></div><div class="nav-item"><a href="/schemas/" class="nav-link">
+  IPLD Schemas
+</a></div> <a href="https://github.com/ipld/specs" target="_blank" rel="noopener noreferrer" class="repo-link">
+    GitHub
+    <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></nav>  <ul class="sidebar-links"><li><section class="sidebar-group depth-0"><p class="sidebar-heading open"><span></span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/html/schemas/migration.html#version-detection" class="sidebar-link">Version detection</a><ul class="sidebar-sub-headers"></ul></li><li><a href="/html/schemas/migration.html#versioning-theory" class="sidebar-link">Versioning theory</a><ul class="sidebar-sub-headers"></ul></li><li><a href="/html/schemas/migration.html#strongly-linked-schemas" class="sidebar-link">Strongly linked schemas</a><ul class="sidebar-sub-headers"></ul></li><li><a href="/html/schemas/migration.html#actually-migrating" class="sidebar-link">Actually migrating</a><ul class="sidebar-sub-headers"></ul></li></ul></section></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="ipld-schemas-and-migration"><a href="#ipld-schemas-and-migration" class="header-anchor">#</a> IPLD Schemas and migration</h1> <p>Fundamental to our approach to schemas is an understanding:</p> <blockquote><p>Data Never Changes.  Only our interpretation varies.</p></blockquote> <p>Data can be created under one schema, and interpreted later under another.
+Data may predate or be created without any kind of schema at all.
+All of this needs to be fine.</p> <p>Moreover, before talking about migration, it's important to note that we
+don't allow the comforting, easy notion that migration is a one-way process,
+or can be carried out atomically at one magically instantaneous point in time.
+Because data is immutable, and producing updated versions of it doesn't make
+the older version of the data go away, migration is less a thing that you do;
+and more a state of mind.  Migration has to be seamless at any time.</p> <p>Migration comes in two parts:</p> <ol><li>Understand what data we have;</li> <li>and having a process to map it into the format of data we want.</li></ol> <p>We'll spend a few sections on part 1, and then get on to part 2.</p> <h2 id="version-detection"><a href="#version-detection" class="header-anchor">#</a> Version detection</h2> <p>We don't include any built-in/blessed concepts of versioning in IPLD Schemas.
+It's not necessary: we have rich primitives which can be used to build
+either explicit versioning or version detection, at your option.</p> <p>Since it's easy to check if a schema fits over a piece of data, it's
+easy to simply probe a series of schemas until finding one that fits.
+Therefore, any constraint a schema makes has the potential to be used
+for version detection!</p> <p>There are a handful of recognizable patterns that are used frequently:</p> <ul><li>Using a dummy union to get nominative typing at the document root.
+<ul><li>e.g. <code>{&quot;foo&quot;: {...}}</code>, using &quot;foo&quot; as the type+version hint.
+The union has only single member, and we use this in concert with multiple
+schemas and probing: it returns quickly in the case of a non-match.</li> <li>Any union representation will do.
+<ul><li>Keyed unions: <code>{&quot;foo-v2&quot;: {...}}</code></li> <li>Envelope unions: <code>{&quot;version&quot;: &quot;2&quot;, &quot;content&quot;:{...}}</code></li></ul></li> <li>Inline unions: <code>{&quot;version&quot;: &quot;2&quot;, ...}</code></li> <li>A single-member struct would also fit the pattern, being functionally
+equivalent to a keyed union.</li> <li>See the schema-schema for an example of this!</li></ul></li> <li>Using a &quot;version&quot; union (with multiple members).
+<ul><li>e.g. <code>{&quot;version&quot;: &quot;1.2.3&quot;, &quot;data&quot;:{...}}</code></li> <li>Any union representation will do.</li> <li>This might not be the best approach: in this approach, the multiple versions
+are implemented <em>within</em> one schema!  Typically it's considered easier to
+work with and more maintainable to use a separate schema per version.</li></ul></li> <li>Using a struct with &quot;version&quot; field(s), then a second unpacking.
+<ul><li>Two phases of matching allow user-specified decisions in the middle:
+<ul><li>First a simple schema is used, containing some struct fields for version
+info, plus some ignored fields which will contain the further content.
+This simple schema is assumed to match completely.</li> <li>Secondly, using information from that first pass, user-specified logic
+selects a complete schema, which is then used to handle the full data.</li></ul></li></ul></li></ul> <p>(Currently, this probing is left to the library user.  More built-in features
+around this are expected to come in the future.)</p> <p>Any of these approaches may also be composed.  For example, you might choose
+to use a dummy union at the root of a document to sanity-check what general
+type of data you're processing; and use an inline union inside that for more
+specific version matching, and so forth.</p> <p>(In the future, we may also be able to construct some specialized schemas that
+suggest jumping to another schema specifically and directly (rather than
+linear probing); some research required.  (Ideally this would work consistently
+regardless of the ordering of fields in the arriving data, but there's some
+tension between that and performance.)  It might also be possible to construct
+these as a user already!)</p> <p>NOTE that these conventions are easy to adopt even by systems not implemented
+using IPLD Schemas!  If you're working on a system which hasn't started using
+IPLD Schemas yet, and you aim to in the future, <em>start using version hinting</em>
+based on these designs <em>now</em>; the benefits can be reaped later.</p> <h2 id="versioning-theory"><a href="#versioning-theory" class="header-anchor">#</a> Versioning theory</h2> <p>There are different philosophies of versioning: namely, explicit versioning
+labels and version detection; which to use is a choice.</p> <p>In short, explicit versioning with labels takes a prescriptive approach,
+requiring coordinated labelling choices up front, and thus tends towards
+fragility and is not particularly fork/community/decentralization-friendly.
+Version detection -- also known as its generalized cousin, <em>Feature</em> detection
+-- is strictly more powerful, but can be more complex.
+Neither can be deployed to reliable effect without a plan.</p> <p>Explicit versioning labelling is prone to treating the version label as a
+semantic junk drawer, upon which we can heap unbounded amounts of
+not-necessarily-related semantics.
+This is a temptation which can be mitigated through diligence, but the
+fundamental incentive is always there: like global variables in programming,
+a document-global explicit version allows lazy coding and fosters presumptions.</p> <p>Version/feature detection has the potential to become a fractal.
+Using it well thus <em>also</em> requires diligence.  However, there is no built-in
+siren temptation to misuse them in the same way as explicit versioning; the
+trade-offs in complexity tend to be make themselves fairly pronounced and
+as such are relatively easily communicated.</p> <p>It's impossible to make a blanket prescription of how to associate version
+information with data.  Different choices have different tradeoffs.
+IPLD Schemas aim to make either choice (or hybrids of approach!) viable.</p> <h2 id="strongly-linked-schemas"><a href="#strongly-linked-schemas" class="header-anchor">#</a> Strongly linked schemas</h2> <p>It is possible to have a document which links directly to its own Schema!
+Since IPLD Schemas are themselves representable in IPLD, it's outright trivial
+to make an object containing a CID linking to a Schema.</p> <p>This may be useful -- in particular, it certainly solves any issue of chosing
+unique version strings in using explicit versioning! -- but it is also worth
+noting that is is not a solution to <em>migration</em>: while having a specific schema
+explicitly linked is certainly one way to address the need to
+&quot;understand what data we have&quot;, remember that the definition of migration has a
+second half: &quot;having a process to map data into the format we want&quot;.</p> <p>Unless it just so <em>happens</em> that this exact schema is the one you want, and have
+already build your application logic against, etc... an explicitly linked schema
+doesn't necessarily provide more value in terms of migration than any of the
+other forms of versioning; it's essentially the same as using explicit labels.</p> <h2 id="actually-migrating"><a href="#actually-migrating" class="header-anchor">#</a> Actually migrating</h2> <p>IPLD Schemas aren't completely magic.</p> <p>Some part of migration is inevitably left up to application logic.
+Almost by definition, &quot;a process to map data into the format of data we want&quot;
+is at its most general going to be a turing-complete operation.</p> <p>However, IPLD can still help: the relationship between the Data Model versus
+the Schema provides a foundation for writing maintainable migrations.</p> <p>Any migration logic can be expressed as a function from <code>Node</code> to <code>Node</code>.
+These nodes may each be checking Schema validity -- against two different
+schemas! -- but the code for transposing data from one node to the other
+can operate entirely within Data Model.  The result is the ability to write
+code that's effectively handling multiple disjoin type systems... without
+any real issues.</p> <p>Thus, a valid strategy for longlived application design is to handle each
+major change to a schema by copying/forking the current one; keeping it
+around for use as a recognizer for old versions of data; and writing a
+quick function that can flip data from the old schema format to the new one.
+When parsing data, try the newer schema first; if it's rejected, try the old
+one, and use the migration function as necessary.</p> <p>If you're using codegen based on the schema, note that you'll probably only
+need to use codegen for the most recent / most preferred version of the schema.
+(This is a good thing!  We wouldn't want tons of generated code per version
+to start stacking up in our repos.)
+Parsing of data for other versions can be handled by <code>ipldcbor.Node</code> or other
+such implementations which are optimized for handling serial data; the
+migration function is a natural place to build the codegenerated native typed
+<code>Node</code>s, and so each half of the process can easily use the <code>Node</code>
+implementation that is best suited.</p></div> <footer class="page-edit"><div class="edit-link"><a href="https://github.com/ipld/specs/edit/master/html/schemas/migration.md" target="_blank" rel="noopener noreferrer">Edit this page on GitHub</a> <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></div> <!----></footer> <!----> </main></div><div class="global-ui"></div></div>
+    <script src="/assets/js/app.20f730e6.js" defer></script><script src="/assets/js/2.2d6107ed.js" defer></script><script src="/assets/js/61.33804ab8.js" defer></script>
+  </body>
+</html>
