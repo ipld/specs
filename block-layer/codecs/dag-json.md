@@ -22,7 +22,7 @@ All kinds of the IPLD Data Model except Bytes and Link are supported natively by
 
 #### Numbers
 
-Numbers are a special case. JSON only has a single number type, though many dynamically typed languages (e.g. Python, Ruby, PHP) distinguish between integers and floats when parsing JSON. A number consisting only of digits is parsed as integer, if it contains a dot, it's parsed as a float. In DAG-JSON the same method is used to represent integers and floats.
+Numbers are a special case. JSON only has a single number type, though many dynamically typed programming languages (e.g. Python, Ruby, PHP) distinguish between integers and floats when parsing JSON. A number consisting of an optional leading sign and only digits is parsed as integer, if it contains a decimal point, it's parsed as a float. In DAG-JSON the same method is used to represent integers and floats.
 
 Contrary to popular belief, JSON as a format supports Big Integers. It's only
 JavaScript itself that has trouble with them. This means JS implementations
