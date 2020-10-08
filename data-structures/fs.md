@@ -1,3 +1,7 @@
+# Specification: unixfs-v2
+
+**Status: Prescriptive - Draft**
+
 The following schema is used to represent files and directories in pure IPLD Data Model. It
 differ substantially from UnixFSv1 which is built exclusively on `dag-pb` and is currently
 integrated into IPFS.
