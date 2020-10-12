@@ -6,7 +6,7 @@
 * [Links](#links)
 * [Map Keys](#map-keys)
 * [Strictness](#strictness)
-  * [Floating Point Encoding (Unresolved)](#floating-point-encoding-unresolved)
+  * [Floating Point Encoding](#floating-point-encoding)
 * [Implementations](#implementations)
   * [JavaScript](#javascript)
   * [Go](#go)
@@ -43,31 +43,33 @@ Therefore the DAG-CBOR codec must:
 
 1. Use no tags other than the CID tag (`42`). A valid DAG-CBOR encoder must not encode using any additional tags and a valid DAG-CBOR decoder must reject objects containing additional tags as invalid.
    * This includes any of the initial values of the tag registry in [section 2.4 of the CBOR specification], such as dates, bignums, bigfloats, URIs, regular expressions and other complex, or simple values whether or not they map to the [IPLD Data Model].
-2. The only usable major type 7 minor types are those for encoding Floats (`25`, `26`, `27`), True (`20`), False (`21`) and Null (`22`).
+2. The only usable major type 7 minor types are those for encoding double-precision Floats (`27`), True (`20`), False (`21`) and Null (`22`).
 	 * "Simple values" are not supported. This includes all registered or unregistered simple values that are encoded with a major type 7.
 	 * Undefined (`23`) is not supported.
-3. Use the canonical CBOR encoding defined by the suggestions in [section 3.9 of the CBOR specification]. A valid DAG-CBOR decoder should reject objects not following these restrictions as invalid. Specifically:
+	 * All floating point numbers must be encoded as double-precision (64 bit). Half, and single precision encoding is not supported.
+3. Use most of the canonical CBOR encoding defined by the suggestions in [section 3.9 of the CBOR specification]. A valid DAG-CBOR decoder should reject objects not following these restrictions as invalid. Specifically:
    * Integer encoding must be as short as possible.
    * The expression of lengths in major types 2 through 5 must be as short as possible.
    * The keys in every map must be sorted lowest value to highest. Sorting is performed on the bytes of the representation of the keys.
      - If two keys have different lengths, the shorter one sorts earlier;
      - If two keys have the same length, the one with the lower value in (byte-wise) lexical order sorts earlier.
    * Indefinite-length items are not supported, only definite-length items are usable.
+	 * Floating point numbers _do not_ follow the smallest-possible representation rule but use a consistent 64-bit encoding (see above).
 4. Encode and decode a single top-level CBOR object and not allow back-to-back concatenated objects, as suggested by [section 3.1 of the CBOR specification] for _streaming applications_. All bytes of an encoded DAG-CBOR object must decode to a single object. Extraneous bytes, whether valid or invalid CBOR, should fail validation.
 
-### Floating Point Encoding (Unresolved)
+### Floating Point Encoding
 
-Strict **floating point** encoding rules need to be resolved. Current CBOR encoding implementations used by IPLD libraries are _not_ unified in their approach.
+Rather than adopt the smallest-possible encoding rule for Floats as recommended by the CBOr specification's canonical encoding suggestions. DAG-CBOR encodes all floating point numbers as double-precision (64-bit) values (major type 7, minor 27).
 
-[borc], for JavaScript (used via [dag-cbor]), uses a smallest-possible approach:
+**Current CBOR encoding implementations used by IPLD libraries are _not yet_ unified in this approach.**
+
+[borc], for JavaScript (used via [dag-cbor]), uses a smallest-possible encoding:
 
  * Floating point values must be encoded as the smallest of 16-, 32-, or 64-bit floating point that accurately represents the value, even for integral values.
 
 [refmt], for Go (used via [ipld-cbor] and [ipld-prime]), uses a consistent 64-bit approach:
 
  * All floating point values must be encoded as 64-bit floating point, even for integral values.
-
-One of these approaches will be chosen and the libraries for the other language will be adjusted or replaced to harmonize.
 
 ## Implementations
 
