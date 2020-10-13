@@ -320,10 +320,8 @@ type Bucket [ BucketEntry ]
 
 type BucketEntry struct {
   key Bytes
-  # There is currently no limitation on the types available for storage as long
-  # as they can be decoded from the bytes. Currently the Filecoin HAMT is used
-  # to store inline objects rather than links to objects.
   value Any
 } representation tuple
 ```
 
+There is currently no limitation on the types available for storage as `value`s as long as they can be decoded from the bytes. In practice, the Filecoin HAMT is used to store inline objects rather than links to objects.
