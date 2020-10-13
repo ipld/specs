@@ -44,9 +44,9 @@ Therefore the DAG-CBOR codec must:
 1. Use no tags other than the CID tag (`42`). A valid DAG-CBOR encoder must not encode using any additional tags and a valid DAG-CBOR decoder must reject objects containing additional tags as invalid.
    * This includes any of the initial values of the tag registry in [section 2.4 of the CBOR specification], such as dates, bignums, bigfloats, URIs, regular expressions and other complex, or simple values whether or not they map to the [IPLD Data Model].
 2. The only usable major type 7 minor types are those for encoding double-precision Floats (`27`), True (`20`), False (`21`) and Null (`22`).
-	 * "Simple values" are not supported. This includes all registered or unregistered simple values that are encoded with a major type 7.
-	 * Undefined (`23`) is not supported.
-	 * All floating point numbers must be encoded as double-precision (64 bit). Half, and single precision encoding is not supported.
+   * "Simple values" are not supported. This includes all registered or unregistered simple values that are encoded with a major type 7.
+   * Undefined (`23`) is not supported.
+   * All floating point numbers must be encoded as double-precision (64 bit). Half, and single precision encoding is not supported.
 3. Use most of the canonical CBOR encoding defined by the suggestions in [section 3.9 of the CBOR specification]. A valid DAG-CBOR decoder should reject objects not following these restrictions as invalid. Specifically:
    * Integer encoding must be as short as possible.
    * The expression of lengths in major types 2 through 5 must be as short as possible.
@@ -54,7 +54,7 @@ Therefore the DAG-CBOR codec must:
      - If two keys have different lengths, the shorter one sorts earlier;
      - If two keys have the same length, the one with the lower value in (byte-wise) lexical order sorts earlier.
    * Indefinite-length items are not supported, only definite-length items are usable.
-	 * Floating point numbers _do not_ follow the smallest-possible representation rule but use a consistent 64-bit encoding (see above).
+   * Floating point numbers _do not_ follow the smallest-possible representation rule but use a consistent 64-bit encoding (see above).
 4. Encode and decode a single top-level CBOR object and not allow back-to-back concatenated objects, as suggested by [section 3.1 of the CBOR specification] for _streaming applications_. All bytes of an encoded DAG-CBOR object must decode to a single object. Extraneous bytes, whether valid or invalid CBOR, should fail validation.
 
 ### Floating Point Encoding
