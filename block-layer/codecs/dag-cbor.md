@@ -59,7 +59,7 @@ Therefore the DAG-CBOR codec must:
 
 ### Floating Point Encoding
 
-Rather than adopt the smallest-possible encoding rule for Floats as recommended by the CBOr specification's canonical encoding suggestions. DAG-CBOR encodes all floating point numbers as double-precision (64-bit) values (major type 7, minor 27).
+Rather than adopt the smallest-possible encoding rule for Floats as recommended by the CBOR specification's canonical encoding suggestions. DAG-CBOR encodes all floating point numbers as the binary form of double-precision floats (64-bit IEEE 754); i.e. as major type 7, minor 27.
 
 **Current CBOR encoding implementations used by IPLD libraries are _not yet_ unified in this approach.**
 
