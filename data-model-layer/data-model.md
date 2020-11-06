@@ -112,7 +112,7 @@ Applications that only serialize valid UTF8 in string values will have less comp
 issues than applications that do not.
 
 Codec implementations that can de-serialization and roundtrip
-arbitrary byte data in strings will see less bug reports from people working with data produced by
+arbitrary byte data in strings will see fewer bug reports from people working with data produced by
 applications that serialize arbitrary byte data into strings.
 
 #### Bytes kind
