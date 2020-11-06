@@ -108,7 +108,7 @@ Applications **SHOULD** only encode UTF8 data into string values and use byte va
 arbitrary bytes, but IPLD libraries may not provide these guarantees and rely on the application, or often the
 programming language itself, to do so instead.
 
-Applications that only serialize valid UTF8 in string values will have less compatibility
+Applications that only serialize valid UTF8 in string values will have fewer compatibility
 issues than applications that do not.
 
 Codec implementations that can de-serialization and roundtrip
