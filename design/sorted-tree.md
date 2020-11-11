@@ -61,6 +61,13 @@ What we need is a new chunking technique that produces nodes of a desirable leng
 on particular **entries**. If we can find a way to consistently split on particular entries then we can avoid
 large mutations to the rest of the tree.
 
+## Chunker
+
+The chunker is a simple state machine. You feed the chunker unique identifiers for each entry. Each identifier must
+use derived from the entry, typically through a hashing function or from a digest already present in the entry.
+
+The chunker should break as consistently as possible while also protecting against various attacks (see below).
+
 ## First Tree: Sorted CID Set (Tail Chunker)
 
 ```ipldschema
