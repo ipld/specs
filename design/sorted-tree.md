@@ -46,8 +46,6 @@ Chunker Settings
 
 * HASH_TAIL_SIZE: The size, in bytes, of the tail to be used for a calculating the close.
 * HASH_TAIL_CLOSE: The highest integer that will close a chunk.
-* MAX_ENTRIES: The maximum allowed number of entries in a single leaf. This protects against
-  insertion attacks when an attacker is allowed to define the entire ENTRY.
 
 Leaf Chunker Settings
 
@@ -69,26 +67,19 @@ HASH_TAIL_CLOSE will terminate a chunk
 which is why some of the parameters are still loosely defined.*
 
 When untrusted users can insert ENTRIES into the structure it's vulnerable to an attack because
-you can insert an unlimited number of entries that will never cause a close. To protect against
-this the chunker requires a MAX_ENTRIES integer.
+you can insert an unlimited number of entries that will never cause a close.
 
-If the chunker were to simply cut off at MAX_ENTRIES the attack would still be quite effective as
-mutations in a particular section would all be of MAX_ENTRIES and mutations would cause a large
-number of node merges in order to handle overflow.
+Hard limits on the number of entries is not effective because mutations to the left most leaf
+will cause an overflow that generates subsequent mutations in every leaf to the right that is also
+at its limit. Introducing entropy in HASH_TAIL_CLOSE has the same problem because it's too easy for an attacker to 
+generate entries that are at the highest boundary of the address space for keeping the chunk open.
 
-Instead, we should increase HASH_TAIL_CLOSE as we aproach MAX_ENTRIES. This will give
-us some consistency to closing entries even when nodes overflow and will increase the difficulty of an attack
-since an attacker will need to generate much more data to find hashes that fail to close since closes use more
-of the address space.
-
-We'll need to run simulations in order to find the ideal technique for increasing HASH_TAIL_CLOSE and at what point
-we should begin to apply it as we approach MAX_ENTRIES. A logorithmic scale may increase the hit rate too quickly which would
-end up failing to match consistently enough, but an exponential scale may leave a little too much room for an attacker to
-generate entries that won't close.
-
-We could also consider feeding some % of each integer into a randomized calculation that increases HASH_TAIL_CLOSE. This
-would make it harder to produce entries you know will keep the structure open but it'll be hard to find the right math that
-still produces consistent matches.
+What we probably need to do is define a point at which we change the algorithm for closing the structure. If we
+keep a floating fixed size list of previous hashes we can start generating a consistent "sequence identity" to use instead
+of just the hash of the entry. As long as we keep the list size fixed we will tend to get consistent entries for the tail
+and the number of hashing you would have to generate to cause an overflow will be far higher. We can *then* apply
+a gradual increase in the HASH_TAIL_SIZE which will reduce the address space of a successful attack but still result
+in fairly consistent break points.
 
 # Tree Creation
 
