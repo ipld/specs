@@ -60,10 +60,42 @@ Branch Chunker Settings
 * KEY_BYTE_MAP: converts a START_KEY to KEY_BYTES.
 * HASH_FN: the hashing function used on ENTRY_BYTES.
 
+# Chunking Function
+
+The chunker converts the last HASH_TAIL_SIZE bytes to an integer. Any integer at or below
+HASH_TAIL_CLOSE will terminate a chunk
+
+*Note: the following section in not complete and needs some testing and simulations to finalize
+which is why some of the parameters are still loosely defined.*
+
+When untrusted users can insert ENTRIES into the structure it's vulnerable to an attack because
+you can insert an unlimited number of entries that will never cause a close. To protect against
+this the chunker requires a MAX_ENTRIES integer.
+
+If the chunker were to simply cut off at MAX_ENTRIES the attack would still be quite effective as
+mutations in a particular section would all be of MAX_ENTRIES and mutations would cause a large
+number of node merges in order to handle overflow.
+
+Instead, we should increase HASH_TAIL_CLOSE as we aproach MAX_ENTRIES. This will give
+us some consistency to closing entries even when nodes overflow and will increase the difficulty of an attack
+since an attacker will need to generate much more data to find hashes that fail to close since closes use more
+of the address space.
+
+We'll need to run simulations in order to find the ideal technique for increasing HASH_TAIL_CLOSE and at what point
+we should begin to apply it as we approach MAX_ENTRIES. A logorithmic scale may increase the hit rate too quickly which would
+end up failing to match consistently enough, but an exponential scale may leave a little too much room for an attacker to
+generate entries that won't close.
+
+We could also consider feeding some % of each integer into a randomized calculation that increases HASH_TAIL_CLOSE. This
+would make it harder to produce entries you know will keep the structure open but it'll be hard to find the right math that
+still produces consistent matches.
+
 # Tree Creation
 
-The following diagram uses `
+The following diagram uses `O` to represent entries that have a hash that keeps the chunk open and `C` for entries that
+have a hash that closes a chunk. Every entry is unique even though many look identical in this diagram.
 
 ```
-
++----
+|
 ```
