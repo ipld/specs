@@ -61,7 +61,21 @@ What we need is a new chunking technique that produces nodes of a desirable leng
 on particular **entries**. If we can find a way to consistently split on particular entries then we can avoid
 large mutations to the rest of the tree.
 
-## First Tree: Sorted CID Set
+## First Tree: Sorted CID Set (Tail Chunker)
+
+```ipldschema
+type Entry link
+type Leaf [ Entry ]
+type Branch struct {
+  start Link
+  link Link
+} representation tuple
+
+type Node union {
+  | "leaf" Leaf
+  | "branch" Branch
+} representation keyed
+```
 
 At this point we're ready to build our first tree. This data structure is a `Set` of CIDs sorted by binary comparison.
 The nice thing about working with this use case is each CID is both the *key* and the *value*.
@@ -107,3 +121,39 @@ Digest Uint8 Tails
 Now, if we need to insert a new entry at `DIGEST-C` it will not effect the leaf nodes to the right, and as a result will have a limited
 effect on the rest of the tree.
 
+Since every node in this tree will be a content addressed block so we can continue to use the hash digest of every branch and apply the same chunking
+technique. Whenever an entry or branch is changed we need to re-run the chunker on it and merge the entries in every node with the node to the right if
+they are no longer closed. This keeps the hash of the tree consistent regardless of what order any mutations were made and it also incrementally re-balances
+the tree on each mutation.
+
+We can control the performance of this tree by altering the chunking algorithm. If we use more of the tail we'll have a larger number space and can
+increase the average chunk size beyond 256. Larger blocks mean more orphaned data on mutation. Smaller blocks mean deeper trees with more traversal.
+
+## Second Tree: Sorted Map (Tail Chunker)
+
+Now we'll build a tree that can illustrate a few attacks against this structure. Understanding how you can attack this structure
+plays a key role in designing secure trees for different use cases.
+
+Let's make the entries in our tree a key/value pair. Let's make the schema require that values be links so that we can rely on the hash digest
+for chunking.
+
+```ipldschema
+type Entry struct {
+  key String
+  value Link
+} representation tuple
+
+type Leaf [ Entry ]
+type Branch [ Entry ]
+
+type Node union {
+  | "leaf" Leaf
+  | "branch" Branch
+} representation keyed
+```
+
+You can use the tail chunker on this tree if you have complete control over the keys and values being inserted. You'll need to ensure that
+the values being inserted have something unique or random. If you don't have this assurance and you end up inserting the same value into
+the same part of the tree the leaf block will never close and you'll eventually cause an error when you go over MAX_BLOCK_SIZE.
+
+### First Attack: Unclosed Leaf
