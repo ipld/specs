@@ -13,9 +13,9 @@ This document describes a technique for creating, mutating, and reading merkle D
 
 Terms:
 
-* NODE: LEAF or BRANCH.
-* LEAF: Sorted list of ENTRIES.
-* BRANCH: Sorted list of [ START_KEY, CHILD_NODE_HASH ].
+* `NODE`: `LEAF` or `BRANCH`.
+* `LEAF`: Sorted list of `ENTRIES`.
+* `BRANCH`: Sorted list of `[ START_KEY, CHILD_NODE_HASH ]`.
 
 In order to produce a balanced and hash consistent tree over an arbitrarily sorted list
 we need to find a way to chunk this list into parts that are:
@@ -25,26 +25,26 @@ we need to find a way to chunk this list into parts that are:
   tree as those found in a tree we are modifying.
 
 First, we guarantee that every entry is unique, which we can do with any arbitrary sorting function.
-Then, we hash every entry and designate a portion of the address space in that hash to CLOSE each
+Then, we hash every entry and designate a portion of the address space in that hash to close each
 chunk. This means that the same entries will always close the structure and as we modify the tree
 we will have very limited churn in the surrounding blocks. Since the hash randomizes the assignment
 of identifiers to each entry the structure will self-balance with new splits as entries are added
 to any part of the tree.
 
 That covers how the leaves are created. Branch creation is almost identical. Every branch is a list of entries
-where the START_KEY is ENTRY_KEY_MAP(ENTRY) of the child LEAF or simply the START_KEY of the child BRANCH, and the value
-is the CHILD_NODE_HASH. The START_KEY + CHILD_NODE_HASH are hashed and the same chunking technique is applied
+where the `START_KEY` is `ENTRY_KEY_MAP(ENTRY)` of the child `LEAF` or simply the `START_KEY` of the child `BRANCH`, and the value
+is the `CHILD_NODE_HASH`. The `START_KEY + CHILD_NODE_HASH` are hashed and the same chunking technique is applied
 to branches as we apply to the leaves.
 
 ## Settings
 
 Every tree needs the following settings in order to produce consistent and balanced trees.
 
-* SORT: defines the sort order of every ENTRY in the list.
+* `SORT`: defines the sort order of every `ENTRY` in the list.
 
 Chunker Settings
 
-* TARGET_SIZE: The target number of entries per NODE.
+* `TARGET_SIZE`: The target number of entries per `NODE`.
 
 Leaf Chunker Settings
 
