@@ -44,8 +44,7 @@ Every tree needs the following settings in order to produce consistent and balan
 
 Chunker Settings
 
-* HASH_TAIL_SIZE: The size, in bytes, of the tail to be used for a calculating the close.
-* HASH_TAIL_CLOSE: The highest integer that will close a chunk.
+* TARGET_SIZE: The size, in bytes, of the tail to be used for a calculating the close.
 
 Leaf Chunker Settings
 
@@ -60,26 +59,77 @@ Branch Chunker Settings
 
 # Chunking Function
 
-The chunker converts the last HASH_TAIL_SIZE bytes to an integer. Any integer at or below
-HASH_TAIL_CLOSE will terminate a chunk
+First, we divide `MAX_UINT32` by `TARGET_SIZE` and `FLOOR()` it to give us our
+`THRESHOLD` integer. Now, randomly generated numbers will occur an average of 1
+every `TARGET_SIZE`.
 
-*Note: the following section in not complete and needs some testing and simulations to finalize
-which is why some of the parameters are still loosely defined.*
+The tail of each `HASH(ENTRY_BYTE_MAP(ENTRY))` is converted to Uint32. If that
+integer is at or below `THRESHOLD` then the entry causes the chunk to close.
 
-When untrusted users can insert ENTRIES into the structure it's vulnerable to an attack because
-you can insert an unlimited number of entries that will never cause a close.
+## Overflow Protection
 
-Hard limits on the number of entries is not effective because mutations to the left most leaf
-will cause an overflow that generates subsequent mutations in every leaf to the right that is also
-at its limit. Introducing entropy in HASH_TAIL_CLOSE has the same problem because it's too easy for an attacker to 
-generate entries that are at the highest boundary of the address space for keeping the chunk open.
+When a chunk reaches twice the target size we start applying overflow protection.
 
-What we probably need to do is define a point at which we change the algorithm for closing the structure. If we
-keep a floating fixed size list of previous hashes we can start generating a consistent "sequence identity" to use instead
-of just the hash of the entry. As long as we keep the list size fixed we will tend to get consistent entries for the tail
-and the number of hashing you would have to generate to cause an overflow will be far higher. We can *then* apply
-a gradual increase in the HASH_TAIL_SIZE which will reduce the address space of a successful attack but still result
-in fairly consistent break points.
+It's not very hard to generate entries that will fail to close a chunk under our
+prior rules. An attack can be crafted to overflow a particular leaf until it
+reaches `MAX_BLOCK_SIZE`. This overflow can't be resolved by simply setting a hard
+limit because an attacker can continue to overflow a node and every mutation will
+overflow into the next leaf and cause recursive mutations in as many nodes as the attacker
+can insert. The only way to overcome this problem is to find a way to still find
+common break points at a reasonable probability when in an overflow state.
+
+In overflow protection we still close on the same entries as we would otherwise but 
+we also compute a *`SEQUENCE_IDENTITY`*. This is calculated by applying the hash 
+function to the prior `TARGET_SIZE` number of hashes and the current hash. This gives us a 
+unique identifier for each entry based on its placement in the back half(ish) of the
+list, which is important because the identity needs to remain consistent even when data
+overflows into the left side of the list. We convert the tail 
+of this new hash (`SEQUENCE_IDENTITY`) to a Uint32 and compare it against the OVERFLOW_LIMIT.
+
+Our OVERFLOW_THESHOLD is an integer that increases an equal amount from 0 on every 
+entry until it reaches MAX_UINT32. The increase in OVERFLOW_LIMIT on each entry 
+is our existing `THRESHOLD` which ensures an absolute maximum size of a leaf is 3x the `TARGET_SIZE`.
+
+This makes generating sequential data that will keep the chunk open highly difficult 
+given a sufficient TARGET_SIZE and still produces relatively (although not completely) 
+consistent chunk splits in overflow protection.
+
+```js
+const createChunker = (TARGET_SIZE) => {
+  // a new chunker must be created after each split in order
+  // to reset the state
+  const THRESHOLD = FLOOR(MAX_UINT32 / TARGET_SIZE)
+  const RECENT_HASHES = []
+  let COUNT = 0
+  let OVERFLOW_THRESHOLD = 0
+  const chunker = (ENTRY) => {
+    COUNT += 1
+    const ENTRY_HASH = HASH(ENTRY)
+    const IDENTITY = UINT32(TAIL(4, ENTRY_HASH))
+    if (IDENTITY < THRESHOLD) return true
+ 
+    PUSH(RECENT_HASHES, ENTRY_HASH)
+    if (RECENT_HASHES.length > TARGET_SIZE) {
+      SHIFT(RECENT_HASHES, 1)
+    }
+    if (COUNT > (TARGET_SIZE * 2)) {
+      OVERFLOW_THRESHOLD += THRESHOLD
+      // overflow protection
+      const SEQUENCE_IDENTITY = UINT32(TAIL(4, HASH(JOIN(RECENT_HASHES))))
+      if (SEQUENCE_IDENTITY < OVERFLOW_THRESHOLD) {
+        return true
+      }
+    }
+    return false
+  }
+  return chunker
+}
+```
+
+Any state that is built up in the chunker must be cleared on every chunk split. It's
+very important that entries after a split do not effect the identities of prior entries
+because if they did we wouldn't be able to safely split and merge with on mutation without
+re-chunking every entry in the tree.
 
 # Tree Creation
 
