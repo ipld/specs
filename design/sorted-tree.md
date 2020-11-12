@@ -24,6 +24,20 @@ we need to find a way to chunk this list into parts that are:
 * Fully consistent. This means that the same boundaries should be found in a newly created
   tree as those found in a tree we are modifying.
 
+In order to make the tree efficient we need to find a way for the chunks to be split on consistent
+boundaries even when the chunks are modified. This means you can use a typical chunker because you'd
+have to run the chunker over the entire right side of the list on every mutation in order to produce
+a consistent tree shape.
+
+We do this by giving each entry a unique `IDENTITY` (`UINT32`) using a hashing function. This distributes
+randomly distributed unique and consistent identifiers to every entry in the list. If we set a threshold
+for which numeric identity we consider a `CLOSE` we can calculate the average occurance of those numbers
+which gives us an average distribution of `CLOSES` throughout the list. Entries that are added or removed
+will cause splits and merges that balance the tree and ensure a consistent shape which will guarantee hash
+consistency for the entire tree.
+
+Here's how it works.
+
 First, we guarantee that every entry is unique, which we can do with any arbitrary sorting function.
 Then, we hash every entry and designate a portion of the address space in that hash to close each
 chunk. This means that the same entries will always close the structure and as we modify the tree
