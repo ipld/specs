@@ -1,0 +1,1325 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Filecoin Main Chain Data Structures | IPLD Specifications</title>
+    <meta name="generator" content="VuePress 1.7.1">
+    
+    <meta name="description" content="Specifications for the Inter-planetary Linked Data project">
+    
+    <link rel="preload" href="/assets/css/0.styles.6c77b833.css" as="style"><link rel="preload" href="/assets/js/app.16bc0441.js" as="script"><link rel="preload" href="/assets/js/2.fa483b33.js" as="script"><link rel="preload" href="/assets/js/30.bd7127a6.js" as="script"><link rel="prefetch" href="/assets/js/10.f6e8966c.js"><link rel="prefetch" href="/assets/js/11.b50c9801.js"><link rel="prefetch" href="/assets/js/12.dfda07e3.js"><link rel="prefetch" href="/assets/js/13.bc44e0a1.js"><link rel="prefetch" href="/assets/js/14.02bd3716.js"><link rel="prefetch" href="/assets/js/15.feedc362.js"><link rel="prefetch" href="/assets/js/16.1076ecbb.js"><link rel="prefetch" href="/assets/js/17.e8d86225.js"><link rel="prefetch" href="/assets/js/18.432bc809.js"><link rel="prefetch" href="/assets/js/19.827517a3.js"><link rel="prefetch" href="/assets/js/20.107dd562.js"><link rel="prefetch" href="/assets/js/21.9682478a.js"><link rel="prefetch" href="/assets/js/22.16c1dfa6.js"><link rel="prefetch" href="/assets/js/23.73b5da36.js"><link rel="prefetch" href="/assets/js/24.3b49ec67.js"><link rel="prefetch" href="/assets/js/25.82ea8731.js"><link rel="prefetch" href="/assets/js/26.8d839a4f.js"><link rel="prefetch" href="/assets/js/27.9ae3b661.js"><link rel="prefetch" href="/assets/js/28.fcd5d716.js"><link rel="prefetch" href="/assets/js/29.20740a44.js"><link rel="prefetch" href="/assets/js/3.1be09742.js"><link rel="prefetch" href="/assets/js/31.5a1a72e9.js"><link rel="prefetch" href="/assets/js/32.87b9c335.js"><link rel="prefetch" href="/assets/js/33.f24ac1c2.js"><link rel="prefetch" href="/assets/js/34.9d663959.js"><link rel="prefetch" href="/assets/js/35.097b0c22.js"><link rel="prefetch" href="/assets/js/36.c797f32a.js"><link rel="prefetch" href="/assets/js/37.53a8a3cc.js"><link rel="prefetch" href="/assets/js/38.5188f84d.js"><link rel="prefetch" href="/assets/js/39.9ddc913a.js"><link rel="prefetch" href="/assets/js/4.84d7103d.js"><link rel="prefetch" href="/assets/js/40.1beb8640.js"><link rel="prefetch" href="/assets/js/41.cfeca8ab.js"><link rel="prefetch" href="/assets/js/42.495e2023.js"><link rel="prefetch" href="/assets/js/43.106e5436.js"><link rel="prefetch" href="/assets/js/44.10569526.js"><link rel="prefetch" href="/assets/js/45.a24f8da1.js"><link rel="prefetch" href="/assets/js/46.08891126.js"><link rel="prefetch" href="/assets/js/47.765627c1.js"><link rel="prefetch" href="/assets/js/48.1dab0186.js"><link rel="prefetch" href="/assets/js/49.7d7858f9.js"><link rel="prefetch" href="/assets/js/5.abf32d94.js"><link rel="prefetch" href="/assets/js/50.52f18182.js"><link rel="prefetch" href="/assets/js/51.be614465.js"><link rel="prefetch" href="/assets/js/52.34e3acbe.js"><link rel="prefetch" href="/assets/js/53.9b1e80e7.js"><link rel="prefetch" href="/assets/js/54.83045e7d.js"><link rel="prefetch" href="/assets/js/55.13c3464d.js"><link rel="prefetch" href="/assets/js/56.eecdb378.js"><link rel="prefetch" href="/assets/js/57.a3847359.js"><link rel="prefetch" href="/assets/js/58.387a333d.js"><link rel="prefetch" href="/assets/js/59.9363a396.js"><link rel="prefetch" href="/assets/js/6.ae3a0372.js"><link rel="prefetch" href="/assets/js/60.fca3cbb2.js"><link rel="prefetch" href="/assets/js/61.8968ce3d.js"><link rel="prefetch" href="/assets/js/62.3fea09a1.js"><link rel="prefetch" href="/assets/js/63.9ab16f0c.js"><link rel="prefetch" href="/assets/js/64.857c860f.js"><link rel="prefetch" href="/assets/js/65.f124ac60.js"><link rel="prefetch" href="/assets/js/66.3c8c3b0d.js"><link rel="prefetch" href="/assets/js/67.32b165ce.js"><link rel="prefetch" href="/assets/js/68.5416d3d2.js"><link rel="prefetch" href="/assets/js/69.1c48107e.js"><link rel="prefetch" href="/assets/js/7.b47905c0.js"><link rel="prefetch" href="/assets/js/70.4a5524bb.js"><link rel="prefetch" href="/assets/js/71.f560b872.js"><link rel="prefetch" href="/assets/js/72.28218d4b.js"><link rel="prefetch" href="/assets/js/73.37690c4f.js"><link rel="prefetch" href="/assets/js/74.2d4f5f50.js"><link rel="prefetch" href="/assets/js/75.3fc74e32.js"><link rel="prefetch" href="/assets/js/76.6b9ea374.js"><link rel="prefetch" href="/assets/js/77.b1662d66.js"><link rel="prefetch" href="/assets/js/78.fe62e83c.js"><link rel="prefetch" href="/assets/js/79.b155a725.js"><link rel="prefetch" href="/assets/js/8.6b02f076.js"><link rel="prefetch" href="/assets/js/80.7fc40a47.js"><link rel="prefetch" href="/assets/js/81.d0329fa9.js"><link rel="prefetch" href="/assets/js/82.9e6d829e.js"><link rel="prefetch" href="/assets/js/83.b47854d3.js"><link rel="prefetch" href="/assets/js/84.9cb01dad.js"><link rel="prefetch" href="/assets/js/85.08ddcf77.js"><link rel="prefetch" href="/assets/js/86.9eb38c9d.js"><link rel="prefetch" href="/assets/js/87.84416c20.js"><link rel="prefetch" href="/assets/js/88.710364e1.js"><link rel="prefetch" href="/assets/js/89.72e22942.js"><link rel="prefetch" href="/assets/js/9.4dd99b27.js"><link rel="prefetch" href="/assets/js/90.c6b407c4.js"><link rel="prefetch" href="/assets/js/91.017eec0d.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.6c77b833.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/" class="home-link router-link-active"><!----> <span class="site-name">IPLD Specifications</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/" class="nav-link">
+  Home
+</a></div><div class="nav-item"><a href="/schemas/" class="nav-link">
+  IPLD Schemas
+</a></div> <a href="https://github.com/ipld/specs" target="_blank" rel="noopener noreferrer" class="repo-link">
+    GitHub
+    <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/" class="nav-link">
+  Home
+</a></div><div class="nav-item"><a href="/schemas/" class="nav-link">
+  IPLD Schemas
+</a></div> <a href="https://github.com/ipld/specs" target="_blank" rel="noopener noreferrer" class="repo-link">
+    GitHub
+    <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></nav>  <ul class="sidebar-links"><li><section class="sidebar-group depth-0"><p class="sidebar-heading open"><span>Filecoin Main Chain Data Structures</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/data-structures/filecoin/chain.html#basic-types" class="sidebar-link">Basic Types</a><ul class="sidebar-sub-headers"></ul></li><li><a href="/data-structures/filecoin/chain.html#crypto-types" class="sidebar-link">Crypto Types</a><ul class="sidebar-sub-headers"></ul></li><li><a href="/data-structures/filecoin/chain.html#genesis-block" class="sidebar-link">Genesis Block</a><ul class="sidebar-sub-headers"></ul></li><li><a href="/data-structures/filecoin/chain.html#chain" class="sidebar-link">Chain</a><ul class="sidebar-sub-headers"></ul></li><li><a href="/data-structures/filecoin/chain.html#messages" class="sidebar-link">Messages</a><ul class="sidebar-sub-headers"></ul></li><li><a href="/data-structures/filecoin/chain.html#actors" class="sidebar-link">Actors</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/data-structures/filecoin/chain.html#actor-type-linking" class="sidebar-link">Actor type linking</a></li><li class="sidebar-sub-header"><a href="/data-structures/filecoin/chain.html#initactor" class="sidebar-link">InitActor</a></li><li class="sidebar-sub-header"><a href="/data-structures/filecoin/chain.html#cronactor" class="sidebar-link">CronActor</a></li><li class="sidebar-sub-header"><a href="/data-structures/filecoin/chain.html#rewardactor" class="sidebar-link">RewardActor</a></li><li class="sidebar-sub-header"><a href="/data-structures/filecoin/chain.html#accountactor" class="sidebar-link">AccountActor</a></li><li class="sidebar-sub-header"><a href="/data-structures/filecoin/chain.html#storagemarketactor" class="sidebar-link">StorageMarketActor</a></li><li class="sidebar-sub-header"><a href="/data-structures/filecoin/chain.html#storagemineractor" class="sidebar-link">StorageMinerActor</a></li><li class="sidebar-sub-header"><a href="/data-structures/filecoin/chain.html#multisigactor" class="sidebar-link">MultisigActor</a></li><li class="sidebar-sub-header"><a href="/data-structures/filecoin/chain.html#paymentchannelactor" class="sidebar-link">PaymentChannelActor</a></li><li class="sidebar-sub-header"><a href="/data-structures/filecoin/chain.html#storagepoweractor" class="sidebar-link">StoragePowerActor</a></li><li class="sidebar-sub-header"><a href="/data-structures/filecoin/chain.html#verifiedregistryactor" class="sidebar-link">VerifiedRegistryActor</a></li><li class="sidebar-sub-header"><a href="/data-structures/filecoin/chain.html#systemactor" class="sidebar-link">SystemActor</a></li></ul></li></ul></section></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="filecoin-main-chain-data-structures"><a href="#filecoin-main-chain-data-structures" class="header-anchor">#</a> Filecoin Main Chain Data Structures</h1> <ul><li><a href="#basic-types">Basic Types</a></li> <li><a href="#crypto-types">Crypto Types</a></li> <li><a href="#genesis-block">Genesis Block</a></li> <li><a href="#chain">Chain</a></li> <li><a href="#messages">Messages</a></li> <li><a href="#actors">Actors</a> <ul><li><a href="#actor-type-linking">Actor type linking</a></li> <li><a href="#initactor">InitActor</a> <ul><li><a href="#v0">v0</a></li> <li><a href="#v2">v2</a></li></ul></li> <li><a href="#cronactor">CronActor</a> <ul><li><a href="#v0-1">v0</a></li> <li><a href="#v2-1">v2</a></li></ul></li> <li><a href="#rewardactor">RewardActor</a> <ul><li><a href="#v0-2">v0</a></li> <li><a href="#v2-2">v2</a></li></ul></li> <li><a href="#accountactor">AccountActor</a> <ul><li><a href="#v0-3">v0</a></li> <li><a href="#v2-3">v2</a></li></ul></li> <li><a href="#storagemarketactor">StorageMarketActor</a> <ul><li><a href="#v0-4">v0</a></li> <li><a href="#v2-4">v2</a></li></ul></li> <li><a href="#storagemineractor">StorageMinerActor</a> <ul><li><a href="#v0-5">v0</a></li> <li><a href="#v2-5">v2</a></li></ul></li> <li><a href="#multisigactor">MultisigActor</a> <ul><li><a href="#v0-6">v0</a></li> <li><a href="#v2-6">v2</a></li></ul></li> <li><a href="#paymentchannelactor">PaymentChannelActor</a> <ul><li><a href="#v0-7">v0</a></li> <li><a href="#v2-7">v2</a></li></ul></li> <li><a href="#storagepoweractor">StoragePowerActor</a> <ul><li><a href="#v0-8">v0</a></li> <li><a href="#v2-8">v2</a></li></ul></li> <li><a href="#verifiedregistryactor">VerifiedRegistryActor</a> <ul><li><a href="#v0-9">v0</a></li> <li><a href="#v2-9">v2</a></li></ul></li> <li><a href="#systemactor">SystemActor</a> <ul><li><a href="#v0-10">v0</a></li> <li><a href="#v2-10">v2</a></li></ul></li></ul></li></ul> <p>Schemas are grouped by their serialized blocks. Other than those types listed in &quot;Basic Types&quot; and &quot;Crypto Types&quot;, each grouping of schema types in a code block represents a data structure that is serialized into a single IPLD block with its own Link (CID).</p> <p>Advanced Data Layouts (ADLs) are shown in their expanded form here, as the data appears on-block. Their logical forms for programmatic purposes are <code>Map</code> for the HAMT and <code>List</code> for the AMT.</p> <p>There are some data structures that are repeats of the same forms, primarily the AMT and HAMTs that share the same data types. They are not de-duplicated here for clarity to demonstrate the different purposes of those data structures.</p> <p>For more information about the IPLD Schema language, see the <a href="https://specs.ipld.io/schemas/" target="_blank" rel="noopener noreferrer">specificaiton<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a>.</p> <h2 id="basic-types"><a href="#basic-types" class="header-anchor">#</a> Basic Types</h2> <div class="language-ipldsch extra-class"><pre class="language-ipldsch"><code><span class="token comment"># Address is a `https://github.com/filecoin-project/go-address` in its binary byte format.</span>
+<span class="token comment"># It may be used as a hamt key, and will be often visualized or presented to users</span>
+<span class="token comment"># in its more readable string form.</span>
+<span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">Address</span></span> <span class="token keyword">bytes</span>
+
+<span class="token comment"># Go big.Int</span>
+<span class="token comment"># Prefer presenting to users either as a number or a string view of the decimal number</span>
+<span class="token comment"># for readability.</span>
+<span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">BigInt</span></span> <span class="token keyword">bytes</span>
+
+<span class="token comment"># An indicator of which RPC method on an actor a message should trigger execution of.</span>
+<span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">MethodNum</span></span> <span class="token keyword">int</span>
+
+<span class="token comment"># The 'f0...' subset of Addresses used for the actual indexes of actors in a state root.</span>
+<span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">ActorID</span></span> <span class="token keyword">int</span>
+
+<span class="token comment"># the height of a block in the chain. Should fit in an Int64</span>
+<span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">ChainEpoch</span></span> <span class="token keyword">int</span>
+
+<span class="token comment"># the ChainEpoch as bytes, where the integer is converted to its string form and</span>
+<span class="token comment"># the string's bytes are used</span>
+<span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">ChainEpochBytes</span></span> <span class="token keyword">bytes</span>
+
+<span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">TokenAmount</span></span> BigInt
+
+<span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">PaddedPieceSize</span></span> <span class="token keyword">int</span>
+
+<span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">PeerID</span></span> <span class="token keyword">bytes</span>
+
+<span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">SectorSize</span></span> <span class="token keyword">int</span>
+
+<span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">SectorNumber</span></span> <span class="token keyword">int</span>
+
+<span class="token comment"># the SectorNumber as bytes, where the integer is encoded as a uvarint and the</span>
+<span class="token comment"># resulting bytes are used</span>
+<span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">SectorNumberBytes</span></span> <span class="token keyword">bytes</span>
+
+<span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">PartitionNumber</span></span> <span class="token keyword">int</span>
+
+<span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">BitField</span></span> <span class="token keyword">bytes</span>
+
+<span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">StoragePower</span></span> BigInt
+
+<span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">DataCap</span></span> StoragePower
+
+<span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">DealID</span></span> <span class="token keyword">int</span>
+
+<span class="token comment"># the DealID as bytes, where the integer is encoded as a uvarint and the resulting</span>
+<span class="token comment"># bytes are used</span>
+<span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">DealIDBytes</span></span> <span class="token keyword">bytes</span>
+
+<span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">DealWeight</span></span> BigInt
+
+<span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">Multiaddr</span></span> <span class="token keyword">bytes</span>
+
+<span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">RegisteredSealProof</span></span> <span class="token keyword">int</span>
+
+<span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">TransactionID</span></span> <span class="token comment"># TxnID</span>
+
+<span class="token comment"># the TransactionID as bytes, where the integer is encoded as a varint (not uvarint)</span>
+<span class="token comment"># and the resulting bytes are used</span>
+<span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">TransactionIDBytes</span></span> <span class="token keyword">bytes</span>
+
+<span class="token comment"># A quantity of space x time (in byte-epochs) representing power committed to the network for some duration.</span>
+<span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">Spacetime</span></span> BigInt
+
+<span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">ExitCode</span></span> <span class="token keyword">int</span>
+
+<span class="token comment"># Message parameters are encoded as DAG-CBOR and the resulting bytes are</span>
+<span class="token comment"># embedded as `Params` fields in some structs.</span>
+<span class="token comment"># See the Filecoin Messages Data Structures document for encoded DAG-CBOR message</span>
+<span class="token comment"># params</span>
+<span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">CborEncodedParams</span></span> Bytes
+
+<span class="token comment"># Message receipt returns are encoded as DAG-CBOR and the resulting bytes are</span>
+<span class="token comment"># embedded as the `Return` field in `MessageReceipt`.</span>
+<span class="token comment"># See the Filecoin Messages Data Structures document for encoded DAG-CBOR message</span>
+<span class="token comment"># returns</span>
+<span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">CborEncodedReturn</span></span> Bytes
+</code></pre></div><h2 id="crypto-types"><a href="#crypto-types" class="header-anchor">#</a> Crypto Types</h2> <div class="language-ipldsch extra-class"><pre class="language-ipldsch"><code><span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">Signature</span></span> <span class="token builtin">union</span> <span class="token punctuation">{</span>
+  SignatureSecp256k1 <span class="token number">1</span>
+  SignatureBLS <span class="token number">2</span>
+<span class="token representation">} <span class="token builtin">representation</span></span> byteprefix
+</code></pre></div><h2 id="genesis-block"><a href="#genesis-block" class="header-anchor">#</a> Genesis Block</h2> <p>There is a single block at the base of the entire chain with this layout. It is
+the only structure that uses an actual Map at the representation level (other
+structs use the <code>tuple</code> representation which encodes them as Lists). It is
+encoded with DAG-CBOR with a SHA2-256 which gives the CID:
+<code>bafyreiaqpwbbyjo4a42saasj36kkrpv4tsherf2e7bvezkert2a7dhonoi</code>.</p> <p>Note that this block does not conform to strict DAG-CBOR in that its Map keys
+are not sorted according to canonical rules. Therefore it does not round-trip
+cleanly through current DAG-CBOR codecs.</p> <div class="language-ipldsch extra-class"><pre class="language-ipldsch"><code><span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">Genesis</span></span> <span class="token builtin">struct</span> <span class="token punctuation">{</span>
+  Datetime String
+  Network String
+  Token String
+  TokenAmounts TokenAmounts
+  Message String
+<span class="token punctuation">}</span>
+
+<span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">TokenAmounts</span></span> <span class="token builtin">struct</span> <span class="token punctuation">{</span>
+  TotalSupply String
+  Miners String
+  ProtocolLabs <span class="token punctuation">{</span>String<span class="token punctuation">:</span>String<span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></div><h2 id="chain"><a href="#chain" class="header-anchor">#</a> Chain</h2> <div class="language-ipldsch extra-class"><pre class="language-ipldsch"><code><span class="token comment"># The `ParentStateRoot` link will point either directly to `ActorsHAMT' for v0</span>
+<span class="token comment"># or `StateRoot` which links to `ActorsHAMT` for v2.</span>
+<span class="token comment"># See Lotus chain/state/LoadStateTree()</span>
+<span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">StateRootLink</span></span> <span class="token punctuation">&amp;</span>Any
+
+<span class="token comment"># The type hint here, `BlockHeader`, holds true **except** for the case of the</span>
+<span class="token comment"># final Genesis block, which is a different format entirely. Note there is a</span>
+<span class="token comment"># `BlockHeader` &quot;genesis&quot; but its `Parents` is a single CID pointing to the</span>
+<span class="token comment"># original genesis block which is described by the `Genesis` type.</span>
+<span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">TipSetKey</span></span> <span class="token punctuation">[</span><span class="token punctuation">&amp;</span>BlockHeader<span class="token punctuation">]</span>
+
+<span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">BlockHeader</span></span> <span class="token builtin">struct</span> <span class="token punctuation">{</span>
+  Miner Address
+  Ticket <span class="token keyword">nullable</span> Ticket
+  ElectionProof <span class="token keyword">nullable</span> ElectionProof
+  BeaconEntries <span class="token punctuation">[</span>BeaconEntry<span class="token punctuation">]</span>
+  WinPoStProof <span class="token punctuation">[</span>PoStProof<span class="token punctuation">]</span>
+  Parents TipSetKey
+  ParentWeight Bytes
+  Height ChainEpoch
+  ParentStateRoot StateRootLink
+  ParentMessageReceipts <span class="token punctuation">&amp;</span>MessageReceiptAMT
+  Messages <span class="token punctuation">&amp;</span>TxMeta
+  BLSAggregate <span class="token keyword">nullable</span> Signature
+  Timestamp Int
+  BlockSig <span class="token keyword">nullable</span> Signature
+  ForkSignaling Int
+  ParentBaseFee TokenAmount
+<span class="token representation">} <span class="token builtin">representation</span></span> tuple
+
+<span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">Ticket</span></span> <span class="token builtin">struct</span> <span class="token punctuation">{</span>
+  VRFProof Bytes
+<span class="token representation">} <span class="token builtin">representation</span></span> tuple
+
+<span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">ElectionProof</span></span> <span class="token builtin">struct</span> <span class="token punctuation">{</span>
+  WinCount Int
+  VRFProof Bytes
+<span class="token representation">} <span class="token builtin">representation</span></span> tuple
+
+<span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">BeaconEntry</span></span> <span class="token builtin">struct</span> <span class="token punctuation">{</span>
+  Round Int
+  Data Bytes
+<span class="token representation">} <span class="token builtin">representation</span></span> tuple
+
+<span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">PoStProof</span></span> <span class="token builtin">struct</span> <span class="token punctuation">{</span>
+  PoStProof Int
+  ProofBytes Bytes
+<span class="token representation">} <span class="token builtin">representation</span></span> tuple
+</code></pre></div><p><strong>AMT</strong>: This is an ADL representing <code>type MessageReceiptList [MessageReceipt]</code>.</p> <div class="language-ipldsch extra-class"><pre class="language-ipldsch"><code><span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">MessageReceiptAMT</span></span> <span class="token builtin">struct</span> <span class="token punctuation">{</span>
+  height Int
+  count Int
+  node MessageReceiptAMTNode
+<span class="token representation">} <span class="token builtin">representation</span></span> tuple
+
+<span class="token comment"># This can also be the root of a block</span>
+<span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">MessageReceiptAMTNode</span></span> <span class="token builtin">struct</span> <span class="token punctuation">{</span>
+  bitmap Bytes
+  children <span class="token punctuation">[</span><span class="token punctuation">&amp;</span>MessageReceiptAMTNode<span class="token punctuation">]</span>
+  values <span class="token punctuation">[</span><span class="token punctuation">&amp;</span>Message<span class="token punctuation">]</span>
+<span class="token representation">} <span class="token builtin">representation</span></span> tuple
+
+<span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">MessageReceipt</span></span> <span class="token builtin">struct</span> <span class="token punctuation">{</span>
+  ExitCode ExitCode
+  Return   CborEncodedReturn
+  GasUsed  Int
+<span class="token representation">} <span class="token builtin">representation</span></span> tuple
+</code></pre></div><div class="language-ipldsch extra-class"><pre class="language-ipldsch"><code><span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">StateRoot</span></span> <span class="token builtin">struct</span> <span class="token punctuation">{</span>
+  Version Int
+  Actors <span class="token punctuation">&amp;</span>ActorsHAMT
+  Info <span class="token punctuation">&amp;</span>StateInfo
+<span class="token representation">} <span class="token builtin">representation</span></span> tuple
+</code></pre></div><p>Note that <code>StateInfo</code> is an <a href="https://github.com/filecoin-project/lotus/blob/f225b7b928de73e20dd8b8d4d075a56fbf3b8a25/chain/types/state.go#L26" target="_blank" rel="noopener noreferrer">empty struct<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a>, which encodes as an empty CBOR array (<code>0x80</code>).</p> <div class="language-ipldsch extra-class"><pre class="language-ipldsch"><code><span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">StateInfo</span></span> <span class="token builtin">struct</span> <span class="token punctuation">{</span>
+<span class="token representation">} <span class="token builtin">representation</span></span> tuple
+</code></pre></div><h2 id="messages"><a href="#messages" class="header-anchor">#</a> Messages</h2> <div class="language-ipldsch extra-class"><pre class="language-ipldsch"><code><span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">TxMeta</span></span> <span class="token builtin">struct</span> <span class="token punctuation">{</span>
+  BlsMessages <span class="token punctuation">&amp;</span>MessageLinkAMT
+  SecpkMessages <span class="token punctuation">&amp;</span>SignedMessageLinkAMT
+<span class="token representation">} <span class="token builtin">representation</span></span> tuple
+
+```ipldsch
+<span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">Message</span></span> <span class="token builtin">struct</span> <span class="token punctuation">{</span>
+  Version Int
+  To Address
+  From Address
+  Nonce Int
+  Value BigInt
+  GasLimit Int
+  GasFeeCap BigInt
+  GasPremium BigInt
+  Method MethodNum
+  Params CborEncodedParams
+<span class="token representation">} <span class="token builtin">representation</span></span> tuple
+
+<span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">SignedMessage</span></span> <span class="token builtin">struct</span> <span class="token punctuation">{</span>
+  Message Message
+  Signature Signature
+<span class="token representation">} <span class="token builtin">representation</span></span> tuple
+</code></pre></div><p><strong>AMT</strong>: This is an ADL representing <code>type MessagesList [&amp;Message]</code>.</p> <div class="language-ipldsch extra-class"><pre class="language-ipldsch"><code><span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">MessageLinkAMT</span></span> <span class="token builtin">struct</span> <span class="token punctuation">{</span>
+  height Int
+  count Int
+  node MessageLinkAMTNode
+<span class="token representation">} <span class="token builtin">representation</span></span> tuple
+
+<span class="token comment"># This can also be the root of a block</span>
+<span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">MessageLinkAMTNode</span></span> <span class="token builtin">struct</span> <span class="token punctuation">{</span>
+  bitmap Bytes
+  children <span class="token punctuation">[</span><span class="token punctuation">&amp;</span>MessageLinkAMTNode<span class="token punctuation">]</span>
+  values <span class="token punctuation">[</span><span class="token punctuation">&amp;</span>Message<span class="token punctuation">]</span>
+<span class="token representation">} <span class="token builtin">representation</span></span> tuple
+</code></pre></div><p><strong>AMT</strong>: This is an ADL representing <code>type SignedMessagesList [&amp;SignedMessage]</code>.</p> <p>Note this is identical in layout to <code>MessagesList</code> and contains links at the leaves, but is listed here for completeness.</p> <div class="language-ipldsch extra-class"><pre class="language-ipldsch"><code><span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">SignedMessageLinkAMT</span></span> <span class="token builtin">struct</span> <span class="token punctuation">{</span>
+  height Int
+  count Int
+  node SignedMessageLinkAMTNode
+<span class="token representation">} <span class="token builtin">representation</span></span> tuple
+
+<span class="token comment"># This can also be the root of a block</span>
+<span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">SignedMessageLinkAMTNode</span></span> <span class="token builtin">struct</span> <span class="token punctuation">{</span>
+  bitmap Bytes
+  children <span class="token punctuation">[</span><span class="token punctuation">&amp;</span>SignedMessageLinkAMTNode<span class="token punctuation">]</span>
+  values <span class="token punctuation">[</span><span class="token punctuation">&amp;</span>SignedMessage<span class="token punctuation">]</span>
+<span class="token representation">} <span class="token builtin">representation</span></span> tuple
+</code></pre></div><h2 id="actors"><a href="#actors" class="header-anchor">#</a> Actors</h2> <p><strong>HAMT</strong>: This is an ADL representing <code>type ActorsMap {Address:Actors}</code>.</p> <h3 id="actor-type-linking"><a href="#actor-type-linking" class="header-anchor">#</a> Actor type linking</h3> <p>Actors are identified by a Code which is represented as a CID. The current form
+uses a <code>raw</code> codec combined with an <code>identity</code> multihash to encode a set of
+fixed strings uniquely representing the Actor type. Version 0 Actors use the
+prefix <code>fil/1/</code> while version 2 Actors use the prefix <code>fil/2/</code>, followed by the
+Actor name.</p> <p>The <code>code</code> field in the <code>Actor</code> struct contains this CID and indicates the type
+of block to be found when following the <code>head</code> link to load the specific Actor
+state.</p> <table><thead><tr><th>Code string</th> <th>Actor state type</th> <th>CID</th> <th>CID Bytes</th></tr></thead> <tbody><tr><td><code>&quot;fil/1/init&quot;</code></td> <td><a href="#initv0state"><code>InitV0State</code></a></td> <td><code>bafkqactgnfwc6mjpnfxgs5a</code></td> <td><code>0x0155000a66696c2f312f696e6974</code></td></tr> <tr><td><code>&quot;fil/2/init&quot;</code></td> <td><a href="#initv2state"><code>InitV2State</code></a></td> <td><code>bafkqactgnfwc6mrpnfxgs5a</code></td> <td><code>0x0155000a66696c2f322f696e6974</code></td></tr> <tr><td><code>&quot;fil/1/cron&quot;</code></td> <td><a href="#cronv0state"><code>CronV0State</code></a></td> <td><code>bafkqactgnfwc6mjpmnzg63q</code></td> <td><code>0x0155000a66696c2f312f63726f6e</code></td></tr> <tr><td><code>&quot;fil/2/cron&quot;</code></td> <td><a href="#cronv2state"><code>CronV2State</code></a></td> <td><code>bafkqactgnfwc6mrpmnzg63q</code></td> <td><code>0x0155000a66696c2f322f63726f6e</code></td></tr> <tr><td><code>&quot;fil/1/reward&quot;</code></td> <td><a href="#rewardv0state"><code>RewardV0State</code></a></td> <td><code>bafkqaddgnfwc6mjpojsxoylsmq</code></td> <td><code>0x0155000c66696c2f312f726577617264</code></td></tr> <tr><td><code>&quot;fil/2/reward&quot;</code></td> <td><a href="#rewardv2state"><code>RewardV2State</code></a></td> <td><code>bafkqaddgnfwc6mrpojsxoylsmq</code></td> <td><code>0x0155000c66696c2f322f726577617264</code></td></tr> <tr><td><code>&quot;fil/1/account&quot;</code></td> <td><a href="#accountv0state"><code>AccountV0State</code></a></td> <td><code>bafkqadlgnfwc6mjpmfrwg33vnz2a</code></td> <td><code>0x0155000d66696c2f312f6163636f756e74</code></td></tr> <tr><td><code>&quot;fil/2/account&quot;</code></td> <td><a href="#accountv2state"><code>AccountV2State</code></a></td> <td><code>bafkqadlgnfwc6mrpmfrwg33vnz2a</code></td> <td><code>0x0155000d66696c2f322f6163636f756e74</code></td></tr> <tr><td><code>&quot;fil/1/storagemarket&quot;</code></td> <td><a href="#marketv0state"><code>MarketV0State</code></a></td> <td><code>bafkqae3gnfwc6mjpon2g64tbm5sw2ylsnnsxi</code></td> <td><code>0x0155001366696c2f312f73746f726167656d61726b6574</code></td></tr> <tr><td><code>&quot;fil/2/storagemarket&quot;</code></td> <td><a href="#marketv2state"><code>MarketV2State</code></a></td> <td><code>bafkqae3gnfwc6mrpon2g64tbm5sw2ylsnnsxi</code></td> <td><code>0x0155001366696c2f322f73746f726167656d61726b6574</code></td></tr> <tr><td><code>&quot;fil/1/storageminer&quot;</code></td> <td><a href="#minerv0state"><code>MinerV0State</code></a></td> <td><code>bafkqaetgnfwc6mjpon2g64tbm5sw22lomvza</code></td> <td><code>0x0155001266696c2f312f73746f726167656d696e6572</code></td></tr> <tr><td><code>&quot;fil/2/storageminer&quot;</code></td> <td><a href="#minerv2state"><code>MinerV2State</code></a></td> <td><code>bafkqaetgnfwc6mrpon2g64tbm5sw22lomvza</code></td> <td><code>0x0155001266696c2f322f73746f726167656d696e6572</code></td></tr> <tr><td><code>&quot;fil/1/multisig&quot;</code></td> <td><a href="#multisigv0state"><code>MultisigV0State</code></a></td> <td><code>bafkqadtgnfwc6mjpnv2wy5djonuwo</code></td> <td><code>0x0155000e66696c2f312f6d756c7469736967</code></td></tr> <tr><td><code>&quot;fil/2/multisig&quot;</code></td> <td><a href="#multisigv2state"><code>MultisigV2State</code></a></td> <td><code>bafkqadtgnfwc6mrpnv2wy5djonuwo</code></td> <td><code>0x0155000e66696c2f322f6d756c7469736967</code></td></tr> <tr><td><code>&quot;fil/1/paymentchannel&quot;</code></td> <td><a href="#paychv0state"><code>PaychV0State</code></a></td> <td><code>bafkqafdgnfwc6mjpobqxs3lfnz2gg2dbnzxgk3a</code></td> <td><code>0x0155001466696c2f312f7061796d656e746368616e6e656c</code></td></tr> <tr><td><code>&quot;fil/2/paymentchannel&quot;</code></td> <td><a href="#paychv2state"><code>PaychV2State</code></a></td> <td><code>bafkqafdgnfwc6mrpobqxs3lfnz2gg2dbnzxgk3a</code></td> <td><code>0x0155001466696c2f322f7061796d656e746368616e6e656c</code></td></tr> <tr><td><code>&quot;fil/1/storagepower&quot;</code></td> <td><a href="#powerv0state"><code>PowerV0State</code></a></td> <td><code>bafkqaetgnfwc6mjpon2g64tbm5sxa33xmvza</code></td> <td><code>0x0155001266696c2f312f73746f72616765706f776572</code></td></tr> <tr><td><code>&quot;fil/2/storagepower&quot;</code></td> <td><a href="#powerv2state"><code>PowerV2State</code></a></td> <td><code>bafkqaetgnfwc6mrpon2g64tbm5sxa33xmvza</code></td> <td><code>0x0155001266696c2f322f73746f72616765706f776572</code></td></tr> <tr><td><code>&quot;fil/1/verifiedregistry&quot;</code></td> <td><a href="#verifregv0state"><code>VerifregV0State</code></a></td> <td><code>bafkqaftgnfwc6mjpozsxe2lgnfswi4tfm5uxg5dspe</code></td> <td><code>0x0155001666696c2f312f76657269666965647265676973747279</code></td></tr> <tr><td><code>&quot;fil/2/verifiedregistry&quot;</code></td> <td><a href="#verifregv2state"><code>VerifregV2State</code></a></td> <td><code>bafkqaftgnfwc6mrpozsxe2lgnfswi4tfm5uxg5dspe</code></td> <td><code>0x0155001666696c2f322f76657269666965647265676973747279</code></td></tr> <tr><td><code>&quot;fil/1/system&quot;</code></td> <td><a href="#systemv0state"><code>SystemV0State</code></a></td> <td><code>bafkqaddgnfwc6mjpon4xg5dfnu</code></td> <td><code>0x0155000c66696c2f312f73797374656d</code></td></tr> <tr><td><code>&quot;fil/2/system&quot;</code></td> <td><a href="#systemv2state"><code>SystemV2State</code></a></td> <td><code>bafkqaddgnfwc6mrpon4xg5dfnu</code></td> <td><code>0x0155000c66696c2f322f73797374656d</code></td></tr></tbody></table> <div class="language-ipldsch extra-class"><pre class="language-ipldsch"><code><span class="token comment"># An inline CID encoded as raw+identity, see above</span>
+<span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">ActorCode</span></span> <span class="token punctuation">&amp;</span>Any
+
+<span class="token comment"># An implicit union of each actor state types, keyed by the `ActorCode` (`code`)</span>
+<span class="token comment"># field and its variations listed above</span>
+<span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">ActorStateLink</span></span> <span class="token punctuation">&amp;</span>Any
+
+<span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">ActorsHAMT</span></span> <span class="token builtin">struct</span> <span class="token punctuation">{</span>
+  map Bytes
+  data <span class="token punctuation">[</span> ActorsHAMTElement <span class="token punctuation">]</span>
+<span class="token representation">} <span class="token builtin">representation</span></span> tuple
+
+<span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">ActorsHAMTElement</span></span> <span class="token builtin">union</span> <span class="token punctuation">{</span>
+  <span class="token punctuation">|</span> ActorsHAMTLink <span class="token string">&quot;0&quot;</span>
+  <span class="token punctuation">|</span> ActorsHAMTBucket <span class="token string">&quot;1&quot;</span>
+<span class="token representation">} <span class="token builtin">representation</span></span> keyed
+
+<span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">ActorsHAMTLink</span></span> <span class="token punctuation">&amp;</span>ActorsHAMT
+
+<span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">ActorsHAMTBucket</span></span> <span class="token punctuation">[</span> ActorsHAMTBucketEntry <span class="token punctuation">]</span>
+
+<span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">ActorsHAMTBucketEntry</span></span> <span class="token builtin">struct</span> <span class="token punctuation">{</span>
+  key Address
+  value Actor <span class="token comment"># inline</span>
+<span class="token representation">} <span class="token builtin">representation</span></span> tuple
+
+<span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">Actor</span></span> <span class="token builtin">struct</span> <span class="token punctuation">{</span>
+  code ActorCode
+  head ActorStateLink
+  nonce CallSeqNum
+  balance BigInt
+<span class="token representation">} <span class="token builtin">representation</span></span> tuple
+</code></pre></div><h3 id="initactor"><a href="#initactor" class="header-anchor">#</a> InitActor</h3> <p>The InitActor state is the same in v0 and v2.</p> <h4 id="v0"><a href="#v0" class="header-anchor">#</a> v0</h4> <p><a name="initv0state"></a></p> <div class="language-ipldsch extra-class"><pre class="language-ipldsch"><code><span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">InitV0State</span></span> <span class="token builtin">struct</span> <span class="token punctuation">{</span>
+  AddressMap <span class="token punctuation">&amp;</span>ActorIDHAMT <span class="token comment"># HAMT[Address]ActorID</span>
+  NextID ActorID
+  NetworkName String
+<span class="token representation">} <span class="token builtin">representation</span></span> tuple
+</code></pre></div><h4 id="v2"><a href="#v2" class="header-anchor">#</a> v2</h4> <p><em>(Same as v0)</em></p> <p><a name="initv2state"></a></p> <div class="language-ipldsch extra-class"><pre class="language-ipldsch"><code><span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">InitV2State</span></span> InitV0State
+</code></pre></div><p><strong>HAMT</strong>: This is an ADL representing <code>type ActorIDHAMT {Address:ActorID}</code>.</p> <div class="language-ipldsch extra-class"><pre class="language-ipldsch"><code><span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">ActorIDHAMT</span></span> <span class="token builtin">struct</span> <span class="token punctuation">{</span>
+  map Bytes
+  data <span class="token punctuation">[</span> ActorIDHAMTElement <span class="token punctuation">]</span>
+<span class="token representation">} <span class="token builtin">representation</span></span> tuple
+
+<span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">ActorIDHAMTElement</span></span> <span class="token builtin">union</span> <span class="token punctuation">{</span>
+  <span class="token punctuation">|</span> ActorIDHAMTLink <span class="token string">&quot;0&quot;</span>
+  <span class="token punctuation">|</span> ActorIDHAMTBucket <span class="token string">&quot;1&quot;</span>
+<span class="token representation">} <span class="token builtin">representation</span></span> keyed
+
+<span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">ActorIDHAMTLink</span></span> <span class="token punctuation">&amp;</span>ActorIDHAMT
+
+<span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">ActorIDHAMTBucket</span></span> <span class="token punctuation">[</span> ActorIDHAMTBucketEntry <span class="token punctuation">]</span>
+
+<span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">ActorIDHAMTBucketEntry</span></span> <span class="token builtin">struct</span> <span class="token punctuation">{</span>
+  key Address
+  value ActorID
+<span class="token representation">} <span class="token builtin">representation</span></span> tuple
+</code></pre></div><h3 id="cronactor"><a href="#cronactor" class="header-anchor">#</a> CronActor</h3> <p>The CronActor state is the same in v0 and v2.</p> <h4 id="v0-2"><a href="#v0-2" class="header-anchor">#</a> v0</h4> <p><a name="cronv0state"></a></p> <div class="language-ipldsch extra-class"><pre class="language-ipldsch"><code><span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">CronV0State</span></span> <span class="token builtin">struct</span> <span class="token punctuation">{</span>
+  Entries <span class="token punctuation">[</span>CronV0Entry<span class="token punctuation">]</span>
+<span class="token representation">} <span class="token builtin">representation</span></span> tuple
+
+<span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">CronV0Entry</span></span> <span class="token builtin">struct</span> <span class="token punctuation">{</span>
+  <span class="token comment"># The actor to call (must be an ID-address)</span>
+  Receiver Address
+  <span class="token comment"># The method number to call (must accept empty parameters)</span>
+  MethodNum MethodNum
+<span class="token representation">} <span class="token builtin">representation</span></span> tuple
+</code></pre></div><h4 id="v2-2"><a href="#v2-2" class="header-anchor">#</a> v2</h4> <p><em>(Same as v0)</em></p> <p><a name="cronv2state"></a></p> <div class="language-ipldsch extra-class"><pre class="language-ipldsch"><code><span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">CronV2State</span></span> CronV0State
+</code></pre></div><h3 id="rewardactor"><a href="#rewardactor" class="header-anchor">#</a> RewardActor</h3> <p>The RewardActor state differs between v0 and v2.</p> <h4 id="v0-3"><a href="#v0-3" class="header-anchor">#</a> v0</h4> <p><a name="rewardv0state"></a></p> <div class="language-ipldsch extra-class"><pre class="language-ipldsch"><code><span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">RewardV0State</span></span> <span class="token builtin">struct</span> <span class="token punctuation">{</span>
+  <span class="token comment"># CumsumBaseline is a target CumsumRealized needs to reach for EffectiveNetworkTime to increase</span>
+  <span class="token comment"># CumsumBaseline and CumsumRealized are expressed in byte-epochs.</span>
+  CumsumBaseline Spacetime
+  <span class="token comment"># CumsumRealized is cumulative sum of network power capped by BalinePower(epoch)</span>
+  CumsumRealized Spacetime
+  <span class="token comment"># EffectiveNetworkTime is ceiling of real effective network time `theta` based on</span>
+  <span class="token comment"># CumsumBaselinePower(theta) == CumsumRealizedPower</span>
+  <span class="token comment"># Theta captures the notion of how much the network has progressed in its baseline</span>
+  <span class="token comment"># and in advancing network time.</span>
+  EffectiveNetworkTime ChainEpoch
+  <span class="token comment"># EffectiveBaselinePower is the baseline power at the EffectiveNetworkTime epoch</span>
+  EffectiveBaselinePower StoragePower
+  <span class="token comment"># The reward to be paid in per WinCount to block producers.</span>
+  <span class="token comment"># The actual reward total paid out depends on the number of winners in any round.</span>
+  <span class="token comment"># This value is recomputed every non-null epoch and used in the next non-null epoch.</span>
+  ThisEpochReward TokenAmount
+  <span class="token comment"># Smoothed ThisEpochReward</span>
+  ThisEpochRewardSmoothed <span class="token keyword">nullable</span> FilterEstimate
+  <span class="token comment"># The baseline power the network is targeting at st.Epoch</span>
+  ThisEpochBaselinePower StoragePower
+  <span class="token comment"># Epoch tracks for which epoch the Reward was computed</span>
+  Epoch ChainEpoch
+  <span class="token comment"># TotalMined tracks the total FIL awared to block miners</span>
+  TotalMined TokenAmount
+<span class="token representation">} <span class="token builtin">representation</span></span> tuple
+
+<span class="token comment"># Alpha Beta Filter &quot;position&quot; (value) and &quot;velocity&quot; (rate of change of value) estimates</span>
+<span class="token comment"># Estimates are in Q.128 format</span>
+<span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">FilterEstimate</span></span> <span class="token builtin">struct</span> <span class="token punctuation">{</span>
+  PositionEstimate BigInt <span class="token comment"># Q.128</span>
+  VelocityEstimate BigInt <span class="token comment"># Q.128</span>
+<span class="token representation">} <span class="token builtin">representation</span></span> tuple
+</code></pre></div><h4 id="v2-3"><a href="#v2-3" class="header-anchor">#</a> v2</h4> <p><a name="rewardv2state"></a></p> <div class="language-ipldsch extra-class"><pre class="language-ipldsch"><code><span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">RewardV2State</span></span> <span class="token builtin">struct</span> <span class="token punctuation">{</span>
+  <span class="token comment"># CumsumBaseline is a target CumsumRealized needs to reach for EffectiveNetworkTime to increase</span>
+  <span class="token comment"># CumsumBaseline and CumsumRealized are expressed in byte-epochs.</span>
+  CumsumBaseline Spacetime
+  <span class="token comment"># CumsumRealized is cumulative sum of network power capped by BaselinePower(epoch)</span>
+  CumsumRealized Spacetime
+  <span class="token comment"># EffectiveNetworkTime is ceiling of real effective network time `theta` based on</span>
+  <span class="token comment"># CumsumBaselinePower(theta) == CumsumRealizedPower</span>
+  <span class="token comment"># Theta captures the notion of how much the network has progressed in its baseline</span>
+  <span class="token comment"># and in advancing network time.</span>
+  EffectiveNetworkTime ChainEpoch
+  <span class="token comment"># EffectiveBaselinePower is the baseline power at the EffectiveNetworkTime epoch</span>
+  EffectiveBaselinePower StoragePower
+  <span class="token comment"># The reward to be paid in per WinCount to block producers.</span>
+  <span class="token comment"># The actual reward total paid out depends on the number of winners in any round.</span>
+  <span class="token comment"># This value is recomputed every non-null epoch and used in the next non-null epoch.</span>
+  ThisEpochReward TokenAmount
+  <span class="token comment"># Smoothed ThisEpochReward</span>
+  ThisEpochRewardSmoothed FilterEstimate
+  <span class="token comment"># The baseline power the network is targeting at st.Epoch</span>
+  ThisEpochBaselinePower StoragePower
+  <span class="token comment"># Epoch tracks for which epoch the Reward was computed</span>
+  Epoch ChainEpoch
+  <span class="token comment"># TotalStoragePowerReward tracks the total FIL awarded to block miners</span>
+  TotalStoragePowerReward TokenAmount
+  <span class="token comment"># Simple and Baseline totals are constants used for computing rewards.</span>
+  <span class="token comment"># They are on chain because of a historical fix resetting baseline value</span>
+  <span class="token comment"># in a way that depended on the history leading immediately up to the</span>
+  <span class="token comment"># migration fixing the value.  These values can be moved from state back</span>
+  <span class="token comment"># into a code constant in a subsequent upgrade.</span>
+  SimpleTotal BigInt
+  BaselineTotal BigInt
+<span class="token representation">} <span class="token builtin">representation</span></span> tuple
+</code></pre></div><h3 id="accountactor"><a href="#accountactor" class="header-anchor">#</a> AccountActor</h3> <p>The CronActor state is the same in v0 and v2 and only contains an <code>Address</code>.</p> <h4 id="v0-4"><a href="#v0-4" class="header-anchor">#</a> v0</h4> <p><a name="accountv0state"></a></p> <div class="language-ipldsch extra-class"><pre class="language-ipldsch"><code><span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">AccountV0State</span></span> <span class="token builtin">struct</span> <span class="token punctuation">{</span>
+  Address Address
+<span class="token representation">} <span class="token builtin">representation</span></span> tuple
+</code></pre></div><h4 id="v2-4"><a href="#v2-4" class="header-anchor">#</a> v2</h4> <p><em>(Same as v0)</em></p> <p><a name="accountv2state"></a></p> <div class="language-ipldsch extra-class"><pre class="language-ipldsch"><code><span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">AccountV2State</span></span> AccountV0State
+</code></pre></div><h3 id="storagemarketactor"><a href="#storagemarketactor" class="header-anchor">#</a> StorageMarketActor</h3> <p>The StorageMarketActor state is the same in v0 and v2.</p> <h4 id="v0-5"><a href="#v0-5" class="header-anchor">#</a> v0</h4> <p><a name="marketv0state"></a></p> <div class="language-ipldsch extra-class"><pre class="language-ipldsch"><code><span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">MarketV0State</span></span> <span class="token builtin">struct</span> <span class="token punctuation">{</span>
+  Proposals <span class="token punctuation">&amp;</span>DealProposalAMT <span class="token comment"># AMT[DealID]DealProposal</span>
+  States <span class="token punctuation">&amp;</span>DealStateAMT <span class="token comment"># AMT[DealID]DealState</span>
+  <span class="token comment"># PendingProposals tracks dealProposals that have not yet reached their deal start date.</span>
+  <span class="token comment"># We track them here to ensure that miners can't publish the same deal proposal twice.</span>
+  PendingProposals <span class="token punctuation">&amp;</span>DealProposalHAMT <span class="token comment"># HAMT[DealCid]DealProposal</span>
+  <span class="token comment"># Total amount held in escrow, indexed by actor address (including both locked and unlocked amounts).</span>
+  EscrowTable <span class="token punctuation">&amp;</span>BalanceTableHAMT <span class="token comment"># HAMT[Address]TokenAmount</span>
+  <span class="token comment"># Amount locked, indexed by actor address.</span>
+  <span class="token comment"># Note: the amounts in this table do not affect the overall amount in escrow:</span>
+  <span class="token comment"># only the _portion_ of the total escrow amount that is locked.</span>
+  LockedTable <span class="token punctuation">&amp;</span>BalanceTableHAMT <span class="token comment"># HAMT[Address]TokenAmount</span>
+  NextID DealID
+  <span class="token comment"># Metadata cached for efficient iteration over deals.</span>
+  DealOpsByEpoch <span class="token punctuation">&amp;</span>DealOpsByEpochHAMT <span class="token comment"># SetMultimap: HAMT[ChainEpoch]Set[DealID]</span>
+  LastCron ChainEpoch
+  <span class="token comment"># Total Client Collateral that is locked -&gt; unlocked when deal is terminated</span>
+  TotalClientLockedCollateral TokenAmount
+  <span class="token comment"># Total Provider Collateral that is locked -&gt; unlocked when deal is terminated</span>
+  TotalProviderLockedCollateral TokenAmount
+  <span class="token comment"># Total storage fee that is locked in escrow -&gt; unlocked when payments are made</span>
+  TotalClientStorageFee TokenAmount
+<span class="token representation">} <span class="token builtin">representation</span></span> tuple
+</code></pre></div><h4 id="v2-5"><a href="#v2-5" class="header-anchor">#</a> v2</h4> <p><em>(Same as v0)</em></p> <p><a name="marketv2state"></a></p> <div class="language-ipldsch extra-class"><pre class="language-ipldsch"><code><span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">MarketV2State</span></span> MarketV0State
+</code></pre></div><p><strong>AMT</strong>: This is an ADL representing <code>type DealProposalList [DealProposal]</code>, indexed by <code>DealID</code>.</p> <div class="language-ipldsch extra-class"><pre class="language-ipldsch"><code><span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">DealProposalAMT</span></span> <span class="token builtin">struct</span> <span class="token punctuation">{</span>
+  height Int
+  count Int
+  node DealProposalAMTNode
+<span class="token representation">} <span class="token builtin">representation</span></span> tuple
+
+<span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">DealProposalAMTNode</span></span> <span class="token builtin">struct</span> <span class="token punctuation">{</span>
+  bitmap Bytes
+  children <span class="token punctuation">[</span><span class="token punctuation">&amp;</span>DealProposalAMTNode<span class="token punctuation">]</span>
+  values <span class="token punctuation">[</span>MarketV0DealProposal<span class="token punctuation">]</span> <span class="token comment"># inline</span>
+<span class="token representation">} <span class="token builtin">representation</span></span> tuple
+
+<span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">MarketV0DealProposal</span></span> <span class="token builtin">struct</span> <span class="token punctuation">{</span>
+  <span class="token comment"># CommP: A CID with fil-commitment-unsealed + sha2_256-trunc254-padded</span>
+  PieceCID <span class="token punctuation">&amp;</span>Any
+  PieceSize PaddedPieceSize
+  VerifiedDeal Bool
+  Client Address
+  Provider Address
+  <span class="token comment"># An arbitrary client chosen label to apply to the deal</span>
+  Label String
+  <span class="token comment"># Nominal start epoch. Deal payment is linear between StartEpoch and EndEpoch,</span>
+  <span class="token comment"># with total amount StoragePricePerEpoch * (EndEpoch - StartEpoch).</span>
+  <span class="token comment"># Storage deal must appear in a sealed (proven) sector no later than StartEpoch,</span>
+  <span class="token comment"># otherwise it is invalid.</span>
+  StartEpoch ChainEpoch
+  EndEpoch ChainEpoch
+  StoragePricePerEpoch TokenAmount
+  ProviderCollateral TokenAmount
+  ClientCollateral TokenAmount
+<span class="token representation">} <span class="token builtin">representation</span></span> tuple
+</code></pre></div><p><strong>AMT</strong>: This is an ADL representing <code>type DealProposalList [DealState]</code>, indexed by <code>DealID</code>.</p> <div class="language-ipldsch extra-class"><pre class="language-ipldsch"><code><span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">DealStateAMT</span></span> <span class="token builtin">struct</span> <span class="token punctuation">{</span>
+  height Int
+  count Int
+  node DealStateAMTNode
+<span class="token representation">} <span class="token builtin">representation</span></span> tuple
+
+<span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">DealStateAMTNode</span></span> <span class="token builtin">struct</span> <span class="token punctuation">{</span>
+  bitmap Bytes
+  children <span class="token punctuation">[</span><span class="token punctuation">&amp;</span>DealStateAMTNode<span class="token punctuation">]</span>
+  values <span class="token punctuation">[</span>MarketV0DealState<span class="token punctuation">]</span> <span class="token comment"># inline</span>
+<span class="token representation">} <span class="token builtin">representation</span></span> tuple
+
+<span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">MarketV0DealState</span></span> <span class="token builtin">struct</span> <span class="token punctuation">{</span>
+  SectorStartEpoch ChainEpoch <span class="token comment"># -1 if not yet included in proven sector</span>
+  LastUpdatedEpoch ChainEpoch <span class="token comment"># -1 if deal state never updated</span>
+  SlashEpoch ChainEpoch <span class="token comment"># -1 if deal never slashed</span>
+<span class="token representation">} <span class="token builtin">representation</span></span> tuple
+</code></pre></div><p><strong>HAMT</strong>: This is an ADL representing <code>type DealProposalMap {DealCidBytes:DealProposal}</code>.</p> <div class="language-ipldsch extra-class"><pre class="language-ipldsch"><code><span class="token comment"># The bytes form of the the CID of a `MarketV0DealProposal` object as a block</span>
+<span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">DealCidBytes</span></span> <span class="token keyword">bytes</span>
+
+<span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">DealProposalHAMT</span></span> <span class="token builtin">struct</span> <span class="token punctuation">{</span>
+  map Bytes
+  data <span class="token punctuation">[</span> DealProposalHAMTElement <span class="token punctuation">]</span>
+<span class="token representation">} <span class="token builtin">representation</span></span> tuple
+
+<span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">DealProposalHAMTElement</span></span> <span class="token builtin">union</span> <span class="token punctuation">{</span>
+  <span class="token punctuation">|</span> DealProposalHAMTLink <span class="token string">&quot;0&quot;</span>
+  <span class="token punctuation">|</span> Bucket <span class="token string">&quot;1&quot;</span>
+<span class="token representation">} <span class="token builtin">representation</span></span> keyed
+
+<span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">DealProposalHAMTLink</span></span> <span class="token punctuation">&amp;</span>DealProposalHAMT
+
+<span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">DealProposalHAMTBucket</span></span> <span class="token punctuation">[</span> DealProposalHAMTBucketEntry <span class="token punctuation">]</span>
+
+<span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">DealProposalHAMTBucketEntry</span></span> <span class="token builtin">struct</span> <span class="token punctuation">{</span>
+  key DealCidBytes
+  value MarketV0DealProposal
+<span class="token representation">} <span class="token builtin">representation</span></span> tuple
+</code></pre></div><p><strong>HAMT</strong>: This is an ADL representing <code>type BalanceTable {Address:TokenAmount}</code>.</p> <div class="language-ipldsch extra-class"><pre class="language-ipldsch"><code><span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">BalanceTableHAMT</span></span> <span class="token builtin">struct</span> <span class="token punctuation">{</span>
+  map Bytes
+  data <span class="token punctuation">[</span> BalanceTableHAMTElement <span class="token punctuation">]</span>
+<span class="token representation">} <span class="token builtin">representation</span></span> tuple
+
+<span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">BalanceTableHAMTElement</span></span> <span class="token builtin">union</span> <span class="token punctuation">{</span>
+  <span class="token punctuation">|</span> BalanceTableHAMTLink <span class="token string">&quot;0&quot;</span>
+  <span class="token punctuation">|</span> BalanceTableHAMTBucket <span class="token string">&quot;1&quot;</span>
+<span class="token representation">} <span class="token builtin">representation</span></span> keyed
+
+<span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">BalanceTableHAMTLink</span></span> <span class="token punctuation">&amp;</span>BalanceTableHAMT
+
+<span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">BalanceTableHAMTBucket</span></span> <span class="token punctuation">[</span> BalanceTableHAMTBucketEntry <span class="token punctuation">]</span>
+
+<span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">BalanceTableHAMTBucketEntry</span></span> <span class="token builtin">struct</span> <span class="token punctuation">{</span>
+  key Address
+  value TokenAmount
+<span class="token representation">} <span class="token builtin">representation</span></span> tuple
+</code></pre></div><p><strong>SetMultimap (HAMT+HAMT)</strong>: This is an ADL representing a Set within a Map <code>type DealOpsByEpoch {ChainEpochBytes:{DealIDBytes:Null}}</code>.</p> <div class="language-ipldsch extra-class"><pre class="language-ipldsch"><code><span class="token comment"># HAMT/map root structure</span>
+
+<span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">DealOpsByEpochHAMT</span></span> <span class="token builtin">struct</span> <span class="token punctuation">{</span>
+  map Bytes
+  data <span class="token punctuation">[</span> DealOpsByEpochHAMTElement <span class="token punctuation">]</span>
+<span class="token representation">} <span class="token builtin">representation</span></span> tuple
+
+<span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">DealOpsByEpochHAMTElement</span></span> <span class="token builtin">union</span> <span class="token punctuation">{</span>
+  <span class="token punctuation">|</span> DealOpsByEpochHAMTLink <span class="token string">&quot;0&quot;</span>
+  <span class="token punctuation">|</span> DealOpsByEpochHAMTBucket <span class="token string">&quot;1&quot;</span>
+<span class="token representation">} <span class="token builtin">representation</span></span> keyed
+
+<span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">DealOpsByEpochHAMTLink</span></span> <span class="token punctuation">&amp;</span>DealOpsByEpochHAMTLink
+
+<span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">DealOpsByEpochHAMTBucket</span></span> <span class="token punctuation">[</span> DealOpsByEpochHAMTBucketEntry <span class="token punctuation">]</span>
+
+<span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">DealOpsByEpochHAMTBucketEntry</span></span> <span class="token builtin">struct</span> <span class="token punctuation">{</span>
+  key ChainEpochBytes
+  value <span class="token punctuation">&amp;</span>DealOpsByEpochAMT
+<span class="token representation">} <span class="token builtin">representation</span></span> tuple
+
+<span class="token comment"># HAMT/set leaf structure (map of nulls)</span>
+
+<span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">DealOpsByEpochHAMTSet</span></span> <span class="token builtin">struct</span> <span class="token punctuation">{</span>
+  map Bytes
+  data <span class="token punctuation">[</span> DealOpsByEpochHAMTSetElement <span class="token punctuation">]</span>
+<span class="token representation">} <span class="token builtin">representation</span></span> tuple
+
+<span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">DealOpsByEpochHAMTSetElement</span></span> <span class="token builtin">union</span> <span class="token punctuation">{</span>
+  <span class="token punctuation">|</span> DealOpsByEpochHAMTSet_Link <span class="token string">&quot;0&quot;</span>
+  <span class="token punctuation">|</span> DealOpsByEpochHAMTSetBucket <span class="token string">&quot;1&quot;</span>
+<span class="token representation">} <span class="token builtin">representation</span></span> keyed
+
+<span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">DealOpsByEpochHAMTSet_Link</span></span> <span class="token punctuation">&amp;</span>DealOpsByEpochHAMTSet
+
+<span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">DealOpsByEpochHAMTSetBucket</span></span> <span class="token punctuation">[</span> DealOpsByEpochHAMTSetBucketEntry <span class="token punctuation">]</span>
+
+<span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">DealOpsByEpochHAMTSetBucketEntry</span></span> <span class="token builtin">struct</span> <span class="token punctuation">{</span>
+  key DealIDBytes
+  value Null
+<span class="token representation">} <span class="token builtin">representation</span></span> tuple
+</code></pre></div><h3 id="storagemineractor"><a href="#storagemineractor" class="header-anchor">#</a> StorageMinerActor</h3> <h4 id="v0-6"><a href="#v0-6" class="header-anchor">#</a> v0</h4> <p><a name="minerv0state"></a></p> <blockquote><p>Balance of Miner Actor should be greater than or equal to
+the sum of PreCommitDeposits and LockedFunds.
+It is possible for balance to fall below the sum of
+PCD, LF and InitialPledgeRequirements, and this is a bad
+state (IP Debt) that limits a miner actor's behavior (i.e. no balance withdrawals)
+Excess balance as computed by st.GetAvailableBalance will be
+withdrawable or usable for pre-commit deposit or pledge lock-up.</p></blockquote> <div class="language-ipldsch extra-class"><pre class="language-ipldsch"><code><span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">MinerV0State</span></span> <span class="token builtin">struct</span> <span class="token punctuation">{</span>
+  <span class="token comment"># Information not related to sectors</span>
+  Info  <span class="token punctuation">&amp;</span>MinerV0Info
+  <span class="token comment"># Total funds locked as PreCommitDeposits</span>
+  PreCommitDeposits TokenAmount
+  <span class="token comment"># Total rewards and added funds locked in vesting table</span>
+  LockedFunds TokenAmount
+  <span class="token comment"># VestingFunds (Vesting Funds schedule for the miner)</span>
+  VestingFunds <span class="token punctuation">&amp;</span>MinerV0VestingFunds
+  <span class="token comment"># Sum of initial pledge requirements of all active sectors</span>
+  InitialPledge TokenAmount
+  <span class="token comment"># Sectors that have been pre-committed but not yet proven.</span>
+  PreCommittedSectors <span class="token punctuation">&amp;</span>MinerV0SectorPreCommitOnChainInfoHAMT <span class="token comment"># HAMT[SectorNumber]SectorPreCommitOnChainInfo</span>
+  <span class="token comment"># PreCommittedSectorsExpiry maintains the state required to expire PreCommittedSectors</span>
+  PreCommittedSectorsExpiry <span class="token punctuation">&amp;</span>BitFieldQueueAMT <span class="token comment"># AMT[ChainEpoch]BitField</span>
+  <span class="token comment"># Allocated sector IDs. Sector IDs can never be reused once allocated</span>
+  AllocatedSectors <span class="token punctuation">&amp;</span>BitField
+  <span class="token comment"># Information for all proven and not-yet-garbage-collected sectors.</span>
+  <span class="token comment"># Sectors are removed from this AMT when the partition to which the</span>
+  <span class="token comment"># sector belongs is compacted.</span>
+  Sectors <span class="token punctuation">&amp;</span>MinerV0SectorOnChainInfoAMT <span class="token comment"># AMT[SectorNumber]SectorOnChainInfo</span>
+  <span class="token comment"># The first epoch in this miner's current proving period. This is the first epoch in which a PoSt for a</span>
+  <span class="token comment"># partition at the miner's first deadline may arrive. Alternatively, it is after the last epoch at which</span>
+  <span class="token comment"># a PoSt for the previous window is valid.</span>
+  <span class="token comment"># Always greater than zero, this may be greater than the current epoch for genesis miners in the first</span>
+  <span class="token comment"># WPoStProvingPeriod epochs of the chain; the epochs before the first proving period starts are exempt from Window</span>
+  <span class="token comment"># PoSt requirements.</span>
+  <span class="token comment"># Updated at the end of every period by a cron callback.</span>
+  ProvingPeriodStart ChainEpoch
+  <span class="token comment"># Index of the deadline within the proving period beginning at ProvingPeriodStart that has not yet been</span>
+  <span class="token comment"># finalized.</span>
+  <span class="token comment"># Updated at the end of each deadline window by a cron callback.</span>
+  CurrentDeadline Int
+  <span class="token comment"># The sector numbers due for PoSt at each deadline in the current proving period, frozen at period start.</span>
+  <span class="token comment"># New sectors are added and expired ones removed at proving period boundary.</span>
+  <span class="token comment"># Faults are not subtracted from this in state, but on the fly.</span>
+  Deadlines <span class="token punctuation">&amp;</span>MinerV0Deadlines
+  <span class="token comment"># Deadlines with outstanding fees for early sector termination</span>
+  EarlyTerminations BitField
+<span class="token representation">} <span class="token builtin">representation</span></span> tuple
+</code></pre></div><div class="language-ipldsch extra-class"><pre class="language-ipldsch"><code><span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">MinerV0Info</span></span> <span class="token builtin">struct</span> <span class="token punctuation">{</span>
+  <span class="token comment"># Account that owns this miner.</span>
+  <span class="token comment"># - Income and returned collateral are paid to this address.</span>
+  <span class="token comment"># - This address is also allowed to change the worker address for the miner.</span>
+  Owner Address <span class="token comment"># Must be an ID-address</span>
+  <span class="token comment"># Worker account for this miner.</span>
+  <span class="token comment"># The associated pubkey-type address is used to sign blocks and messages on behalf of this miner.</span>
+  Worker Address <span class="token comment"># Must be an ID-address.</span>
+  <span class="token comment"># Additional addresses that are permitted to submit messages controlling this actor (optional)</span>
+  ControlAddresses <span class="token keyword">nullable</span> <span class="token punctuation">[</span>Address<span class="token punctuation">]</span>
+  PendingWorkerKey <span class="token keyword">nullable</span> MinerV0WorkerKeyChange
+  <span class="token comment"># Byte array representing a Libp2p identity that should be used when connecting to this miner</span>
+  PeerId PeerID
+  <span class="token comment"># Slice of byte arrays representing Libp2p multi-addresses used for establishing a connection with this miner</span>
+  Multiaddrs <span class="token keyword">nullable</span> <span class="token punctuation">[</span>Multiaddr<span class="token punctuation">]</span>
+  <span class="token comment"># The proof type used by this miner for sealing sectors</span>
+  SealProofType Int
+  <span class="token comment"># Amount of space in each sector committed by this miner.</span>
+  <span class="token comment"># This is computed from the proof type and represented here redundantly.</span>
+  SectorSize SectorSize
+  <span class="token comment"># The number of sectors in each Window PoSt partition (proof).</span>
+  <span class="token comment"># This is computed from the proof type and represented here redundantly.</span>
+  WindowPoStPartitionSectors Int
+<span class="token representation">} <span class="token builtin">representation</span></span> tuple
+
+<span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">MinerV0WorkerKeyChange</span></span> <span class="token builtin">struct</span> <span class="token punctuation">{</span>
+  NewWorker Address <span class="token comment"># Must be an ID address</span>
+  EffectiveAt ChainEpoch
+<span class="token representation">} <span class="token builtin">representation</span></span> tuple
+</code></pre></div><div class="language-ipldsch extra-class"><pre class="language-ipldsch"><code><span class="token comment"># VestingFunds represents the vesting table state for the miner.</span>
+<span class="token comment"># It is a slice of (VestingEpoch, VestingAmount).</span>
+<span class="token comment"># The slice will always be sorted by the VestingEpoch.</span>
+<span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">MinerV0VestingFunds</span></span> <span class="token builtin">struct</span> <span class="token punctuation">{</span>
+  Funds <span class="token punctuation">[</span>MinerV0VestingFund<span class="token punctuation">]</span>
+<span class="token representation">} <span class="token builtin">representation</span></span> tuple
+
+<span class="token comment"># VestingFund represents miner funds that will vest at the given epoch.</span>
+<span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">MinerV0VestingFund</span></span> <span class="token builtin">struct</span> <span class="token punctuation">{</span>
+  Epoch ChainEpoch
+  Amount TokenAmount
+<span class="token representation">} <span class="token builtin">representation</span></span> tuple
+</code></pre></div><div class="language-ipldsch extra-class"><pre class="language-ipldsch"><code><span class="token comment"># Deadlines contains Deadline objects, describing the sectors due at the given</span>
+<span class="token comment"># deadline and their state (faulty, terminated, recovering, etc.).</span>
+<span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">MinerV0Deadlines</span></span> <span class="token builtin">struct</span> <span class="token punctuation">{</span>
+  Due MinerV0DeadlineLinkList
+<span class="token representation">} <span class="token builtin">representation</span></span> tuple
+
+<span class="token comment"># Must be 48 CIDs</span>
+<span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">MinerV0DeadlineLinkList</span></span> <span class="token punctuation">[</span><span class="token punctuation">&amp;</span>MinerV0Deadline<span class="token punctuation">]</span>
+</code></pre></div><div class="language-ipldsch extra-class"><pre class="language-ipldsch"><code><span class="token comment"># Deadline holds the state for all sectors due at a specific deadline.</span>
+<span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">MinerV0Deadline</span></span> <span class="token builtin">struct</span> <span class="token punctuation">{</span>
+  <span class="token comment"># Partitions in this deadline, in order.</span>
+  <span class="token comment"># The keys of this AMT are always sequential integers beginning with zero.</span>
+  Partitions <span class="token punctuation">&amp;</span>MinerV0PartitionAMT <span class="token comment"># AMT[PartitionNumber]Partition</span>
+  <span class="token comment"># Maps epochs to partitions that _may_ have sectors that expire in or</span>
+  <span class="token comment"># before that epoch, either on-time or early as faults.</span>
+  <span class="token comment"># Keys are quantized to final epochs in each proving deadline.</span>
+  <span class="token comment"># NOTE: Partitions MUST NOT be removed from this queue (until the</span>
+  <span class="token comment"># associated epoch has passed) even if they no longer have sectors</span>
+  <span class="token comment"># expiring at that epoch. Sectors expiring at this epoch may later be</span>
+  <span class="token comment"># recovered, and this queue will not be updated at that time.</span>
+  ExpirationEpochs <span class="token punctuation">&amp;</span>BitFieldQueueAMT <span class="token comment"># AMT[ChainEpoch]BitField</span>
+  <span class="token comment"># Partitions numbers with PoSt submissions since the proving period started.</span>
+  PostSubmissions BitField
+  <span class="token comment"># Partitions with sectors that terminated early.</span>
+  EarlyTerminations BitField
+  <span class="token comment"># The number of non-terminated sectors in this deadline (incl faulty).</span>
+  LiveSectors Int
+  <span class="token comment"># The total number of sectors in this deadline (incl dead).</span>
+  TotalSectors Int
+  <span class="token comment"># Memoized sum of faulty power in partitions.</span>
+  FaultyPower MinerV0PowerPair
+<span class="token representation">} <span class="token builtin">representation</span></span> tuple
+</code></pre></div><h4 id="v2-6"><a href="#v2-6" class="header-anchor">#</a> v2</h4> <p><a name="minerv2state"></a></p> <div class="language-ipldsch extra-class"><pre class="language-ipldsch"><code><span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">MinerV2State</span></span> <span class="token builtin">struct</span> <span class="token punctuation">{</span>
+  <span class="token comment"># Information not related to sectors</span>
+  Info  <span class="token punctuation">&amp;</span>MinerV2Info
+  <span class="token comment"># Total funds locked as PreCommitDeposits</span>
+  PreCommitDeposits TokenAmount
+  <span class="token comment"># Total rewards and added funds locked in vesting table</span>
+  LockedFunds TokenAmount
+  <span class="token comment"># VestingFunds (Vesting Funds schedule for the miner)</span>
+  VestingFunds <span class="token punctuation">&amp;</span>MinerV0VestingFunds
+  <span class="token comment"># Absolute value of debt this miner owes from unpaid fees</span>
+  FeeDebt TokenAmount
+  <span class="token comment"># Sum of initial pledge requirements of all active sectors</span>
+  InitialPledge TokenAmount
+  <span class="token comment"># Sectors that have been pre-committed but not yet proven</span>
+  PreCommittedSectors <span class="token punctuation">&amp;</span>MinerV0SectorPreCommitOnChainInfoHAMT <span class="token comment"># HAMT[SectorNumber]SectorPreCommitOnChainInfo</span>
+  <span class="token comment"># PreCommittedSectorsExpiry maintains the state required to expire PreCommittedSectors</span>
+  PreCommittedSectorsExpiry <span class="token punctuation">&amp;</span>BitFieldQueueAMT <span class="token comment"># AMT[ChainEpoch]BitField</span>
+  <span class="token comment"># Allocated sector IDs. Sector IDs can never be reused once allocated</span>
+  AllocatedSectors <span class="token punctuation">&amp;</span>BitField
+  <span class="token comment"># Information for all proven and not-yet-garbage-collected sectors.</span>
+  <span class="token comment"># Sectors are removed from this AMT when the partition to which the</span>
+  <span class="token comment"># sector belongs is compacted.</span>
+  Sectors <span class="token punctuation">&amp;</span>MinerV2SectorOnChainInfoAMT <span class="token comment"># AMT[SectorNumber]SectorOnChainInfo</span>
+  <span class="token comment"># The first epoch in this miner's current proving period. This is the first epoch in which a PoSt for a</span>
+  <span class="token comment"># partition at the miner's first deadline may arrive. Alternatively, it is after the last epoch at which</span>
+  <span class="token comment"># a PoSt for the previous window is valid.</span>
+  <span class="token comment"># Always greater than zero, this may be greater than the current epoch for genesis miners in the first</span>
+  <span class="token comment"># WPoStProvingPeriod epochs of the chain; the epochs before the first proving period starts are exempt from Window</span>
+  <span class="token comment"># PoSt requirements.</span>
+  <span class="token comment"># Updated at the end of every period by a cron callback.</span>
+  ProvingPeriodStart ChainEpoch
+  <span class="token comment"># Index of the deadline within the proving period beginning at ProvingPeriodStart that has not yet been</span>
+  <span class="token comment"># finalized.</span>
+  <span class="token comment"># Updated at the end of each deadline window by a cron callback.</span>
+  CurrentDeadline Int
+  <span class="token comment"># The sector numbers due for PoSt at each deadline in the current proving period, frozen at period start.</span>
+  <span class="token comment"># New sectors are added and expired ones removed at proving period boundary.</span>
+  <span class="token comment"># Faults are not subtracted from this in state, but on the fly.</span>
+  Deadlines <span class="token punctuation">&amp;</span>MinerV2Deadlines
+  <span class="token comment"># Deadlines with outstanding fees for early sector termination</span>
+  EarlyTerminations BitField
+<span class="token representation">} <span class="token builtin">representation</span></span> tuple
+</code></pre></div><div class="language-ipldsch extra-class"><pre class="language-ipldsch"><code><span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">MinerV2Info</span></span> <span class="token builtin">struct</span> <span class="token punctuation">{</span>
+  <span class="token comment"># Account that owns this miner.</span>
+  <span class="token comment"># - Income and returned collateral are paid to this address.</span>
+  <span class="token comment"># - This address is also allowed to change the worker address for the miner.</span>
+  Owner Address <span class="token comment"># Must be an ID-address</span>
+  <span class="token comment"># Worker account for this miner.</span>
+  <span class="token comment"># The associated pubkey-type address is used to sign blocks and messages on behalf of this miner.</span>
+  Worker Address <span class="token comment"># Must be an ID-address</span>
+  <span class="token comment"># Additional addresses that are permitted to submit messages controlling this actor (optional).</span>
+  ControlAddresses <span class="token keyword">nullable</span> <span class="token punctuation">[</span>Address<span class="token punctuation">]</span> <span class="token comment"># Must all be ID addresses</span>
+  PendingWorkerKey <span class="token keyword">nullable</span> MinerV0WorkerKeyChange
+  <span class="token comment"># Byte array representing a Libp2p identity that should be used when connecting to this miner.</span>
+  PeerId PeerID
+  <span class="token comment"># Slice of byte arrays representing Libp2p multi-addresses used for establishing a connection with this miner.</span>
+  Multiaddrs <span class="token keyword">nullable</span> <span class="token punctuation">[</span>Multiaddr<span class="token punctuation">]</span>
+  <span class="token comment"># The proof type used by this miner for sealing sectors.</span>
+  SealProofType Int
+  <span class="token comment"># Amount of space in each sector committed by this miner.</span>
+  <span class="token comment"># This is computed from the proof type and represented here redundantly.</span>
+  SectorSize SectorSize
+  <span class="token comment"># The number of sectors in each Window PoSt partition (proof).</span>
+  <span class="token comment"># This is computed from the proof type and represented here redundantly.</span>
+  WindowPoStPartitionSectors Int
+  <span class="token comment"># The next epoch this miner is eligible for certain permissioned actor methods</span>
+  <span class="token comment"># and winning block elections as a result of being reported for a consensus fault.</span>
+  ConsensusFaultElapsed ChainEpoch
+  <span class="token comment"># A proposed new owner account for this miner.</span>
+  <span class="token comment"># Must be confirmed by a message from the pending address itself.</span>
+  PendingOwnerAddress <span class="token keyword">nullable</span> Address
+<span class="token representation">} <span class="token builtin">representation</span></span> tuple
+</code></pre></div><p>Ssame form as <code>MinerV0Deadlines</code> but the eventual link to <code>MinerV2Partition</code> is different.</p> <div class="language-ipldsch extra-class"><pre class="language-ipldsch"><code><span class="token comment"># Deadlines contains Deadline objects, describing the sectors due at the given</span>
+<span class="token comment"># deadline and their state (faulty, terminated, recovering, etc.).</span>
+<span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">MinerV2Deadlines</span></span> <span class="token builtin">struct</span> <span class="token punctuation">{</span>
+  Due MinerV2DeadlineLinkList
+<span class="token representation">} <span class="token builtin">representation</span></span> tuple
+
+<span class="token comment"># Must be 48 CIDs</span>
+<span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">MinerV2DeadlineLinkList</span></span> <span class="token punctuation">[</span><span class="token punctuation">&amp;</span>MinerV2Deadline<span class="token punctuation">]</span>
+</code></pre></div><div class="language-ipldsch extra-class"><pre class="language-ipldsch"><code><span class="token comment"># Deadline holds the state for all sectors due at a specific deadline.</span>
+<span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">MinerV2Deadline</span></span> <span class="token builtin">struct</span> <span class="token punctuation">{</span>
+  <span class="token comment"># Partitions in this deadline, in order.</span>
+  <span class="token comment"># The keys of this AMT are always sequential integers beginning with zero.</span>
+  Partitions <span class="token punctuation">&amp;</span>MinerV2PartitionAMT <span class="token comment"># AMT[PartitionNumber]Partition</span>
+  <span class="token comment"># Maps epochs to partitions that _may_ have sectors that expire in or</span>
+  <span class="token comment"># before that epoch, either on-time or early as faults.</span>
+  <span class="token comment"># Keys are quantized to final epochs in each proving deadline.</span>
+  <span class="token comment"># NOTE: Partitions MUST NOT be removed from this queue (until the</span>
+  <span class="token comment"># associated epoch has passed) even if they no longer have sectors</span>
+  <span class="token comment"># expiring at that epoch. Sectors expiring at this epoch may later be</span>
+  <span class="token comment"># recovered, and this queue will not be updated at that time.</span>
+  ExpirationEpochs <span class="token punctuation">&amp;</span>BitFieldQueueAMT <span class="token comment"># AMT[ChainEpoch]BitField</span>
+  <span class="token comment"># Partitions numbers with PoSt submissions since the proving period started.</span>
+  PostSubmissions BitField
+  <span class="token comment"># Partitions with sectors that terminated early.</span>
+  EarlyTerminations BitField
+  <span class="token comment"># The number of non-terminated sectors in this deadline (incl faulty).</span>
+  LiveSectors Int
+  <span class="token comment"># The total number of sectors in this deadline (incl dead).</span>
+  TotalSectors Int
+  <span class="token comment"># Memoized sum of faulty power in partitions.</span>
+  FaultyPower MinerV0PowerPair
+<span class="token representation">} <span class="token builtin">representation</span></span> tuple
+</code></pre></div><p><strong>HAMT</strong>: This is an ADL representing <code>type SectorPreCommitOnChainInfoMap {SectorNumberBytes:SectorPreCommitOnChainInfo}</code></p> <div class="language-ipldsch extra-class"><pre class="language-ipldsch"><code><span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">MinerV0SectorPreCommitOnChainInfoHAMT</span></span> <span class="token builtin">struct</span> <span class="token punctuation">{</span>
+  map Bytes
+  data <span class="token punctuation">[</span> MinerV0SectorPreCommitOnChainInfoHAMTElement <span class="token punctuation">]</span>
+<span class="token representation">} <span class="token builtin">representation</span></span> tuple
+
+<span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">MinerV0SectorPreCommitOnChainInfoHAMTElement</span></span> <span class="token builtin">union</span> <span class="token punctuation">{</span>
+  <span class="token punctuation">|</span> MinerV0SectorPreCommitOnChainInfoHAMTLink <span class="token string">&quot;0&quot;</span>
+  <span class="token punctuation">|</span> MinerV0SectorPreCommitOnChainInfoHAMTBucket <span class="token string">&quot;1&quot;</span>
+<span class="token representation">} <span class="token builtin">representation</span></span> keyed
+
+<span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">MinerV0SectorPreCommitOnChainInfoHAMTLink</span></span> <span class="token punctuation">&amp;</span>MinerV0SectorPreCommitOnChainInfoHAMT
+
+<span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">MinerV0SectorPreCommitOnChainInfoHAMTBucket</span></span> <span class="token punctuation">[</span> MinerV0SectorPreCommitOnChainInfoHAMTBucketEntry <span class="token punctuation">]</span>
+
+<span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">MinerV0SectorPreCommitOnChainInfoHAMTBucketEntry</span></span> <span class="token builtin">struct</span> <span class="token punctuation">{</span>
+  key SectorNumberBytes
+  value MinerV0SectorPreCommitOnChainInfo <span class="token comment"># inline</span>
+<span class="token representation">} <span class="token builtin">representation</span></span> tuple
+
+<span class="token comment"># Information stored on-chain for a pre-committed sector</span>
+<span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">MinerV0SectorPreCommitOnChainInfo</span></span> <span class="token builtin">struct</span> <span class="token punctuation">{</span>
+  Info MinerV0SectorPreCommitInfo
+  PreCommitDeposit TokenAmount
+  PreCommitEpoch ChainEpoch
+  <span class="token comment"># Integral of active deals over sector lifetime</span>
+  DealWeight DealWeight
+  <span class="token comment"># Integral of active verified deals over sector lifetime</span>
+  VerifiedDealWeight DealWeight
+<span class="token representation">} <span class="token builtin">representation</span></span> tuple
+
+<span class="token comment"># Information provided by a miner when pre-committing a sector</span>
+<span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">MinerV0SectorPreCommitInfo</span></span> <span class="token builtin">struct</span> <span class="token punctuation">{</span>
+  SealProof RegisteredSealProof
+  SectorNumber SectorNumber
+  <span class="token comment"># CommR: A CID with fil-commitment-sealed + poseidon-bls12_381-ac-fc1</span>
+  SealedCID <span class="token punctuation">&amp;</span>Any
+  SealRandEpoch ChainEpoch
+  DealIDs <span class="token punctuation">[</span>DealID<span class="token punctuation">]</span>
+  Expiration ChainEpoch
+  <span class="token comment"># Whether to replace a &quot;committed capacity&quot; no-deal sector (requires non-empty DealIDs)</span>
+  ReplaceCapacity Bool
+  <span class="token comment"># The committed capacity sector to replace, and it's deadline/partition location</span>
+  ReplaceSectorDeadline Int
+  ReplaceSectorPartition PartitionNumber
+  ReplaceSectorNumber SectorNumber
+<span class="token representation">} <span class="token builtin">representation</span></span> tuple
+</code></pre></div><p><strong>AMT</strong>: This is an ADL representing <code>type BitFieldQueue [BitField]</code> indexed by <code>ChainEpoch</code>.</p> <div class="language-ipldsch extra-class"><pre class="language-ipldsch"><code><span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">BitFieldQueueAMT</span></span> <span class="token builtin">struct</span> <span class="token punctuation">{</span>
+  height Int
+  count Int
+  node BitFieldQueueAMTNode
+<span class="token representation">} <span class="token builtin">representation</span></span> tuple
+
+<span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">BitFieldQueueAMTNode</span></span> <span class="token builtin">struct</span> <span class="token punctuation">{</span>
+  bitmap Bytes
+  children <span class="token punctuation">[</span><span class="token punctuation">&amp;</span>BitFieldQueueAMTNode<span class="token punctuation">]</span>
+  values <span class="token punctuation">[</span>Bitfield<span class="token punctuation">]</span>
+<span class="token representation">} <span class="token builtin">representation</span></span> tuple
+</code></pre></div><p><strong>AMT</strong>: This is an ADL representing <code>type V0SectorOnChainInfoList [V0SectorOnChainInfo]</code> indexed by <code>SectorNumber</code>.</p> <div class="language-ipldsch extra-class"><pre class="language-ipldsch"><code><span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">MinerV0SectorOnChainInfoAMT</span></span> <span class="token builtin">struct</span> <span class="token punctuation">{</span>
+  height Int
+  count Int
+  node MinerV0SectorOnChainInfoAMTNode
+<span class="token representation">} <span class="token builtin">representation</span></span> tuple
+
+<span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">MinerV0SectorOnChainInfoAMTNode</span></span> <span class="token builtin">struct</span> <span class="token punctuation">{</span>
+  bitmap Bytes
+  children <span class="token punctuation">[</span><span class="token punctuation">&amp;</span>MinerV0SectorOnChainInfoAMTNode<span class="token punctuation">]</span>
+  values <span class="token punctuation">[</span>MinerV0SectorOnChainInfo<span class="token punctuation">]</span>
+<span class="token representation">} <span class="token builtin">representation</span></span> tuple
+
+<span class="token comment"># Information stored on-chain for a proven sector</span>
+<span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">MinerV0SectorOnChainInfo</span></span> <span class="token builtin">struct</span> <span class="token punctuation">{</span>
+  SectorNumber SectorNumber
+  <span class="token comment"># The seal proof type implies the PoSt proof/s</span>
+  SealProof RegisteredSealProof
+  <span class="token comment"># CommR: A CID with fil-commitment-sealed + poseidon-bls12_381-ac-fc1</span>
+  SealedCID <span class="token punctuation">&amp;</span>Any
+  DealIDs <span class="token punctuation">[</span>DealID<span class="token punctuation">]</span>
+  <span class="token comment"># Epoch during which the sector proof was accepted</span>
+  Activation ChainEpoch
+  <span class="token comment"># Epoch during which the sector expires</span>
+  Expiration ChainEpoch
+  <span class="token comment"># Integral of active deals over sector lifetime</span>
+  DealWeight DealWeight
+  <span class="token comment"># Integral of active verified deals over sector lifetime</span>
+  VerifiedDealWeight DealWeight
+  <span class="token comment"># Pledge collected to commit this sector</span>
+  InitialPledge TokenAmount
+  <span class="token comment"># Expected one day projection of reward for sector computed at activation time</span>
+  ExpectedDayReward TokenAmount
+  <span class="token comment"># Expected twenty day projection of reward for sector computed at activation time</span>
+  ExpectedStoragePledge TokenAmount
+<span class="token representation">} <span class="token builtin">representation</span></span> tuple
+</code></pre></div><p><strong>AMT</strong>: This is an ADL representing <code>type V2SectorOnChainInfoList [V2SectorOnChainInfo]</code> indexed by <code>SectorNumber</code>.</p> <div class="language-ipldsch extra-class"><pre class="language-ipldsch"><code><span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">MinerV2SectorOnChainInfoAMT</span></span> <span class="token builtin">struct</span> <span class="token punctuation">{</span>
+  height Int
+  count Int
+  node MinerV2SectorOnChainInfoAMTNode
+<span class="token representation">} <span class="token builtin">representation</span></span> tuple
+
+<span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">MinerV2SectorOnChainInfoAMTNode</span></span> <span class="token builtin">struct</span> <span class="token punctuation">{</span>
+  bitmap Bytes
+  children <span class="token punctuation">[</span><span class="token punctuation">&amp;</span>MinerV2SectorOnChainInfoAMTNode<span class="token punctuation">]</span>
+  values <span class="token punctuation">[</span>MinerV2SectorOnChainInfo<span class="token punctuation">]</span>
+<span class="token representation">} <span class="token builtin">representation</span></span> tuple
+
+<span class="token comment"># Information stored on-chain for a proven sector</span>
+<span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">MinerV2SectorOnChainInfo</span></span> <span class="token builtin">struct</span> <span class="token punctuation">{</span>
+  SectorNumber SectorNumber
+  <span class="token comment"># The seal proof type implies the PoSt proof/s</span>
+  SealProof RegisteredSealProof
+  <span class="token comment"># CommR: A CID with fil-commitment-sealed + poseidon-bls12_381-ac-fc1</span>
+  SealedCID <span class="token punctuation">&amp;</span>Any
+  DealIDs <span class="token punctuation">[</span>DealID<span class="token punctuation">]</span>
+  <span class="token comment"># Epoch during which the sector proof was accepted</span>
+  Activation ChainEpoch
+  <span class="token comment"># Epoch during which the sector expires</span>
+  Expiration ChainEpoch
+  <span class="token comment"># Integral of active deals over sector lifetime</span>
+  DealWeight DealWeight
+  <span class="token comment"># Integral of active verified deals over sector lifetime</span>
+  VerifiedDealWeight DealWeight
+  <span class="token comment"># Pledge collected to commit this sector</span>
+  InitialPledge TokenAmount
+  <span class="token comment"># Expected one day projection of reward for sector computed at activation time</span>
+  ExpectedDayReward TokenAmount
+  <span class="token comment"># Expected twenty day projection of reward for sector computed at activation time</span>
+  ExpectedStoragePledge TokenAmount
+  <span class="token comment"># Age of sector this sector replaced or zero</span>
+  ReplacedSectorAge ChainEpoch
+  <span class="token comment"># Day reward of sector this sector replace or zero</span>
+  ReplacedDayReward TokenAmount
+<span class="token representation">} <span class="token builtin">representation</span></span> tuple
+</code></pre></div><p><strong>AMT</strong>: This is an ADL representing <code>type MinerV0PartitionList [MinerV0Partition]</code> indexed by <code>PartitionNumber</code>.</p> <div class="language-ipldsch extra-class"><pre class="language-ipldsch"><code><span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">MinerV0PartitionAMT</span></span> <span class="token builtin">struct</span> <span class="token punctuation">{</span>
+  height Int
+  count Int
+  node MinerV0PartitionAMTNode
+<span class="token representation">} <span class="token builtin">representation</span></span> tuple
+
+<span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">MinerV0PartitionAMTNode</span></span> <span class="token builtin">struct</span> <span class="token punctuation">{</span>
+  bitmap Bytes
+  children <span class="token punctuation">[</span><span class="token punctuation">&amp;</span>MinerV0PartitionAMTNode<span class="token punctuation">]</span>
+  values <span class="token punctuation">[</span>MinerV0Partition<span class="token punctuation">]</span>
+<span class="token representation">} <span class="token builtin">representation</span></span> tuple
+
+<span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">MinerV0Partition</span></span> <span class="token builtin">struct</span> <span class="token punctuation">{</span>
+  <span class="token comment"># Sector numbers in this partition, including faulty and terminated sectors</span>
+  Sectors BitField
+  <span class="token comment"># Subset of sectors detected/declared faulty and not yet recovered (excl. from PoSt).</span>
+  <span class="token comment"># Faults ∩ Terminated = ∅</span>
+  Faults BitField
+  <span class="token comment"># Subset of faulty sectors expected to recover on next PoSt</span>
+  <span class="token comment"># Recoveries ∩ Terminated = ∅</span>
+  Recoveries BitField
+  <span class="token comment"># Subset of sectors terminated but not yet removed from partition (excl. from PoSt)</span>
+  Terminated BitField
+  <span class="token comment"># Maps epochs sectors that expire in or before that epoch.</span>
+  <span class="token comment"># An expiration may be an &quot;on-time&quot; scheduled expiration, or early &quot;faulty&quot; expiration.</span>
+  <span class="token comment"># Keys are quantized to last-in-deadline epochs.</span>
+  ExpirationsEpochs <span class="token punctuation">&amp;</span>MinerV0ExpirationSetAMT <span class="token comment"># AMT[ChainEpoch]ExpirationSet</span>
+  <span class="token comment"># Subset of terminated that were before their committed expiration epoch, by termination epoch.</span>
+  <span class="token comment"># Termination fees have not yet been calculated or paid and associated deals have not yet been</span>
+  <span class="token comment"># canceled but effective power has already been adjusted.</span>
+  <span class="token comment"># Not quantized.</span>
+  EarlyTerminated <span class="token punctuation">&amp;</span>BitFieldQueueAMT <span class="token comment"># AMT[ChainEpoch]BitField</span>
+  <span class="token comment"># Power of not-yet-terminated sectors (incl faulty)</span>
+  LivePower MinerV0PowerPair
+  <span class="token comment"># Power of currently-faulty sectors. FaultyPower &lt;= LivePower.</span>
+  FaultyPower MinerV0PowerPair
+  <span class="token comment"># Power of expected-to-recover sectors. RecoveringPower &lt;= FaultyPower.</span>
+  RecoveringPower MinerV0PowerPair
+<span class="token representation">} <span class="token builtin">representation</span></span> tuple
+
+<span class="token comment"># Value type for a pair of raw and QA power</span>
+<span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">MinerV0PowerPair</span></span> <span class="token builtin">struct</span> <span class="token punctuation">{</span>
+  Raw StoragePower
+  QA StoragePower
+<span class="token representation">} <span class="token builtin">representation</span></span> tuple
+</code></pre></div><p><strong>AMT</strong>: This is an ADL representing <code>type MinerV2PartitionList [MinerV2Partition]</code> indexed by <code>PartitionNumber</code>.</p> <div class="language-ipldsch extra-class"><pre class="language-ipldsch"><code><span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">MinerV2PartitionAMT</span></span> <span class="token builtin">struct</span> <span class="token punctuation">{</span>
+  height Int
+  count Int
+  node MinerV2PartitionAMTNode
+<span class="token representation">} <span class="token builtin">representation</span></span> tuple
+
+<span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">MinerV2PartitionAMTNode</span></span> <span class="token builtin">struct</span> <span class="token punctuation">{</span>
+  bitmap Bytes
+  children <span class="token punctuation">[</span><span class="token punctuation">&amp;</span>MinerV2PartitionAMTNode<span class="token punctuation">]</span>
+  values <span class="token punctuation">[</span>MinerV2Partition<span class="token punctuation">]</span>
+<span class="token representation">} <span class="token builtin">representation</span></span> tuple
+
+<span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">MinerV2Partition</span></span> <span class="token builtin">struct</span> <span class="token punctuation">{</span>
+  <span class="token comment"># Sector numbers in this partition, including faulty, unproven, and terminated sectors</span>
+  Sectors BitField
+  <span class="token comment"># Unproven sectors in this partition. This bitfield will be cleared on</span>
+  <span class="token comment"># a successful window post (or at the end of the partition's next</span>
+  <span class="token comment"># deadline). At that time, any still unproven sectors will be added to</span>
+  <span class="token comment"># the faulty sector bitfield.</span>
+  Unproven BitField
+  <span class="token comment"># Subset of sectors detected/declared faulty and not yet recovered (excl. from PoSt).</span>
+  <span class="token comment"># Faults ∩ Terminated = ∅</span>
+  Faults BitField
+  <span class="token comment"># Subset of faulty sectors expected to recover on next PoSt</span>
+  <span class="token comment"># Recoveries ∩ Terminated = ∅</span>
+  Recoveries BitField
+  <span class="token comment"># Subset of sectors terminated but not yet removed from partition (excl. from PoSt)</span>
+  Terminated BitField
+  <span class="token comment"># Maps epochs sectors that expire in or before that epoch.</span>
+  <span class="token comment"># An expiration may be an &quot;on-time&quot; scheduled expiration, or early &quot;faulty&quot; expiration.</span>
+  <span class="token comment"># Keys are quantized to last-in-deadline epochs.</span>
+  ExpirationsEpochs <span class="token punctuation">&amp;</span>MinerV0ExpirationSetAMT <span class="token comment"># AMT[ChainEpoch]ExpirationSet</span>
+  <span class="token comment"># Subset of terminated that were before their committed expiration epoch, by termination epoch.</span>
+  <span class="token comment"># Termination fees have not yet been calculated or paid and associated deals have not yet been</span>
+  <span class="token comment"># canceled but effective power has already been adjusted.</span>
+  <span class="token comment"># Not quantized.</span>
+  EarlyTerminated <span class="token punctuation">&amp;</span>BitFieldQueueAMT <span class="token comment"># AMT[ChainEpoch]BitField</span>
+  <span class="token comment"># Power of not-yet-terminated sectors (incl faulty &amp; unproven)</span>
+  LivePower MinerV0PowerPair
+  <span class="token comment"># Power of yet-to-be-proved sectors (never faulty)</span>
+  UnprovenPower MinerV0PowerPair
+  <span class="token comment"># Power of currently-faulty sectors. FaultyPower &lt;= LivePower.</span>
+  FaultyPower MinerV0PowerPair
+  <span class="token comment"># Power of expected-to-recover sectors. RecoveringPower &lt;= FaultyPower.</span>
+  RecoveringPower MinerV0PowerPair
+<span class="token representation">} <span class="token builtin">representation</span></span> tuple
+</code></pre></div><p><strong>AMT</strong>: This is an ADL representing <code>type MinerV0ExpirationSetList [MinerV0ExpirationSet]</code> indexed by <code>ChainEpoch</code>.</p> <div class="language-ipldsch extra-class"><pre class="language-ipldsch"><code><span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">MinerV0ExpirationSetAMT</span></span> <span class="token builtin">struct</span> <span class="token punctuation">{</span>
+  height Int
+  count Int
+  node MinerV0ExpirationSetAMTNode
+<span class="token representation">} <span class="token builtin">representation</span></span> tuple
+
+<span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">MinerV0ExpirationSetAMTNode</span></span> <span class="token builtin">struct</span> <span class="token punctuation">{</span>
+  bitmap Bytes
+  children <span class="token punctuation">[</span><span class="token punctuation">&amp;</span>MinerV0ExpirationSetAMTNode<span class="token punctuation">]</span>
+  values <span class="token punctuation">[</span>MinerV0ExpirationSet<span class="token punctuation">]</span>
+<span class="token representation">} <span class="token builtin">representation</span></span> tuple
+
+<span class="token comment"># ExpirationSet is a collection of sector numbers that are expiring, either due to</span>
+<span class="token comment"># expected &quot;on-time&quot; expiration at the end of their life, or unexpected &quot;early&quot; termination</span>
+<span class="token comment"># due to being faulty for too long consecutively.</span>
+<span class="token comment"># Note that there is not a direct correspondence between on-time sectors and active power;</span>
+<span class="token comment"># a sector may be faulty but expiring on-time if it faults just prior to expected termination.</span>
+<span class="token comment"># Early sectors are always faulty, and active power always represents on-time sectors.</span>
+<span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">MinerV0ExpirationSet</span></span> <span class="token builtin">struct</span> <span class="token punctuation">{</span>
+  <span class="token comment"># Sectors expiring &quot;on time&quot; at the end of their committed life</span>
+  OnTimeSectors BitField
+  <span class="token comment"># Sectors expiring &quot;early&quot; due to being faulty for too long</span>
+  EarlySectors BitField
+  <span class="token comment"># Pledge total for the on-time sectors</span>
+  OnTimePledge TokenAmount
+  <span class="token comment"># Power that is currently active (not faulty)</span>
+  ActivePower MinerV0PowerPair
+  <span class="token comment"># Power that is currently faulty</span>
+  FaultyPower MinerV0PowerPair
+<span class="token representation">} <span class="token builtin">representation</span></span> tuple
+</code></pre></div><h3 id="multisigactor"><a href="#multisigactor" class="header-anchor">#</a> MultisigActor</h3> <p>The MultisigActor state is the same in v0 and v2.</p> <h4 id="v0-7"><a href="#v0-7" class="header-anchor">#</a> v0</h4> <p><a name="multisigv0state"></a></p> <div class="language-ipldsch extra-class"><pre class="language-ipldsch"><code><span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">MultisigV0State</span></span> <span class="token builtin">struct</span> <span class="token punctuation">{</span>
+   <span class="token comment"># Signers may be either public-key or actor ID-addresses. The ID address is canonical, but doesn't exist</span>
+  <span class="token comment"># for a public key that has not yet received a message on chain.</span>
+  <span class="token comment"># If any signer address is a public-key address, it will be resolved to an ID address and persisted</span>
+  <span class="token comment"># in this state when the address is used.</span>
+  Signers <span class="token punctuation">[</span>Address<span class="token punctuation">]</span>
+  NumApprovalsThreshold Int
+  NextTxnID TransactionID
+  <span class="token comment"># Linear unlock</span>
+  InitialBalance TokenAmount
+  StartEpoch ChainEpoch
+  UnlockDuration ChainEpoch
+  PendingTxns <span class="token punctuation">&amp;</span>MultisigV0TransactionHAMT <span class="token comment"># HAMT[TransactionID]Multisigv0Transaction</span>
+<span class="token representation">} <span class="token builtin">representation</span></span> tuple
+</code></pre></div><h4 id="v2-7"><a href="#v2-7" class="header-anchor">#</a> v2</h4> <p><em>(Same as v0)</em></p> <p><a name="multisigv2state"></a></p> <div class="language-ipldsch extra-class"><pre class="language-ipldsch"><code><span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">MultisigV2State</span></span> MultisigV0State
+</code></pre></div><p><strong>HAMT</strong>: This is an ADL representing <code>type MultisigV0TransactionMap {TransactionIDBytes:MultisigV0Transaction}</code></p> <div class="language-ipldsch extra-class"><pre class="language-ipldsch"><code><span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">MultisigV0TransactionHAMT</span></span> <span class="token builtin">struct</span> <span class="token punctuation">{</span>
+  map Bytes
+  data <span class="token punctuation">[</span> MultisigV0TransactionHAMTElement <span class="token punctuation">]</span>
+<span class="token representation">} <span class="token builtin">representation</span></span> tuple
+
+<span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">MultisigV0TransactionHAMTElement</span></span> <span class="token builtin">union</span> <span class="token punctuation">{</span>
+  <span class="token punctuation">|</span> MultisigV0TransactionHAMTLink <span class="token string">&quot;0&quot;</span>
+  <span class="token punctuation">|</span> MultisigV0TransactionHAMTBucket <span class="token string">&quot;1&quot;</span>
+<span class="token representation">} <span class="token builtin">representation</span></span> keyed
+
+<span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">MultisigV0TransactionHAMTLink</span></span> <span class="token punctuation">&amp;</span>MultisigV0TransactionHAMT
+
+<span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">MultisigV0TransactionHAMTBucket</span></span> <span class="token punctuation">[</span> MultisigV0TransactionHAMTBucketEntry <span class="token punctuation">]</span>
+
+<span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">MultisigV0TransactionHAMTBucketEntry</span></span> <span class="token builtin">struct</span> <span class="token punctuation">{</span>
+  key Bytes
+  value MultisigV0Transaction <span class="token comment"># inline</span>
+<span class="token representation">} <span class="token builtin">representation</span></span> tuple
+
+<span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">MultisigV0Transaction</span></span> <span class="token builtin">struct</span> <span class="token punctuation">{</span>
+  To Address
+  Value TokenAmount
+  Method MethodNum
+  Params CborEncodedParams
+  <span class="token comment"># This address at index 0 is the transaction proposer, order of this slice must be preserved.</span>
+  Approved <span class="token punctuation">[</span>Address<span class="token punctuation">]</span>
+<span class="token representation">} <span class="token builtin">representation</span></span> tuple
+</code></pre></div><h3 id="paymentchannelactor"><a href="#paymentchannelactor" class="header-anchor">#</a> PaymentChannelActor</h3> <p>The PaymentChannelActor state is the same in v0 and v2.</p> <h4 id="v0-8"><a href="#v0-8" class="header-anchor">#</a> v0</h4> <p><a name="paychv0state"></a></p> <blockquote><p>A given payment channel actor is established by From
+to enable off-chain microtransactions to To to be reconciled
+and tallied on chain.</p></blockquote> <div class="language-ipldsch extra-class"><pre class="language-ipldsch"><code><span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">PaychV0State</span></span> <span class="token builtin">struct</span> <span class="token punctuation">{</span>
+  <span class="token comment"># Channel owner, who has funded the actor</span>
+  From Address
+  <span class="token comment"># Recipient of payouts from channel</span>
+  To Address
+  <span class="token comment"># Amount successfully redeemed through the payment channel, paid out on `Collect()`</span>
+  ToSend BigInt
+  <span class="token comment"># Height at which the channel can be `Collected`</span>
+  SettlingAt ChainEpoch
+  <span class="token comment"># Height before which the channel `ToSend` cannot be collected</span>
+  MinSettleHeight ChainEpoch
+  <span class="token comment"># Collections of lane states for the channel, maintained in ID order.</span>
+  LaneStates <span class="token punctuation">&amp;</span>PaychV0LaneStatesAMT <span class="token comment"># AMT[Int]PaychV0LaneState</span>
+<span class="token representation">} <span class="token builtin">representation</span></span> tuple
+</code></pre></div><h4 id="v2-8"><a href="#v2-8" class="header-anchor">#</a> v2</h4> <p><em>(Same as v0)</em></p> <p><a name="paychv2state"></a></p> <div class="language-ipldsch extra-class"><pre class="language-ipldsch"><code><span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">PaychV2State</span></span> PaychV0State
+</code></pre></div><p><strong>AMT</strong>: This is an ADL representing <code>type PaychV0LaneStates [PaychV0LaneState]</code> indexed by Lane ID.</p> <div class="language-ipldsch extra-class"><pre class="language-ipldsch"><code><span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">PaychV0LaneStatesAMT</span></span> <span class="token builtin">struct</span> <span class="token punctuation">{</span>
+  height Int
+  count Int
+  node PaychV0LaneStatesAMTNode
+<span class="token representation">} <span class="token builtin">representation</span></span> tuple
+
+<span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">PaychV0LaneStatesAMTNode</span></span> <span class="token builtin">struct</span> <span class="token punctuation">{</span>
+  bitmap Bytes
+  children <span class="token punctuation">[</span><span class="token punctuation">&amp;</span>PaychV0LaneStatesAMTNode<span class="token punctuation">]</span>
+  values <span class="token punctuation">[</span>PaychV0LaneState<span class="token punctuation">]</span>
+<span class="token representation">} <span class="token builtin">representation</span></span> tuple
+
+<span class="token comment"># The Lane state tracks the latest (highest) voucher nonce used to merge the lane</span>
+<span class="token comment"># as well as the amount it has already redeemed.</span>
+<span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">PaychV0LaneState</span></span> <span class="token builtin">struct</span> <span class="token punctuation">{</span>
+  Redeemed BigInt
+  Nonce Int
+<span class="token representation">} <span class="token builtin">representation</span></span> tuple
+</code></pre></div><h3 id="storagepoweractor"><a href="#storagepoweractor" class="header-anchor">#</a> StoragePowerActor</h3> <p>The StoragePowerActor state is the same in v0 and v2.</p> <h4 id="v0-9"><a href="#v0-9" class="header-anchor">#</a> v0</h4> <p><a name="powerv0state"></a></p> <div class="language-ipldsch extra-class"><pre class="language-ipldsch"><code><span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">PowerV0State</span></span> <span class="token builtin">struct</span> <span class="token punctuation">{</span>
+  TotalRawBytePower StoragePower
+  <span class="token comment"># TotalBytesCommitted includes claims from miners below min power threshold</span>
+  TotalBytesCommitted StoragePower
+  TotalQualityAdjPower StoragePower
+  <span class="token comment"># TotalQABytesCommitted includes claims from miners below min power threshold</span>
+  TotalQABytesCommitted StoragePower
+  TotalPledgeCollateral TokenAmount
+  <span class="token comment"># These fields are set once per epoch in the previous cron tick and used</span>
+  <span class="token comment"># for consistent values across a single epoch's state transition.</span>
+  ThisEpochRawBytePower StoragePower
+  ThisEpochQualityAdjPower StoragePower
+  ThisEpochPledgeCollateral TokenAmount
+  ThisEpochQAPowerSmoothed <span class="token keyword">nullable</span> FilterEstimate
+  MinerCount Int
+  <span class="token comment"># Number of miners having proven the minimum consensus power</span>
+  MinerAboveMinPowerCount Int
+  <span class="token comment"># A queue of events to be triggered by cron, indexed by epoch</span>
+  CronEventQueue <span class="token punctuation">&amp;</span>PowerV0CronEventHAMT <span class="token comment"># Multimap: HAMT[ChainEpoch]AMT[PowerV0CronEvent]</span>
+  <span class="token comment"># First epoch in which a cron task may be stored.</span>
+  <span class="token comment"># Cron will iterate every epoch between this and the current epoch inclusively to find tasks to execute.</span>
+  FirstCronEpoch ChainEpoch
+  <span class="token comment"># Last epoch power cron tick has been processed</span>
+  LastProcessedCronEpoch ChainEpoch
+  <span class="token comment"># Claimed power for each miner</span>
+  Claims <span class="token punctuation">&amp;</span>PowerV0ClaimHAMT <span class="token comment"># HAMT[address]PowerV0Claim</span>
+  ProofValidationBatch <span class="token keyword">nullable</span> <span class="token punctuation">&amp;</span>ProofValidationBatchHAMT <span class="token comment"># Multimap: HAMT[Address]AMT[SealVerifyInfo]</span>
+<span class="token representation">} <span class="token builtin">representation</span></span> tuple
+</code></pre></div><h4 id="v2-9"><a href="#v2-9" class="header-anchor">#</a> v2</h4> <p><a name="powerv2state"></a></p> <div class="language-ipldsch extra-class"><pre class="language-ipldsch"><code><span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">PowerV2State</span></span> <span class="token builtin">struct</span> <span class="token punctuation">{</span>
+  TotalRawBytePower StoragePower
+  <span class="token comment"># TotalBytesCommitted includes claims from miners below min power threshold</span>
+  TotalBytesCommitted StoragePower
+  TotalQualityAdjPower StoragePower
+  <span class="token comment"># TotalQABytesCommitted includes claims from miners below min power threshold</span>
+  TotalQABytesCommitted StoragePower
+  TotalPledgeCollateral TokenAmount
+  <span class="token comment"># These fields are set once per epoch in the previous cron tick and used</span>
+  <span class="token comment"># for consistent values across a single epoch's state transition.</span>
+  ThisEpochRawBytePower StoragePower
+  ThisEpochQualityAdjPower StoragePower
+  ThisEpochPledgeCollateral TokenAmount
+  ThisEpochQAPowerSmoothed FilterEstimate
+  MinerCount Int
+  <span class="token comment"># Number of miners having proven the minimum consensus power</span>
+  MinerAboveMinPowerCount Int
+  <span class="token comment"># A queue of events to be triggered by cron, indexed by epoch</span>
+  CronEventQueue <span class="token punctuation">&amp;</span>PowerV0CronEventHAMT <span class="token comment"># Multimap: HAMT[ChainEpoch]AMT[PowerV0CronEvent]</span>
+  <span class="token comment"># First epoch in which a cron task may be stored.</span>
+  <span class="token comment"># Cron will iterate every epoch between this and the current epoch inclusively to find tasks to execute.</span>
+  FirstCronEpoch ChainEpoch
+  <span class="token comment"># Claimed power for each miner</span>
+  Claims <span class="token punctuation">&amp;</span>PowerV2ClaimHAMT <span class="token comment"># HAMT[address]PowerV2Claim</span>
+  ProofValidationBatch <span class="token keyword">nullable</span> <span class="token punctuation">&amp;</span>ProofValidationBatchHAMT <span class="token comment"># Multimap: HAMT[Address]AMT[SealVerifyInfo]</span>
+<span class="token representation">} <span class="token builtin">representation</span></span> tuple
+</code></pre></div><p><strong>Multimap (HAMT+AMT)</strong>: This is an ADL representing a List within a Map <code>type PowerV0CronEventMap {ChainEpochBytes:[PowerV0CronEvent]}</code>, where the <code>CronEvent</code> list is a queue.</p> <div class="language-ipldsch extra-class"><pre class="language-ipldsch"><code><span class="token comment"># HAMT/map root structure</span>
+
+<span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">PowerV0CronEventHAMT</span></span> <span class="token builtin">struct</span> <span class="token punctuation">{</span>
+  map Bytes
+  data <span class="token punctuation">[</span> PowerV0CronEventHAMTElement <span class="token punctuation">]</span>
+<span class="token representation">} <span class="token builtin">representation</span></span> tuple
+
+<span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">PowerV0CronEventHAMTElement</span></span> <span class="token builtin">union</span> <span class="token punctuation">{</span>
+  <span class="token punctuation">|</span> PowerV0CronEventHAMTLink <span class="token string">&quot;0&quot;</span>
+  <span class="token punctuation">|</span> PowerV0CronEventHAMTBucket <span class="token string">&quot;1&quot;</span>
+<span class="token representation">} <span class="token builtin">representation</span></span> keyed
+
+<span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">PowerV0CronEventHAMTLink</span></span> <span class="token punctuation">&amp;</span>PowerV0CronEventHAMTLink
+
+<span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">PowerV0CronEventHAMTBucket</span></span> <span class="token punctuation">[</span> PowerV0CronEventHAMTBucketEntry <span class="token punctuation">]</span>
+
+<span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">PowerV0CronEventHAMTBucketEntry</span></span> <span class="token builtin">struct</span> <span class="token punctuation">{</span>
+  key ChainEpochBytes
+  value <span class="token punctuation">&amp;</span>PowerV0CronEventAMT
+<span class="token representation">} <span class="token builtin">representation</span></span> tuple
+
+<span class="token comment"># AMT/set leaf structure (list of CronEvents)</span>
+
+<span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">PowerV0CronEventAMT</span></span> <span class="token builtin">struct</span> <span class="token punctuation">{</span>
+  height Int
+  count Int
+  node PowerV0CronEventAMTNode
+<span class="token representation">} <span class="token builtin">representation</span></span> tuple
+
+<span class="token comment"># This can also be the root of a block</span>
+<span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">PowerV0CronEventAMTNode</span></span> <span class="token builtin">struct</span> <span class="token punctuation">{</span>
+  bitmap Bytes
+  children <span class="token punctuation">[</span><span class="token punctuation">&amp;</span>PowerV0CronEventAMTNode<span class="token punctuation">]</span>
+  values <span class="token punctuation">[</span>PowerV0CronEvent<span class="token punctuation">]</span>
+<span class="token representation">} <span class="token builtin">representation</span></span> tuple
+
+<span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">PowerV0CronEvent</span></span> <span class="token builtin">struct</span> <span class="token punctuation">{</span>
+  MinerAddr Address
+  CallbackPayload Bytes
+<span class="token representation">} <span class="token builtin">representation</span></span> tuple
+</code></pre></div><p><strong>HAMT</strong>: This is an ADL representing <code>type PowerV0ClaimMap {Address:PowerV0Claim}</code>.</p> <div class="language-ipldsch extra-class"><pre class="language-ipldsch"><code><span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">PowerV0ClaimMapHAMT</span></span> <span class="token builtin">struct</span> <span class="token punctuation">{</span>
+  map Bytes
+  data <span class="token punctuation">[</span> PowerV0ClaimMapHAMTElement <span class="token punctuation">]</span>
+<span class="token representation">} <span class="token builtin">representation</span></span> tuple
+
+<span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">PowerV0ClaimMapHAMTElement</span></span> <span class="token builtin">union</span> <span class="token punctuation">{</span>
+  <span class="token punctuation">|</span> PowerV0ClaimMapHAMTLink <span class="token string">&quot;0&quot;</span>
+  <span class="token punctuation">|</span> PowerV0ClaimMapHAMTBucket <span class="token string">&quot;1&quot;</span>
+<span class="token representation">} <span class="token builtin">representation</span></span> keyed
+
+<span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">PowerV0ClaimMapHAMTLink</span></span> <span class="token punctuation">&amp;</span>PowerV0ClaimMapHAMT
+
+<span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">PowerV0ClaimMapHAMTBucket</span></span> <span class="token punctuation">[</span> PowerV0ClaimMapHAMTBucketEntry <span class="token punctuation">]</span>
+
+<span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">PowerV0ClaimMapHAMTBucketEntry</span></span> <span class="token builtin">struct</span> <span class="token punctuation">{</span>
+  key Address
+  value PowerV0Claim
+<span class="token representation">} <span class="token builtin">representation</span></span> tuple
+
+<span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">PowerV0Claim</span></span> <span class="token builtin">struct</span> <span class="token punctuation">{</span>
+  <span class="token comment"># Sum of raw byte power for a miner's sectors</span>
+  RawBytePower StoragePower
+  <span class="token comment"># Sum of quality adjusted power for a miner's sectors</span>
+  QualityAdjPower StoragePower
+<span class="token representation">} <span class="token builtin">representation</span></span> tuple
+</code></pre></div><p><strong>HAMT</strong>: This is an ADL representing <code>type PowerV2ClaimMap {Address:PowerV2Claim}</code>.</p> <div class="language-ipldsch extra-class"><pre class="language-ipldsch"><code><span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">PowerV2ClaimMapHAMT</span></span> <span class="token builtin">struct</span> <span class="token punctuation">{</span>
+  map Bytes
+  data <span class="token punctuation">[</span> PowerV2ClaimMapHAMTElement <span class="token punctuation">]</span>
+<span class="token representation">} <span class="token builtin">representation</span></span> tuple
+
+<span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">PowerV2ClaimMapHAMTElement</span></span> <span class="token builtin">union</span> <span class="token punctuation">{</span>
+  <span class="token punctuation">|</span> PowerV2ClaimMapHAMTLink <span class="token string">&quot;0&quot;</span>
+  <span class="token punctuation">|</span> PowerV2ClaimMapHAMTBucket <span class="token string">&quot;1&quot;</span>
+<span class="token representation">} <span class="token builtin">representation</span></span> keyed
+
+<span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">PowerV2ClaimMapHAMTLink</span></span> <span class="token punctuation">&amp;</span>PowerV2ClaimMapHAMT
+
+<span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">PowerV2ClaimMapHAMTBucket</span></span> <span class="token punctuation">[</span> PowerV2ClaimMapHAMTBucketEntry <span class="token punctuation">]</span>
+
+<span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">PowerV2ClaimMapHAMTBucketEntry</span></span> <span class="token builtin">struct</span> <span class="token punctuation">{</span>
+  key Address
+  value PowerV2Claim
+<span class="token representation">} <span class="token builtin">representation</span></span> tuple
+
+<span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">PowerV2Claim</span></span> <span class="token builtin">struct</span> <span class="token punctuation">{</span>
+  <span class="token comment"># Miner's proof type used to determine minimum miner size</span>
+  SealProofType RegisteredSealProof
+  <span class="token comment"># Sum of raw byte power for a miner's sectors</span>
+  RawBytePower StoragePower
+  <span class="token comment"># Sum of quality adjusted power for a miner's sectors</span>
+  QualityAdjPower StoragePower
+<span class="token representation">} <span class="token builtin">representation</span></span> tuple
+</code></pre></div><p><strong>Multimap (HAMT+AMT)</strong>: This is an ADL representing a List within a Map <code>type ProofValidationBatchMap {Address:[SealVerifyInfo]}</code>, where <code>SealVerifyInfo</code> is a queue.</p> <div class="language-ipldsch extra-class"><pre class="language-ipldsch"><code><span class="token comment"># HAMT/map root structure</span>
+
+<span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">ProofValidationBatchHAMT</span></span> <span class="token builtin">struct</span> <span class="token punctuation">{</span>
+  map Bytes
+  data <span class="token punctuation">[</span> ProofValidationBatchHAMTElement <span class="token punctuation">]</span>
+<span class="token representation">} <span class="token builtin">representation</span></span> tuple
+
+<span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">ProofValidationBatchHAMTElement</span></span> <span class="token builtin">union</span> <span class="token punctuation">{</span>
+  <span class="token punctuation">|</span> ProofValidationBatchHAMTLink <span class="token string">&quot;0&quot;</span>
+  <span class="token punctuation">|</span> ProofValidationBatchHAMTBucket <span class="token string">&quot;1&quot;</span>
+<span class="token representation">} <span class="token builtin">representation</span></span> keyed
+
+<span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">ProofValidationBatchHAMTLink</span></span> <span class="token punctuation">&amp;</span>ProofValidationBatchHAMTLink
+
+<span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">ProofValidationBatchHAMTBucket</span></span> <span class="token punctuation">[</span> ProofValidationBatchHAMTBucketEntry <span class="token punctuation">]</span>
+
+<span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">ProofValidationBatchHAMTBucketEntry</span></span> <span class="token builtin">struct</span> <span class="token punctuation">{</span>
+  key Address
+  value <span class="token punctuation">&amp;</span>ProofValidationBatchAMT
+<span class="token representation">} <span class="token builtin">representation</span></span> tuple
+
+<span class="token comment"># AMT/set leaf structure (list of CronEvents)</span>
+
+<span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">ProofValidationBatchAMT</span></span> <span class="token builtin">struct</span> <span class="token punctuation">{</span>
+  height Int
+  count Int
+  node ProofValidationBatchAMTNode
+<span class="token representation">} <span class="token builtin">representation</span></span> tuple
+
+<span class="token comment"># This can also be the root of a block</span>
+<span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">ProofValidationBatchAMTNode</span></span> <span class="token builtin">struct</span> <span class="token punctuation">{</span>
+  bitmap Bytes
+  children <span class="token punctuation">[</span><span class="token punctuation">&amp;</span>ProofValidationBatchAMTNode<span class="token punctuation">]</span>
+  values <span class="token punctuation">[</span>SealVerifyInfo<span class="token punctuation">]</span>
+<span class="token representation">} <span class="token builtin">representation</span></span> tuple
+
+<span class="token comment"># Information needed to verify a seal proof.</span>
+<span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">SealVerifyInfo</span></span> <span class="token builtin">struct</span> <span class="token punctuation">{</span>
+  SealProof RegisteredSealProof
+  SectorID SectorID
+  DealIDs <span class="token punctuation">[</span>DealID<span class="token punctuation">]</span>
+  Randomness Bytes
+  InteractiveRandomness Bytes
+  Proof Bytes
+  <span class="token comment"># Safe because we get those from the miner actor</span>
+  SealedCID <span class="token punctuation">&amp;</span>Any <span class="token comment"># CommR: A CID with fil-commitment-sealed + poseidon-bls12_381-ac-fc1</span>
+  UnsealedCID <span class="token punctuation">&amp;</span>Any <span class="token comment"># CommD: A CID with fil-commitment-unsealed + sha2_256-trunc254-padded</span>
+<span class="token representation">} <span class="token builtin">representation</span></span> tuple
+</code></pre></div><h3 id="verifiedregistryactor"><a href="#verifiedregistryactor" class="header-anchor">#</a> VerifiedRegistryActor</h3> <p>The VerifiedRegistryActor state is the same in v0 and v2.</p> <h4 id="v0-10"><a href="#v0-10" class="header-anchor">#</a> v0</h4> <p><a name="verifregv0state"></a></p> <div class="language-ipldsch extra-class"><pre class="language-ipldsch"><code><span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">VerifregV0State</span></span> <span class="token builtin">struct</span> <span class="token punctuation">{</span>
+  <span class="token comment"># Root key holder multisig.</span>
+  <span class="token comment"># Authorize and remove verifiers.</span>
+  RootKey Address
+  <span class="token comment"># Verifiers authorize VerifiedClients.</span>
+  <span class="token comment"># Verifiers delegate their DataCap.</span>
+  Verifiers <span class="token punctuation">&amp;</span>DataCapHAMT
+  <span class="token comment"># VerifiedClients can add VerifiedClientData, up to DataCap.</span>
+  VerifiedClients <span class="token punctuation">&amp;</span>DataCapHAMT
+<span class="token punctuation">}</span>
+</code></pre></div><h4 id="v2-10"><a href="#v2-10" class="header-anchor">#</a> v2</h4> <p><em>(Same as v0)</em></p> <p><a name="verifregv2state"></a></p> <div class="language-ipldsch extra-class"><pre class="language-ipldsch"><code><span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">VerifregV2State</span></span> VerifregV0State
+</code></pre></div><p><strong>HAMT</strong>: This is an ADL representing <code>type DataCapMap {Address:StoragePower}</code>.</p> <div class="language-ipldsch extra-class"><pre class="language-ipldsch"><code><span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">DataCapHAMT</span></span> <span class="token builtin">struct</span> <span class="token punctuation">{</span>
+  map Bytes
+  data <span class="token punctuation">[</span> DataCapHAMTElement <span class="token punctuation">]</span>
+<span class="token representation">} <span class="token builtin">representation</span></span> tuple
+
+<span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">DataCapHAMTElement</span></span> <span class="token builtin">union</span> <span class="token punctuation">{</span>
+  <span class="token punctuation">|</span> DataCapHAMTLink <span class="token string">&quot;0&quot;</span>
+  <span class="token punctuation">|</span> DataCapHAMTBucket <span class="token string">&quot;1&quot;</span>
+<span class="token representation">} <span class="token builtin">representation</span></span> keyed
+
+<span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">DataCapHAMTLink</span></span> <span class="token punctuation">&amp;</span>DataCapHAMT
+
+<span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">DataCapHAMTBucket</span></span> <span class="token punctuation">[</span> DataCapHAMTBucketEntry <span class="token punctuation">]</span>
+
+<span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">DataCapHAMTBucketEntry</span></span> <span class="token builtin">struct</span> <span class="token punctuation">{</span>
+  key Address
+  value DataCap <span class="token comment"># inline</span>
+<span class="token representation">} <span class="token builtin">representation</span></span> tuple
+</code></pre></div><h3 id="systemactor"><a href="#systemactor" class="header-anchor">#</a> SystemActor</h3> <p>Note that <code>SystemV0State</code> is an empty struct, which encodes as an empty CBOR array (<code>0x80</code>).</p> <p>The SystemActor state is the same in v0 and v2.</p> <h4 id="v0-11"><a href="#v0-11" class="header-anchor">#</a> v0</h4> <p><a name="systemv0state"></a></p> <div class="language-ipldsch extra-class"><pre class="language-ipldsch"><code><span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">SystemV0State</span></span> <span class="token builtin">struct</span> <span class="token punctuation">{</span>
+<span class="token representation">} <span class="token builtin">representation</span></span> tuple
+</code></pre></div><h4 id="v2-11"><a href="#v2-11" class="header-anchor">#</a> v2</h4> <p><em>(Same as v0)</em></p> <p><a name="systemv2state"></a></p> <div class="language-ipldsch extra-class"><pre class="language-ipldsch"><code><span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">SystemV2State</span></span> SystemV0State
+</code></pre></div></div> <footer class="page-edit"><div class="edit-link"><a href="https://github.com/ipld/specs/edit/master/data-structures/filecoin/chain.md" target="_blank" rel="noopener noreferrer">Edit this page on GitHub</a> <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></div> <div class="last-updated"><span class="prefix">Last Updated:</span> <span class="time">11/13/2020, 8:54:24 AM</span></div></footer> <!----> </main></div><div class="global-ui"></div></div>
+    <script src="/assets/js/app.16bc0441.js" defer></script><script src="/assets/js/2.fa483b33.js" defer></script><script src="/assets/js/30.bd7127a6.js" defer></script>
+  </body>
+</html>
