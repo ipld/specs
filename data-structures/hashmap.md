@@ -101,7 +101,7 @@ See [IPLD Schemas](../../schemas) for a definition of this format.
 type HashMapRoot struct {
   hashAlg Int
   bucketSize Int
-  hamt HashMapNode
+  hamt &HashMapNode
 }
 
 # Non-root node layout
@@ -113,7 +113,13 @@ type HashMapNode struct {
 type Element union {
   | &HashMapNode link
   | Bucket list
+  | FilecoinElement map
 } representation kinded
+
+type FilecoinElement union {
+  | &HashMapNode "0"
+  | Bucket "1"
+} representation keyed
 
 type Bucket [ BucketEntry ]
 
