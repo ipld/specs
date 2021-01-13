@@ -32,7 +32,7 @@ type AES struct {
 } representation map
 ```
 
-### Decrypted Block Format
+## Decrypted Block Format
 
 The decrypted payload has a defined format so that it can be parsed into a pair of `CID` and
 `bytes`.
