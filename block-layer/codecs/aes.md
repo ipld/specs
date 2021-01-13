@@ -44,9 +44,9 @@ The decrypted payload has a defined format so that it can be parsed into a pair 
 The decrypted state is decoded into IPLD data model of the following schema.
 
 ```ipldsch
-type DecryptedBlock {
+type DecryptedBlock struct {
   cid Link
   bytes Bytes
-}
+} representation map
 ```
 
