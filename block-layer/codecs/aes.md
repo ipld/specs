@@ -16,7 +16,7 @@ The following AES variants are defined in this spec:
 ## What this spec is not
 
 This is not a complete system for application privacy. The following issues are
-out of scope for this specification, although they can obvious leverage these codecs:
+out of scope for this specification, although they can obviously leverage these codecs:
 
 * Key signaling
 * Access controls
