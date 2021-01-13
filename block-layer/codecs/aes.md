@@ -13,6 +13,33 @@ The following AES variants are defined in this spec:
 | aes-cbc | 0x1401 | 16 |
 | aes-ctr | 0x1402 | 12 |
 
+## What this spec is not
+
+This is not a complete system for application privacy. The following issues are
+out of scope for this specification, although they can obvious leverage these codecs:
+
+* Key signaling
+* Access controls
+* Dual-layer encryption w/ replication keys
+
+How you determine what key to apply to an encrypted block will need to be done in the
+application layer. How you decide to encrypt a graph and potentially link the encrypted
+blocks together for replication is done at the application layer. How you manage and access
+keys is done in the application layer.
+
+## Encode/Decode vs Encrypt/Decrypt
+
+The goal of specifying codecs that are used for encryption is to allow the codecs to
+include encryption and decryption programs alongside the codec. However, encrypting and
+decrypting are done by the user and are not done automatically as part of any encode/decode
+operation in the codec.
+
+The encryption program returns a data model value suitable for the block encode program. The
+decode program provides a data model value suitable for the decryption program. And the decryption
+program provides a data model value suitable for parsing into a new block (CID and Bytes). These
+programs are designed to interoperate but it's up to the user to combine them and provide the
+necessary key during encryption and decryption.
+
 ## Encrypted Block Format
 
 An encrypted block can be decoded into its initializing vector and the encrypted byte
