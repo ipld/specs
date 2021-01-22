@@ -59,35 +59,90 @@ type GraphSyncNet interface {
 
 ## Network Messages
 
-```protobuf
-message GraphsyncMessage {
+Graphsync network messages are encoded in DAG-CBOR. They have the following schema
 
-  message Request {
-    int32 id = 1;       // unique id set on the requester side
-    bytes root = 2;     // a CID for the root node in the query
-    bytes selector = 3; // ipld selector to retrieve
-    map<string, bytes> extensions = 4; // side channel information
-    int32 priority = 5;	// the priority (normalized). default to 1
-    bool  cancel = 6;   // whether this cancels a request
-    bool  update = 7;   // whether this is an update to an in progress request
-  }
+```ipldsch
+type GraphSyncExtensions {string:Any}
+type GraphSyncRequestID int
+type GraphSyncPriority int
 
-  message Response {
-    int32 id = 1;     // the request id
-    int32 status = 2; // a status code.
-    map<string, bytes> extensions = 3;    // side channel information
-  }
+type GraphSyncMetadatum struct {
+  Link         &Any
+	BlockPresent bool
+}
+type GraphSyncMetadata [GraphsyncMetadatum]
 
-  message Block {
-  	bytes prefix = 1; // CID prefix (cid version, multicodec and multihash prefix (type + length)
-  	bytes data = 2;
-  }
+type GraphSyncResponseCode enum {
+	# RequestAcknowledged means the request was received and is being worked on.
+	| RequestAcknowledged ("10")
+	# AdditionalPeers means additional peers were found that may be able
+	# to satisfy the request and contained in the extra block of the response.
+	| AdditionalPeers ("11")
+	# NotEnoughGas means fulfilling this request requires payment.
+	| NotEnoughGas ("12")
+	# OtherProtocol means a different type of response than GraphSync is
+	# contained in extra.
+	| OtherProtocol ("13")
+	# PartialResponse may include blocks and metadata about the in progress response
+	# in extra.
+	| PartialResponse ("14")
+	# RequestPaused indicates a request is paused and will not send any more data
+	# until unpaused
+	| RequestPaused ("15")
 
-  // the actual data included in this message
-  bool completeRequestList    = 1; // This request list includes *all* requests, replacing outstanding requests.
-  repeated Request  requests  = 2; // The list of requests.
-  repeated Response responses = 3; // The list of responses.
-  repeated Block    data      = 4; // Blocks related to the responses
+	# Success Response Codes (request terminated)
+
+	# RequestCompletedFull means the entire fulfillment of the GraphSync request
+	# was sent back.
+	| RequestCompletedFull ("20")
+	# RequestCompletedPartial means the response is completed, and part of the
+	# GraphSync request was sent back, but not the complete request.
+	| RequestCompletedPartial ("21")
+
+	# Error Response Codes (request terminated)
+
+	# RequestRejected means the node did not accept the incoming request.
+	| RequestRejected ("30")
+	# RequestFailedBusy means the node is too busy, try again later. Backoff may
+	# be contained in extra.
+	| RequestFailedBusy ("31")
+	# RequestFailedUnknown means the request failed for an unspecified reason. May
+	# contain data about why in extra.
+	| RequestFailedUnknown ("32")
+	# RequestFailedLegal means the request failed for legal reasons.
+	| RequestFailedLegal ("33")
+	# RequestFailedContentNotFound means the respondent does not have the content.
+	| RequestFailedContentNotFound ("34")
+	# RequestCancelled means the responder was processing the request but decided to top, for whatever reason
+	| RequestCancelled ("35")
+} representation int
+
+type GraphSyncRequest struct {
+  Id          GraphSyncRequestID                 # unique id set on the requester side
+  Root        &Any                # a CID for the root node in the query
+  Selector    Selector            # see https://github.com/ipld/specs/blob/master/selectors/selectors.md
+  Extensions  GraphSyncExtensions # side channel information
+  Priority    GraphsyncPriority   # the priority (normalized). default to 1
+  Cancel      bool                # whether this cancels a request
+  Update      bool                # whether this is an update to an in progress request
+}
+
+type GraphSyncResponse struct {
+    ID          GraphSyncRequestID          # the request id we are responding to
+    Status      GraphSyncResponseStatusCode # a status code.
+    Metadata    GraphSyncMetadata           # metadata about response
+    Extensions  GraphSyncExtensions         # side channel information
+}
+
+type GraphSyncBlock struct {
+  Prefix  bytes # CID prefix (cid version, multicodec and multihash prefix (type + length)
+  Data    bytes
+}
+
+type GraphSyncMessage struct {
+  Requests [GraphSyncRequest]
+  Responses [GraphSyncResponse]
+  Blocks [GraphSyncBlock]
 }
 ```
 
