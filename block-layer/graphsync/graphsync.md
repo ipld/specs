@@ -64,6 +64,7 @@ type GraphSyncNet interface {
 Graphsync network messages are encoded in DAG-CBOR. They have the following schema
 
 ```ipldsch
+type PeerID string
 type GraphSyncExtensions {String:Any}
 type GraphSyncRequestID int
 type GraphSyncPriority int
@@ -74,6 +75,14 @@ type GraphSyncMetadatum struct {
 } representation tuple
 
 type GraphSyncMetadata [GraphsyncMetadatum]
+
+type GraphSyncRequestType enum {
+  | Full ("0")      # Full new request
+  | Metadata ("1")  # Request only metadata and additional peers
+  | Peers ("2")     # Request only additional peers
+  | Update ("3")    # Update to previous request with this ID
+  | Cancel ("4")    # Cancel a previous request with this ID
+}
 
 type GraphSyncResponseCode enum {
   # Informational Codes (request in progress)
@@ -101,20 +110,20 @@ type GraphSyncResponseCode enum {
 } representation int
 
 type GraphSyncRequest struct {
-  id          GraphSyncRequestID  (rename "ID")   # unique id set on the requester side
-  root        &Any                (rename "Root") # a CID for the root node in the query
-  selector    Selector            (rename "Sel")  # see https://github.com/ipld/specs/blob/master/selectors/selectors.md
-  extensions  GraphSyncExtensions (rename "Ext")  # side channel information
-  priority    GraphsyncPriority   (rename "Pri")  # the priority (normalized). default to 1
-  cancel      Bool                (rename "Canc") # whether this cancels a request
-  update      Bool                (rename "Updt") # whether this is an update to an in progress request
+  id          GraphSyncRequestID  	(rename "ID")   # unique id set on the requester side
+  root        &Any                	(rename "Root") # a CID for the root node in the query
+  selector    Selector            	(rename "Sel")  # see https://github.com/ipld/specs/blob/master/selectors/selectors.md
+  extensions  GraphSyncExtensions 	(rename "Ext")  # side channel information
+  priority    GraphsyncPriority   	(rename "Pri")  # the priority (normalized). default to 1
+  type        GraphsyncRequestType	(rename "Typ")	# the type of request (full, update, cancel, metadata, etc)
 } representation map
 
 type GraphSyncResponse struct {
-  id          GraphSyncRequestID          (rename "ID")   # the request id we are responding to
-  status      GraphSyncResponseStatusCode (rename "Stat") # a status code.
-  metadata    GraphSyncMetadata           (rename "Meta") # metadata about response
-  extensions  GraphSyncExtensions         (rename "Ext")  # side channel information
+  id              GraphSyncRequestID          (rename "ID")   # the request id we are responding to
+  status          GraphSyncResponseStatusCode (rename "Stat") # a status code.
+  additionalPeers [PeerID]                    (rename "Prs")  # other peers that may be able to serve this request 
+  metadata        GraphSyncMetadata           (rename "Meta") # metadata about response
+  extensions      GraphSyncExtensions         (rename "Ext")  # side channel information
 } representation map
 
 type GraphSyncBlock struct {
@@ -165,6 +174,17 @@ message GraphsyncMessage {
 }
 ```
 
+### Metadata and Block Deduplication in Responses
+
+Every block sent in a response MUST correspond to a link in the Metadata for at least one of the included responses. Otherwise the requestor should drop the block.
+
+When processing a single full graphsync request, the responder MUST send a traversed block only once -- the selector traverses the same block twice, it should not send that block twice for this request.
+
+When processing multiple full graphsync requests at once, if both requests encounter the same block during selector traversal, by default deduplication is only performed when the block is sent in the same graphsync message. The responder MUST NOT send the same block twice in the same Graphsync message. If sending different messages, the block may be sent twice.
+
+Graphsync extensions may change or enhance deduplication behavior (for example see
+[Do Not Send CIDS extension](./known_extensions.md#do-not-send-cids))
+
 ### Extensions
 
 The Graphsync protocol is extensible. A graphsync request and a graphsync response contain an `extensions` field, which is a map type. Each key of the extensions field specifies the name of the extension, while the value is data (serialized as bytes) relevant to that extension.
@@ -181,12 +201,22 @@ An update contains ONLY extension data, which the responder can use to modify an
 
 The update mechanism in conjunction with the paused response code can also be used to support incremental payment protocols.
 
+### Peer and Metadata Requests
+
+A requestor may wish to discover who can serve a query, and also what CIDs MAY make up the query without actually receiving blocks back. To do this, it can send a Peers or Metadata graphsync request.
+
+In a Peers request, if a responder is aware of other peers who can serve the request, it returns the AdditionalPeers. It does not attempt to serve query metadata or blocks. It should return AdditionalPeers as a status if it knows of AdditionalPeers and RequestFailedContentNotFound otherwise
+
+In a Metadata request, a responder attempts to serve a query request but does not send blocks associated with the request. The responder may also send additional peers in the response if it is aware of them. The response codes should correspond to a normal request.
+
+In a Full (normal) request, the responder attemps to serve the query as well as blocks for the request. It may include additional peers if it is aware of them.
+
 ### Response Status Codes
 
 ```
 # info - partial
 10    Request acknowledged, indicates request was received and is being worked on
-11    Additional peers, indicates additional peers were found that may be able to satisfy the request and contained in the extensions block of the response
+11    Additional peers, indicates additional peers were found that may be able to satisfy the request and contained in the additionalPeers field of the response
 12    Not enough gas, fulfilling this request requires payment
 13    Other protocol, indicates a different type of response than GraphSync is contained in extensions
 14    Partial response, includes blocks and metadata about the in progress response
@@ -194,16 +224,16 @@ The update mechanism in conjunction with the paused response code can also be us
 
 # success - terminal
 
-20   Request completed, entire fulfillment of the GraphSync request was sent back.
-21   Request completed, partial fulfillment of the GraphSync request was sent back, but not the complete request.
+20    Request completed, entire fulfillment of the GraphSync request was sent back.
+21    Request completed, partial fulfillment of the GraphSync request was sent back, but not the complete request.
 
 # error - terminal
-30   Request rejected, indicates the node did not accept the incoming request.
-31   Request failed, indiciates the node is too busy, try again later. Backoff may be contained in extensions.
-32   Request failed for unknown reasons, may contain data about why in extensions.
-33   Request failed for legal reasons.
-34   Request failed because respondent does not have the content.
-35   Request cancelled, indicates the responder was processing the request but decided to stop. Extensions may contain information about reason for cancellation
+30    Request rejected, indicates the node did not accept the incoming request.
+31    Request failed, indiciates the node is too busy, try again later. Backoff may be contained in extensions.
+32    Request failed for unknown reasons, may contain data about why in extensions.
+33    Request failed for legal reasons.
+34    Request failed because respondent does not have the content.
+35    Request cancelled, indicates the responder was processing the request but decided to stop. Extensions may contain information about reason for cancellation
 ```
 
 ## Example Use Cases
