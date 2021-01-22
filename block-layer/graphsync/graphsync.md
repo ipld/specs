@@ -59,6 +59,8 @@ type GraphSyncNet interface {
 
 ## Network Messages
 
+### Protocol Version 1.1.0
+
 Graphsync network messages are encoded in DAG-CBOR. They have the following schema
 
 ```ipldsch
@@ -128,10 +130,10 @@ type GraphSyncRequest struct {
 }
 
 type GraphSyncResponse struct {
-    ID          GraphSyncRequestID          # the request id we are responding to
-    Status      GraphSyncResponseStatusCode # a status code.
-    Metadata    GraphSyncMetadata           # metadata about response
-    Extensions  GraphSyncExtensions         # side channel information
+  ID          GraphSyncRequestID          # the request id we are responding to
+  Status      GraphSyncResponseStatusCode # a status code.
+  Metadata    GraphSyncMetadata           # metadata about response
+  Extensions  GraphSyncExtensions         # side channel information
 }
 
 type GraphSyncBlock struct {
@@ -146,6 +148,41 @@ type GraphSyncMessage struct {
 }
 ```
 
+### Legacy Protocol Version 1.0.0
+
+An earlier version of graphsync encoded messages using protobufs
+
+```protobuf
+message GraphsyncMessage {
+
+  message Request {
+    int32 id = 1;       // unique id set on the requester side
+    bytes root = 2;     // a CID for the root node in the query
+    bytes selector = 3; // ipld selector to retrieve
+    map<string, bytes> extensions = 4; // side channel information
+    int32 priority = 5;	// the priority (normalized). default to 1
+    bool  cancel = 6;   // whether this cancels a request
+    bool  update = 7;   // whether this is an update to an in progress request
+  }
+
+  message Response {
+    int32 id = 1;     // the request id
+    int32 status = 2; // a status code.
+    map<string, bytes> extensions = 3;    // side channel information
+  }
+
+  message Block {
+  	bytes prefix = 1; // CID prefix (cid version, multicodec and multihash prefix (type + length)
+  	bytes data = 2;
+  }
+
+  // the actual data included in this message
+  bool completeRequestList    = 1; // This request list includes *all* requests, replacing outstanding requests.
+  repeated Request  requests  = 2; // The list of requests.
+  repeated Response responses = 3; // The list of responses.
+  repeated Block    data      = 4; // Blocks related to the responses
+}
+```
 
 ### Extensions
 
