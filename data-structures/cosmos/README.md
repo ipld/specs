@@ -13,6 +13,3 @@ For more information about the IPLD Schema language, see the [specification](htt
 * [**Tendermint Chain** Data Structures](tendermint_chain.md)
 * [**ABCI Messages** Data Structures](abci_messages.md)
 * [**Cosmos State** Machine Data Structures](cosmos_state.md)
-
-
-# NOTE: [Params](https://docs.tendermint.com/master/spec/core/data_structures.html#consensusparams) is where I left off

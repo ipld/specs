@@ -1,16 +1,61 @@
 # Tendermint Chain Data Structures
 
-## Tendermint Genesis
-
 ## Tendermint Block
 A block consists of a header, transactions, votes (the commit), and a list of evidence of malfeasance (i.e. signing conflicting votes).
 ```ipldsch
 # Block defines the atomic unit of a Tendermint blockchain
 type Block struct {
-	Header &Header
-	Data &Data
-	Evidence &EvidenceData
-	LastCommit &Commit
+	Header Header
+	Data Data
+	Evidence EvidenceData
+	LastCommit Commit
+}
+```
+
+## Light Block
+LightBlock is the core data structure of the light client.
+It combines two data structures needed for verification (SignedHeader & ValidatorSet).
+```ipldsch
+# LightBlock is a SignedHeader and a ValidatorSet.
+# It is the basis of the light client
+type LightBlock struct {
+	SignedHeader SignedHeader
+	ValidatorSet  ValidatorSet
+}
+
+# SignedHeader is a header along with the commits that prove it.
+type SignedHeader struct {
+	Header Header
+	Commit Commit
+}
+```
+
+## Tendermint Merkle Node
+A Merkle tree node is a single node in a Merkle tree. A Merkle node is referenced by its hash.
+The top-level node in the tree is the root node, its hash is the Merkle root. Tendermint uses
+the RFC 6962 specification of a merkle tree, with sha256 as the hash function.
+* The hash of an inner node is `SHA_256(0x00 || leaf_data)`.
+* The hash of a leaf node is `SHA_256(0x01 || left_hash || right_hash)`
+```ipldsch
+type MerkleTreeNode union {
+    | MerkleTreeInnerNode "parent"
+    | MerkleTreeLeafNode "leaf"
+} representation keyed
+
+# MerkleTreeRootNode is the top-most parent node in a merkle tree; the root node of the tree.
+# It can be a leaf node if there is only one value in the tree
+type MerkleTreeRootNode MerkleTreeNode
+
+# MerkleTreeInnerNode nodes contain two byte arrays which contain the hashes which link its two child nodes.
+type MerkleTreeInnerNode struct {
+    ChildA &MerkleTreeNode
+    ChildB &MerkleTreeNode
+}
+
+# MerkleTreeLeafNode is a single byte array containing the value stored at that leaf
+# Often times this "value" will be a hash of content rather than the content itself
+type MerkleTreeLeafNode struct {
+    Value Bytes
 }
 ```
 
@@ -30,24 +75,95 @@ type Header struct {
 	LastBlockID BlockID
 
 	# hashes of block data
-	LastCommitHash HexBytes
-	DataHash       HexBytes
+	LastCommitHash CommitTreeCID
+	DataHash       TxTreeCID
 
 	# hashes from the app output from the prev block
-	ValidatorsHash     HexBytes
-	NextValidatorsHash HexBytes
-	ConsensusHash      HexBytes
-	AppHash            HexBytes
+	ValidatorsHash     ValidatorTreeCID # MerkleRoot of the current validator set
+	NextValidatorsHash ValidatorTreeCID # MerkleRoot of the next validator set
+	ConsensusHash      HashedParamsCID
+	AppHash            AppStateTreeCID # State Root from the state machine
+
 	# root hash of all results from the txs from the previous block
-	LastResultsHash HexBytes
+	LastResultsHash ResultTreeCID
 
 	# consensus info
-	EvidenceHash    HexBytes
+	EvidenceHash    EvidenceTreeCID
 	ProposerAddress Address
+}
+
+# HashedParamsCID is a CID link to the HashedParams for this Header
+# This CID is composed of the SHA_256 multihash of the linked protobuf encoded HashedParams struct and the HashedParmas codec (tbd)
+type HashParamsCID &HashedParams
+
+# EvidenceTreeCID is a CID link to the root node of a Evidence merkle tree
+# This CID is composed of the SHA_256 multihash of the root node in the Evidence merkle tree and the Evidence codec (tbd)
+# The Evidence merkle tree is Merkle tree build from the list of evidence of Byzantine behaviour included in this block.
+type EvidenceTreeCID &MerkleTreeNode
+
+# ResultTreeCID is a CID link to the root node of a Result merkle tree
+# This CID is composed of the SHA_256 multihash of the root node in a Result merkle tree and the Result codec (tbd)
+# Result merkle tree is a Merkle tree built from ResponseDeliverTx responses (Log, Info, Codespace and Events fields are ignored)
+type ResultTreeCID &MerkleTreeNode
+
+# AppStateTreeCID is a CID link to the state root returned by the state machine after executing and commiting the previous block
+# It serves as the basis for validating any Merkle proofs that comes from the ABCI application and represents the state of the actual application rather than the state of the blockchain itself.
+# This nature of the hash is determined by the application, Tendermint can not perform validation on it
+type AppStateReference &MerkleTreeNode
+
+# ValidatorTreeCID is a CID link to the root node of a Validator merkle tree
+# This CID is composed of the SHA_256 multihash of the root node in the Validator merkle tree and the Validator codec (tbd)
+# Validator merkle tree is a Merkle tree built from the set of validators for the given block
+# The validators are first sorted by voting power (descending), then by address (ascending) prior to computing the MerkleRoot
+type ValidatorTreeCID &MerkleTreeNode
+
+# TxTreeCID is a CID link to the root node of a Tx merkle tree
+# This CID is composed of the SHA_256 multihash of the root node in the Tx merkle tree and the Tx codec (tbd)
+# Tx merkle tree is a Merkle tree built from the set of Txs at the given block
+# Note: The transactions are hashed before being included in the Merkle tree, the leaves of the Merkle tree are the hashes, not the transactions themselves.
+type TxTreeCID &MerkleTreeNode
+
+# CommitTreeCID is a CID link to the root node of a Commit merkle tree
+# This CID is composed of the SHA_256 multihash of the root node in a Commit merkle tree and the Commit codec (tbd)
+# Commit merkle tree is a Merkle tree built from a set of validator's commits
+type CommitTreeCID &MerkleTreeNode
+
+# BlockID contains two distinct Merkle roots of the block.
+# The BlockID includes these two hashes, as well as the number of parts (ie. len(MakeParts(block)))
+type BlockID struct {
+	Hash          HeaderCID
+	PartSetHeader PartSetHeader
+}
+
+# HeaderCID is a CID link to the root node of a Header merkle tree
+# This CID is composed of the SHA_256 multihash of the root node in the Header merkle tree and the Header codec (tbd)
+# Header merkle tree is a Merklization of all of the fields in the header
+type HeaderCID &MerkleTreeNode
+
+# PartSetHeader is used for secure gossiping of the block during consensus
+# It contains the Merkle root of the complete serialized block cut into parts (ie. MerkleRoot(MakeParts(block))).
+type PartSetHeader struct {
+	Total Uint
+	Hash  PartTreeCID
+}
+
+# PartTreeCID is a CID link to the root node of a Part merkle tree
+# This CID is composed of the SHA_256 multihash of the root node in the Part merkle tree and the Part codec (tbd)
+# Part merkle tree is a Merkle tree built from the PartSet
+type PartTreeCID &MerkleTreeNode
+
+# PartSet is the complete set of parts for a header
+type PartSet [Part]
+
+# Part is a section of bytes of a complete serialized header
+type Part struct {
+	Index Uint
+	Bytes HexBytes
+	Proof Proof
 }
 ```
 
-## Tendermint Data
+## Tendermint Transaction
 Data is a wrapper around a set of transactions included in the block.
 ```ipldsch
 type Data struct {
@@ -68,6 +184,18 @@ Commit contains the evidence that a block was committed by a set of validators.
 NOTE: Commit is empty for height 1, but never nil.
 
 ```ipldsch
+# CommitSig is a part of the Vote included in a Commit.
+type CommitSig struct {
+	BlockIDFlag      BlockIDFlag
+	ValidatorAddress Address
+	Timestamp        Time
+	Signature        Signature
+}
+
+# Signatures is a list of CommitSigs
+type Signatures [CommitSig]
+
+# Commit contains the evidence that a block was committed by a set of validators
 type Commit struct {
 	# NOTE: The signatures are in order of address to preserve the bonded
 	# ValidatorSet order.
@@ -76,70 +204,47 @@ type Commit struct {
 	Height     Int
 	Round      Int
 	BlockID    BlockID
-	Signatures []CommitSig
+	Signatures Signatures
 }
 ```
 
-## Tendermint Evidence Data
-EvidenceData contains any evidence of malicious wrong-doing by validators
+## Voting and Proposals
 ```ipldsch
-# EvidenceData contains any evidence of malicious wrong-doing by validators
-type EvidenceData struct {
-	Evidence EvidenceList
-}
-
-# EvidenceList is a list of Evidence
-type EvidenceList [Evidence]
-
-# Evidence in Tendermint is used to indicate breaches in the consensus by a validator
-type Evidence [ProtoType] # How do we represent this interface as IPLD schema?
-```
-
-### DuplicateVoteEvidence
-DuplicateVoteEvidence contains evidence of a single validator signing two conflicting votes.
-```ipldsch
-type DuplicateVoteEvidence struct {
-	VoteA Vote
-	VoteB Vote
-
-	# abci specific information
-	TotalVotingPower Int
-	ValidatorPower   Int
+# Vote represents a prevote, precommit, or commit vote from validators for
+# consensus.
+type Vote struct {
+	Type             SignedMsgType
+	Height           Int
+	Round            Int
+	BlockID          BlockID
 	Timestamp        Time
-}
-```
-
-### LightClientAttackEvidence
-LightClientAttackEvidence is a generalized evidence that captures all forms of known attacks on
-a light client such that a full node can verify, propose and commit the evidence on-chain for
-punishment of the malicious validators. There are three forms of attacks: Lunatic, Equivocation and Amnesia.
-```ipldsch
-type LightClientAttackEvidence struct {
-	ConflictingBlock &LightBlock
-	CommonHeight     Int
-
-	# abci specific information
-	ByzantineValidators [&Validator] # validators in the validator set that misbehaved in creating the conflicting block
-	TotalVotingPower    Int        # total voting power of the validator set at the common height
-	Timestamp           Time         # timestamp of the block at the common height
-}
-```
-
-## LightBlock
-LightBlock is the core data structure of the light client.
-It combines two data structures needed for verification (SignedHeader & ValidatorSet).
-```ipldsch
-# LightBlock is a SignedHeader and a ValidatorSet.
-# It is the basis of the light client
-type LightBlock struct {
-	SignedHeader &SignedHeader
-	ValidatorSet  &ValidatorSet
+	ValidatorAddress Address
+	ValidatorIndex   Int
+	Signature        Signature
 }
 
-# SignedHeader is a header along with the commits that prove it.
-type SignedHeader struct {
-	Header &Header
-	Commit &Commit
+# SignedMsgType is the type of signed message in the consensus.
+type SignedMsgType enum {
+    | UnknownType ("0")
+    | PrevoteType ("1")
+    | PrecommitType ("2")
+    | ProposalType ("32")
+} representation int
+
+# Proposal defines a block proposal for the consensus.
+# It refers to the block by BlockID field.
+# It must be signed by the correct proposer for the given Height/Round
+# to be considered valid. It may depend on votes from a previous round,
+# a so-called Proof-of-Lock (POL) round, as noted in the POLRound.
+# If POLRound >= 0, then BlockID corresponds to the block that is locked in POLRound.
+type Proposal struct {
+	Type      SignedMsgType
+	Height    Int
+	Round     Int # there can not be greater than 2_147_483_647 rounds
+	POLRound  Int # -1 if null.
+	BlockID   BlockID
+	Timestamp Time
+	Signature Signature
 }
 ```
 
@@ -161,6 +266,9 @@ type SimpleValidator struct {
 	VotingPower Int
 }
 
+# Validators is a list of validators
+types Validators [Validator]
+
 # ValidatorSet represent a set of Validators at a given height.
 #
 # The validators can be fetched by address or index.
@@ -168,7 +276,60 @@ type SimpleValidator struct {
 # rounds of a given blockchain height - ie. the validators are sorted by their
 # voting power (descending). Secondary index - .Address (ascending).
 type ValidatorSet struct {
-	Validators []&Validator
-	Proposer   &Validator
+	Validators Validators
+	Proposer   Validator
+}
+```
+
+## Tendermint Evidence Data
+EvidenceData contains any evidence of malicious wrong-doing by validators
+```ipldsch
+# EvidenceData contains any evidence of malicious wrong-doing by validators
+type EvidenceData struct {
+	Evidence EvidenceList
+}
+
+# EvidenceList is a list of Evidence
+type EvidenceList [Evidence]
+
+# DuplicateVoteEvidence contains evidence of a single validator signing two conflicting votes.
+type DuplicateVoteEvidence struct {
+	VoteA Vote
+	VoteB Vote
+
+	# abci specific information
+	TotalVotingPower Int
+	ValidatorPower   Int
+	Timestamp        Time
+}
+
+# LightClientAttackEvidence is a generalized evidence that captures all forms of known attacks on
+# a light client such that a full node can verify, propose and commit the evidence on-chain for
+# punishment of the malicious validators. There are three forms of attacks: Lunatic, Equivocation and Amnesia.
+type LightClientAttackEvidence struct {
+	ConflictingBlock LightBlock
+	CommonHeight     Int
+
+	# abci specific information
+	ByzantineValidators [Validator] # validators in the validator set that misbehaved in creating the conflicting block
+	TotalVotingPower    Int        # total voting power of the validator set at the common height
+	Timestamp           Time         # timestamp of the block at the common height
+}
+
+# Evidence in Tendermint is used to indicate breaches in the consensus by a validator
+# Currently there are two types of Evidence
+type Evidence union {
+  | DuplicateVoteEvidence "duplicate"
+  | LightClientAttackEvidence "light"
+} representation keyed
+```
+
+## Params
+```ipldsch
+# HashedParams is a subset of ConsensusParams that is included in the consensus encoding
+# It is hashed into the Header.ConsensusHash.
+type HashedParams struct {
+	BlockMaxBytes Int
+	BlockMaxGas   Int
 }
 ```

@@ -2,7 +2,7 @@
 
 ```ipldsch
 # Uint is a non-negative integer
-type Uint int
+type Uint bytes
 
 # The main purpose of HexBytes is to enable HEX-encoding for json/encoding.
 type HexBytes bytes
@@ -12,40 +12,13 @@ type HexBytes bytes
 # and truncating it to only use the first 20 bytes of the slice
 type Address HexBytes
 
-type VersionConsensus
+# Hash is a type alias of a slice of 32 bytes
+type Hash HexBytes
 
+# Time represents a unix timestamp with nanosecond granularity
 type Time struct {
     Seconds Uint
     Nanoseconds Uint
-} representation tuple
-
-type BlockID struct {
-	Hash          HexBytes
-	PartSetHeader PartSetHeader
-}
-
-type PartSetHeader struct {
-	Total Uint
-	Hash  HexBytes
-}
-
-type Part struct {
-	Index Uint
-	Bytes HexBytes
-	Proof merkle.Proof
-}
-
-# Proof represents a Merkle proof.
-# NOTE: The convention for proofs is to include leaf hashes but to
-# exclude the root hash.
-# This convention is implemented across IAVL range proofs as well.
-# Keep this consistent unless there's a very good reason to change
-# everything.  This also affects the generalized proof system as well.
-type Proof struct {
-	Total    Int
-	Index    Int
-	LeafHash Bytes
-	Aunts    [Bytes]
 }
 
 # Version captures the consensus rules for processing a block in the blockchain,
@@ -63,76 +36,11 @@ type BlockIDFlag enum {
   | BlockIDFlagCommit ("2")
   | BlockIDFlagNil ("3")
 } representation int
-
-# CommitSig is a part of the Vote included in a Commit.
-type CommitSig struct {
-	BlockIDFlag      BlockIDFlag
-	ValidatorAddress Address
-	Timestamp        Time
-	Signature        Signature
-}
-
-# Vote represents a prevote, precommit, or commit vote from validators for
-# consensus.
-type Vote struct {
-	Type             SignedMsgType
-	Height           Int
-	Round            Int
-	BlockID          BlockID
-	Timestamp        Time
-	ValidatorAddress Address
-	ValidatorIndex   Int
-	Signature        Signature
-}
-
-# SignedMsgType is a type of signed message in the consensus.
-type SignedMsgType enum {
-    | UnknownType ("0")
-    | PrevoteType ("1")
-    | PrecommitType ("2")
-    | ProposalType ("32")
-} representation int
-
-# CanonicalVote is for validator signing. This type will not be present in a block.
-# Votes are represented via CanonicalVote and also encoded using protobuf via type.SignBytes which includes the ChainID,
-# and uses a different ordering of the fields.
-type CanonicalVote struct {
-	Type      SignedMsgType
-	Height    Int
-	Round     Int
-	BlockID   nullable CanonicalBlockID
-	Timestamp Time
-	ChainID   String
-}
-
-type CanonicalBlockID struct {
-	Hash          Bytes
-	PartSetHeader CanonicalPartSetHeader
-}
-
-type CanonicalPartSetHeader struct {
-	Total Uint
-	Hash  Bytes
-}
-
-# Proposal defines a block proposal for the consensus.
-# It refers to the block by BlockID field.
-# It must be signed by the correct proposer for the given Height/Round
-# to be considered valid. It may depend on votes from a previous round,
-# a so-called Proof-of-Lock (POL) round, as noted in the POLRound.
-# If POLRound >= 0, then BlockID corresponds to the block that is locked in POLRound.
-type Proposal struct {
-	Type      SignedMsgType
-	Height    Int
-	Round     Int # there can not be greater than 2_147_483_647 rounds
-	POLRound  Int # -1 if null.
-	BlockID   BlockID
-	Timestamp Time
-	Signature Signature
-}
 ```
 
 ## Params
+Params define the starting parameters for various pieces of the Tendermint protocol.
+
 ```ipldsch
 # ConsensusParams contains consensus critical parameters that determine the validity of blocks.
 type ConsensusParams struct {
@@ -142,15 +50,7 @@ type ConsensusParams struct {
 	Version   VersionParams
 }
 
-# HashedParams is a subset of ConsensusParams.
-#
-# It is hashed into the Header.ConsensusHash.
-type HashedParams struct {
-	BlockMaxBytes Int
-	BlockMaxGas   Int
-}
-
-# BlockParams contains limits on the block size.
+# BlockParams contains limits on the block size and time between consecutive blocks
 type BlockParams struct {
 	# Note: must be greater than 0
 	MaxBytes Int
