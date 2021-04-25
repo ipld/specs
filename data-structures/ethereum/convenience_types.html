@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Convenience IPLD types | IPLD Specifications</title>
+    <meta name="generator" content="VuePress 1.8.2">
+    
+    <meta name="description" content="Specifications for the Inter-planetary Linked Data project">
+    
+    <link rel="preload" href="/assets/css/0.styles.1c4fef16.css" as="style"><link rel="preload" href="/assets/js/app.198e782b.js" as="script"><link rel="preload" href="/assets/js/2.e200a875.js" as="script"><link rel="preload" href="/assets/js/34.7d9dce09.js" as="script"><link rel="prefetch" href="/assets/js/10.3ad07f1f.js"><link rel="prefetch" href="/assets/js/100.03978903.js"><link rel="prefetch" href="/assets/js/101.aec5578d.js"><link rel="prefetch" href="/assets/js/102.9dffc979.js"><link rel="prefetch" href="/assets/js/103.34e1451c.js"><link rel="prefetch" href="/assets/js/11.40e65190.js"><link rel="prefetch" href="/assets/js/12.36abb4a9.js"><link rel="prefetch" href="/assets/js/13.f1c74105.js"><link rel="prefetch" href="/assets/js/14.5fba90d7.js"><link rel="prefetch" href="/assets/js/15.d075abad.js"><link rel="prefetch" href="/assets/js/16.0c2bf88b.js"><link rel="prefetch" href="/assets/js/17.c0445d96.js"><link rel="prefetch" href="/assets/js/18.e7ebfc2c.js"><link rel="prefetch" href="/assets/js/19.afec9d1c.js"><link rel="prefetch" href="/assets/js/20.7667865d.js"><link rel="prefetch" href="/assets/js/21.46ed4f1d.js"><link rel="prefetch" href="/assets/js/22.6c914b07.js"><link rel="prefetch" href="/assets/js/23.9ce655f6.js"><link rel="prefetch" href="/assets/js/24.d7fd2d2e.js"><link rel="prefetch" href="/assets/js/25.065c6d4e.js"><link rel="prefetch" href="/assets/js/26.df4fa512.js"><link rel="prefetch" href="/assets/js/27.48d1f812.js"><link rel="prefetch" href="/assets/js/28.7fba2ad3.js"><link rel="prefetch" href="/assets/js/29.d2954fe9.js"><link rel="prefetch" href="/assets/js/3.a21677cd.js"><link rel="prefetch" href="/assets/js/30.75e498cf.js"><link rel="prefetch" href="/assets/js/31.fb9744c8.js"><link rel="prefetch" href="/assets/js/32.40e0937f.js"><link rel="prefetch" href="/assets/js/33.d90d60ff.js"><link rel="prefetch" href="/assets/js/35.beae4fd4.js"><link rel="prefetch" href="/assets/js/36.1a1a6482.js"><link rel="prefetch" href="/assets/js/37.3709d9f7.js"><link rel="prefetch" href="/assets/js/38.52918b1a.js"><link rel="prefetch" href="/assets/js/39.8dd3c1fd.js"><link rel="prefetch" href="/assets/js/4.fac9939a.js"><link rel="prefetch" href="/assets/js/40.7dbd9e9c.js"><link rel="prefetch" href="/assets/js/41.0c0fa365.js"><link rel="prefetch" href="/assets/js/42.520355df.js"><link rel="prefetch" href="/assets/js/43.13fb150a.js"><link rel="prefetch" href="/assets/js/44.baf68333.js"><link rel="prefetch" href="/assets/js/45.cd47418a.js"><link rel="prefetch" href="/assets/js/46.ad24b1e3.js"><link rel="prefetch" href="/assets/js/47.cd10e42a.js"><link rel="prefetch" href="/assets/js/48.15ed7469.js"><link rel="prefetch" href="/assets/js/49.74b67912.js"><link rel="prefetch" href="/assets/js/5.5c92d69b.js"><link rel="prefetch" href="/assets/js/50.eb0001c3.js"><link rel="prefetch" href="/assets/js/51.56ac31b1.js"><link rel="prefetch" href="/assets/js/52.b71600d1.js"><link rel="prefetch" href="/assets/js/53.0e9b725e.js"><link rel="prefetch" href="/assets/js/54.dc70ee40.js"><link rel="prefetch" href="/assets/js/55.de603e38.js"><link rel="prefetch" href="/assets/js/56.fb86278b.js"><link rel="prefetch" href="/assets/js/57.a280c205.js"><link rel="prefetch" href="/assets/js/58.fce45e31.js"><link rel="prefetch" href="/assets/js/59.87f00708.js"><link rel="prefetch" href="/assets/js/6.d3de818b.js"><link rel="prefetch" href="/assets/js/60.7fdbc4c1.js"><link rel="prefetch" href="/assets/js/61.55f1bbed.js"><link rel="prefetch" href="/assets/js/62.ebd7a4da.js"><link rel="prefetch" href="/assets/js/63.8f835308.js"><link rel="prefetch" href="/assets/js/64.4c0c1884.js"><link rel="prefetch" href="/assets/js/65.e415dbf7.js"><link rel="prefetch" href="/assets/js/66.c9813984.js"><link rel="prefetch" href="/assets/js/67.bc51af23.js"><link rel="prefetch" href="/assets/js/68.d4004d68.js"><link rel="prefetch" href="/assets/js/69.a3413c18.js"><link rel="prefetch" href="/assets/js/7.7091a8c0.js"><link rel="prefetch" href="/assets/js/70.ca3e77b9.js"><link rel="prefetch" href="/assets/js/71.aa51a6a9.js"><link rel="prefetch" href="/assets/js/72.ec09910e.js"><link rel="prefetch" href="/assets/js/73.5102f433.js"><link rel="prefetch" href="/assets/js/74.66f0da7f.js"><link rel="prefetch" href="/assets/js/75.3dead3bc.js"><link rel="prefetch" href="/assets/js/76.323777a2.js"><link rel="prefetch" href="/assets/js/77.2a6bc38f.js"><link rel="prefetch" href="/assets/js/78.47887b5f.js"><link rel="prefetch" href="/assets/js/79.01627de3.js"><link rel="prefetch" href="/assets/js/8.aad8b89c.js"><link rel="prefetch" href="/assets/js/80.d4970649.js"><link rel="prefetch" href="/assets/js/81.bc4c6071.js"><link rel="prefetch" href="/assets/js/82.49a35f72.js"><link rel="prefetch" href="/assets/js/83.77d12605.js"><link rel="prefetch" href="/assets/js/84.2bc477f9.js"><link rel="prefetch" href="/assets/js/85.6f35b6c1.js"><link rel="prefetch" href="/assets/js/86.7d0d5d36.js"><link rel="prefetch" href="/assets/js/87.db465b45.js"><link rel="prefetch" href="/assets/js/88.8f018aa0.js"><link rel="prefetch" href="/assets/js/89.64fc6e20.js"><link rel="prefetch" href="/assets/js/9.68dfb739.js"><link rel="prefetch" href="/assets/js/90.8afc78ab.js"><link rel="prefetch" href="/assets/js/91.53dd7e08.js"><link rel="prefetch" href="/assets/js/92.729703cc.js"><link rel="prefetch" href="/assets/js/93.84d16e2b.js"><link rel="prefetch" href="/assets/js/94.e73c8c8d.js"><link rel="prefetch" href="/assets/js/95.7f4f2234.js"><link rel="prefetch" href="/assets/js/96.f9c1fe2c.js"><link rel="prefetch" href="/assets/js/97.f256e3d1.js"><link rel="prefetch" href="/assets/js/98.fc7730d1.js"><link rel="prefetch" href="/assets/js/99.12cb7594.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.1c4fef16.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/" class="home-link router-link-active"><!----> <span class="site-name">IPLD Specifications</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/" class="nav-link">
+  Home
+</a></div><div class="nav-item"><a href="/schemas/" class="nav-link">
+  IPLD Schemas
+</a></div> <a href="https://github.com/ipld/specs" target="_blank" rel="noopener noreferrer" class="repo-link">
+    GitHub
+    <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/" class="nav-link">
+  Home
+</a></div><div class="nav-item"><a href="/schemas/" class="nav-link">
+  IPLD Schemas
+</a></div> <a href="https://github.com/ipld/specs" target="_blank" rel="noopener noreferrer" class="repo-link">
+    GitHub
+    <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></nav>  <ul class="sidebar-links"><li><section class="sidebar-group depth-0"><p class="sidebar-heading open"><span>Convenience IPLD types</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/data-structures/ethereum/convenience_types.html#transaction-trace-ipld" class="sidebar-link">Transaction Trace IPLD</a><ul class="sidebar-sub-headers"></ul></li><li><a href="/data-structures/ethereum/convenience_types.html#block-ipld" class="sidebar-link">Block IPLD</a><ul class="sidebar-sub-headers"></ul></li><li><a href="/data-structures/ethereum/convenience_types.html#transactionhashes-ipld" class="sidebar-link">TransactionHashes IPLD</a><ul class="sidebar-sub-headers"></ul></li><li><a href="/data-structures/ethereum/convenience_types.html#receipthashes-ipld" class="sidebar-link">ReceiptHashes IPLD</a><ul class="sidebar-sub-headers"></ul></li><li><a href="/data-structures/ethereum/convenience_types.html#genesis-ipld" class="sidebar-link">Genesis IPLD</a><ul class="sidebar-sub-headers"></ul></li></ul></section></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="convenience-ipld-types"><a href="#convenience-ipld-types" class="header-anchor">#</a> Convenience IPLD types</h1> <p>The types described below are not referenced directly from within the canonical Ethereum merkle tree.
+Instead, these types can be constructed and verified from underlying canonical Ethereum IPLD structures using the algorithms described here.
+These types are introduced to improve the convenience and performance of accessing and working with the Ethereum objects for certain purposes.</p> <h2 id="transaction-trace-ipld"><a href="#transaction-trace-ipld" class="header-anchor">#</a> Transaction Trace IPLD</h2> <p>Transaction traces contain the EVM context, input, and output for each individual OPCODE operation performed during the application of a transaction on a certain state.
+These objects can be generated or verified by applying the referenced transactions on top of the referenced state.</p> <ul><li>The IPLD block is the RLP encoded object</li> <li>CID links to <code>TxTrace</code> use a KECCAK_256 multihash of the RLP encoded object and the EthTxTrace codec (tbd).</li></ul> <div class="language-ipldsch extra-class"><pre class="language-ipldsch"><code><span class="token comment"># TxTrace contains the EVM context, input, and output for each OPCODE in a transaction that was applied to a specific state</span>
+<span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">TxTrace</span></span> <span class="token builtin">struct</span> <span class="token punctuation">{</span>
+   <span class="token comment"># List of CIDs linking to the transactions that were used to generate this trace by applying them onto the state referenced below</span>
+   <span class="token comment"># If this trace was produced by the first transaction in a block then this list will contain only that one transaction</span>
+   <span class="token comment"># and thistrace was produced by applying it directly to the referenced state</span>
+   <span class="token comment"># Otherwise, only the last transaction in the list is the one directly responsible for producing this trace whereas the</span>
+   <span class="token comment"># proceeding ones were sequentially applied to the referenced state to generate the intermediate state that the final,</span>
+   <span class="token comment"># trace-producing transaction, was applied on top of</span>
+   <span class="token comment"># This is analogous to the Transactions IPLD defined below, but only in the case of a trace produced by the last</span>
+   <span class="token comment"># transaction in a block will the list be same as a complete Transaction IPLD</span>
+   TxCIDs <span class="token punctuation">[</span><span class="token punctuation">&amp;</span>Transaction<span class="token punctuation">]</span>
+   <span class="token comment"># CID link to the root node of the state trie that the above transaction set was applied on top of to produce this trace</span>
+   StateRootCID <span class="token punctuation">&amp;</span>StateTrieNode
+   Result Bytes
+   Frames <span class="token punctuation">[</span>Frame<span class="token punctuation">]</span>
+   Gas Uint
+   Failed Bool
+<span class="token punctuation">}</span>
+
+<span class="token comment"># Frame represents the EVM context, input, and output for a specific OPCODE during a transaction trace</span>
+<span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">Frame</span></span> <span class="token builtin">struct</span> <span class="token punctuation">{</span>
+    Op     OpCode
+    From   Address
+    To     Address
+    Input  Bytes
+    Output Bytes
+    Gas    Uint
+    Cost   Uint
+    Value  BigInt
+<span class="token punctuation">}</span>
+</code></pre></div><p>Provided a <code>Header</code> multihash/CID and a transaction index, we can generate a <code>TxTrace</code> by</p> <ol><li>Fetching and decoding the <code>Header</code> IPLD.</li> <li>Stepping down into the transaction trie referenced in the header.
+<ol><li>Collecting the transaction at the provided index and all transactions with indexes lower than the provided index.</li> <li>KECCAK_256 hashing each transaction.</li> <li>Convert hashes to CIDs using the KECCAK_256 multihash and EthTx codec.</li> <li>Order these CIDs in a list by transaction index.</li></ol></li> <li>Collect the <code>StateRootCID</code> from within this <code>Header</code>.</li> <li>Use <a href="https://github.com/vulcanize/ipfs-ethdb" target="_blank" rel="noopener noreferrer">ipfs-ethdb<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a> with state root linked in the <code>Header</code> to instantiate an EVM on top
+of the state of this block.</li> <li>Apply each of the transactions on top of this state using the ipfs-ethdb based EVM.</li> <li>For the final transaction applied, collect the trace output from the EVM.</li> <li>Assemble the trace output, the <code>Transaction</code> CIDs, and the root <code>StateTrieNode</code> CID into the <code>TxTrace</code> object.</li></ol> <h2 id="block-ipld"><a href="#block-ipld" class="header-anchor">#</a> Block IPLD</h2> <p><code>Block</code> IPLD represents an entire block (header + body) in the Ethereum blockchain, it contains direct content hash references to
+the sets of transactions and receipts for that block in order to avoid the need to traverse the transaction
+and receipt tries to collect these sets (as is required when starting from a canonical <code>Header</code> block).
+These objects can be generated or verified by following the links within the contained <code>Header</code> to collect the <code>Transactions</code> and <code>Receipts</code>
+from the referenced transaction and receipt tries.</p> <ul><li>The IPLD block is a CBOR serialization of the object</li> <li>CID links to <code>Block</code> use a KECCAK_256 multihash of the CBOR serialized object and the DagCbor codec (0x71).</li></ul> <div class="language-ipldsch extra-class"><pre class="language-ipldsch"><code><span class="token comment"># Block represents an entire block in the Ethereum blockchain.</span>
+<span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">Block</span></span> <span class="token builtin">struct</span> <span class="token punctuation">{</span>
+   <span class="token comment"># CID link to the header at this block</span>
+   <span class="token comment"># This CID is composed of the KECCAK_256 multihash of the RLP encoded header and the EthHeader codec (0x90)</span>
+   <span class="token comment"># Note that the header contains references to the uncles and tx, receipt, and state tries at this height</span>
+   Header       <span class="token punctuation">&amp;</span>Header
+   <span class="token comment"># CID link to the list of hashes for each of the transactions at this block</span>
+   <span class="token comment"># This CID is composed of the KECCAK_256 multihash of the RLP encoded list of transaction hashes and the EthTxHashList codec (tbd)</span>
+   Transactions <span class="token punctuation">&amp;</span>TransactionHashes
+   <span class="token comment"># CID link to the list of hashes for each of the receipts at this block</span>
+   <span class="token comment"># This CID is composed of the KECCAK_256 multihash of the RLP encoded list of receipt hashes and the EthTxReceiptHashList codec (tbd)</span>
+   Receipts     <span class="token punctuation">&amp;</span>ReceiptHashes
+<span class="token punctuation">}</span>
+</code></pre></div><p>Provided a <code>Header</code> multihash/CID, we can generate a <code>Block</code> IPLD by</p> <ol><li>Fetching and decoding the <code>Header</code> IPLD.</li> <li>Stepping down into the transaction trie referenced in the header.
+<ol><li>Collecting each transaction stored at the leaf nodes in the trie.</li> <li>KECCAK_256 hashing each transaction.</li> <li>Order these hashes in a list by transaction index.</li> <li>KECCAK_256 hash the RLP encoded list.</li> <li>Convert to CID using the KECCAK_256 multihash and EthTxHashList codec.</li></ol></li> <li>Stepping down into the receipt trie referenced in the header.
+<ol><li>Collecting each receipt stored at the leaf nodes in the trie.</li> <li>KECCAK_256 hashing each receipt.</li> <li>Order these hashes in a list by receipt index.</li> <li>KECCAK_256 hash the RLP encoded list.</li> <li>Convert to CID using the KECCAK_256 multihash and EthTxReceiptHashList codec.</li></ol></li> <li>Assemble the <code>Header</code> CID, <code>Transactions</code> CID, and <code>Receipts</code> CID into the <code>Block</code> object.</li></ol> <h2 id="transactionhashes-ipld"><a href="#transactionhashes-ipld" class="header-anchor">#</a> TransactionHashes IPLD</h2> <p>This is the IPLD schema for the ordered list of all transactions for a given block.</p> <ul><li>The IPLD block is the RLP encoded list of transaction hashes</li> <li>CID links to <code>Transactions</code> use a KECCAK_256 multihash of the RLP encoded list of transaction hashes and the EthTxHashList codec (tbd).</li> <li><code>Transactions</code> IPLDs are not referenced from any canonical Ethereum object, but are instead linked to from the above <code>Block</code> and <code>TxTrace</code> objects.</li></ul> <div class="language-ipldsch extra-class"><pre class="language-ipldsch"><code><span class="token comment"># Transactions contains a list of CID that reference all of the Ethereum transactions at this block</span>
+<span class="token comment"># These CIDs are composed from the KECCAK_256 multihash of the referenced transaction and the EthTx codec (0x93)</span>
+<span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">Transactions</span></span> <span class="token punctuation">[</span><span class="token punctuation">&amp;</span>Transaction<span class="token punctuation">]</span>
+</code></pre></div><h2 id="receipthashes-ipld"><a href="#receipthashes-ipld" class="header-anchor">#</a> ReceiptHashes IPLD</h2> <p>This is the IPLD schema for the ordered list of all receipts for a given block.</p> <ul><li>The IPLD block is the RLP encoded list of receipt hashes</li> <li>CID links to <code>Receipts</code> use a KECCAK_256 multihash of the RLP encoded list of receipt hashes and the EthTxReceiptHashList codec (tbd)</li> <li><code>Receipts</code> IPLDs are not referenced directly from any canonical Ethereum object, but are instead linked to from the above <code>Block</code> ADL object.</li></ul> <div class="language-ipldsch extra-class"><pre class="language-ipldsch"><code><span class="token comment"># Receipts contains a list of CID that reference all of the receipts at this block</span>
+<span class="token comment"># These CIDs are composed from the KECCAK_256 multihash of the referenced receipt and the EthTxReceipt codec (0x95)</span>
+<span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">Receipts</span></span> <span class="token punctuation">[</span><span class="token punctuation">&amp;</span>Receipt<span class="token punctuation">]</span>
+</code></pre></div><h2 id="genesis-ipld"><a href="#genesis-ipld" class="header-anchor">#</a> Genesis IPLD</h2> <p>This is the IPLD schema for the configuration settings and genesis allocations to produce a specific genesis block and begin an Ethereum
+blockchain. It also includes a reference to the genesis block <code>Header</code> it produces. This is a single IPLD block at the base of an entire Ethereum chain.</p> <ul><li>The IPLD block is a CBOR serialization of the object</li> <li>CID links to <code>GenesisInfo</code> use a KECCAK_256 multihash of the CBOR serialized object and the DagCbor codec (0x71).</li></ul> <div class="language-ipldsch extra-class"><pre class="language-ipldsch"><code><span class="token comment"># GenesisInfo specifies the header fields, state of a genesis block, and hard fork switch-over blocks through the chain configuration.</span>
+<span class="token comment"># NOTE: we need a new multicodec type for the Genesis object</span>
+<span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">GenesisInfo</span></span> <span class="token builtin">struct</span> <span class="token punctuation">{</span>
+   <span class="token comment"># CID link to the genesis header this genesis info produces</span>
+   <span class="token comment"># This CID is composed of the KECCAK_256 multihash of the linked RLP encoded header and the EthHeader codec (0x90)</span>
+   GensisHeader <span class="token punctuation">&amp;</span>Header
+   
+   Config     ChainConfig
+   Nonce      Uint
+   Timestamp  Uint
+   ExtraData  Bytes
+   GasLimit   Unit
+   Difficulty BigInt
+   Mixhash    Hash
+   Coinbase   Address
+   Alloc      GenesisAlloc
+   
+   <span class="token comment"># These fields are used for consensus tests. Please don't use them</span>
+   <span class="token comment"># in actual genesis blocks.</span>
+   Number     Uint
+   GasUsed    Uint
+   ParentHash Hash
+<span class="token punctuation">}</span>
+
+<span class="token comment"># GenesisAlloc is a map that specifies the initial state that is part of the genesis block.</span>
+<span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">GenesisAlloc</span></span> <span class="token punctuation">{</span>Address<span class="token punctuation">:</span>GenesisAccount<span class="token punctuation">}</span>
+
+<span class="token comment"># GenesisAccount is an account in the state of the genesis block.</span>
+<span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">GenesisAccount</span></span> <span class="token builtin">struct</span> <span class="token punctuation">{</span>
+    Code       Bytes
+    Storage    <span class="token punctuation">{</span>Hash<span class="token punctuation">:</span>Hash<span class="token punctuation">}</span>
+    Balance    BigInt
+    Nonce      Uint
+    PrivateKey Bytes
+<span class="token punctuation">}</span>
+
+<span class="token comment"># ChainConfig is the core config which determines the blockchain settings.</span>
+<span class="token comment"># ChainConfig is stored in the database on a per block basis.</span>
+<span class="token comment"># This means that any network, identified by its genesis block, can have its own set of configuration options.</span>
+<span class="token comment"># The ChainConfig referenced in GenesisInfo is used to produce the genesis block but is not necessarily used for later blocks down the chain.</span>
+<span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">ChainConfig</span></span> <span class="token builtin">struct</span> <span class="token punctuation">{</span>
+    ChainID BigInt
+    HomesteadBlock BigInt
+    DAOForkBlock   BigInt
+    DAOForkSupport Bool
+    EIP150Block BigInt
+    EIP150Hash  Hash
+    EIP155Block BigInt
+    EIP158Block BigInt
+    ByzantiumBlock      BigInt
+    ConstantinopleBlock BigInt
+    PetersburgBlock     BigInt
+    IstanbulBlock       BigInt
+    MuirGlacierBlock    BigInt
+    YoloV2Block BigInt
+    EWASMBlock  BigInt
+	
+    <span class="token comment"># Various consensus engines</span>
+    Ethash EthashConfig
+    Clique CliqueConfig
+<span class="token punctuation">}</span>
+
+<span class="token comment"># EthashConfig is the consensus engine config for proof-of-work based sealing.</span>
+<span class="token comment"># At this time there are no configuration options for the Ethash engine.</span>
+<span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">EthashConfig</span></span> <span class="token builtin">struct</span> <span class="token punctuation">{</span><span class="token punctuation">}</span> representation tuple
+
+<span class="token comment"># CliqueConfig is the consensus engine config for proof-of-authority based sealing.</span>
+<span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">CliqueConfig</span></span> <span class="token builtin">struct</span> <span class="token punctuation">{</span>
+    Period Uint
+    Epoch Uint
+<span class="token punctuation">}</span>
+</code></pre></div></div> <footer class="page-edit"><div class="edit-link"><a href="https://github.com/ipld/specs/edit/master/data-structures/ethereum/convenience_types.md" target="_blank" rel="noopener noreferrer">Edit this page on GitHub</a> <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></div> <div class="last-updated"><span class="prefix">Last Updated:</span> <span class="time">4/25/2021, 5:37:25 PM</span></div></footer> <!----> </main></div><div class="global-ui"></div></div>
+    <script src="/assets/js/app.198e782b.js" defer></script><script src="/assets/js/2.e200a875.js" defer></script><script src="/assets/js/34.7d9dce09.js" defer></script>
+  </body>
+</html>
