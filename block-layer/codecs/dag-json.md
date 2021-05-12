@@ -44,11 +44,13 @@ See further discussion on [Floats in the Data Model](../../data-model.md#float-k
 
 ### Bytes
 
-The Bytes kind is represented as an object with `"bytes"` as key and a [Multibase](https://github.com/multiformats/multibase) Base64 encoded string as value. The Base64 encoding is the one described in [RFC 4648, section 4](https://tools.ietf.org/html/rfc4648#section-4) without padding, hence the Multibase prefix is `m`.
+The Bytes kind is represented as an object with `"bytes"` as key and a Base64 encoded string as value. The Base64 encoding is the one described in [RFC 4648, section 4](https://tools.ietf.org/html/rfc4648#section-4) without padding.
+
+_Note that a previous version of this specification and some implementations used a [Multibase](https://github.com/multiformats/multibase) prefix `m` for the bytes, this has been removed from the specification and the Base64 encoded bytes **should not** be prefixed._
 
 
 ```javascript
-{"/": { "bytes": String /* Multibase Base64 encoded binary */ }}
+{"/": { "bytes": String /* Base64 encoded binary */ }}
 ```
 
 ### Links
@@ -69,7 +71,7 @@ Maps with the first key of `"/"` are considered the **reserved namespace** in DA
 The two forms used in the reserved namespace are:
 
  * **CID**: a map with the single key `"/"`, whose value is a string, must contain a valid CIDv0 in Base58 string form **or** CIDv1 in Base32 string form. Such a map whose string does not properly represent such a CID should should be rejected as invalid DAG-JSON.
- * **Bytes**: A map with the single key `"/"`, whose value is a map with the single key `"bytes"`, whose value is a string, must contain a valid multibase Base64 encoded byte array. Such a construction whose string does not properly represent a multibase base64 encoded byte array should be rejected as invalid DAG-JSON.
+ * **Bytes**: A map with the single key `"/"`, whose value is a map with the single key `"bytes"`, whose value is a string, must contain a valid Base64 encoded byte array. Such a construction whose string does not properly represent a Base64 encoded byte array should be rejected as invalid DAG-JSON.
 
 #### Parse rejection modes in the reserved namespace
 
@@ -106,7 +108,8 @@ There is no mechanism for escaping otherwise valid JSON data that takes these fo
 
 The legacy **[ipld-dag-json](https://github.com/ipld/js-ipld-dag-json)** implementation adheres to this specification, with the following caveats:
  * The reserved namespace rules above are not strictly applied. Decoding maps with the forms of Bytes and Links but with additional entries in inner or outer maps will be successfuly decoded as Bytes or Links but the extraneous entries will be ignored.
+ * Bytes are encoded with their Multibase Base64 prefix `m` as per a previous version of this specification.
 
 ### Go
 
-**[go-ipld-prime]** adheres to this specification.
+**[go-ipld-prime]** adheres to this specification except for the sorting of map keys, which retain their assembled order.
