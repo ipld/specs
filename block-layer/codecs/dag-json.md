@@ -112,4 +112,6 @@ The legacy **[ipld-dag-json](https://github.com/ipld/js-ipld-dag-json)** impleme
 
 ### Go
 
-**[go-ipld-prime]** adheres to this specification except for the sorting of map keys, which retain their assembled order.
+**[go-ipld-prime]** adheres to this specification with the following caveats:
+ * Map keys are not sorted, they retain their assembled order.
+ * Encoded forms are pretty-printed, i.e. do not have whitespace stripped.
