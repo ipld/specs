@@ -25,38 +25,41 @@ different purposes and contents of these trie structures.
         * E.g. for a leaf node at path `ce57` that holds the state account for the address hash `ce573ced93917e658d10e2d9009470dad72b63c898d173721194a12f2ae5e190`,
       the compact encoded partial path will be `23ced93917e658d10e2d9009470dad72b63c898d173721194a12f2ae5e190`.
 * If branch node: There will be 17 elements; [0] - [15] store the hashes of the child nodes at the next hex character (0-f) step down a path, [16] is val.
-    * If there are no further nodes down one of the branch's paths, an empty byte array is stored in the corresponding element.
-    
-NOTE: if the value stored at a leaf node would be smaller than or equal to the length of the hash of that leaf node (<= 32 bytes) then
-the value is directly included in the parent branch or extension node rather than the parent node linking to the entire leaf node.
-In this case the child is a one element list of bytes where that one element is the RLP encoded value itself. In practice this is only possible for
+    * If there are no further nodes down one of the branch's paths, an empty byte array is stored in the corresponding element (this is represented as a null link in the IPLD).
+* If the value stored at a leaf node would be smaller than or equal to the length of the hash of that leaf node (<= 32 bytes) then
+the value is directly included in the parent branch or extension node rather than the parent node linking to an entire leaf node.
+In this case the child is a one element list of bytes (a `TrieValueNode`) where that one element is the RLP encoded value. In practice this is only possible for
 the storage trie, as RLP encoded transactions, receipts, and state accounts are always greater than 32 bytes in length.
 
 ```ipldsch
 # TrieNode IPLD
 # Node IPLD values are RLP encoded; node IPLD multihashes are always the KECCAK_256 hash of the RLP encoded node bytes and the codec is dependent on the type of the trie
-type TrieNode struct {
-    Elements [Bytes]
-}
+type TrieNode union {
+    | TrieBranchNode "branch"
+    | TrieExtensionNode "extension"
+    | TrieLeafNode "leaf"
+    | TrieValueNode "value"
+} representation keyed
+
 
 # The below are the expanded representations for the different types of TrieNodes: branch, extension, and leaf
 type TrieBranchNode struct {
-    Child0 &TrieNode
-    Child1 &TrieNode
-    Child2 &TrieNode
-    Child3 &TrieNode
-    Child4 &TrieNode
-    Child5 &TrieNode
-    Child6 &TrieNode
-    Child7 &TrieNode
-    Child8 &TrieNode
-    Child9 &TrieNode
-    ChildA &TrieNode
-    ChildB &TrieNode
-    ChildC &TrieNode
-    ChildD &TrieNode
-    ChildE &TrieNode
-    ChildF &TrieNode
+    Child0 nullable &TrieNode
+    Child1 nullable &TrieNode
+    Child2 nullable &TrieNode
+    Child3 nullable &TrieNode
+    Child4 nullable &TrieNode
+    Child5 nullable &TrieNode
+    Child6 nullable &TrieNode
+    Child7 nullable &TrieNode
+    Child8 nullable &TrieNode
+    Child9 nullable &TrieNode
+    ChildA nullable &TrieNode
+    ChildB nullable &TrieNode
+    ChildC nullable &TrieNode
+    ChildD nullable &TrieNode
+    ChildE nullable &TrieNode
+    ChildF nullable &TrieNode
     Value  Bytes
 }
 
@@ -68,6 +71,10 @@ type TrieExtensionNode struct {
 type TrieLeafNode struct {
     PartialPath Bytes
     Value       Bytes
+}
+
+type TrieValueNode struct {
+    Value Bytes
 }
 ```
 

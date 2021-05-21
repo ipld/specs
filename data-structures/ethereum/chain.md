@@ -58,7 +58,7 @@ type Header struct {
     Number BigInt
     GasLimit Uint
     GasUsed Uint
-    Time Uint
+    Time Time
     Extra Bytes
     MixDigest Hash
     Nonce BlockNonce
@@ -111,8 +111,11 @@ type AccessList [AccessElement]
 // AccessElement are the element type of an access list.
 type AccessElement struct {
     Address     Address
-    StorageKeys [Hash]
+    StorageKeys StorageKeys
 }
+
+// StorageKeys are the keys contained in an AccessElement
+type StorageKeys [Hash]
 ```
 
 ## Receipt IPLD
@@ -132,10 +135,16 @@ type Receipt struct {
     Logs              [Log]
 }
 
+# Logs is a list of logs
+type Logs [Log]
+
 # Log contains the consensus fields of an Etherem receipt log
 type Log struct {
     Address Address
     Topics  [Hash]
     Data    Bytes
 }
+
+# Topics is a list of log topics
+type Topics [Hash]
 ```

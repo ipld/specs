@@ -16,10 +16,9 @@ These objects can be generated or verified by applying the referenced transactio
 type TxTrace struct {
    # List of CIDs linking to the transactions that were used to generate this trace by applying them onto the state referenced below
    # If this trace was produced by the first transaction in a block then this list will contain only that one transaction
-   # and thistrace was produced by applying it directly to the referenced state
-   # Otherwise, only the last transaction in the list is the one directly responsible for producing this trace whereas the
-   # proceeding ones were sequentially applied to the referenced state to generate the intermediate state that the final,
-   # trace-producing transaction, was applied on top of
+   # and this trace was produced by applying it directly to the referenced state
+   # Otherwise, the trace is the output of the last transaction in the list applied to the state produced by
+   # sequentially applying the proceeding txs to the referenced state
    # This is analogous to the Transactions IPLD defined below, but only in the case of a trace produced by the last
    # transaction in a block will the list be same as a complete Transaction IPLD
    TxCIDs [&Transaction]
@@ -53,7 +52,7 @@ Provided a `Header` multihash/CID and a transaction index, we can generate a `Tx
    3) Order these CIDs in a list by transaction index.
 3) Collect the `StateRootCID` from within this `Header`.
 4) Use [ipfs-ethdb](https://github.com/vulcanize/ipfs-ethdb) with state root linked in the `Header` to instantiate an EVM on top
-of the state of this block.
+of the ipld state of this block.
 5) Apply each of the transactions on top of this state using the ipfs-ethdb based EVM.
 6) For the final transaction applied, collect the trace output from the EVM.
 7) Assemble the trace output, the `Transaction` CIDs, and the root `StateTrieNode` CID into the `TxTrace` object.
