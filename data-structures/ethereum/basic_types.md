@@ -31,4 +31,7 @@ type OpCode bytes
 
 # Time is a 64 bit uint UNIX timestamp
 type Time bytes
+
+# TxType is an 8 bit uint representing the type of the tx
+type TxType bytes
 ```

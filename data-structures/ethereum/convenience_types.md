@@ -19,8 +19,6 @@ type TxTrace struct {
    # and this trace was produced by applying it directly to the referenced state
    # Otherwise, the trace is the output of the last transaction in the list applied to the state produced by
    # sequentially applying the proceeding txs to the referenced state
-   # This is analogous to the Transactions IPLD defined below, but only in the case of a trace produced by the last
-   # transaction in a block will the list be same as a complete Transaction IPLD
    TxCIDs [&Transaction]
    # CID link to the root node of the state trie that the above transaction set was applied on top of to produce this trace
    StateRootCID &StateTrieNode
@@ -74,12 +72,12 @@ type Block struct {
    # This CID is composed of the KECCAK_256 multihash of the RLP encoded header and the EthHeader codec (0x90)
    # Note that the header contains references to the uncles and tx, receipt, and state tries at this height
    Header       &Header
-   # CID link to the list of hashes for each of the transactions at this block
-   # This CID is composed of the KECCAK_256 multihash of the RLP encoded list of transaction hashes and the EthTxHashList codec (tbd)
-   Transactions &TransactionHashes
-   # CID link to the list of hashes for each of the receipts at this block
-   # This CID is composed of the KECCAK_256 multihash of the RLP encoded list of receipt hashes and the EthTxReceiptHashList codec (tbd)
-   Receipts     &ReceiptHashes
+   # CID link to the list of transactions at this block
+   # This CID is composed of the KECCAK_256 multihash of the RLP encoded list of transactions and the EthTxList codec (tbd)
+   Transactions &Transactions
+   # CID link to the list of receipts at this block
+   # This CID is composed of the KECCAK_256 multihash of the RLP encoded list of receipts and the EthTxReceiptList codec (tbd)
+   Receipts     &Receipts
 }
 ```
 
@@ -99,30 +97,28 @@ Provided a `Header` multihash/CID, we can generate a `Block` IPLD by
    5) Convert to CID using the KECCAK_256 multihash and EthTxReceiptHashList codec.
 3) Assemble the `Header` CID, `Transactions` CID, and `Receipts` CID into the `Block` object.
 
-## TransactionHashes IPLD
+## Transactions IPLD
 
 This is the IPLD schema for the ordered list of all transactions for a given block.
-* The IPLD block is the RLP encoded list of transaction hashes.
-* CID links to `Transactions` use a KECCAK_256 multihash of the RLP encoded list of transaction hashes and the EthTxHashList codec (tbd).
+* The IPLD block is the RLP encoded list of transactions.
+* CID links to `Transactions` use a KECCAK_256 multihash of the RLP encoded list of transactions and the EthTxList codec (tbd).
 * `Transactions` IPLDs are not referenced from any canonical Ethereum object, but are instead linked to from the above `Block` and `TxTrace` objects.
 
 ```ipldsch
-# Transactions contains a list of CID that reference all of the Ethereum transactions at this block
-# These CIDs are composed from the KECCAK_256 multihash of the referenced transaction and the EthTx codec (0x93)
+# Transactions contains a list of all of the Ethereum transactions at this block
 type Transactions [&Transaction]
 ```
 
-## ReceiptHashes IPLD
+## Receipts IPLD
 
 This is the IPLD schema for the ordered list of all receipts for a given block.
-* The IPLD block is the RLP encoded list of receipt hashes.
-* CID links to `Receipts` use a KECCAK_256 multihash of the RLP encoded list of receipt hashes and the EthTxReceiptHashList codec (tbd).
+* The IPLD block is the RLP encoded list of receipts.
+* CID links to `Receipts` use a KECCAK_256 multihash of the RLP encoded list of receipts and the EthTxReceiptList codec (tbd).
 * `Receipts` IPLDs are not referenced directly from any canonical Ethereum object, but are instead linked to from the above `Block` ADL object.
 
 ```ipldsch
-# Receipts contains a list of CID that reference all of the receipts at this block
-# These CIDs are composed from the KECCAK_256 multihash of the referenced receipt and the EthTxReceipt codec (0x95)
-type Receipts [&Receipt]
+# Receipts contains a list of all of the receipts at this block
+type Receipts [Receipt]
 ```
 
 ## Genesis IPLD

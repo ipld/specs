@@ -68,7 +68,7 @@ type Header struct {
 ## Uncles IPLD
 This is the IPLD schema for a list of uncles ordered in ascending order by their block number.
 * The IPLD block is the RLP encoded list of uncles: `RLP([Header, Header, ...])`.
-* CID links to a `UncleList` use a KECCAK_256 multihash of the RLP encoded list and the EthHeaderList codec (0x92).
+* CID links to a `UncleList` use a KECCAK_256 multihash of the RLP encoded list and the EthHeaderList codec (0x91).
 * The `Uncles` is referenced in an Ethereum `Header` by the `UnclesCID`.
 
 ```ipldsch
@@ -79,9 +79,10 @@ type Uncles [Header]
 
 ## Transaction IPLD
 This is the IPLD schema for a canonical Ethereum transaction. It contains only the fields required for consensus.
-* The IPLD block is the encoded transaction:
+* The IPLD block is the consensus encoding of the transaction:
   * Legacy transaction encoding: `RLP([AccountNonce, GasPrice, GasLimit, Recipient, Amount, Data, V, R, S])`.
-    * The V, R, S elements of this transaction represent a secp256k1 signature over `KECCAK_256(RLP([AccountNonce, GasPrice, GasLimit, Recipient, Amount, Data]))`.
+    * The V, R, S elements of this transaction either represent a secp256k1 signature over `KECCAK_256(RLP([AccountNonce, GasPrice, GasLimit, Recipient, Amount, Data]))` OR
+      over `KECCAK_256(RLP([AccountNonce, GasPrice, GasLimit, Recipient, Amount, Data, ChainID, 0, 0]))` as described by [EIP-155](https://github.com/ethereum/EIPs/blob/master/EIPS/eip-155.md).
   * Access list (EIP-2930) transaction encoding: `0x01 || RLP([ChainID, AccountNonce, GasPrice, GasLimit, Recipient, Amount, Data, AccessList, V, R, S]`.
     * The V, R, S elements of this transaction represent a secp256k1 signature over `KECCAK_256(0x01 || RLP([ChainID, AccountNonce, GasPrice, GasLimit, Recipient, Amount, Data, AccessList])`.
     * `||` is the byte/byte-array concatenation operator.
@@ -90,6 +91,7 @@ This is the IPLD schema for a canonical Ethereum transaction. It contains only t
 ```ipldsch
 # Transaction contains the consensus fields of an Ethereum transaction
 type Transaction struct {
+    Type         TxType
     ChainID      nullable BigInt # null unless the transaction is an EIP-2930 transaction
     AccountNonce Uint
     GasPrice     BigInt
@@ -120,20 +122,30 @@ type StorageKeys [Hash]
 
 ## Receipt IPLD
 This is the IPLD schema for a canonical Ethereum receipt. It contains only the fields required for consensus.
-* The IPLD block is the encoded receipt:
+* The IPLD block is the consensus encoding of the receipt:
   * Legacy receipt encoding: `RLP([PostStateOrStatus, CumulativeGasUsed, Bloom, Logs])`.
   * Access list (EIP-2930) receipt encoding: `0x01 || RLP([PostStateOrStatus, CumulativeGasUsed, Bloom, Logs])`.
     * `||` is the byte/byte-array concatenation operator.
+    * Before EIP-658 (included in the Byzantium hardfork) `PostStateOrStatus` holds the PostState, a 32 byte intermediate state root hash
+    * After EIP-658 `PostStateOrStatus` holds the RLP encoded Status uint64 indicating if the tx succeeded or failed (0 - failed, 1 - successful)
 * CID links to a `Receipt` use a KECCAK_256 multihash of the encoded receipt and the EthTxReceipt codec (0x95).
 * `Receipt` IPLDs are not referenced directly from an `Ethereum` header but are instead linked to from within the receipt trie whose root is referenced in the `Header` by the `RctRootCID`.
 ```ipldsch
 # Receipt contains the consensus fields of an Ethereum receipt
 type Receipt struct {
-    PostStateOrStatus Bytes
+    Type              TxType
+    PostState         nullable Hash
+    PostStatus        nullable Status
     CumulativeGasUsed Uint
     Bloom             Bloom
     Logs              [Log]
 }
+
+# Status is an enum indicating whether or not the application of a tx was succesful
+type Status enum {
+    | Failed  ("0")
+    | Successful   ("1")
+} representation int
 
 # Logs is a list of logs
 type Logs [Log]
