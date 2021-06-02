@@ -11,7 +11,7 @@ except the AccountSnapshot). The different tries are broken up and explicitly ty
 different purposes and contents of these trie structures.
 
 * If leaf or extension node: There will be two elements; [0] is the compact encoded partial path, [1] is val.
-    * For extension nodes, val is the hash of the child node it references.
+    * For extension nodes, val is the hash of the RLP encoding of the child node it references.
     * For leaf nodes, val is the RLP encoded value stored at that leaf.
       * For the tx trie this value is a transaction.
       * For the receipt trie this value is a receipt.
@@ -24,12 +24,11 @@ different purposes and contents of these trie structures.
       * If the first nibble in the prefix byte of the key is 3, the node is a leaf node with an odd length key; The second nibble in the prefix byte is actually the first nibble of the key, the rest of the key fits in the remaining bytes.
         * E.g. for a leaf node at path `ce57` that holds the state account for the address hash `ce573ced93917e658d10e2d9009470dad72b63c898d173721194a12f2ae5e190`,
       the compact encoded partial path will be `23ced93917e658d10e2d9009470dad72b63c898d173721194a12f2ae5e190`.
-* If branch node: There will be 17 elements; [0] - [15] store the hashes of the child nodes at the next hex character (0-f) step down a path, [16] is val.
-    * If there are no further nodes down one of the branch's paths, an empty byte array is stored in the corresponding element (this is represented as a null link in the IPLD).
-* If the value stored at a leaf node would be smaller than or equal to the length of the hash of that leaf node (<= 32 bytes) then
-the value is directly included in the parent branch or extension node rather than the parent node linking to an entire leaf node.
-In this case the child is a one element list of bytes (a `TrieValueNode`) where that one element is the RLP encoded value. In practice this is only possible for
-the storage trie, as RLP encoded transactions, receipts, and state accounts are always greater than 32 bytes in length.
+* If branch node: There will be 17 elements; [0] - [15] store the hashes of the RLP encodings of the child nodes at the corresponding hex character (0-f) step down a path, [16] is val.
+    * If there are no further nodes down one of the branch's paths, an empty byte array is stored in the corresponding element (this is represented as a null link in the IPLD schema).
+* If the RLP encoding of a node would be smaller than or equal to the hash of the RLP encoding of that leaf node (32 bytes) then
+  the RLP encoding is directly included in the parent node. In practice this is only possible for storage trie leaf nodes. Branch nodes,
+  extension nodes, transactions, receipts, and state accounts are always greater than 32 bytes in length.
 
 ```ipldsch
 # TrieNode IPLD
@@ -38,43 +37,55 @@ type TrieNode union {
     | TrieBranchNode "branch"
     | TrieExtensionNode "extension"
     | TrieLeafNode "leaf"
-    | TrieValueNode "value"
 } representation keyed
 
 
 # The below are the expanded representations for the different types of TrieNodes: branch, extension, and leaf
 type TrieBranchNode struct {
-    Child0 nullable &TrieNode
-    Child1 nullable &TrieNode
-    Child2 nullable &TrieNode
-    Child3 nullable &TrieNode
-    Child4 nullable &TrieNode
-    Child5 nullable &TrieNode
-    Child6 nullable &TrieNode
-    Child7 nullable &TrieNode
-    Child8 nullable &TrieNode
-    Child9 nullable &TrieNode
-    ChildA nullable &TrieNode
-    ChildB nullable &TrieNode
-    ChildC nullable &TrieNode
-    ChildD nullable &TrieNode
-    ChildE nullable &TrieNode
-    ChildF nullable &TrieNode
-    Value  Bytes
+    Child0 nullable Child
+    Child1 nullable Child
+    Child2 nullable Child
+    Child3 nullable Child
+    Child4 nullable Child
+    Child5 nullable Child
+    Child6 nullable Child
+    Child7 nullable Child
+    Child8 nullable Child
+    Child9 nullable Child
+    ChildA nullable Child
+    ChildB nullable Child
+    ChildC nullable Child
+    ChildD nullable Child
+    ChildE nullable Child
+    ChildF nullable Child
+    Value  nullable Value
 }
+
+# Value union type used to more explicitly type the different values stored in leaf nodes in the different tries
+type Value union {
+    | Transaction "tx"
+    | Receipt "rct"
+    | Account "state"
+    | Bytes "storage"
+} representation keyed
+
+// Child union type
+// The type of value is a (CID) link to a TrieNode excepnt in the case where the RLP-encoding
+// of the TrieNode is smaller than the hash the link is derived from (32 bytes)
+// In practice this is only possible for a storage trie, where a leaf node (partial path + value) can
+type Child union {
+    | Link &TrieNode
+    | TrieNode TrieNode
+} representation kinded
 
 type TrieExtensionNode struct {
     PartialPath Bytes
-    ChildNode   &TrieNode
+    Child Child
 }
 
 type TrieLeafNode struct {
     PartialPath Bytes
-    Value       Bytes
-}
-
-type TrieValueNode struct {
-    Value Bytes
+    Value       Value
 }
 ```
 
@@ -118,11 +129,11 @@ type StateTrieNode TrieNode
 This is the IPLD schema for a state account in the Ethereum state trie.
 * The IPLD block is the RLP encoded state account: `RLP([Nonce, Balance, StorageRoot, CodeHash])`.
   * This is the object stored as the value in a leaf StateTrieNode.
-* CID links to a `StateAccount` use a KECCAK_256 multihash of the RLP encoded state account and the EthAccountSnapshot codec (0x97).
+* CID links to an `Account` use a KECCAK_256 multihash of the RLP encoded state account and the EthAccountSnapshot codec (0x97).
 ```ipldsch
 # Account is the Ethereum consensus representation of accounts.
 # These objects are stored in the state trie leafs.
-type StateAccount struct {
+type Account struct {
     Nonce    Uint
     Balance  Balance
     
@@ -167,7 +178,7 @@ For solidity, the most widely used compiler, the keys are generated as such:
 
 ```ipldsch
 # StorageTrieNode is an IPLD block for a node in the storage trie
-# The root node of the storage trie is referenced in a StateAccount by the StorageRootCID
+# The root node of the storage trie is referenced in a Account by the StorageRootCID
 type StorageTrieNode TrieNode
 ```
 
