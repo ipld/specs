@@ -34,22 +34,22 @@ type SignedHeader struct {
 A Merkle tree node is a single node in a Merkle tree. A Merkle node is referenced by its hash.
 The top-level node in the tree is the root node, its hash is the Merkle root. Tendermint uses
 the RFC 6962 specification of a merkle tree, with sha256 as the hash function.
-* The hash of an inner node is `SHA_256(0x00 || leaf_data)`.
+* The hash of an inner node is `SHA_256(0x00 || value)`.
 * The hash of a leaf node is `SHA_256(0x01 || left_hash || right_hash)`
 ```ipldsch
 type MerkleTreeNode union {
-    | MerkleTreeInnerNode "parent"
+    | MerkleTreeInnerNode "inner"
     | MerkleTreeLeafNode "leaf"
 } representation keyed
 
-# MerkleTreeRootNode is the top-most parent node in a merkle tree; the root node of the tree.
+# MerkleTreeRootNode is the top-most node in a merkle tree; the root node of the tree.
 # It can be a leaf node if there is only one value in the tree
 type MerkleTreeRootNode MerkleTreeNode
 
 # MerkleTreeInnerNode nodes contain two byte arrays which contain the hashes which link its two child nodes.
 type MerkleTreeInnerNode struct {
-    ChildA &MerkleTreeNode
-    ChildB &MerkleTreeNode
+    Left &MerkleTreeNode
+    Right &MerkleTreeNode
 }
 
 # MerkleTreeLeafNode is a single byte array containing the value stored at that leaf
