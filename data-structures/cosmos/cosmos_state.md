@@ -8,9 +8,10 @@ this will be transitioned to using a Sparse Merkle Tree ([SMT](https://github.co
 
 
 ## IAVL Node
-Note that entire protobuf/amino encoded values are stored in the leaf nodes as well as their unhashed keys
 * The hash of an inner node is `SHA_256(height || size || version || left_hash || right_hash)`.
 * The hash of a leaf node is `SHA_256(height || size || version || key || value)`
+    * The entire protobuf/amino encoded values are stored in the leaf nodes.
+    * Keys are the unhashed keys for the protobuf/amino encoded values
 
 ```ipldsch
 type IAVLNode union {
@@ -48,10 +49,12 @@ type IAVLNodeCID &IAVLNode
 
 ## SMT Node
 This SMT follows the Jellyfish Merkle Tree ([JMT](https://diem-developers-components.netlify.app/papers/jellyfish-merkle-tree/2021-01-14.pdf))
-specification outlined in the Libra whitepaper. Note that the value in a leaf node is the SHA_256 hash of the protobuf/amino encoded value that is stored in an
-underlying KVStore and the path is the SHA_256 hash of the key for the value in the underlying KVStore.
-* The hash of an inner node is `SHA_256(0x00 || path || value)`.
-* The hash of a leaf node is `SHA_256(0x01 || left_hash || right_hash)`
+specification outlined in the Libra whitepaper.
+* The hash of an inner node is `SHA_256(0x01 || left_hash || right_hash)`.
+* The hash of a leaf node is `SHA_256(0x00 || path || leaf_value)`.
+    * The leaf_value is the `SHA_256(key, value)`.
+    * The path is the `SHA_256(key)`.
+    * `value` is a protobuf/amino encoded value and `key` is the key for this value in its separate state storage kvstore.
 ```ipldsch
 type SMTNode union {
     | SMTInnerNode "inner"
@@ -68,10 +71,10 @@ type SMTInnerNode struct {
     Right SMTNodeCID
 }
 
-# SMTLeafNode contains two byte arrays which contain path (key hash) and value (value hash)
+# SMTLeafNode contains two byte arrays which contain path and value
 type SMTLeafNode struct {
-    Path  Hash # this is the hash of the key for the value stored in the underlying state storage db
-    Value Hash # this is the hash of the value stored in the underlying state storage db
+    Path  Hash # this is hash(key)
+    Value Hash # this is the hash(key, value)
 }
 
 # SMTNodeCID is a CID link to an SMTNode
