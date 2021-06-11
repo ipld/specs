@@ -1,11 +1,24 @@
 # Cosmos State Machine Data Structures
 
 The Tendermint blockchain does not impose any constraints on the data structure(s) of the underlying state machine.
-It only requires that the Merkle root of the data structure is returned to be stored in the `AppHash` field of the `Header`.
+It only requires that the data structure is Merkleized into a hash that is returned to be stored in the `AppHash` field of the `Header`.
 The Cosmos SDK currently uses an Immutable AVL+ ([IAVL](https://github.com/cosmos/iavl)) tree for state commitment and storage.
 In the [near future](https://github.com/cosmos/cosmos-sdk/blob/master/docs/architecture/adr-040-storage-and-smt-state-commitments.md)
 this will be transitioned to using a Sparse Merkle Tree ([SMT](https://github.com/lazyledger/smt])) for state commitments.
 
+## App State
+```ipldsch
+# AppStateTreeCID is a CID link to the state root returned by the state machine after executing and commiting the previous block
+# It serves as the basis for validating any Merkle proofs that comes from the ABCI application and represents the state of the actual application rather than the state of the blockchain itself.
+# The nature of the hash is determined by the application, Tendermint can not perform validation on it
+# For cosmos applications this CID is composed of the SHA_256 multihash of the root node in either an IAVL tree or SMT, using their repspective codecs (tbd)
+type AppStateReference &AppState
+
+type AppState union {
+  | IAVLNode "iavl"
+  | SMTNode "smt"
+} representation keyed
+```
 
 ## IAVL Node
 * The hash of an inner node is `SHA_256(height || size || version || left_hash || right_hash)`.

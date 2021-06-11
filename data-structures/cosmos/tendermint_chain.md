@@ -2,7 +2,13 @@
 
 ## Tendermint Block
 A block consists of a header, transactions, votes (the commit), and a list of evidence of malfeasance (i.e. signing conflicting votes).
+Blocks are indirectly content-hash referenced by the root of a Merkle tree composed of its parts.
 ```ipldsch
+# BlockCID is a CID link to the root node of a Part merkle tree (all of the parts of a complete block)
+# This CID is composed of the SHA_256 multihash of the root node in the Part merkle tree and the Block codec (tbd)
+# Part merkle tree is a Merkle tree built from the PartSet, each leafs contains Part.Bytes
+type BlockCID &MerkleTreeNode
+
 # Block defines the atomic unit of a Tendermint blockchain
 type Block struct {
 	Header Header
@@ -10,11 +16,35 @@ type Block struct {
 	Evidence EvidenceList
 	LastCommit Commit
 }
+
+# BlockID contains two distinct Merkle roots of the block.
+type BlockID struct {
+	Hash          HeaderCID
+	PartSetHeader PartSetHeader
+}
+
+# PartSetHeader is used for secure gossiping of the block during consensus
+# It contains the Merkle root of the complete serialized block cut into parts (ie. MerkleRoot(MakeParts(block))).
+type PartSetHeader struct {
+	Total Uint
+	Hash  BlockCID
+}
+
+# PartSet is the complete set of parts for a header
+type PartSet [Part]
+
+# Part is a section of bytes of a complete serialized block
+type Part struct {
+	Index Uint
+	Bytes HexBytes
+	Proof Proof
+}
 ```
 
 ## Light Block
 LightBlock is the core data structure of the light client.
 It combines two data structures needed for verification (SignedHeader & ValidatorSet).
+CID links to LightBlock use the SHA256 multihash and the LightBlock codec (tbd).
 ```ipldsch
 # LightBlock is a SignedHeader and a ValidatorSet.
 # It is the basis of the light client
@@ -36,6 +66,7 @@ The top-level node in the tree is the root node, its hash is the Merkle root. Te
 the RFC 6962 specification of a merkle tree, with sha256 as the hash function.
 * The hash of an inner node is `SHA_256(0x01 || left_hash || right_hash)`.
 * The hash of a leaf node is `SHA_256(0x00 || value)`.
+* The multicodec type used for a Merkle tree will depend on the content it stores
 ```ipldsch
 type MerkleTreeNode union {
     | MerkleTreeRootNode "root"
@@ -45,6 +76,9 @@ type MerkleTreeNode union {
 
 # MerkleTreeRootNode is the top-most node in a merkle tree; the root node of the tree.
 # It can be a leaf node if there is only one value in the tree
+# We explicitly type the root node for the purposes of handling Block and Header marshalling
+# since entire sub-dags need to be collapsed down and encoded into the protobuf object we need to be
+# able to check that the ipld.Node provided to the marshaller is a root node
 type MerkleTreeRootNode MerkleTreeNode
 
 # MerkleTreeInnerNode nodes contain two byte arrays which contain the hashes which link its two child nodes.
@@ -55,13 +89,13 @@ type MerkleTreeInnerNode struct {
 
 # Value union type used to handle the different values stored in leaf nodes in the different merkle trees
 type Value union {
-    | ValidatorCID "validator"
-    | EvidenceCID "evidence"
+    | SimpleValidator "validator"
+    | Evidence "evidence"
     | TxCID "tx"
-    | PartCID "part"
-    | ResultCID "result"
+    | Part "part"
+    | ResponseDeliverTx "result"
     | Bytes "header"
-    | CommitCID "commit"
+    | CommitSig "commit"
 } representation keyed
 
 # MerkleTreeLeafNode is a single byte array containing the value stored at that leaf
@@ -74,7 +108,13 @@ type MerkleTreeLeafNode struct {
 ## Tendermint Header
 A block header contains metadata about the block and about the consensus, as well as commitments to the data in the current block,
 the previous block, and the results returned by the application.
+Similar to blocks, headers are indirectly content-hash referenced by the root of a Merkle tree composed of its separate fields.
 ```ipldsch
+# HeaderCID is a CID link to the root node of a Header merkle tree
+# This CID is composed of the SHA_256 multihash of the root node in the Header merkle tree and the Header codec (tbd)
+# Header merkle tree is a Merklization of all of the fields in the header
+type HeaderCID &MerkleTreeNode
+
 # Header defines the structure of a Tendermint block header
 type Header struct {
 	# basic block info
@@ -88,23 +128,26 @@ type Header struct {
 	LastBlockID BlockID
 
 	# hashes of block data
-	LastCommitHash CommitTreeCID
-	DataHash       TxTreeCID
+	LastCommitHash CommitTreeCID # MerkleRoot of the current Signatures
+	DataHash       TxTreeCID # MerkleRoot of the current Txs
 
 	# hashes from the app output from the prev block
 	ValidatorsHash     ValidatorTreeCID # MerkleRoot of the current validator set
 	NextValidatorsHash ValidatorTreeCID # MerkleRoot of the next validator set
-	ConsensusHash      HashedParamsCID
+	ConsensusHash      HashedParamsCID # SHA256 hash of HashedParams
 	AppHash            AppStateTreeCID # State Root from the state machine
 
 	# root hash of all results from the txs from the previous block
-	LastResultsHash ResultTreeCID
+	LastResultsHash ResultTreeCID # MerkleRoot of the last blocks Result set
 
 	# consensus info
-	EvidenceHash    EvidenceTreeCID
+	EvidenceHash    EvidenceTreeCID # MerkleRoot of the current Evidence set
 	ProposerAddress Address
 }
+```
 
+## Tendermint Params
+```ipldsch
 # HashedParamsCID is a CID link to the HashedParams for this Header
 # This CID is composed of the SHA_256 multihash of the linked protobuf encoded HashedParams struct and the Params codec (tbd)
 type HashParamsCID &HashedParams
@@ -115,20 +158,14 @@ type HashedParams struct {
 	BlockMaxBytes Int
 	BlockMaxGas   Int
 }
+```
 
-# EvidenceTreeCID is a CID link to the root node of a Evidence merkle tree
-# This CID is composed of the SHA_256 multihash of the root node in the Evidence merkle tree and the EvidenceTree codec (tbd)
-# The Evidence merkle tree is Merkle tree build from the list of Evidence of Byzantine behaviour included in this block.
-type EvidenceTreeCID &MerkleTreeNode
-
+## Tendermint Result
+```ipldsch
 # ResultTreeCID is a CID link to the root node of a Result merkle tree
 # This CID is composed of the SHA_256 multihash of the root node in a Result merkle tree and the ResultTree codec (tbd)
 # Result merkle tree is a Merkle tree built from ResponseDeliverTx responses (Log, Info, Codespace and Events fields are ignored)
 type ResultTreeCID &MerkleTreeNode
-
-# ResultCID links to a ResponseDeliverTx
-# ResultCID uses the SHA256 multihash and the Result codec (tbd)
-type ResultCID &ResponseDeliverTx
 
 # ResponseDeliverTx are the consensus fields of an ABCI ResponseDeliverTx, that are included in the ResultTree
 type ResponseDeliverTx struct {
@@ -137,70 +174,16 @@ type ResponseDeliverTx struct {
     GasWanted Int
     GasUsed   Int
 }
+```
 
-# AppStateTreeCID is a CID link to the state root returned by the state machine after executing and commiting the previous block
-# It serves as the basis for validating any Merkle proofs that comes from the ABCI application and represents the state of the actual application rather than the state of the blockchain itself.
-# The nature of the hash is determined by the application, Tendermint can not perform validation on it
-# For cosmos applications this CID is composed of the SHA_256 multihash of the root node in either an IAVL tree or SMT, using their repspective codecs (tbd)
-type AppStateReference &MerkleTreeNode
-
-# ValidatorTreeCID is a CID link to the root node of a Validator merkle tree
-# This CID is composed of the SHA_256 multihash of the root node in the Validator merkle tree and the ValidatorTree codec (tbd)
-# Validator merkle tree is a Merkle tree built from the set of validators for the given block
-# The validators are first sorted by voting power (descending), then by address (ascending) prior to computing the MerkleRoot
-type ValidatorTreeCID &MerkleTreeNode
-
+## Tendermint Transaction
+```ipldsch
 # TxTreeCID is a CID link to the root node of a Tx merkle tree
 # This CID is composed of the SHA_256 multihash of the root node in the Tx merkle tree and the TxTree codec (tbd)
 # Tx merkle tree is a Merkle tree built from the set of Txs at the given block
 # Note: The transactions are hashed before being included in the Merkle tree, the leaves of the Merkle tree are the hashes, not the transactions themselves.
 type TxTreeCID &MerkleTreeNode
 
-# CommitTreeCID is a CID link to the root node of a Commit merkle tree
-# This CID is composed of the SHA_256 multihash of the root node in a Commit merkle tree and the CommitTree codec (tbd)
-# Commit merkle tree is a Merkle tree built from the Signatures in a block's LastCommit
-type CommitTreeCID &MerkleTreeNode
-
-# BlockID contains two distinct Merkle roots of the block.
-# The BlockID includes these two hashes, as well as the number of parts (ie. len(MakeParts(block)))
-type BlockID struct {
-	Hash          HeaderCID
-	PartSetHeader PartSetHeader
-}
-
-# HeaderCID is a CID link to the root node of a Header merkle tree
-# This CID is composed of the SHA_256 multihash of the root node in the Header merkle tree and the Header codec (tbd)
-# Header merkle tree is a Merklization of all of the fields in the header
-type HeaderCID &MerkleTreeNode
-
-# PartSetHeader is used for secure gossiping of the block during consensus
-# It contains the Merkle root of the complete serialized block cut into parts (ie. MerkleRoot(MakeParts(block))).
-type PartSetHeader struct {
-	Total Uint
-	Hash  BlockCID
-}
-
-# BlockCID is a CID link to the root node of a Part merkle tree (all of the parts of a complete block)
-# This CID is composed of the SHA_256 multihash of the root node in the Part merkle tree and the Block codec (tbd)
-# Part merkle tree is a Merkle tree built from the PartSet, the leafs contain the Part
-type BlockCID &MerkleTreeNode
-
-# PartSet is the complete set of parts for a header
-type PartSet [Part]
-
-# PartCID links to Part
-# PartCID uses the SHA256 multihash and the Part codec (tbd)
-type PartCID &Part
-
-# Part is a section of bytes of a complete serialized block
-type Part struct {
-	Index Uint
-	Bytes HexBytes
-	Proof Proof
-}
-```
-## Tendermint Transaction
-```ipldsch
 #Txs is a list of Tx.
 type Txs [Tx]
 
@@ -215,6 +198,11 @@ type Tx [Bytes]
 
 ## Tendermint Commit
 ```ipldsch
+# CommitTreeCID is a CID link to the root node of a Commit merkle tree
+# This CID is composed of the SHA_256 multihash of the root node in a Commit merkle tree and the CommitTree codec (tbd)
+# Commit merkle tree is a Merkle tree built from the Signatures in a block's LastCommit
+type CommitTreeCID &MerkleTreeNode
+
 # Commit contains the evidence that a block was committed by a set of validators
 NOTE: Commit is empty for height 1, but never nil.
 type Commit struct {
@@ -231,10 +219,6 @@ type Commit struct {
 # Signatures is a list of CommitSigs
 type Signatures [CommitSig]
 
-# CommitCID links to a CommitSig
-# CommitCID uses the SHA256 multihash and the Commit codec (tbd)
-type CommitCID &CommitSig
-
 # CommitSig is a part of the Vote included in a Commit.
 type CommitSig struct {
 	BlockIDFlag      BlockIDFlag
@@ -246,7 +230,6 @@ type CommitSig struct {
 
 ## Tendermint Proposal
 ```
-
 # ProposalCID is a link to a Proposal
 # ProposalCID uses the SHA256 multihash and the Proposal codec (tbd)
 type ProposalCID &Proposal
@@ -270,6 +253,12 @@ type Proposal struct {
 
 ## Tendermint Validator
 ```ipldsch
+# ValidatorTreeCID is a CID link to the root node of a Validator merkle tree
+# This CID is composed of the SHA_256 multihash of the root node in the Validator merkle tree and the ValidatorTree codec (tbd)
+# Validator merkle tree is a Merkle tree built from the set of SimpleValidators for the given block
+# The validators are first sorted by voting power (descending), then by address (ascending) prior to computing the MerkleRoot
+type ValidatorTreeCID &MerkleTreeNode
+
 # ValidatorSet represent a set of Validators at a given height.
 #
 # The validators can be fetched by address or index.
@@ -294,10 +283,6 @@ type Validator struct {
 	ProposerPriority Int # not included in the hash
 }
 
-# ValidatorCID links to a SimpleValidator
-# ValidatorCID uses the SHA256 multihash and the Validator codec (tbd)
-type ValidatorCID &SimpleValidator
-
 # SimpleValidator contains the Consensus fields of the Validaotr
 type SimpleValidator struct {
 	PubKey      PubKey
@@ -307,12 +292,13 @@ type SimpleValidator struct {
 
 ## Tendermint Evidence
 ```ipldsch
+# EvidenceTreeCID is a CID link to the root node of a Evidence merkle tree
+# This CID is composed of the SHA_256 multihash of the root node in the Evidence merkle tree and the EvidenceTree codec (tbd)
+# The Evidence merkle tree is Merkle tree build from the list of Evidence of Byzantine behaviour included in this block.
+type EvidenceTreeCID &MerkleTreeNode
+
 # EvidenceList is a list of Evidence
 type EvidenceList [Evidence]
-
-# EvidenceCID links to Evidence
-# EvidenceCID uses SHA256 multihash and Evidence codec (tbd)
-type EvidenceCID &Evidence
 
 # Evidence in Tendermint is used to indicate breaches in the consensus by a validator
 # Currently there are two types of Evidence
