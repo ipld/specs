@@ -13,3 +13,6 @@ For more information about the IPLD Schema language, see the [specification](htt
 * [Tendermint and Cosmos **Cryptographic Types**](crypto_types.md)
 * [**Tendermint Chain** Data Structures](tendermint_chain.md)
 * [**Cosmos State** Machine Data Structures](cosmos_state.md)
+
+## Data Structure Diagram
+![](tendermint_dag.png)
