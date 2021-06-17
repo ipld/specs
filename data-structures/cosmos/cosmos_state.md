@@ -38,8 +38,8 @@ type IAVLRootNode IAVLNode
 
 # IAVLInnerNode represents an inner node in an IAVL Tree.
 type IAVLInnerNode struct {
-    Left      IAVLNodeCID
-    Right     IAVLNodeCID
+    Left      nullable IAVLNodeCID
+    Right     nullable IAVLNodeCID
     Version   Int
     Size      Int
     Height    Int
@@ -80,8 +80,8 @@ type SMTRootNode SMTNode
 
 # SMTInnerNode contains two byte arrays which contain the hashes which link its two child nodes.
 type SMTInnerNode struct {
-    Left SMTNodeCID
-    Right SMTNodeCID
+    Left nullable SMTNodeCID
+    Right nullable SMTNodeCID
 }
 
 # SMTLeafNode contains two byte arrays which contain path and value

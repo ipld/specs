@@ -33,7 +33,7 @@ type PartSetHeader struct {
 # PartSet is the complete set of parts for a header
 type PartSet [Part]
 
-# Part is a section of bytes of a complete serialized block
+# Part is a section of bytes of a complete protobuf serialized block
 type Part struct {
 	Index Uint
 	Bytes HexBytes
@@ -83,8 +83,8 @@ type MerkleTreeRootNode MerkleTreeNode
 
 # MerkleTreeInnerNode nodes contain two byte arrays which contain the hashes which link its two child nodes.
 type MerkleTreeInnerNode struct {
-    Left &MerkleTreeNode
-    Right &MerkleTreeNode
+    Left nullable &MerkleTreeNode
+    Right nullable &MerkleTreeNode
 }
 
 # Value union type used to handle the different values stored in leaf nodes in the different merkle trees
@@ -230,6 +230,7 @@ type CommitSig struct {
 
 ## Tendermint Proposal
 ```
+# A Proposal IPLD block contains the varint-delimited protobuf encoding of a CanonicalProposal
 # ProposalCID is a link to a Proposal
 # ProposalCID uses the SHA256 multihash and the Proposal codec (tbd)
 type ProposalCID &Proposal
@@ -247,7 +248,7 @@ type Proposal struct {
 	POLRound  Int # -1 if null.
 	BlockID   BlockID
 	Timestamp Time
-	Signature Signature
+	ChainID   String
 }
 ```
 
