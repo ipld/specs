@@ -20,7 +20,9 @@ Both KECCAK_256 and SHA_3 use the same underlying Keccak hashing algorithm but u
 ## Header IPLD
 
 This is the IPLD schema for a canonical Ethereum block header.
-* The IPLD block is the RLP encoded header: `RLP([ParentHash, UnclesHash, Coinbase, StateRoot, TxRoot, RctRoot, Bloom, Difficulty, Number, GasLimit, GasUsed, Time, Extra, MixDigest, Nonce])`.
+* The IPLD block is the RLP encoded header
+  * Before EIP-1559 activation: `RLP([ParentHash, UnclesHash, Coinbase, StateRoot, TxRoot, RctRoot, Bloom, Difficulty, Number, GasLimit, GasUsed, Time, Extra, MixDigest, Nonce])`.
+  * After EIP-1559 activation: `RLP([ParentHash, UnclesHash, Coinbase, StateRoot, TxRoot, RctRoot, Bloom, Difficulty, Number, GasLimit, GasUsed, Time, Extra, MixDigest, Nonce, BaseFee])`.
 * CID links to a `Header` use a KECCAK_256 mutlihash of the RLP encoded header and the EthHeader codec (0x90).
 * Parent headers are referenced back to by their child header.
 * The genesis header is unique in that it does not reference a parent header in `ParentCID`, instead it contains a reference to a `GenesisInfo`.
@@ -62,6 +64,7 @@ type Header struct {
     Extra Bytes
     MixDigest Hash
     Nonce BlockNonce
+    BaseFee nullable BigInt  # BaseFee is null unless the header is post-EIP-1559
 }
 ```
 
@@ -86,20 +89,24 @@ This is the IPLD schema for a canonical Ethereum transaction. It contains only t
   * Access list (EIP-2930) transaction encoding: `0x01 || RLP([ChainID, AccountNonce, GasPrice, GasLimit, Recipient, Amount, Data, AccessList, V, R, S]`.
     * The V, R, S elements of this transaction represent a secp256k1 signature over `KECCAK_256(0x01 || RLP([ChainID, AccountNonce, GasPrice, GasLimit, Recipient, Amount, Data, AccessList])`.
     * `||` is the byte/byte-array concatenation operator.
+  * Dynamic fee (EIP-1559) transaction encoding: `0x02 || RLP([ChainID, AccountNonce, GasTipCap, maxFeePerGas, GasFeeCap, Recipient, Amount, Data, AccessList, V, R, S]`
+    * The V, R, S elements of this transaction represent a secp256k1 signature over `KECCAK_256(0x02 || RLP([ChainID, AccountNonce, GasTipCap, maxFeePerGas, GasFeeCap, Recipient, Amount, Data, AccessList]`
 * CID links to a `Transaction` use a KECCAK_256 multihash of the encoded transaction and the EthTx codec (0x93).
 * `Transaction` IPLDs are not referenced directly from an `Ethereum` header but are instead linked to from within the transaction trie whose root is referenced in the `Header` by the `TxRootCID`.
 ```ipldsch
 # Transaction contains the consensus fields of an Ethereum transaction
 type Transaction struct {
     Type         TxType
-    ChainID      nullable BigInt # null unless the transaction is an EIP-2930 transaction
+    ChainID      nullable BigInt # null unless the transaction is an EIP-2930 or EIP-1559 transaction
     AccountNonce Uint
-    GasPrice     BigInt
+    GasPrice     nullable BigInt # null if the transaction is an EIP-1559 transaction
+    GasTipCap    nullable BigInt # null unless the transaciton is an EIP-1559 transaction
+    GasFeeCap    nullable BigInt # null unless the transaction is an EIP-1559 transaction
     GasLimit     Uint
-    Recipient    nullable Address # null recipient means the tx is a contract creation
+    Recipient    nullable Address # null recipient means the tx is a contract creation tx
     Amount       BigInt
     Data         Bytes
-    AccessList   nullable AccessList # null unless the transaction is an EIP-2930 transaction
+    AccessList   nullable AccessList # null unless the transaction is an EIP-2930 or EIP-1559 transaction
     
     # Signature values
     V            BigInt
@@ -124,10 +131,11 @@ type StorageKeys [Hash]
 This is the IPLD schema for a canonical Ethereum receipt. It contains only the fields required for consensus.
 * The IPLD block is the consensus encoding of the receipt:
   * Legacy receipt encoding: `RLP([PostStateOrStatus, CumulativeGasUsed, Bloom, Logs])`.
-  * Access list (EIP-2930) receipt encoding: `0x01 || RLP([PostStateOrStatus, CumulativeGasUsed, Bloom, Logs])`.
-    * `||` is the byte/byte-array concatenation operator.
     * Before EIP-658 (included in the Byzantium hardfork) `PostStateOrStatus` holds the PostState, a 32 byte intermediate state root hash
     * After EIP-658 `PostStateOrStatus` holds the RLP encoded Status uint64 indicating if the tx succeeded or failed (0 - failed, 1 - successful)
+  * Access list (EIP-2930) receipt encoding: `0x01 || RLP([PostStateOrStatus, CumulativeGasUsed, Bloom, Logs])`.
+    * `||` is the byte/byte-array concatenation operator.
+  * Dynamic fee (EIP-1559) receipt encoding: `0x02 || RLP([PostStateOrStatus, CumulativeGasUsed, Bloom, Logs])`
 * CID links to a `Receipt` use a KECCAK_256 multihash of the encoded receipt and the EthTxReceipt codec (0x95).
 * `Receipt` IPLDs are not referenced directly from an `Ethereum` header but are instead linked to from within the receipt trie whose root is referenced in the `Header` by the `RctRootCID`.
 ```ipldsch
