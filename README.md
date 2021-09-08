@@ -1,3 +1,7 @@
+# ⚠️ DEPRECATED
+ Items in this repo may be outdated or aspirational.  
+As of 202107, this repo has been deprecated in favor of https://github.com/ipld/ipld/tree/master/specs ([HTML form](https://ipld.io/specs/)), which has been audited to at least not include any inaccurate information.  
+
 IPLD Specifications
 ===================
 
