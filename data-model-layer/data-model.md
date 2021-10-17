@@ -1,3 +1,18 @@
+
+!!!
+
+This document has **moved**.
+
+You'll now find information like this in the [ipld/ipld](https://github.com/ipld/ipld/) meta-repo,
+and published to the web at https://ipld.io/ .
+
+All documentation, fixtures, specifications, and web content is now gathered into that repo.
+Please update your links, and direct new contributions there.
+
+!!!
+
+----
+
 # Specification: IPLD Data Model
 
 **Status: Descriptive - Draft**
@@ -16,9 +31,9 @@ data values.)
 Motivation
 ----------
 
-There is not **one** block format but **many** block formats widely used today in content 
-addressed data structures. We assume that we'll see more of these block formats in the 
-future and not less. It is quite clear then that a reasonable and more future proof approach 
+There is not **one** block format but **many** block formats widely used today in content
+addressed data structures. We assume that we'll see more of these block formats in the
+future and not less. It is quite clear then that a reasonable and more future proof approach
 to using these data structures is to be block format agnostic.
 
 The data model defines a common representation of basic types that **are easily representable
@@ -28,8 +43,8 @@ is an element of "lowest common denominator" to the IPLD Data Model in that it c
 some advanced features (like non-string keys for Maps) because support for such a feature
 is not common enough among programming languages.
 
-This does not mean that a block format could not support more advanced features than exist in the 
-data model, it just means that the common set of tools IPLD is building w/ its block format 
+This does not mean that a block format could not support more advanced features than exist in the
+data model, it just means that the common set of tools IPLD is building w/ its block format
 agnostic approach cannot be easily leveraged to use those features.
 
 Kinds

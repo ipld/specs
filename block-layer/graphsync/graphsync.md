@@ -1,3 +1,18 @@
+
+!!!
+
+This document has **moved**.
+
+You'll now find information like this in the [ipld/ipld](https://github.com/ipld/ipld/) meta-repo,
+and published to the web at https://ipld.io/ .
+
+All documentation, fixtures, specifications, and web content is now gathered into that repo.
+Please update your links, and direct new contributions there.
+
+!!!
+
+----
+
 # Graphsync
 
 **Status: Prescriptive - Draft**
@@ -102,9 +117,9 @@ A list of well known extensions is found [here](./known_extensions.md)
 
 ### Updating requests
 
-A client may send an updated version of a request. 
+A client may send an updated version of a request.
 
-An update contains ONLY extension data, which the responder can use to modify an in progress request. For example, if a responder supports the Do Not Send CIDs extension, it could choose to also accept an update to this list and ignore CIDs encountered later. It is not possible to modify the original root and selector of a request through this mechanism. If this is what is needed, you should cancel the request and send a new one. 
+An update contains ONLY extension data, which the responder can use to modify an in progress request. For example, if a responder supports the Do Not Send CIDs extension, it could choose to also accept an update to this list and ignore CIDs encountered later. It is not possible to modify the original root and selector of a request through this mechanism. If this is what is needed, you should cancel the request and send a new one.
 
 The update mechanism in conjunction with the paused response code can also be used to support incremental payment protocols.
 
@@ -166,5 +181,3 @@ And if the item I want is actually just at `/AB/F5/3E`, I should get that back.
 ## Other notes
 
 **Cost to the responder.** The graphsync protocol will require a non-zero additional overhead of CPU and memory. This cost must be very clearly articulated, and accounted for, otherwise we will end up opening ugly DoS vectors
-
-

@@ -1,3 +1,18 @@
+
+!!!
+
+This document has **moved**.
+
+You'll now find information like this in the [ipld/ipld](https://github.com/ipld/ipld/) meta-repo,
+and published to the web at https://ipld.io/ .
+
+All documentation, fixtures, specifications, and web content is now gathered into that repo.
+Please update your links, and direct new contributions there.
+
+!!!
+
+----
+
 # Ethereum State Data Structures
 
 Ethereum state is stored in four different modified merkle patricia tries (MMPTs): the transaction, receipt, state, and storage tries.
@@ -26,7 +41,7 @@ different purposes and contents of these trie structures.
       the compact encoded partial path will be `23ced93917e658d10e2d9009470dad72b63c898d173721194a12f2ae5e190`.
 * If branch node: There will be 17 elements; [0] - [15] store the hashes of the child nodes at the next hex character (0-f) step down a path, [16] is val.
     * If there are no further nodes down one of the branch's paths, an empty byte array is stored in the corresponding element.
-    
+
 NOTE: if the value stored at a leaf node would be smaller than or equal to the length of the hash of that leaf node (<= 32 bytes) then
 the value is directly included in the parent branch or extension node rather than the parent node linking to the entire leaf node.
 In this case the child is a one element list of bytes where that one element is the RLP encoded value itself. In practice this is only possible for
@@ -88,14 +103,14 @@ This is the IPLD schema for a state account in the Ethereum state trie.
 type StateAccount struct {
     Nonce    Uint
     Balance  Balance
-    
+
     # CID link to the storage trie root node
     # This CID links down to all of the storage nodes that exist for this account at this block
     # This CID uses the EthStorageTrie codec (0x98)
     # If this is a contract account the multihash is a KECCAK_256 hash of the RLP encoded root storage node
     # If this is an externally controlled account, the multihash is a KECCAK_256 hash of an RLP encoded empty byte array
     StorageTrieCID &StorageTrieNode
-    
+
     # CID link to the bytecode for this account
     # This CID uses the Raw codec (0x55)
     # If this is a contract account the multihash is a KECCAK_256 hash of the contract byte code for this contract
@@ -122,7 +137,7 @@ For solidity, the most widely used compiler, the keys are generated as such:
       as the first variable in a contract, the storage slot key for the mapping element with key `0x89205A3A3b2A69De6Dbf7f01ED13B2108B2c43e7` will be equal to
       KECCAK_256(`0x89205A3A3b2A69De6Dbf7f01ED13B2108B2c43e7` + `0000000000000000000000000000000000000000000000000000000000000000`). The leaf node key will then be equal
       to the hash of this storage slot key e.g. KECCAK_256(KECCAK_256(`0x89205A3A3b2A69De6Dbf7f01ED13B2108B2c43e7` + `0000000000000000000000000000000000000000000000000000000000000000`)).
-  
+
 * Leaf node values are the RLP encoded storage values.
 * CID links to storage trie nodes use a KECCAK_256 multihash of the RLP encoded node and the EthStorageTrie codec (0x98).
 
@@ -131,4 +146,3 @@ For solidity, the most widely used compiler, the keys are generated as such:
 # The root node of the storage trie is referenced in an StateAccount by the StorageTrieCID
 type StorageTrieNode TrieNode
 ```
-

@@ -1,3 +1,18 @@
+
+!!!
+
+This document has **moved**.
+
+You'll now find information like this in the [ipld/ipld](https://github.com/ipld/ipld/) meta-repo,
+and published to the web at https://ipld.io/ .
+
+All documentation, fixtures, specifications, and web content is now gathered into that repo.
+Please update your links, and direct new contributions there.
+
+!!!
+
+----
+
 # Concept: IPLD Multi-block Collections
 
 Organizing IPLD data into usable, efficient, complex collections spanning many blocks aimed for use by end-user applications.
@@ -181,7 +196,7 @@ Implementations:
 
 ##### `SortedSet`
 
-A simple collection of non-duplicate entries that is ordered according to some comparison operation. 
+A simple collection of non-duplicate entries that is ordered according to some comparison operation.
 
 Operations include all those for an unordered Set and may extend to include:
 

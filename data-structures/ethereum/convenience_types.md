@@ -1,3 +1,18 @@
+
+!!!
+
+This document has **moved**.
+
+You'll now find information like this in the [ipld/ipld](https://github.com/ipld/ipld/) meta-repo,
+and published to the web at https://ipld.io/ .
+
+All documentation, fixtures, specifications, and web content is now gathered into that repo.
+Please update your links, and direct new contributions there.
+
+!!!
+
+----
+
 # Convenience IPLD types
 
 The types described below are not referenced directly from within the canonical Ethereum merkle tree.
@@ -140,7 +155,7 @@ type GenesisInfo struct {
    # CID link to the genesis header this genesis info produces
    # This CID is composed of the KECCAK_256 multihash of the linked RLP encoded header and the EthHeader codec (0x90)
    GensisHeader &Header
-   
+
    Config     ChainConfig
    Nonce      Uint
    Timestamp  Uint
@@ -150,7 +165,7 @@ type GenesisInfo struct {
    Mixhash    Hash
    Coinbase   Address
    Alloc      GenesisAlloc
-   
+
    # These fields are used for consensus tests. Please don't use them
    # in actual genesis blocks.
    Number     Uint
@@ -190,7 +205,7 @@ type ChainConfig struct {
     MuirGlacierBlock    BigInt
     YoloV2Block BigInt
     EWASMBlock  BigInt
-	
+
     # Various consensus engines
     Ethash EthashConfig
     Clique CliqueConfig

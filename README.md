@@ -1,3 +1,18 @@
+
+!!!
+
+This document has **moved**.
+
+You'll now find information like this in the [ipld/ipld](https://github.com/ipld/ipld/) meta-repo,
+and published to the web at https://ipld.io/ .
+
+All documentation, fixtures, specifications, and web content is now gathered into that repo.
+Please update your links, and direct new contributions there.
+
+!!!
+
+----
+
 IPLD Specifications
 ===================
 
@@ -147,8 +162,8 @@ Concepts and other documents (including README.md):
 
 ## Glossary
 
-* **DAG**: Short for ["Directed Acyclic Graph."](https://en.m.wikipedia.org/wiki/Directed_acyclic_graph) 
-It's a tree where two branches can point to the same sub-branch, but only in one direction 
+* **DAG**: Short for ["Directed Acyclic Graph."](https://en.m.wikipedia.org/wiki/Directed_acyclic_graph)
+It's a tree where two branches can point to the same sub-branch, but only in one direction
 so there's no possibility of recursion.
 
 ## IPLD Team

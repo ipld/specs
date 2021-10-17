@@ -1,3 +1,18 @@
+
+!!!
+
+This document has **moved**.
+
+You'll now find information like this in the [ipld/ipld](https://github.com/ipld/ipld/) meta-repo,
+and published to the web at https://ipld.io/ .
+
+All documentation, fixtures, specifications, and web content is now gathered into that repo.
+Please update your links, and direct new contributions there.
+
+!!!
+
+----
+
 # Ethereum Chain Data Structures
 
 This section contains the IPLD schemas for the blockchain data structures of Ethereum.
@@ -21,28 +36,28 @@ type Header struct {
     # CID link to the parent header
     # This CID is composed of the KECCAK_256 multihash of the linked RLP encoded header and the EthHeader codec (0x90)
     ParentCID &Header
-    
+
     # CID link to the list of uncles at this block
     # This CID is composed of the KECCAK_256 multihash of the RLP encoded list of Uncles and the EthHeaderList codec (0x91)
     # Note that an uncle is simply a header that does not have an associated body
     UnclesCID &Uncles
     Coinbase Address
-    
+
     # CID link to the root node of the state trie
     # This CID is composed of the KECCAK_256 multhash of the RLP encoded state trie root node and the EthStateTrie codec (0x96)
     # This steps us down into the state trie, from which we can link to the rest of the state trie nodes and all the linked storage tries
     StateRootCID &StateTrieNode
-    
+
     # CID link to the root node of the transaction trie
     # This CID is composed of the KECCAK_256 multihash of the RLP encoded tx trie root node and the EthTxReceiptTrie codec (0x92)
     # This steps us down into the transaction trie, from which we can link to the rest of the tx trie nodes and all of the linked transactions
     TxRootCID &TxTrieNode
-    
+
     # CID link to the root of the receipt trie
     # This CID is composed of the KECCAK_256 multihash of the RLP encoded rct trie root node and the EthTxReceiptTrie codec (0x94)
     # This steps us down into the receipt trie, from which we can link to the rest of the rct trie nodes and all of the linked receipts
     RctRootCID &RctTrieNode
-    
+
     Bloom Bloom
     Difficulty BigInt
     Number BigInt
@@ -82,7 +97,7 @@ type Transaction struct {
     Recipient    nullable Address # null recipient means the tx is a contract creation
     Amount       BigInt
     Payload      Bytes
-    
+
     # Signature values
     V            BigInt
     R            BigInt

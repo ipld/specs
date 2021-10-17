@@ -1,3 +1,18 @@
+
+!!!
+
+This document has **moved**.
+
+You'll now find information like this in the [ipld/ipld](https://github.com/ipld/ipld/) meta-repo,
+and published to the web at https://ipld.io/ .
+
+All documentation, fixtures, specifications, and web content is now gathered into that repo.
+Please update your links, and direct new contributions there.
+
+!!!
+
+----
+
 # Specification: Flexible Byte Layout
 
 **Status: Prescriptive - Draft**
@@ -43,4 +58,3 @@ will not be able to read properly. However, the property is **not secure** and a
 could write it as whatever they please. As such, it should not be relied upon when calculating usage
 against a quota or any similar calculation where there may be an incentive for an encoder to alter the
 length.
-

@@ -1,3 +1,18 @@
+
+!!!
+
+This document has **moved**.
+
+You'll now find information like this in the [ipld/ipld](https://github.com/ipld/ipld/) meta-repo,
+and published to the web at https://ipld.io/ .
+
+All documentation, fixtures, specifications, and web content is now gathered into that repo.
+Please update your links, and direct new contributions there.
+
+!!!
+
+----
+
 # Specification: DAG-JSON
 
 **Status: Descriptive - Final**
@@ -90,7 +105,7 @@ e.g. `{"/":{"bytes":"foo","bar":"baz"}}`
 
  * Where a key exists in the inner map that sorts before `"bytes"`, the map is valid, e.g. `{"/":{"abar":"baz","bytes":"foo"}}`.
  * Where the value of the inner map's `"bytes"` entry is not a string, the map is valid, e.g. `{"/":{"bytes":true},"bar":"baz"}`.
- 
+
 ***Maps with more than one key, where the first key is `"/"` and its value is a map where the first key of the inner map is `"bytes"` whose value is a string.***
 
 e.g. `{"/":{"bytes":"foo"},"bar":"baz"}`
