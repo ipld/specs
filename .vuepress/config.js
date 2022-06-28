@@ -52,5 +52,8 @@ module.exports = {
   extendMarkdown: md => {
     // use more markdown-it plugins!
     md.use(linkfix)
-  }
+  },
+  plugins: [
+    require('./redirects.js')
+  ]
 }
