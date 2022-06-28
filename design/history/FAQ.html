@@ -1,146 +1,31 @@
-<!DOCTYPE html>
-<html lang="en-US">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>IPLD Specifications</title>
-    <meta name="generator" content="VuePress 1.8.2">
-    
-    <meta name="description" content="Specifications for the Inter-planetary Linked Data project">
-    
-    <link rel="preload" href="/assets/css/0.styles.1c4fef16.css" as="style"><link rel="preload" href="/assets/js/app.56a090d9.js" as="script"><link rel="preload" href="/assets/js/2.fcfe26fc.js" as="script"><link rel="preload" href="/assets/js/48.b927d797.js" as="script"><link rel="prefetch" href="/assets/js/10.53c9867f.js"><link rel="prefetch" href="/assets/js/100.bb687f4e.js"><link rel="prefetch" href="/assets/js/101.25123911.js"><link rel="prefetch" href="/assets/js/102.e2b58b63.js"><link rel="prefetch" href="/assets/js/103.dc39a996.js"><link rel="prefetch" href="/assets/js/11.562cfd60.js"><link rel="prefetch" href="/assets/js/12.30c04317.js"><link rel="prefetch" href="/assets/js/13.861f55d5.js"><link rel="prefetch" href="/assets/js/14.0c0bcf83.js"><link rel="prefetch" href="/assets/js/15.12e6bfef.js"><link rel="prefetch" href="/assets/js/16.1fd4b009.js"><link rel="prefetch" href="/assets/js/17.7eb7942a.js"><link rel="prefetch" href="/assets/js/18.2d3e02cf.js"><link rel="prefetch" href="/assets/js/19.94e85fad.js"><link rel="prefetch" href="/assets/js/20.7fa209a5.js"><link rel="prefetch" href="/assets/js/21.9516badf.js"><link rel="prefetch" href="/assets/js/22.ba437a9d.js"><link rel="prefetch" href="/assets/js/23.8aad9134.js"><link rel="prefetch" href="/assets/js/24.bda34b45.js"><link rel="prefetch" href="/assets/js/25.e09cf544.js"><link rel="prefetch" href="/assets/js/26.a811ea3d.js"><link rel="prefetch" href="/assets/js/27.14d402ae.js"><link rel="prefetch" href="/assets/js/28.ff17eb99.js"><link rel="prefetch" href="/assets/js/29.a947ac23.js"><link rel="prefetch" href="/assets/js/3.7a717fc5.js"><link rel="prefetch" href="/assets/js/30.2e5469d8.js"><link rel="prefetch" href="/assets/js/31.7a7b4bfc.js"><link rel="prefetch" href="/assets/js/32.61c38d29.js"><link rel="prefetch" href="/assets/js/33.ad9a2031.js"><link rel="prefetch" href="/assets/js/34.8c162294.js"><link rel="prefetch" href="/assets/js/35.74b82d2b.js"><link rel="prefetch" href="/assets/js/36.1ef2b5a0.js"><link rel="prefetch" href="/assets/js/37.87fe33c4.js"><link rel="prefetch" href="/assets/js/38.cc8de423.js"><link rel="prefetch" href="/assets/js/39.c83bd1ec.js"><link rel="prefetch" href="/assets/js/4.fa7bcf0a.js"><link rel="prefetch" href="/assets/js/40.87507b3e.js"><link rel="prefetch" href="/assets/js/41.0ed7d141.js"><link rel="prefetch" href="/assets/js/42.9894e084.js"><link rel="prefetch" href="/assets/js/43.bb7cdbd3.js"><link rel="prefetch" href="/assets/js/44.6995f900.js"><link rel="prefetch" href="/assets/js/45.b2b5724d.js"><link rel="prefetch" href="/assets/js/46.d7270095.js"><link rel="prefetch" href="/assets/js/47.e01cb628.js"><link rel="prefetch" href="/assets/js/49.c94ce1d8.js"><link rel="prefetch" href="/assets/js/5.0ee05b29.js"><link rel="prefetch" href="/assets/js/50.ce57b5ca.js"><link rel="prefetch" href="/assets/js/51.6c577f63.js"><link rel="prefetch" href="/assets/js/52.5636723e.js"><link rel="prefetch" href="/assets/js/53.83d65116.js"><link rel="prefetch" href="/assets/js/54.0a0dbd42.js"><link rel="prefetch" href="/assets/js/55.4dee537c.js"><link rel="prefetch" href="/assets/js/56.187427c3.js"><link rel="prefetch" href="/assets/js/57.7cb6cd68.js"><link rel="prefetch" href="/assets/js/58.239c551f.js"><link rel="prefetch" href="/assets/js/59.0b9bb6f2.js"><link rel="prefetch" href="/assets/js/6.8383fa2a.js"><link rel="prefetch" href="/assets/js/60.6c20aac6.js"><link rel="prefetch" href="/assets/js/61.968602f7.js"><link rel="prefetch" href="/assets/js/62.1b6cac7d.js"><link rel="prefetch" href="/assets/js/63.ea2fb562.js"><link rel="prefetch" href="/assets/js/64.25278b13.js"><link rel="prefetch" href="/assets/js/65.69eb5be2.js"><link rel="prefetch" href="/assets/js/66.9f8b6ff0.js"><link rel="prefetch" href="/assets/js/67.1ad0b2b6.js"><link rel="prefetch" href="/assets/js/68.0f395a44.js"><link rel="prefetch" href="/assets/js/69.a43c7911.js"><link rel="prefetch" href="/assets/js/7.781bc252.js"><link rel="prefetch" href="/assets/js/70.75871870.js"><link rel="prefetch" href="/assets/js/71.148e6ff4.js"><link rel="prefetch" href="/assets/js/72.69176695.js"><link rel="prefetch" href="/assets/js/73.24265001.js"><link rel="prefetch" href="/assets/js/74.ab1f4487.js"><link rel="prefetch" href="/assets/js/75.f765fe47.js"><link rel="prefetch" href="/assets/js/76.63a86cd8.js"><link rel="prefetch" href="/assets/js/77.0863aa53.js"><link rel="prefetch" href="/assets/js/78.26e08ce1.js"><link rel="prefetch" href="/assets/js/79.1a971f83.js"><link rel="prefetch" href="/assets/js/8.ed6f0f70.js"><link rel="prefetch" href="/assets/js/80.179a0331.js"><link rel="prefetch" href="/assets/js/81.e4e39c2e.js"><link rel="prefetch" href="/assets/js/82.3bee9de2.js"><link rel="prefetch" href="/assets/js/83.950da1b2.js"><link rel="prefetch" href="/assets/js/84.0372c0fd.js"><link rel="prefetch" href="/assets/js/85.6f120f50.js"><link rel="prefetch" href="/assets/js/86.864ad350.js"><link rel="prefetch" href="/assets/js/87.2c8b5941.js"><link rel="prefetch" href="/assets/js/88.7f7b8dad.js"><link rel="prefetch" href="/assets/js/89.2c2cc3c7.js"><link rel="prefetch" href="/assets/js/9.b367a0c8.js"><link rel="prefetch" href="/assets/js/90.304a6f3e.js"><link rel="prefetch" href="/assets/js/91.09f58297.js"><link rel="prefetch" href="/assets/js/92.dbb564bb.js"><link rel="prefetch" href="/assets/js/93.a62b8678.js"><link rel="prefetch" href="/assets/js/94.b3e84ab0.js"><link rel="prefetch" href="/assets/js/95.db81aaa0.js"><link rel="prefetch" href="/assets/js/96.e40b62fc.js"><link rel="prefetch" href="/assets/js/97.5d33b7b8.js"><link rel="prefetch" href="/assets/js/98.3036c2ac.js"><link rel="prefetch" href="/assets/js/99.b4491926.js">
-    <link rel="stylesheet" href="/assets/css/0.styles.1c4fef16.css">
-  </head>
-  <body>
-    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/" class="home-link router-link-active"><!----> <span class="site-name">IPLD Specifications</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/" class="nav-link">
-  Home
-</a></div><div class="nav-item"><a href="/schemas/" class="nav-link">
-  IPLD Schemas
-</a></div> <a href="https://github.com/ipld/specs" target="_blank" rel="noopener noreferrer" class="repo-link">
-    GitHub
-    <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/" class="nav-link">
-  Home
-</a></div><div class="nav-item"><a href="/schemas/" class="nav-link">
-  IPLD Schemas
-</a></div> <a href="https://github.com/ipld/specs" target="_blank" rel="noopener noreferrer" class="repo-link">
-    GitHub
-    <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></nav>  <ul class="sidebar-links"><li><section class="sidebar-group depth-0"><p class="sidebar-heading open"><span></span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/design/history/FAQ.html#faq" class="sidebar-link">FAQ</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/design/history/FAQ.html#why-not-use-github-issues" class="sidebar-link">Why not use github issues?</a></li><li class="sidebar-sub-header"><a href="/design/history/FAQ.html#closing-github-issues-by-migrating-towards-design-history" class="sidebar-link">Closing github issues by migrating towards design history</a></li><li class="sidebar-sub-header"><a href="/design/history/FAQ.html#why-not-keep-modifying-a-single-file-for-each-topic" class="sidebar-link">Why not keep modifying a single file for each topic?</a></li><li class="sidebar-sub-header"><a href="/design/history/FAQ.html#is-this-an-archive-of-github-issues" class="sidebar-link">Is this an archive of github issues?</a></li><li class="sidebar-sub-header"><a href="/design/history/FAQ.html#do-i-need-to-make-a-new-file" class="sidebar-link">Do I need to make a new file?</a></li><li class="sidebar-sub-header"><a href="/design/history/FAQ.html#does-a-file-about-a-topic-here-mean-it-s-dead" class="sidebar-link">Does a file about a topic here mean it's dead?</a></li><li class="sidebar-sub-header"><a href="/design/history/FAQ.html#does-a-file-about-a-topic-here-mean-it-s-active" class="sidebar-link">Does a file about a topic here mean it's active?</a></li></ul></li></ul></section></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><p>!!!</p> <p>This document has <strong>moved</strong>.</p> <p>You'll now find information like this in the <a href="https://github.com/ipld/ipld/" target="_blank" rel="noopener noreferrer">ipld/ipld<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a> meta-repo,
-and published to the web at https://ipld.io/ .</p> <p>All documentation, fixtures, specifications, and web content is now gathered into that repo.
-Please update your links, and direct new contributions there.</p> <p>!!!</p> <hr> <h2 id="faq"><a href="#faq" class="header-anchor">#</a> FAQ</h2> <p>This is a relatively atypical organizational strategy, so it's fair to ask
-&quot;have you thought about X?&quot;, &quot;why not use Y?&quot;, etc.</p> <p>Since some of these questions are common (especially &quot;y u no github issues&quot;),
-here are some collected thoughts on the matter.</p> <h3 id="why-not-use-github-issues"><a href="#why-not-use-github-issues" class="header-anchor">#</a> Why not use github issues?</h3> <p>GitHub issues are a form of &quot;inbox&quot;: they represent things that need active response.</p> <p>GitHub issues are a medium for discussion: that's useful, but in many ways they
-don't lend themselves to closure, nor do they make it easy to create checkpoints
-or periodic resummarizations to keep discussions on track; and they definitely
-are not themselves suitable to being treated as artifacts for reference.</p> <p>There are several reasons we believe a directory of files to be superior to
-github issues for our purposes:</p> <ul><li>It's preferable to save github issues for what they're best at:
-being an &quot;inbox&quot; for topics that need active engagement.</li> <li>It's important and desirable that conversations reach halting states:
-we want to emphasize that reviving discussions that haven't seen any update
-for a long time is probably an unproductive flow.
-Rebooting a conversation is better done as a <em>new</em> conversation that has a
-clear start, an active resummarization of any past discussion, and some
-remarks abut what information is new or why the topic is present-tense.</li> <li>Mechanically, it's possible to link to specific headings in markdown in files in github,
-while it is <em>not</em> possible to do this to headings within in issue bodies.
-This seems minor, but results in substantial limitations in the ability to
-break things down in a github issue or reference parts later if the topic is large.</li></ul> <p>Overall: remember: We want to produce artifacts we can use as touchpoints
-in discussion, and <em>not</em> be the discussion format itself.
-That means github issues (and PRs) can still be a discussion funnel; this
-does not conflict with the idea of the design history files as useful products.</p> <h3 id="closing-github-issues-by-migrating-towards-design-history"><a href="#closing-github-issues-by-migrating-towards-design-history" class="header-anchor">#</a> Closing github issues by migrating towards design history</h3> <p>We sometimes use the suggestion of moving a github issue towards design history.</p> <p>If we want the &quot;open&quot; and &quot;closed&quot; states to have any meaning, it's critical
-that things move to the closed state.  Attempting to do design processes
-entirely in GitHub issues doesn't necessarily obstruct this -- but
-observationally, in practice, <em>it does</em>:
-design discussions in issues almost invariably receive protest when closed,
-even if the issue has been open (sometimes for <em>years</em>!) without comment.</p> <p>Yet closing issues is necessary to prevent the issue list from becoming
-distracting or dysfunctional.  The result of long-term failure to close issues
-is so disquieting it's often colloquially referred to as an &quot;issue graveyard&quot;!
-What to do?</p> <p>Sometimes, we try to navigate a middle road here by suggesting that key
-content from an issue text be captured in a design history document.
-This can be constructive in many situations:
-Long running design thoughts may necessitate active response in some phases,
-but may also undergo long periods of inactivity or a lack of direct focus;
-the design history is intended to accurately represent this.</p> <p>Turning a long github issue into a design history document can actually be
-a form of forward progress itself: it's essentially asking for a small
-effort in summarization of the discussion so far, and notably, it does
-<em>not</em> require a final resolution on the subject, which makes it much easier
-to simply acknowledge, merge, and move forward.</p> <p>But see also
-<a href="#is-this-an-archive-of-github-issues">&quot;Is this an archive of github issues?&quot;</a>
-(spoiler: &quot;no&quot;).</p> <h3 id="why-not-keep-modifying-a-single-file-for-each-topic"><a href="#why-not-keep-modifying-a-single-file-for-each-topic" class="header-anchor">#</a> Why not keep modifying a single file for each topic?</h3> <ul><li>It would make fresh starts a high-friction process;</li> <li>it would forget that enumerating, mapping, and then naming topics is
-itself part of the process;</li> <li>and it would make it more difficult to incubate more than one parallel
-train of thought without forcing premature reconciliation.</li></ul> <p>Good design processes necessitate iterations, and occasionally, fresh starts.
-While a fresh start may reference prior thoughts, it's important that a
-fresh start is not burdened by the need to be phrased as a refactor to
-existing content; if it has that burden, it's not much a fresh start!</p> <p>Another part of the problem is the idea of &quot;file for each topic&quot; itself:
-requiring files be named this way would presume that we know -- in advance! --
-both <em>what the topic <strong>is</strong>,</em> and that we have consensus on <em>what to call it</em>.
-Sometimes (or even often times), this simply isn't true: part of the process
-of design is <em>figuring out</em> which things are related and which things... aren't.
-Similarly, reaching consensus on what names are most suited to communicate a
-concept is often a process in and of itself.
-Therefore, it's important that we set ourselves up to be able to start writing
-and sharing ideas <em>before</em> those phases of the design and reconciliation are
-complete: and that means writing before having enumerated and named the topic.
-(Especially, documents about use case discovery -- and thus many kinds of
-&quot;exploration report&quot; document -- tend to have this nature.)</p> <p>Even further, we want to carry out our design process in such a way that making
-one proposal or one presentation of considerations should not create obstructions
-to making other proposals or observations in parallel.
-Forcing convergence too early means ideas that may not yet be fully formed would
-be forced to battle to the death.  That's not always constructive.
-Some of the most innovative ideas take time and iteration to reach maturity.</p> <p>By making our process default to creating a new file (and by making the date
-a part of the prefix rather than allowing topic-prefixes to be a temptation),
-we drastically reduce the likelihood of these antipatterns affecting us.</p> <p>(Also remember: we're in the design directory, and thus in this context our
-policy is focused on providing a good environment for incubating design
-documents and other work that's primarily in an &quot;exploratory&quot; phase.
-When content moves towards a level of maturity where we begin to consider it
-as a full &quot;draft&quot; stage rather than in &quot;exploratory&quot; phases, then different
-sorts of policy become the most suitable way to handle changes.
-At that point, we can start to consider using single files with updates --
-moving towards a &quot;draft&quot; level generally means we've figured out the topics and
-what to call them, which means most of the above issues are addressed! -- and
-correspondingly, it's also probably time to give such content a new home
-outside of the design history directory!)</p> <h3 id="is-this-an-archive-of-github-issues"><a href="#is-this-an-archive-of-github-issues" class="header-anchor">#</a> Is this an archive of github issues?</h3> <p>No.</p> <p>Not everything that's in a github issue will (nor should) end up here.</p> <p>Some text from github issues (especially issues that are from before we began
-to use this directory and these organizational concepts) may end up copied
-into the history directory, for archive and reference and linking.
-This does not mean all text in github issues should be pasted into history files.</p> <p>GitHub issues are a mechanism for discussion.  To restate a key purpose of the
-design history directory: we want to use these documents as touchpoints
-in discussion, and <em>not as the discussion format itself</em>.
-It's fine for discussion to move through GitHub issues; it's the documents that
-are focuses of discussions that we're most interested in giving a home here.
-Sometimes key quotes of discussions may form a useful part of the artifact;
-just as often, it can suffice to link to the discussion in its original context.</p> <p>It's a nice bonus sometimes that text here can be grepped locally after cloning,
-but that's not the driving <em>reason</em> the history directory was created.
-If full archival export of github was what we wanted, we'd write a tool for that,
-and the intent and the outcomes would be very different.</p> <h3 id="do-i-need-to-make-a-new-file"><a href="#do-i-need-to-make-a-new-file" class="header-anchor">#</a> Do I need to make a new file?</h3> <p>Yes.  (Generally.)</p> <p>The vibe we're going for with this directory is that of a &quot;lab notebook&quot;.
-So, imagine how you treat a notebook: when the page is full, you just can't
-add anymore; you have to start a new page.  If the old page is from some time
-ago, you've probably accumulated a bunch of other pages of notes since then,
-so the new page can't assume any reader has recently re-read the older page:
-that means the new page has to reference the old page -- and, as much as
-necessary, the new page has to make sure it has all the content necessary for
-the new page to make sense on its own (even, yes, if that means some statements
-end up replicated with only minor rephrasing or repositioning).</p> <p>All of these are the kind of behaviors we're trying to replicate here, because
-they correlate well with creating a good environment for developing ideas.
-One of the practical benefits of this metaphorical &quot;lab notebook&quot; is that we can
-easily &quot;flip to a new page&quot; and simply start writing notes -- and we can do
-this without immediately applying the energy barrier of reconciling the new
-note with every other note in the history of the notebook.  This is on purpose,
-because it makes it easier to get new ideas written down and shared.
-The idea of strongly suggesting re-summarizations for any topic that's gone
-without attention for some period of time also naturally emerges from the
-framing of creating a new document.  All of these things speak to why
-periodically creating new files is a good idea.</p> <h3 id="does-a-file-about-a-topic-here-mean-it-s-dead"><a href="#does-a-file-about-a-topic-here-mean-it-s-dead" class="header-anchor">#</a> Does a file about a topic here mean it's dead?</h3> <p>Hard to say.  See following heading.</p> <h3 id="does-a-file-about-a-topic-here-mean-it-s-active"><a href="#does-a-file-about-a-topic-here-mean-it-s-active" class="header-anchor">#</a> Does a file about a topic here mean it's active?</h3> <p>The existence of a file in the design history directory signifies:</p> <ul><li>we have thought about this subject; and,</li> <li>we think we have gathered enough thoughts to write down on this subject; and,</li> <li>if there's not a resolution at the end of the file, that's the truth.</li></ul> <p>Sometimes that means it's settled.  Sometimes it means it's settled &quot;for now&quot;,
-until time passes and new information becomes available.
-Sometimes it means that an idea is good, but no one is currently allocating
-time to carry it into a proof-of-concept, or a spec draft, or whatever it is
-that would be needed next to advance that idea.
-It depends.</p> <p>The one clear thing: if something is discussed in design history, but hasn't
-become part of a spec (or a draft of a spec) yet:
-energy needs to be actively added to this situation in order to cause a change.
-If you want change, you need to be that energy.
-Write!</p> <p>(Cautionary note: while &quot;be that energy&quot; is meant to read inspirationally,
-most topics that have design history but haven't yet moved further can probably
-be presumed to be tricky in some way.  &quot;That energy&quot; should probably take the
-form of another round of exploration report (or some other kind of writeup
-which targets design history) first.  Unless you're <em>really</em> sure this topic
-has become &quot;easy&quot; now, for some reason!)</p></div> <footer class="page-edit"><div class="edit-link"><a href="https://github.com/ipld/specs/edit/master/design/history/FAQ.md" target="_blank" rel="noopener noreferrer">Edit this page on GitHub</a> <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></div> <div class="last-updated"><span class="prefix">Last Updated:</span> <span class="time">10/17/2021, 12:12:20 PM</span></div></footer> <!----> </main></div><div class="global-ui"></div></div>
-    <script src="/assets/js/app.56a090d9.js" defer></script><script src="/assets/js/2.fcfe26fc.js" defer></script><script src="/assets/js/48.b927d797.js" defer></script>
-  </body>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>This page has moved...</title>
+  <meta http-equiv="refresh" content="7;url=https://ipld.io/design/">
+  <link rel="canonical" href="https://ipld.io/design/">
+  <style type="text/css">
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      font-size: 16px;
+      color: #2c3e50
+    }
+    a {
+      color: #3eaf7c;
+      font-weight: 500;
+      text-decoration: none
+    }
+  </style>
+</head>
+<body>
+  <p>This page has moved to <b><a href="https://ipld.io/design/">https://ipld.io/design/</a></b>. You will be redirected in 5 seconds.</p>
+  <script>
+    setTimeout(() => {
+      location.replace('https://ipld.io/design/')
+    }, 5000)
+  </script>
+</body>
 </html>

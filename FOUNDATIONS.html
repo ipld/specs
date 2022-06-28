@@ -1,155 +1,31 @@
-<!DOCTYPE html>
-<html lang="en-US">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>IPLD Specifications</title>
-    <meta name="generator" content="VuePress 1.8.2">
-    
-    <meta name="description" content="Specifications for the Inter-planetary Linked Data project">
-    
-    <link rel="preload" href="/assets/css/0.styles.1c4fef16.css" as="style"><link rel="preload" href="/assets/js/app.56a090d9.js" as="script"><link rel="preload" href="/assets/js/2.fcfe26fc.js" as="script"><link rel="preload" href="/assets/js/10.53c9867f.js" as="script"><link rel="prefetch" href="/assets/js/100.bb687f4e.js"><link rel="prefetch" href="/assets/js/101.25123911.js"><link rel="prefetch" href="/assets/js/102.e2b58b63.js"><link rel="prefetch" href="/assets/js/103.dc39a996.js"><link rel="prefetch" href="/assets/js/11.562cfd60.js"><link rel="prefetch" href="/assets/js/12.30c04317.js"><link rel="prefetch" href="/assets/js/13.861f55d5.js"><link rel="prefetch" href="/assets/js/14.0c0bcf83.js"><link rel="prefetch" href="/assets/js/15.12e6bfef.js"><link rel="prefetch" href="/assets/js/16.1fd4b009.js"><link rel="prefetch" href="/assets/js/17.7eb7942a.js"><link rel="prefetch" href="/assets/js/18.2d3e02cf.js"><link rel="prefetch" href="/assets/js/19.94e85fad.js"><link rel="prefetch" href="/assets/js/20.7fa209a5.js"><link rel="prefetch" href="/assets/js/21.9516badf.js"><link rel="prefetch" href="/assets/js/22.ba437a9d.js"><link rel="prefetch" href="/assets/js/23.8aad9134.js"><link rel="prefetch" href="/assets/js/24.bda34b45.js"><link rel="prefetch" href="/assets/js/25.e09cf544.js"><link rel="prefetch" href="/assets/js/26.a811ea3d.js"><link rel="prefetch" href="/assets/js/27.14d402ae.js"><link rel="prefetch" href="/assets/js/28.ff17eb99.js"><link rel="prefetch" href="/assets/js/29.a947ac23.js"><link rel="prefetch" href="/assets/js/3.7a717fc5.js"><link rel="prefetch" href="/assets/js/30.2e5469d8.js"><link rel="prefetch" href="/assets/js/31.7a7b4bfc.js"><link rel="prefetch" href="/assets/js/32.61c38d29.js"><link rel="prefetch" href="/assets/js/33.ad9a2031.js"><link rel="prefetch" href="/assets/js/34.8c162294.js"><link rel="prefetch" href="/assets/js/35.74b82d2b.js"><link rel="prefetch" href="/assets/js/36.1ef2b5a0.js"><link rel="prefetch" href="/assets/js/37.87fe33c4.js"><link rel="prefetch" href="/assets/js/38.cc8de423.js"><link rel="prefetch" href="/assets/js/39.c83bd1ec.js"><link rel="prefetch" href="/assets/js/4.fa7bcf0a.js"><link rel="prefetch" href="/assets/js/40.87507b3e.js"><link rel="prefetch" href="/assets/js/41.0ed7d141.js"><link rel="prefetch" href="/assets/js/42.9894e084.js"><link rel="prefetch" href="/assets/js/43.bb7cdbd3.js"><link rel="prefetch" href="/assets/js/44.6995f900.js"><link rel="prefetch" href="/assets/js/45.b2b5724d.js"><link rel="prefetch" href="/assets/js/46.d7270095.js"><link rel="prefetch" href="/assets/js/47.e01cb628.js"><link rel="prefetch" href="/assets/js/48.b927d797.js"><link rel="prefetch" href="/assets/js/49.c94ce1d8.js"><link rel="prefetch" href="/assets/js/5.0ee05b29.js"><link rel="prefetch" href="/assets/js/50.ce57b5ca.js"><link rel="prefetch" href="/assets/js/51.6c577f63.js"><link rel="prefetch" href="/assets/js/52.5636723e.js"><link rel="prefetch" href="/assets/js/53.83d65116.js"><link rel="prefetch" href="/assets/js/54.0a0dbd42.js"><link rel="prefetch" href="/assets/js/55.4dee537c.js"><link rel="prefetch" href="/assets/js/56.187427c3.js"><link rel="prefetch" href="/assets/js/57.7cb6cd68.js"><link rel="prefetch" href="/assets/js/58.239c551f.js"><link rel="prefetch" href="/assets/js/59.0b9bb6f2.js"><link rel="prefetch" href="/assets/js/6.8383fa2a.js"><link rel="prefetch" href="/assets/js/60.6c20aac6.js"><link rel="prefetch" href="/assets/js/61.968602f7.js"><link rel="prefetch" href="/assets/js/62.1b6cac7d.js"><link rel="prefetch" href="/assets/js/63.ea2fb562.js"><link rel="prefetch" href="/assets/js/64.25278b13.js"><link rel="prefetch" href="/assets/js/65.69eb5be2.js"><link rel="prefetch" href="/assets/js/66.9f8b6ff0.js"><link rel="prefetch" href="/assets/js/67.1ad0b2b6.js"><link rel="prefetch" href="/assets/js/68.0f395a44.js"><link rel="prefetch" href="/assets/js/69.a43c7911.js"><link rel="prefetch" href="/assets/js/7.781bc252.js"><link rel="prefetch" href="/assets/js/70.75871870.js"><link rel="prefetch" href="/assets/js/71.148e6ff4.js"><link rel="prefetch" href="/assets/js/72.69176695.js"><link rel="prefetch" href="/assets/js/73.24265001.js"><link rel="prefetch" href="/assets/js/74.ab1f4487.js"><link rel="prefetch" href="/assets/js/75.f765fe47.js"><link rel="prefetch" href="/assets/js/76.63a86cd8.js"><link rel="prefetch" href="/assets/js/77.0863aa53.js"><link rel="prefetch" href="/assets/js/78.26e08ce1.js"><link rel="prefetch" href="/assets/js/79.1a971f83.js"><link rel="prefetch" href="/assets/js/8.ed6f0f70.js"><link rel="prefetch" href="/assets/js/80.179a0331.js"><link rel="prefetch" href="/assets/js/81.e4e39c2e.js"><link rel="prefetch" href="/assets/js/82.3bee9de2.js"><link rel="prefetch" href="/assets/js/83.950da1b2.js"><link rel="prefetch" href="/assets/js/84.0372c0fd.js"><link rel="prefetch" href="/assets/js/85.6f120f50.js"><link rel="prefetch" href="/assets/js/86.864ad350.js"><link rel="prefetch" href="/assets/js/87.2c8b5941.js"><link rel="prefetch" href="/assets/js/88.7f7b8dad.js"><link rel="prefetch" href="/assets/js/89.2c2cc3c7.js"><link rel="prefetch" href="/assets/js/9.b367a0c8.js"><link rel="prefetch" href="/assets/js/90.304a6f3e.js"><link rel="prefetch" href="/assets/js/91.09f58297.js"><link rel="prefetch" href="/assets/js/92.dbb564bb.js"><link rel="prefetch" href="/assets/js/93.a62b8678.js"><link rel="prefetch" href="/assets/js/94.b3e84ab0.js"><link rel="prefetch" href="/assets/js/95.db81aaa0.js"><link rel="prefetch" href="/assets/js/96.e40b62fc.js"><link rel="prefetch" href="/assets/js/97.5d33b7b8.js"><link rel="prefetch" href="/assets/js/98.3036c2ac.js"><link rel="prefetch" href="/assets/js/99.b4491926.js">
-    <link rel="stylesheet" href="/assets/css/0.styles.1c4fef16.css">
-  </head>
-  <body>
-    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/" class="home-link router-link-active"><!----> <span class="site-name">IPLD Specifications</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/" class="nav-link">
-  Home
-</a></div><div class="nav-item"><a href="/schemas/" class="nav-link">
-  IPLD Schemas
-</a></div> <a href="https://github.com/ipld/specs" target="_blank" rel="noopener noreferrer" class="repo-link">
-    GitHub
-    <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/" class="nav-link">
-  Home
-</a></div><div class="nav-item"><a href="/schemas/" class="nav-link">
-  IPLD Schemas
-</a></div> <a href="https://github.com/ipld/specs" target="_blank" rel="noopener noreferrer" class="repo-link">
-    GitHub
-    <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></nav>  <ul class="sidebar-links"><li><section class="sidebar-group depth-0"><p class="sidebar-heading open"><span></span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/FOUNDATIONS.html#linked" class="sidebar-link">Linked</a><ul class="sidebar-sub-headers"></ul></li><li><a href="/FOUNDATIONS.html#immutable" class="sidebar-link">Immutable</a><ul class="sidebar-sub-headers"></ul></li><li><a href="/FOUNDATIONS.html#multicodecs-are-not-meant-to-act-as-types" class="sidebar-link">Multicodecs Are Not Meant to Act As Types</a><ul class="sidebar-sub-headers"></ul></li><li><a href="/FOUNDATIONS.html#no-non-local-reasoning" class="sidebar-link">No Non-Local Reasoning</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/FOUNDATIONS.html#moving-beyond-local-reasoning" class="sidebar-link">Moving beyond local reasoning</a></li></ul></li><li><a href="/FOUNDATIONS.html#no-cycles" class="sidebar-link">No Cycles</a><ul class="sidebar-sub-headers"></ul></li><li><a href="/FOUNDATIONS.html#stable-pathing" class="sidebar-link">Stable Pathing</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/FOUNDATIONS.html#higher-level-pathing" class="sidebar-link">Higher Level Pathing</a></li></ul></li><li><a href="/FOUNDATIONS.html#link-transparent-pathing" class="sidebar-link">Link Transparent Pathing</a><ul class="sidebar-sub-headers"></ul></li><li><a href="/FOUNDATIONS.html#primitives" class="sidebar-link">Primitives</a><ul class="sidebar-sub-headers"></ul></li><li><a href="/FOUNDATIONS.html#non-cyclic-block-local-relative-links" class="sidebar-link">Non-Cyclic, Block-Local Relative Links</a><ul class="sidebar-sub-headers"></ul></li></ul></section></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><p>!!!</p> <p>This document has <strong>moved</strong>.</p> <p>You'll now find information like this in the <a href="https://github.com/ipld/ipld/" target="_blank" rel="noopener noreferrer">ipld/ipld<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a> meta-repo,
-and published to the web at https://ipld.io/ .</p> <p>All documentation, fixtures, specifications, and web content is now gathered into that repo.
-Please update your links, and direct new contributions there.</p> <p>!!!</p> <hr> <h1 id="ipld-foundational-principles"><a href="#ipld-foundational-principles" class="header-anchor">#</a> IPLD Foundational Principles</h1> <p>This document outlines parts of IPLD that should and should not be changed to
-ensure the success of future improvements and the continuity of direction.</p> <p><strong>Definitions</strong></p> <ul><li>Block: A block is a chunk of an IPLD DAG, encoded in a format.
-Blocks have <a href="/block-layer/CID.html">CID</a>s.</li> <li>Node: A node is a <em>point</em> in an IPLD DAG (map, list, number, etc.).
-Many nodes can exist encoded inside one Block.</li> <li>Link: A link is a kind of IPLD Node that points to another IPLD Node.
-Links are what make IPLD data a DAG rather than only a tree.
-Links are content-addressable -- see <a href="/block-layer/CID.html">CID</a>.</li> <li>Path Segment: A path segment is a piece of information that describes a move
-from one Node to a directly connected child Node.  (In other words, a
-Path Segment is either a map key or a list index.)</li> <li>Path: A path is composed of Path Segments, thereby describing a traversal
-from one Node to another Node somewhere deeper in the DAG.</li></ul> <h2 id="linked"><a href="#linked" class="header-anchor">#</a> Linked</h2> <p>IPLD must support linking to any IPLD node (even if the node is in the middle of
-a block). That is, IPLD must support arbitrary IPLD paths in links.</p> <p><strong>Motivation:</strong> Considering this in the context of programming languages, not
-being able to <em>store</em> a pointer to a struct <em>inside</em> of another struct would be
-severely limiting.</p> <p>NOTE: We don't currently support arbitrary paths but, in the context of
-programming, we really need to.</p> <h2 id="immutable"><a href="#immutable" class="header-anchor">#</a> Immutable</h2> <p>IPLD links must be immutable. We'll likely define a mutable link spec on top of
-IPLD but there needs to be an immutable layer at the bottom.</p> <p><strong>Motivation:</strong> <em>Having</em> an immutable layer is important for a lot of analysis,
-memoization, type checking, etc.</p> <h2 id="multicodecs-are-not-meant-to-act-as-types"><a href="#multicodecs-are-not-meant-to-act-as-types" class="header-anchor">#</a> Multicodecs Are Not Meant to Act As Types</h2> <p>Multicodecs are used to indicate the format of data in a Block, and thus the
-codec which transforms that serial data into a tree of Nodes conforming to the
-<a href="/data-model-layer/data-model.html">IPLD Data Model</a>.  This is the limit of
-their purpose.</p> <p>In particular, multicodecs should not be confused with a
-<a href="https://en.wikipedia.org/wiki/Type_system" target="_blank" rel="noopener noreferrer">type system<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a>.</p> <p><strong>Motivation:</strong> Since it is impossible to understand data at a <em>structural</em>
-level without knowing the format, we use multicodecs describe the format.
-With this information, we handle the transformation into the IPLD Data Model.
-Beyond this, we don't want to use multicodecs further, because we should avoid
-introducing new formats unnecessarily: <em>every</em> IPLD implementation needs to
-support these new formats, and this is a burden it's preferable to minimize.</p> <h2 id="no-non-local-reasoning"><a href="#no-non-local-reasoning" class="header-anchor">#</a> No Non-Local Reasoning</h2> <p>Transforming content of a Block into Nodes conforming to the IPLD
-<a href="/data-model-layer/data-model.html">Data Model</a> should never require
-interpretation in the context of anything not contained in the Block plus CID.</p> <p>Similarly, traversing an IPLD Node according to a Path should not require
-interpretation in the context of anything not already contained in that Node plus Path.</p> <p><strong>Motivation:</strong> IPLD needs to be easy to reason about.  Systems which use
-nonlocal reasoning become harder to reason about, and much harder (if not
-impossible) to compose smoothly or with predictable results; therefore we
-should avoid this.</p> <p><strong>Negative Examples:</strong></p> <div class="language-javascript extra-class"><pre class="language-javascript"><code><span class="token comment">// This is an example of what is NOT possible.</span>
-<span class="token keyword">var</span> foo <span class="token operator">=</span> <span class="token punctuation">{</span>
-  <span class="token string">&quot;baz&quot;</span><span class="token operator">:</span> <span class="token function">Link</span><span class="token punctuation">(</span><span class="token string">&quot;../../zot&quot;</span><span class="token punctuation">)</span> <span class="token comment">// NOT legal: makes a non-local reference.</span>
-<span class="token punctuation">}</span>
-<span class="token keyword">var</span> bar <span class="token operator">=</span> <span class="token punctuation">{</span>
-  <span class="token string">&quot;foo&quot;</span><span class="token operator">:</span> <span class="token function">CidOf</span><span class="token punctuation">(</span>foo<span class="token punctuation">)</span><span class="token punctuation">,</span>
-  <span class="token string">&quot;zot&quot;</span><span class="token operator">:</span> <span class="token string">&quot;something&quot;</span> <span class="token comment">// `./foo/baz` imagines pointing here.</span>
-<span class="token punctuation">}</span>
-
-<span class="token comment">// resolution through block `foo` depends on block `bar`...</span>
-<span class="token function">Resolve</span><span class="token punctuation">(</span><span class="token string">&quot;/ipld/${CidOf(bar)}/foo/baz/&quot;</span><span class="token punctuation">)</span>
-
-<span class="token comment">// meaning this would be undefined, which is why relative links are NOT allowed:</span>
-<span class="token function">Resolve</span><span class="token punctuation">(</span><span class="token string">&quot;/ipld/${CidOf(foo)}/baz/&quot;</span><span class="token punctuation">)</span>
-</code></pre></div><p>For the same reason, IPLD links can't rely on an authority (e.g., a blockchain).</p> <p><strong>Note:</strong> Concepts that seem similar to relative linking can still be encoded
-at the application level.  This is fine, but distinct from &quot;IPLD Links&quot;, because
-such linking won't be interpreted by IPLD path and link resolution (e.g. they
-won't get the special &quot;link&quot; type, and won't violate the constraints that the
-IPLD Data Model expresses a DAG, etc).</p> <h3 id="moving-beyond-local-reasoning"><a href="#moving-beyond-local-reasoning" class="header-anchor">#</a> Moving beyond local reasoning</h3> <p>The &quot;no non-local reasoning&quot; rule holds at the Data Model layer.
-Some higher-level layers relax the rule.</p> <p>For example, Advanced Data Layouts which split data across multiple blocks
-defacto carry some logical information in mind as they wield their constituent
-blocks (jumping into a HAMT mid-way through its trie with no context is unlikely
-to make any semantic sense, for example -- even though the data can still be
-parsed in terms of the Data Model).</p> <p>Schemas describe constraints around data and are typically applied over
-a whole DAG which may span multiple Blocks, and are themselves usually
-located in another Block (for ease of reference by CID).  Schemas thus also
-can be seen as using some forms of non-local reasoning.</p> <p>Applications built on top of IPLD can also use their own contextual reasoning,
-as described earlier in the relative linking example.</p> <p><strong>Motivation</strong>: Systems like HAMTs and Schemas are important to our goals in
-having good tooling in the ecosystem; both of these depend on some forms of
-reasoning which take context and apply it in addition to what's available
-strictly at the Data Model level.</p> <p><strong>Remaining true to principles</strong>: though we're refining the rules in this section,
-these are not contradictions of the &quot;no non-local reasoning&quot; rule; it's just
-relaxed for these high-level systems, in that the scope of &quot;local&quot; can be
-understood more broadly.</p> <p>Since we can always interpret block structurally (e.g., parse them at least to
-the Data Model layer) -- even in data that's also meant to be used with
-Advanced Data Layouts or Schemas other application logic that uses contextual
-concepts, etc -- we can still have replication and hashing and DAG traversal
-and all the rest of the important promises of the IPLD Data Model regardless of
-that other context, meaning these systems are purely value-add and do not
-compromise any of the other core promises of IPLD.</p> <h2 id="no-cycles"><a href="#no-cycles" class="header-anchor">#</a> No Cycles</h2> <p>IPLD links must not be cyclic, even if we add support for relative links.</p> <p><strong>Motivation:</strong></p> <ol><li>Security: Forbidding link cycles ensures that any graph traversal terminates.
-This makes it easier to correctly and securely implement some graph
-algorithms, even on potentially untrusted data in a distributed system.</li> <li>Consistency: Without complex hacks, it's impossible to create link cycles
-<em>between</em> hash-linked blocks. Allowing link cycles on one level (e.g., in
-relative links within a single block) but not on a larger scale (between
-blocks) is inconsistent (even though there's nothing we can do about it).</li></ol> <h2 id="stable-pathing"><a href="#stable-pathing" class="header-anchor">#</a> Stable Pathing</h2> <p>An IPLD path always means the same thing, everywhere, every time. Importantly,
-users shouldn't be able to configure their IPLD library to change how path
-resolution works. They should be able to use alternative path resolution
-algorithms for <em>non</em>-IPLD paths (e.g., IPFS paths) but those should be built
-on top of IPLD.</p> <p><strong>Motivation:</strong> Deterministic computations on top of a IPLD need to produce the
-same result every time.</p> <h3 id="higher-level-pathing"><a href="#higher-level-pathing" class="header-anchor">#</a> Higher Level Pathing</h3> <p>The &quot;stable pathing&quot; rule holds at the Data Model layer.
-Some higher-level layers refine the rule.</p> <p>For example, Advanced Data Layouts work by operating like an IPLD Node which
-conforms with the Data Model specified behaviors in every way -- except that
-they're internally implemented in some way that maps the Node content onto
-Blocks in a more advanced way than the basic Data Model way.  This means we
-can &quot;path&quot; across an Advanced Data Layout that acts like a map or a list as
-if it's a regular Node.  We still aim for stable pathing: however, at this
-layer, that stability now requires a fixed understanding of the Advanced Layout
-logic itself.</p> <p>Schemas describe data in terms of both semantic types and a representation
-strategy, and in some cases the semantic type information contains a name
-(such as a struct field name) even while the representation does not (such as
-when a struct uses &quot;tuple&quot; representation, causing it to be transformed into
-a list rather than a map when encoded).  In these cases, we can &quot;path&quot; across
-data interpreted in context of a Schema using the field names, even if at the
-Data Model layer it's been represented as a list (and thus has indexes instead
-of map keys corresponding to the field names).  This kind of pathing can be
-stable and predictable, but (as with the Advanced Data Layouts story), it
-requires slightly more information: holding the Schema declaration.</p> <p><strong>Motivation</strong>: Different views onto data is a powerful and useful primitive.</p> <p>More concretely, we can observe that some of the earliest examples of systems
-built with IPLD's concepts immediately introduced higher-level pathing: for
-example, IPFS's UnixFS.  Such concept of pathing, built a layer above the core
-IPLD Data Model, has provided large amounts of value to applications.
-Recognizing this, we seek to offer some components of IPLD which make it easy
-to do these kind of constructions, but in a way that's reusable, and also fits
-well with our principles of stability and predictability.</p> <p><strong>Remaining true to principles</strong>: Note that regular, core Data Model still
-maintains stable pathing -- this is not compromised by higher level systems
-which use additional rules and operate with additional context!  Falling back
-to the core Data Model stable pathing is <em>always</em> possible on any data.</p> <p>Even in higher level pathing: we still aim for stability, predictability, and
-deterministic outcomes.  While more contextual information is required for
-these higher level pathing modes, all of that information is by design easy
-to immutably snapshot and address in the same ways we link other IPLD data.</p> <h2 id="link-transparent-pathing"><a href="#link-transparent-pathing" class="header-anchor">#</a> Link Transparent Pathing</h2> <p>Path resolution must transparently traverse links.</p> <p><strong>Motivation:</strong> Deduplication and composability. If links are <em>not</em> transparent,
-programmers will have to either make many small objects (lots of hashing) or
-inline data into large objects (lots of duplication and copying).</p> <h2 id="primitives"><a href="#primitives" class="header-anchor">#</a> Primitives</h2> <p>The &quot;recommended&quot; IPLD format (currently DAG-CBOR) needs to support <em>at a minimum</em>:</p> <ul><li>32/64 bit integers without losing information.</li> <li>32/64 bit floats without losing information.</li> <li>Unicode strings.</li> <li>Binary strings.</li> <li>Objects (with string keys, at least).</li> <li>Arrays.</li> <li>Booleans.</li> <li>A bottom type (null).</li></ul> <p><strong>Motivation:</strong> Convenience, really.</p> <h2 id="non-cyclic-block-local-relative-links"><a href="#non-cyclic-block-local-relative-links" class="header-anchor">#</a> Non-Cyclic, Block-Local Relative Links</h2> <p>That is, relative links that don't traverse out the back of an object. See the
-conclusions from: <a href="https://github.com/ipld/specs/issues/1" target="_blank" rel="noopener noreferrer">#1<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a>.</p> <p><strong>Motivation:</strong> This is required to efficiently represent a highly connected DAG
-of tiny nodes.</p> <p><strong>Caveat:</strong> This brings in some sticky issues around mutability. Depending on
-the implementation, relative links within an object may be act like mutable
-links (from the perspective of the user). The concern here is that we don't want
-users to bundle nodes together into single block <em>because</em> they want this
-mutability.</p> <h1 id="to-do"><a href="#to-do" class="header-anchor">#</a> To Do</h1> <p>Working through this, I realized we have a few things we really need to finish a few things before we can
-call IPLD ready.</p> <ul><li><strong>Path links.</strong> Pointers that can only point to objects at block boundaries
-are useful but severely gimped. We've been fine up till now because we
-generally don't <em>edit</em> complicated data structures but this will change.
-(<a href="https://github.com/ipld/specs/issues/83" target="_blank" rel="noopener noreferrer">#83<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a>)</li> <li><strong>Slice links.</strong> For the same reason, we really should support
-<code>/ipld/QmID/start..stop</code> as a syntax for slicing an array. Most programming
-languages support this so <em>not</em> supporting it would be a bit awkward.
-(<a href="https://github.com/ipld/specs/issues/84" target="_blank" rel="noopener noreferrer">#84<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a>)</li> <li><strong>Link Spec.</strong> We need to specify a complete and formal link spec and stick
-with it.</li> <li><strong>Relative Links.</strong> <a href="https://github.com/ipld/specs/issues/1" target="_blank" rel="noopener noreferrer">#1<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a>.</li></ul></div> <footer class="page-edit"><div class="edit-link"><a href="https://github.com/ipld/specs/edit/master/FOUNDATIONS.md" target="_blank" rel="noopener noreferrer">Edit this page on GitHub</a> <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></div> <div class="last-updated"><span class="prefix">Last Updated:</span> <span class="time">10/17/2021, 12:12:20 PM</span></div></footer> <!----> </main></div><div class="global-ui"></div></div>
-    <script src="/assets/js/app.56a090d9.js" defer></script><script src="/assets/js/2.fcfe26fc.js" defer></script><script src="/assets/js/10.53c9867f.js" defer></script>
-  </body>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>This page has moved...</title>
+  <meta http-equiv="refresh" content="7;url=https://ipld.io/specs/">
+  <link rel="canonical" href="https://ipld.io/specs/">
+  <style type="text/css">
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      font-size: 16px;
+      color: #2c3e50
+    }
+    a {
+      color: #3eaf7c;
+      font-weight: 500;
+      text-decoration: none
+    }
+  </style>
+</head>
+<body>
+  <p>This page has moved to <b><a href="https://ipld.io/specs/">https://ipld.io/specs/</a></b>. You will be redirected in 5 seconds.</p>
+  <script>
+    setTimeout(() => {
+      location.replace('https://ipld.io/specs/')
+    }, 5000)
+  </script>
+</body>
 </html>

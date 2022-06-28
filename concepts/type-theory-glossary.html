@@ -1,219 +1,31 @@
-<!DOCTYPE html>
-<html lang="en-US">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>IPLD Specifications</title>
-    <meta name="generator" content="VuePress 1.8.2">
-    
-    <meta name="description" content="Specifications for the Inter-planetary Linked Data project">
-    
-    <link rel="preload" href="/assets/css/0.styles.1c4fef16.css" as="style"><link rel="preload" href="/assets/js/app.56a090d9.js" as="script"><link rel="preload" href="/assets/js/2.fcfe26fc.js" as="script"><link rel="preload" href="/assets/js/26.a811ea3d.js" as="script"><link rel="prefetch" href="/assets/js/10.53c9867f.js"><link rel="prefetch" href="/assets/js/100.bb687f4e.js"><link rel="prefetch" href="/assets/js/101.25123911.js"><link rel="prefetch" href="/assets/js/102.e2b58b63.js"><link rel="prefetch" href="/assets/js/103.dc39a996.js"><link rel="prefetch" href="/assets/js/11.562cfd60.js"><link rel="prefetch" href="/assets/js/12.30c04317.js"><link rel="prefetch" href="/assets/js/13.861f55d5.js"><link rel="prefetch" href="/assets/js/14.0c0bcf83.js"><link rel="prefetch" href="/assets/js/15.12e6bfef.js"><link rel="prefetch" href="/assets/js/16.1fd4b009.js"><link rel="prefetch" href="/assets/js/17.7eb7942a.js"><link rel="prefetch" href="/assets/js/18.2d3e02cf.js"><link rel="prefetch" href="/assets/js/19.94e85fad.js"><link rel="prefetch" href="/assets/js/20.7fa209a5.js"><link rel="prefetch" href="/assets/js/21.9516badf.js"><link rel="prefetch" href="/assets/js/22.ba437a9d.js"><link rel="prefetch" href="/assets/js/23.8aad9134.js"><link rel="prefetch" href="/assets/js/24.bda34b45.js"><link rel="prefetch" href="/assets/js/25.e09cf544.js"><link rel="prefetch" href="/assets/js/27.14d402ae.js"><link rel="prefetch" href="/assets/js/28.ff17eb99.js"><link rel="prefetch" href="/assets/js/29.a947ac23.js"><link rel="prefetch" href="/assets/js/3.7a717fc5.js"><link rel="prefetch" href="/assets/js/30.2e5469d8.js"><link rel="prefetch" href="/assets/js/31.7a7b4bfc.js"><link rel="prefetch" href="/assets/js/32.61c38d29.js"><link rel="prefetch" href="/assets/js/33.ad9a2031.js"><link rel="prefetch" href="/assets/js/34.8c162294.js"><link rel="prefetch" href="/assets/js/35.74b82d2b.js"><link rel="prefetch" href="/assets/js/36.1ef2b5a0.js"><link rel="prefetch" href="/assets/js/37.87fe33c4.js"><link rel="prefetch" href="/assets/js/38.cc8de423.js"><link rel="prefetch" href="/assets/js/39.c83bd1ec.js"><link rel="prefetch" href="/assets/js/4.fa7bcf0a.js"><link rel="prefetch" href="/assets/js/40.87507b3e.js"><link rel="prefetch" href="/assets/js/41.0ed7d141.js"><link rel="prefetch" href="/assets/js/42.9894e084.js"><link rel="prefetch" href="/assets/js/43.bb7cdbd3.js"><link rel="prefetch" href="/assets/js/44.6995f900.js"><link rel="prefetch" href="/assets/js/45.b2b5724d.js"><link rel="prefetch" href="/assets/js/46.d7270095.js"><link rel="prefetch" href="/assets/js/47.e01cb628.js"><link rel="prefetch" href="/assets/js/48.b927d797.js"><link rel="prefetch" href="/assets/js/49.c94ce1d8.js"><link rel="prefetch" href="/assets/js/5.0ee05b29.js"><link rel="prefetch" href="/assets/js/50.ce57b5ca.js"><link rel="prefetch" href="/assets/js/51.6c577f63.js"><link rel="prefetch" href="/assets/js/52.5636723e.js"><link rel="prefetch" href="/assets/js/53.83d65116.js"><link rel="prefetch" href="/assets/js/54.0a0dbd42.js"><link rel="prefetch" href="/assets/js/55.4dee537c.js"><link rel="prefetch" href="/assets/js/56.187427c3.js"><link rel="prefetch" href="/assets/js/57.7cb6cd68.js"><link rel="prefetch" href="/assets/js/58.239c551f.js"><link rel="prefetch" href="/assets/js/59.0b9bb6f2.js"><link rel="prefetch" href="/assets/js/6.8383fa2a.js"><link rel="prefetch" href="/assets/js/60.6c20aac6.js"><link rel="prefetch" href="/assets/js/61.968602f7.js"><link rel="prefetch" href="/assets/js/62.1b6cac7d.js"><link rel="prefetch" href="/assets/js/63.ea2fb562.js"><link rel="prefetch" href="/assets/js/64.25278b13.js"><link rel="prefetch" href="/assets/js/65.69eb5be2.js"><link rel="prefetch" href="/assets/js/66.9f8b6ff0.js"><link rel="prefetch" href="/assets/js/67.1ad0b2b6.js"><link rel="prefetch" href="/assets/js/68.0f395a44.js"><link rel="prefetch" href="/assets/js/69.a43c7911.js"><link rel="prefetch" href="/assets/js/7.781bc252.js"><link rel="prefetch" href="/assets/js/70.75871870.js"><link rel="prefetch" href="/assets/js/71.148e6ff4.js"><link rel="prefetch" href="/assets/js/72.69176695.js"><link rel="prefetch" href="/assets/js/73.24265001.js"><link rel="prefetch" href="/assets/js/74.ab1f4487.js"><link rel="prefetch" href="/assets/js/75.f765fe47.js"><link rel="prefetch" href="/assets/js/76.63a86cd8.js"><link rel="prefetch" href="/assets/js/77.0863aa53.js"><link rel="prefetch" href="/assets/js/78.26e08ce1.js"><link rel="prefetch" href="/assets/js/79.1a971f83.js"><link rel="prefetch" href="/assets/js/8.ed6f0f70.js"><link rel="prefetch" href="/assets/js/80.179a0331.js"><link rel="prefetch" href="/assets/js/81.e4e39c2e.js"><link rel="prefetch" href="/assets/js/82.3bee9de2.js"><link rel="prefetch" href="/assets/js/83.950da1b2.js"><link rel="prefetch" href="/assets/js/84.0372c0fd.js"><link rel="prefetch" href="/assets/js/85.6f120f50.js"><link rel="prefetch" href="/assets/js/86.864ad350.js"><link rel="prefetch" href="/assets/js/87.2c8b5941.js"><link rel="prefetch" href="/assets/js/88.7f7b8dad.js"><link rel="prefetch" href="/assets/js/89.2c2cc3c7.js"><link rel="prefetch" href="/assets/js/9.b367a0c8.js"><link rel="prefetch" href="/assets/js/90.304a6f3e.js"><link rel="prefetch" href="/assets/js/91.09f58297.js"><link rel="prefetch" href="/assets/js/92.dbb564bb.js"><link rel="prefetch" href="/assets/js/93.a62b8678.js"><link rel="prefetch" href="/assets/js/94.b3e84ab0.js"><link rel="prefetch" href="/assets/js/95.db81aaa0.js"><link rel="prefetch" href="/assets/js/96.e40b62fc.js"><link rel="prefetch" href="/assets/js/97.5d33b7b8.js"><link rel="prefetch" href="/assets/js/98.3036c2ac.js"><link rel="prefetch" href="/assets/js/99.b4491926.js">
-    <link rel="stylesheet" href="/assets/css/0.styles.1c4fef16.css">
-  </head>
-  <body>
-    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/" class="home-link router-link-active"><!----> <span class="site-name">IPLD Specifications</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/" class="nav-link">
-  Home
-</a></div><div class="nav-item"><a href="/schemas/" class="nav-link">
-  IPLD Schemas
-</a></div> <a href="https://github.com/ipld/specs" target="_blank" rel="noopener noreferrer" class="repo-link">
-    GitHub
-    <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/" class="nav-link">
-  Home
-</a></div><div class="nav-item"><a href="/schemas/" class="nav-link">
-  IPLD Schemas
-</a></div> <a href="https://github.com/ipld/specs" target="_blank" rel="noopener noreferrer" class="repo-link">
-    GitHub
-    <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></nav>  <ul class="sidebar-links"><li><section class="sidebar-group depth-0"><p class="sidebar-heading open"><span></span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/concepts/type-theory-glossary.html#cardinality" class="sidebar-link">Cardinality</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/concepts/type-theory-glossary.html#why-is-cardinality-important" class="sidebar-link">Why is Cardinality important?</a></li><li class="sidebar-sub-header"><a href="/concepts/type-theory-glossary.html#how-do-we-count-cardinality" class="sidebar-link">How do we Count Cardinality?</a></li></ul></li><li><a href="/concepts/type-theory-glossary.html#categories-of-types" class="sidebar-link">Categories of Types</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/concepts/type-theory-glossary.html#enumerated-types" class="sidebar-link">enumerated types</a></li><li class="sidebar-sub-header"><a href="/concepts/type-theory-glossary.html#sum-types" class="sidebar-link">sum types</a></li><li class="sidebar-sub-header"><a href="/concepts/type-theory-glossary.html#product-types" class="sidebar-link">product types</a></li><li class="sidebar-sub-header"><a href="/concepts/type-theory-glossary.html#infinite-recursives" class="sidebar-link">infinite recursives</a></li><li class="sidebar-sub-header"><a href="/concepts/type-theory-glossary.html#infinite-scalars" class="sidebar-link">infinite scalars</a></li><li class="sidebar-sub-header"><a href="/concepts/type-theory-glossary.html#unit-types" class="sidebar-link">unit types</a></li></ul></li><li><a href="/concepts/type-theory-glossary.html#open-vs-closed-membership" class="sidebar-link">Open vs Closed membership</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/concepts/type-theory-glossary.html#interfaces" class="sidebar-link">interfaces</a></li><li class="sidebar-sub-header"><a href="/concepts/type-theory-glossary.html#explicit-versus-structural-interfaces" class="sidebar-link">explicit versus structural interfaces</a></li></ul></li><li><a href="/concepts/type-theory-glossary.html#types-in-the-wild" class="sidebar-link">Types in the Wild</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/concepts/type-theory-glossary.html#enums-in-the-wild" class="sidebar-link">enums in the wild</a></li><li class="sidebar-sub-header"><a href="/concepts/type-theory-glossary.html#sum-types-in-the-wild" class="sidebar-link">sum types in the wild</a></li><li class="sidebar-sub-header"><a href="/concepts/type-theory-glossary.html#product-types-in-the-wild" class="sidebar-link">product types in the wild</a></li><li class="sidebar-sub-header"><a href="/concepts/type-theory-glossary.html#interfaces-in-the-wild" class="sidebar-link">interfaces in the wild</a></li><li class="sidebar-sub-header"><a href="/concepts/type-theory-glossary.html#what-about-numbers" class="sidebar-link">what about numbers?</a></li></ul></li><li><a href="/concepts/type-theory-glossary.html#types-in-ipld-schemas" class="sidebar-link">Types in IPLD Schemas</a><ul class="sidebar-sub-headers"></ul></li></ul></section></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><p>!!!</p> <p>This document has <strong>moved</strong>.</p> <p>You'll now find information like this in the <a href="https://github.com/ipld/ipld/" target="_blank" rel="noopener noreferrer">ipld/ipld<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a> meta-repo,
-and published to the web at https://ipld.io/ .</p> <p>All documentation, fixtures, specifications, and web content is now gathered into that repo.
-Please update your links, and direct new contributions there.</p> <p>!!!</p> <hr> <h1 id="a-quick-primer-and-glossary-of-type-theory"><a href="#a-quick-primer-and-glossary-of-type-theory" class="header-anchor">#</a> A quick Primer and Glossary of Type Theory</h1> <p>This document provides a quick overview of &quot;type theory&quot;, and specifically,
-how we use it to reason about data and design in IPLD.</p> <p>We take &quot;type theory&quot; to mean primarily: a way of reasoning about programs
-and data by counting how many possible states they may have.
-We call this counting of possible, inhabitable states counting &quot;cardinality&quot;.
-(We acknowledge that there's much more to &quot;type theory&quot; than this in the
-broader literature and history of computer science, but since IPLD is
-about <em>data</em>, focusing on this subset of type theory suits our purposes.)</p> <p>You'll find this document is linked to by the IPLD specs -- both for describing
-key theoretical foundations of the Data Model, and also to better describe some
-of the advanced features in the Schema layer (plus the reasons for them) --
-<em>and</em> you'll also find this document linked to by the
-<a href="../design/libraries">library design notes</a>, where we use some of this
-terminology to describe features of programming languages without resorting
-to language-specific vocabulary.</p> <h2 id="cardinality"><a href="#cardinality" class="header-anchor">#</a> Cardinality</h2> <p>&quot;Cardinality&quot; means &quot;<a href="https://en.wikipedia.org/wiki/Cardinality" target="_blank" rel="noopener noreferrer">the number of elements in a set<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a>&quot;.</p> <p>In IPLD, we use the phrase &quot;the cardinality of a type&quot; to define how many members a type can have.</p> <h3 id="why-is-cardinality-important"><a href="#why-is-cardinality-important" class="header-anchor">#</a> Why is Cardinality important?</h3> <p>Cardinality is important to the way we define and think about our Data Model and Schema type systems,
-because if the cardinality of two parts of a model aren't the same cardinality,
-then that means one of them is less expressive.
-If we intended two systems to be interchangeable, but they have unequal cardinality,
-then we can quickly and clearly identify that there must be a bug somewhere!</p> <p>Cardinality concepts are also useful for clear documentation.</p> <p>Cardinality counting can be used as a design planning exercise:
-count how many states your types <em>can</em> have, and then consider how many states
-your code is designed to handle, and if they're not equal,
-then it's clear that you have work to do!</p> <p>In practical application, you can see some examples of cardinality-counting used
-to describe <code>nullable</code> vs <code>optional</code> vs <code>implicit</code> values in the IPLD Schemas documentation:
-<a href="/schemas/schema-kinds.html#cardinality-examples">Cardinality Examples</a>.
-These cardinality countings are both key to the documentation,
-and key to understanding and using those features to build unambiguous APIs.</p> <h3 id="how-do-we-count-cardinality"><a href="#how-do-we-count-cardinality" class="header-anchor">#</a> How do we Count Cardinality?</h3> <p>Counting cardinality is probably best done by example.</p> <p>Consider a boolean: it can have the value 'true', or it can have the value 'false'.
-We simply count these states up!  The cardinality of a boolean is <code>2</code>!</p> <p>Now, consider a pair of boolean values: how many states can it have?
-Four: <code>(true, true)</code>, <code>(true, false)</code>, <code>(false, true)</code>, or <code>(false, false)</code>.
-So, the cardinality of two booleans is <code>4</code>.</p> <p>The exercise gets more interesting as we consider larger accumulations of values.
-We will also find that how the cardinality count accumulates differs based on
-how the types are composed!</p> <p>We'll explore more examples of this, and start identifying categories of
-things where we can do predictable kinds of math with cardinality in
-the next section: <a href="#categories-of-types">Categories of Types</a>.</p> <h2 id="categories-of-types"><a href="#categories-of-types" class="header-anchor">#</a> Categories of Types</h2> <p>We can identify a few categories of &quot;types&quot; based on how we evaluate their cardinality.
-(These definitions will use names that are popularized in computer science,
-and so they <em>may</em> match the name used in your favorite programming language -- but
-whether or not the same is familiar, the <em>concept</em> is universal, even across languages!)</p> <h3 id="enumerated-types"><a href="#enumerated-types" class="header-anchor">#</a> enumerated types</h3> <p>Enumerated types (usually, &quot;enum&quot; for short) have a cardinality that is some integer.</p> <p>For example, an enum might have members named &quot;Foo&quot;, &quot;Bar&quot;, and &quot;Baz&quot;;
-and the cardinality of that enum is &quot;|3|&quot;.</p> <p>(The term &quot;enum&quot; might make more sense if you think of it as short for
-<em>enumerated</em>, rather than <em>enumerable</em> -- something with countable-infinity
-members is <strong>not</strong> considered an &quot;enum&quot;.
-(We'd call that an <a href="#infinite-scalar">infinite scalar</a> instead.))</p> <h3 id="sum-types"><a href="#sum-types" class="header-anchor">#</a> sum types</h3> <p>Sum types have a cardinality that is <em>the sum of cardinality of their member types</em>.</p> <p>Sum types usually show up in prose descriptions of data as the word &quot;or&quot;.</p> <p>For example, say: &quot;I have a boolean <em>or</em> an integer&quot; --
-this would be an example of a sum type,
-and its cardinality would be &quot;|inf+2|&quot; --
-countable infinity for the integer, and plus two for the boolean.</p> <p>A clearer example might take two enums -- let's call them
-&quot;Animals&quot; (it has members &quot;cat&quot;, &quot;dog&quot;, &quot;rabbit&quot;),
-and &quot;Furniture&quot; (it has members &quot;chair&quot;, and &quot;desk&quot;) --
-and say &quot;I have an Animal <em>or</em> a furniture&quot; --
-then clearly I have one (and only one) of these five things:
-the cardinality is &quot;|3+2|&quot;.</p> <p>Sum types go by many names in various communities: they're also commonly
-known as &quot;(discriminated) unions&quot;, &quot;(tagged) variants&quot;, or other terminology.
-(We use the &quot;union&quot; term ourselves, in the lexicon of IPLD Schemas!)</p> <p>You can also consult the Wikipedia page on
-<a href="https://en.wikipedia.org/wiki/Sum_types" target="_blank" rel="noopener noreferrer">Sum Types<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a>
-for broader discussion of the topic.
-https://chadaustin.me/2015/07/sum-types/ also contains some useful content
-and examples from a variety of languages.</p> <h3 id="product-types"><a href="#product-types" class="header-anchor">#</a> product types</h3> <p>Product types have a cardinality that is <em>the multiplied cardinality of their member types</em>.</p> <p>This may sound outlandish, but you've been using them all your life:
-<em>&quot;product types&quot; are commonly known as &quot;structs&quot;</em>
-(or, &quot;classes&quot;, in more aggressively object-oriented languages).</p> <p>Product types usually show up in prose descriptions of data as the word &quot;and&quot;.</p> <p>For example, say: &quot;I have a boolean and another boolean and another boolean&quot; --
-you might write code for this as <code>struct{ a bool, b bool, c bool }</code>,
-and its cardinality would be &quot;|2*2*2|&quot; -- &quot;|8|&quot; --
-two for each of the booleans, and multiplied because each of them may vary independently,
-and thus each of the booleans adds another &quot;dimension&quot; to the state space described by this combined value.</p> <p>For another example, using our enums again above --
-&quot;Animals&quot; (it has members &quot;cat&quot;, &quot;dog&quot;, &quot;rabbit&quot;),
-and &quot;Furniture&quot; (it has members &quot;chair&quot;, and &quot;desk&quot;) --
-we could say &quot;I have an Animal, <em>and</em> it's on top of a Furniture&quot; --
-and then I could have any one of of <em>six</em> states
-(&quot;cat on a chair&quot;, &quot;cat on desk&quot;, &quot;dog on a chair&quot;, etc):
-the cardinality is &quot;|3*2|&quot;.</p> <h3 id="infinite-recursives"><a href="#infinite-recursives" class="header-anchor">#</a> infinite recursives</h3> <p>Infinite recursives, as it says in the name, have infinite cardinality.</p> <p>Maps and lists are recursives because they can contain other values,
-including more maps and lists.
-Maps and lists are also infinite (even at a single level, before considering recursion):
-since we can keep inserting entries into a map, or appending values to a list,
-and still have a map or list respectively, we treat their cardinality as infinite.</p> <p>Note that it's still useful to do math around these, though.
-For example, if you have &quot;maybe a map&quot; (see the <a href="#maybe-types">maybe types</a> section,
-coming later, in the <a href="#types-in-the-wild">Types in the Wild</a> chapter) you may
-find it useful to declare that the cardinality of your map is &quot;a&quot; (an arbitrary placeholder),
-and then the cardinality of &quot;maybe map&quot; is &quot;|a+1|&quot;.</p> <h3 id="infinite-scalars"><a href="#infinite-scalars" class="header-anchor">#</a> infinite scalars</h3> <p>Infinite scalars is a term to describe things like strings:
-because they can be unlimited in length, they have infinite cardinality.
-Since we can take a string, append some more characters,
-and still have string, we can't count its cardinality.</p> <p>Infinite scalars aren't very different from infinite recursives, arguably.
-(&quot;A string is just a list of characters&quot; is one such argument.)
-Still, we often regard these things as having separate categories in practice:
-strings are usually treated as a single token in serializers, despite being &quot;infinite&quot;;
-numbers are infinite (even if there are some practical problems with this:
-see <a href="#what-about-numbers">what about numbers?</a> in the <a href="#types-in-the-wild">Types in the Wild</a> chapter),
-but certainly aren't usually considered to be recursive (though this does sometimes
-see usage in theory -- see <a href="https://en.wikipedia.org/wiki/Peano_arithmetic" target="_blank" rel="noopener noreferrer">Peano Arithmetic<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a>!);
-and so on.</p> <p>As with infinite recursives, note that it's still useful to do math around these.
-For example, if you have &quot;a string or a null&quot;,
-you have a <a href="#sum-types">sum type</a> (more specifically, a <a href="#maybe-types">maybe type</a>),
-and even if the cardinality of string is &quot;infinite&quot;, it's still useful to declare
-the cardinality of your string is &quot;a&quot; (an arbitrary placeholder),
-and then the cardinality of &quot;string or null&quot; is &quot;|a+1|&quot;.
-(In practice: how often have you had an API bug burn you on the difference
-between null and an empty string, or the difference between null and absent?
-This is why we keep counting cardinality even after an infinity shows up!)</p> <h3 id="unit-types"><a href="#unit-types" class="header-anchor">#</a> unit types</h3> <p>Let's talk about one last size of cardinality... &quot;unit&quot;: unit just means &quot;one&quot;.</p> <p>&quot;Unit&quot; types don't come up too often... or at least, they're not often named as such.
-Just like &quot;product types&quot; are quite common once you recognize them, though, so is &quot;unit&quot;.</p> <p>&quot;Null&quot; can be thought of as a &quot;unit&quot; type.</p> <p>&quot;Maybe&quot;/&quot;Optional&quot; types (further discussion later in the <a href="#types-in-the-wild">Types in the Wild</a> chapter,
-specifically the <a href="#maybe-types">maybe types</a> section) can be thought of as &quot;unit plus a thing&quot;.</p> <p>Enums can be considered a sum type of where every type is itself a just another named unit type!
-(Whether or not you find this a <em>useful</em> perspective is up to you.  If it's confusing, forget it.)</p> <h2 id="open-vs-closed-membership"><a href="#open-vs-closed-membership" class="header-anchor">#</a> Open vs Closed membership</h2> <p>All of the above <a href="#categories-of-types">categories of types</a> have one thing in common:
-they have &quot;closed&quot; membership.  That is, at &quot;compile&quot; (or other static analysis) time,
-we know what their membership is, and we can completely count their cardinality (infinities notwithstanding).
-Once the program is compiled(/analyzed), there's no way to add new members to any of these types,
-and no reason to consider the idea of updating any of the cardinality accounting.</p> <p>What if we want &quot;open&quot; membership, where I <em>don't</em> know all of the possible
-types of values that will be part of a type in advance?</p> <p>This &quot;open membership&quot; is commonly known as <strong>interfaces</strong>.</p> <h3 id="interfaces"><a href="#interfaces" class="header-anchor">#</a> interfaces</h3> <p>Interfaces have the concept of &quot;open membership&quot;, and are also typically
-combined with some definition of &quot;features&quot;, also called as traits or behavior
-in some languages, that are required if something will be considered to
-implement the interface.</p> <p>In programming languages, the definition of &quot;features&quot; usually is expressed in
-terms of a set of methods.  This makes sense for programming languages,
-because if you don't know what methods you can call on a thing,
-you can't really do much with the thing!</p> <p>One could also imagine using a different definition of &quot;features&quot; to describe
-&quot;interfaces&quot; that apply purely to data:
-For example, stating that some map has the features to conform to an interface
-only if some entries of some known names and value types are present in the map.
-(However, this is not often seen, so this document will continue to frequently
-refer to &quot;sets of methods&quot; when discussing interfaces.)</p> <h3 id="explicit-versus-structural-interfaces"><a href="#explicit-versus-structural-interfaces" class="header-anchor">#</a> explicit versus structural interfaces</h3> <p>Interfaces as found in programming languages tend to fall into one of two large camps:
-<em>explicit</em> interfaces, or <em>structural</em> interfaces.</p> <p>Explicit interfaces require types implementing them to say so.</p> <p>Structural interfaces state some set of methods (or more generally, features)
-that must be present on a type for it to satisfy the interface;
-then, any type that has those methods implements the interface.</p> <p>Both explicit and structural styles of interfaces have &quot;open&quot; membership --
-you can &quot;compile&quot; a program that has interfaces in it,
-then add more libraries when you &quot;link&quot; the program and execute it,
-and those libraries can add more implementors of the interfaces!</p> <p>The explicit and structural styles vary in other practical details.
-For example, explicit interfaces require referencing the interface they implement;
-this makes them significantly less flexible, and creates many dependency management requirements.
-By contrast, structural interfaces can knowingly conform to an interfaces contract
-while still not referencing it directly; this can be extremely useful in
-designing systems for independently upgradeable pieces.</p> <p>(There are other yet more detailed ways in which these styles vary, but
-since they're not really important in this document, we'll rest here.)</p> <h2 id="types-in-the-wild"><a href="#types-in-the-wild" class="header-anchor">#</a> Types in the Wild</h2> <p>These different categories of types are present in most programming languages,
-but not all of them are present in every language (!),
-and they often go by different names in different programming communities.
-Here's a few (non-exhaustive) examples in a handful of languages:</p> <h3 id="enums-in-the-wild"><a href="#enums-in-the-wild" class="header-anchor">#</a> enums in the wild</h3> <p>In Java, the <code>enum</code> keyword maps directly the category of <a href="#enumerated-types">enum</a> we've defined here.</p> <p>In Go, <em>there is no direct support for enums</em>.
-However, it's often implemented in practice by a typedef of an int, and a table of named constants.</p> <p>In Rust, there's an <code>enum</code> keyword, and it may be used to implement <a href="#enumerated-types">enum</a> as we've defined it here.
-However, if you're coming from a Rust background, and trying to understand this document and compare to other languages,
-be cautious here: the Rust <code>enum</code> keyword <em>also</em> provides what we call <a href="#sum-types">sum types</a>.</p> <h4 id="booleans"><a href="#booleans" class="header-anchor">#</a> booleans</h4> <p>In many languages, the concept of <code>boolean</code> can be understood as a particular instance of an enum --
-it's just an enum with two values!
-Sure, it may be implemented as 'primitive' in many languages... but clearly,
-for cardinality counting, we can see a boolean as exactly &quot;|2|&quot;.</p> <h3 id="sum-types-in-the-wild"><a href="#sum-types-in-the-wild" class="header-anchor">#</a> sum types in the wild</h3> <p>In Java, <em>there is no direct support for sum types</em>.
-The nearest thing possible is to create an interface,
-and promise that only a known number of types will implement it.</p> <p>In Go, <em>there is no direct support for sum types</em>.
-The nearest thing possible is to create an interface with an unexported method,
-and make sure only a known number of types in the same package implement it.
-(See https://github.com/BurntSushi/go-sumtype for tooling to help support this;
-the readme also contains good documentation of the concept!)</p> <p>In Rust, the <code>enum</code> keyword (confusingly) also creates sum types.
-Rust's sum types are at least properly closed (unlike Java's and Go's).</p> <h4 id="maybe-types"><a href="#maybe-types" class="header-anchor">#</a> maybe types</h4> <p>In <em>many</em> languages, you may find a type in the standard library called &quot;Maybe&quot;,
-or equally frequently, &quot;Optional&quot;, or, &quot;Either&quot;.
-These are a sum type!
-They're typically explained as &quot;either <strong>none</strong>, or <strong>some</strong> of a thing&quot;:
-so, they take the cardinality of a thing and simply &quot;plus one&quot; to it,
-and colloquially call that additional state the &quot;none&quot; state.</p> <p>For some <code>Maybe&lt;T&gt;</code>, the cardinality is &quot;1+|T|&quot;.</p> <p>(This is also a great example for how we can use cardinality counting methods
-to create clear comparisons between differently named but functionally
-identical concepts between programming language communities!)</p> <h4 id="indiscriminate-unions"><a href="#indiscriminate-unions" class="header-anchor">#</a> indiscriminate unions</h4> <p>Some languages (notably, C/C++) have a concept of &quot;union&quot; which is related,
-but markedly <em>not</em> a sum type, because this particular concept of a union
-is not &quot;discriminated&quot; -- it doesn't actually itself contain all the info needed
-to completely understand or handle it.
-This kind of &quot;union&quot; can be used to <em>build</em> a sum type semantic,
-but only in combination with an additional bit of memory used to indicate
-(or &quot;discriminate&quot;, if you will) what member type the union actually contains.</p> <p>We mention this here because the terminology is sometimes confusing.</p> <h3 id="product-types-in-the-wild"><a href="#product-types-in-the-wild" class="header-anchor">#</a> product types in the wild</h3> <p>In Java, <code>class</code> creates a product type.</p> <p>In Go, <code>struct</code> creates a product type.</p> <p>In Rust, <code>struct</code> creates a product type.</p> <h3 id="interfaces-in-the-wild"><a href="#interfaces-in-the-wild" class="header-anchor">#</a> interfaces in the wild</h3> <p>In Java, the <code>interface</code> keyword introduces an interface.
-These interfaces are <a href="#explicit-versus-structural-interfaces"><em>explicit</em></a>: a class must use the <code>implements</code> keyword to explicitly state that it can satisfy that interface.
-(That the class has sufficient methods to match the interface is then also checked at compile time -- but having the methods is not necessary rather than sufficient for the &quot;implements&quot; relationship to be considered true).</p> <p>In Go, the <code>interface</code> keyword introduces an interface.
-These interfaces are <a href="#explicit-versus-structural-interfaces"><em>structural</em></a> -- a struct doesn't need to <em>say</em> it implements an interface;
-if it has the relevant methods, then you can start using values of that type wherever the interface is required.</p> <p>In Rust, the <code>trait</code> feature combined with the <code>impl</code>+<code>for</code> keywords is most comparable to the concept of interface in other languages.
-Implementing a trait is <a href="#explicit-versus-structural-interfaces"><em>explicit</em></a> -- a type must use the <code>impl</code>+<code>for</code> keywords to explicitly state the methods that satisfy the trait.</p> <h3 id="what-about-numbers"><a href="#what-about-numbers" class="header-anchor">#</a> what about numbers?</h3> <p>Numbers are... interesting.</p> <p>For the most part in computing, we tend to pretend and build abstractions as if
-numbers are <a href="#infinite-scalars">infinite scalars</a>.</p> <p>Of course, this is rarely true in practice.
-Integers are often implemented in such a way that values that would require beyond 32 (or 64, etc) bits are unrepresentable;
-arguably, this makes them more like a (very (<em>very</em>) large) enum than anything else.
-Floating point numbers implemented in IEEE754 style also have their own entire host of foibles
-(they're still subject to limitations that stem from finite bit-size implementations;
-they have different ranges of representability than an integer of the same bit size;
-the <em>precision</em> they can represent varies with <em>how big</em> the number in question is;
-they include <em>interesting</em> values such as signed zeros which one might readily
-argue should not even be representable in an ideal system... and so on!).</p> <p>Some languages provide &quot;big&quot; numbers in their standard libraries.
-These &quot;big&quot; numbers are typically implemented by storing data as bytes,
-and expose mathematical operations on themselves as methods.
-By using a non-fixed number of bytes, they can be true <a href="#infinite-scalars">infinite scalars</a>.
-However, these &quot;big&quot; numbers are typically <em>not interchangeable</em> with the language's built-in number types,
-because the performance characteristics of these &quot;big&quot; numbers and their storage format
-is radically different than that of fixed-bit-size built-ins.
-(Attempts to shoe-horn &quot;big&quot; numbers and regular numbers into a single type tends
-to result in increasing the size of regular numbers, and few languages accept this tradeoff.)
-Since &quot;big&quot; numbers and built-in numbers usually aren't interchangeable,
-&quot;big&quot; numbers complicate rather than simplify the discussion;
-and since &quot;big&quot; numbers are the more rarely used of the two styles,
-most of our concerns in practice continue to orbit around fixed-bit-size numbers.</p> <p>The scope of this document is not to solve this conundrum, nor to try to convince you how you should consider numbers.
-In IPLD, we usually do consider integers to be <a href="#infinite-scalars">infinite scalars</a>;
-we add the caveat that libraries processing data which exceeds the boundaries they can process should error and halt explicitly.
-(In IPLD, we have the good fortune that this definition is unusually easy to stick to:
-since we only carry data around, and don't provide mathematical operations on it,
-it's easy to expect that data which was processable on the way in will remain processable throughout the time we handle it.)</p> <h2 id="types-in-ipld-schemas"><a href="#types-in-ipld-schemas" class="header-anchor">#</a> Types in IPLD Schemas</h2> <p>The core features of IPLD Schemas map very closely to the categories of types we've discussed:</p> <ul><li><a href="#enumerated-types">enumerated types</a> are <code>enum</code>.</li> <li><a href="#sum-types">sum types</a> are <code>union</code>.</li> <li><a href="#product-types">product types</a> are <code>struct</code>.</li> <li><a href="#infinite-recursives">infinite recursives</a> appear as <code>list</code> and <code>map</code>.</li> <li><a href="#infinite-scalars">infinite scalars</a> appear as <code>string</code>, <code>bytes</code>, and <code>int</code>.</li> <li><a href="#sum-types">sum types</a> specifically for <a href="#maybe-types">maybe</a> show up as <code>optional</code> and <code>nullable</code>.
-<ul><li>(there are two of them because each creates a sum with a different <a href="#unit-types">unit type</a>!)</li></ul></li></ul> <p>IPLD Schemas don't have a concept of <a href="#open-vs-closed-membership">interfaces</a>.
-At least, <em>not exactly</em> -- not <em>within</em> the schema.
-Instead, the <em>whole Schema</em> is treated as an interface:
-since you can take some data and take a schema, and attempt to unify them to get typed data if the schema &quot;matches&quot;...
-you can use a series of Schemas in the same way as you'd use a series of interfaces.
-(IPLD Schemas are effectively <a href="#explicit-versus-structural-interfaces"><em>structural</em></a> interfaces.)</p></div> <footer class="page-edit"><div class="edit-link"><a href="https://github.com/ipld/specs/edit/master/concepts/type-theory-glossary.md" target="_blank" rel="noopener noreferrer">Edit this page on GitHub</a> <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></div> <div class="last-updated"><span class="prefix">Last Updated:</span> <span class="time">10/17/2021, 12:12:20 PM</span></div></footer> <!----> </main></div><div class="global-ui"></div></div>
-    <script src="/assets/js/app.56a090d9.js" defer></script><script src="/assets/js/2.fcfe26fc.js" defer></script><script src="/assets/js/26.a811ea3d.js" defer></script>
-  </body>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>This page has moved...</title>
+  <meta http-equiv="refresh" content="7;url=https://ipld.io/design/concepts/type-theory-glossary/">
+  <link rel="canonical" href="https://ipld.io/design/concepts/type-theory-glossary/">
+  <style type="text/css">
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      font-size: 16px;
+      color: #2c3e50
+    }
+    a {
+      color: #3eaf7c;
+      font-weight: 500;
+      text-decoration: none
+    }
+  </style>
+</head>
+<body>
+  <p>This page has moved to <b><a href="https://ipld.io/design/concepts/type-theory-glossary/">https://ipld.io/design/concepts/type-theory-glossary/</a></b>. You will be redirected in 5 seconds.</p>
+  <script>
+    setTimeout(() => {
+      location.replace('https://ipld.io/design/concepts/type-theory-glossary/')
+    }, 5000)
+  </script>
+</body>
 </html>

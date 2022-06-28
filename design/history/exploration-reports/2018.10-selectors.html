@@ -1,254 +1,31 @@
-<!DOCTYPE html>
-<html lang="en-US">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>IPLD Specifications</title>
-    <meta name="generator" content="VuePress 1.8.2">
-    
-    <meta name="description" content="Specifications for the Inter-planetary Linked Data project">
-    
-    <link rel="preload" href="/assets/css/0.styles.1c4fef16.css" as="style"><link rel="preload" href="/assets/js/app.56a090d9.js" as="script"><link rel="preload" href="/assets/js/2.fcfe26fc.js" as="script"><link rel="preload" href="/assets/js/54.0a0dbd42.js" as="script"><link rel="prefetch" href="/assets/js/10.53c9867f.js"><link rel="prefetch" href="/assets/js/100.bb687f4e.js"><link rel="prefetch" href="/assets/js/101.25123911.js"><link rel="prefetch" href="/assets/js/102.e2b58b63.js"><link rel="prefetch" href="/assets/js/103.dc39a996.js"><link rel="prefetch" href="/assets/js/11.562cfd60.js"><link rel="prefetch" href="/assets/js/12.30c04317.js"><link rel="prefetch" href="/assets/js/13.861f55d5.js"><link rel="prefetch" href="/assets/js/14.0c0bcf83.js"><link rel="prefetch" href="/assets/js/15.12e6bfef.js"><link rel="prefetch" href="/assets/js/16.1fd4b009.js"><link rel="prefetch" href="/assets/js/17.7eb7942a.js"><link rel="prefetch" href="/assets/js/18.2d3e02cf.js"><link rel="prefetch" href="/assets/js/19.94e85fad.js"><link rel="prefetch" href="/assets/js/20.7fa209a5.js"><link rel="prefetch" href="/assets/js/21.9516badf.js"><link rel="prefetch" href="/assets/js/22.ba437a9d.js"><link rel="prefetch" href="/assets/js/23.8aad9134.js"><link rel="prefetch" href="/assets/js/24.bda34b45.js"><link rel="prefetch" href="/assets/js/25.e09cf544.js"><link rel="prefetch" href="/assets/js/26.a811ea3d.js"><link rel="prefetch" href="/assets/js/27.14d402ae.js"><link rel="prefetch" href="/assets/js/28.ff17eb99.js"><link rel="prefetch" href="/assets/js/29.a947ac23.js"><link rel="prefetch" href="/assets/js/3.7a717fc5.js"><link rel="prefetch" href="/assets/js/30.2e5469d8.js"><link rel="prefetch" href="/assets/js/31.7a7b4bfc.js"><link rel="prefetch" href="/assets/js/32.61c38d29.js"><link rel="prefetch" href="/assets/js/33.ad9a2031.js"><link rel="prefetch" href="/assets/js/34.8c162294.js"><link rel="prefetch" href="/assets/js/35.74b82d2b.js"><link rel="prefetch" href="/assets/js/36.1ef2b5a0.js"><link rel="prefetch" href="/assets/js/37.87fe33c4.js"><link rel="prefetch" href="/assets/js/38.cc8de423.js"><link rel="prefetch" href="/assets/js/39.c83bd1ec.js"><link rel="prefetch" href="/assets/js/4.fa7bcf0a.js"><link rel="prefetch" href="/assets/js/40.87507b3e.js"><link rel="prefetch" href="/assets/js/41.0ed7d141.js"><link rel="prefetch" href="/assets/js/42.9894e084.js"><link rel="prefetch" href="/assets/js/43.bb7cdbd3.js"><link rel="prefetch" href="/assets/js/44.6995f900.js"><link rel="prefetch" href="/assets/js/45.b2b5724d.js"><link rel="prefetch" href="/assets/js/46.d7270095.js"><link rel="prefetch" href="/assets/js/47.e01cb628.js"><link rel="prefetch" href="/assets/js/48.b927d797.js"><link rel="prefetch" href="/assets/js/49.c94ce1d8.js"><link rel="prefetch" href="/assets/js/5.0ee05b29.js"><link rel="prefetch" href="/assets/js/50.ce57b5ca.js"><link rel="prefetch" href="/assets/js/51.6c577f63.js"><link rel="prefetch" href="/assets/js/52.5636723e.js"><link rel="prefetch" href="/assets/js/53.83d65116.js"><link rel="prefetch" href="/assets/js/55.4dee537c.js"><link rel="prefetch" href="/assets/js/56.187427c3.js"><link rel="prefetch" href="/assets/js/57.7cb6cd68.js"><link rel="prefetch" href="/assets/js/58.239c551f.js"><link rel="prefetch" href="/assets/js/59.0b9bb6f2.js"><link rel="prefetch" href="/assets/js/6.8383fa2a.js"><link rel="prefetch" href="/assets/js/60.6c20aac6.js"><link rel="prefetch" href="/assets/js/61.968602f7.js"><link rel="prefetch" href="/assets/js/62.1b6cac7d.js"><link rel="prefetch" href="/assets/js/63.ea2fb562.js"><link rel="prefetch" href="/assets/js/64.25278b13.js"><link rel="prefetch" href="/assets/js/65.69eb5be2.js"><link rel="prefetch" href="/assets/js/66.9f8b6ff0.js"><link rel="prefetch" href="/assets/js/67.1ad0b2b6.js"><link rel="prefetch" href="/assets/js/68.0f395a44.js"><link rel="prefetch" href="/assets/js/69.a43c7911.js"><link rel="prefetch" href="/assets/js/7.781bc252.js"><link rel="prefetch" href="/assets/js/70.75871870.js"><link rel="prefetch" href="/assets/js/71.148e6ff4.js"><link rel="prefetch" href="/assets/js/72.69176695.js"><link rel="prefetch" href="/assets/js/73.24265001.js"><link rel="prefetch" href="/assets/js/74.ab1f4487.js"><link rel="prefetch" href="/assets/js/75.f765fe47.js"><link rel="prefetch" href="/assets/js/76.63a86cd8.js"><link rel="prefetch" href="/assets/js/77.0863aa53.js"><link rel="prefetch" href="/assets/js/78.26e08ce1.js"><link rel="prefetch" href="/assets/js/79.1a971f83.js"><link rel="prefetch" href="/assets/js/8.ed6f0f70.js"><link rel="prefetch" href="/assets/js/80.179a0331.js"><link rel="prefetch" href="/assets/js/81.e4e39c2e.js"><link rel="prefetch" href="/assets/js/82.3bee9de2.js"><link rel="prefetch" href="/assets/js/83.950da1b2.js"><link rel="prefetch" href="/assets/js/84.0372c0fd.js"><link rel="prefetch" href="/assets/js/85.6f120f50.js"><link rel="prefetch" href="/assets/js/86.864ad350.js"><link rel="prefetch" href="/assets/js/87.2c8b5941.js"><link rel="prefetch" href="/assets/js/88.7f7b8dad.js"><link rel="prefetch" href="/assets/js/89.2c2cc3c7.js"><link rel="prefetch" href="/assets/js/9.b367a0c8.js"><link rel="prefetch" href="/assets/js/90.304a6f3e.js"><link rel="prefetch" href="/assets/js/91.09f58297.js"><link rel="prefetch" href="/assets/js/92.dbb564bb.js"><link rel="prefetch" href="/assets/js/93.a62b8678.js"><link rel="prefetch" href="/assets/js/94.b3e84ab0.js"><link rel="prefetch" href="/assets/js/95.db81aaa0.js"><link rel="prefetch" href="/assets/js/96.e40b62fc.js"><link rel="prefetch" href="/assets/js/97.5d33b7b8.js"><link rel="prefetch" href="/assets/js/98.3036c2ac.js"><link rel="prefetch" href="/assets/js/99.b4491926.js">
-    <link rel="stylesheet" href="/assets/css/0.styles.1c4fef16.css">
-  </head>
-  <body>
-    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/" class="home-link router-link-active"><!----> <span class="site-name">IPLD Specifications</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/" class="nav-link">
-  Home
-</a></div><div class="nav-item"><a href="/schemas/" class="nav-link">
-  IPLD Schemas
-</a></div> <a href="https://github.com/ipld/specs" target="_blank" rel="noopener noreferrer" class="repo-link">
-    GitHub
-    <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/" class="nav-link">
-  Home
-</a></div><div class="nav-item"><a href="/schemas/" class="nav-link">
-  IPLD Schemas
-</a></div> <a href="https://github.com/ipld/specs" target="_blank" rel="noopener noreferrer" class="repo-link">
-    GitHub
-    <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></nav>  <ul class="sidebar-links"><li><section class="sidebar-group depth-0"><p class="sidebar-heading open"><span></span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/design/history/exploration-reports/2018.10-selectors.html#approach-selector-types" class="sidebar-link">Approach: Selector Types</a><ul class="sidebar-sub-headers"></ul></li><li><a href="/design/history/exploration-reports/2018.10-selectors.html#selector-types" class="sidebar-link">Selector Types</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/design/history/exploration-reports/2018.10-selectors.html#cid-selector" class="sidebar-link">Cid Selector</a></li><li class="sidebar-sub-header"><a href="/design/history/exploration-reports/2018.10-selectors.html#path-selector" class="sidebar-link">Path Selector</a></li><li class="sidebar-sub-header"><a href="/design/history/exploration-reports/2018.10-selectors.html#glob-selector" class="sidebar-link">Glob Selector</a></li><li class="sidebar-sub-header"><a href="/design/history/exploration-reports/2018.10-selectors.html#multi-selector" class="sidebar-link">Multi Selector</a></li></ul></li><li><a href="/design/history/exploration-reports/2018.10-selectors.html#ipld-interfaces-in-go-with-selectors" class="sidebar-link">IPLD Interfaces in Go with Selectors</a><ul class="sidebar-sub-headers"></ul></li></ul></section></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><p>!!!</p> <p>This document has <strong>moved</strong>.</p> <p>You'll now find information like this in the <a href="https://github.com/ipld/ipld/" target="_blank" rel="noopener noreferrer">ipld/ipld<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a> meta-repo,
-and published to the web at https://ipld.io/ .</p> <p>All documentation, fixtures, specifications, and web content is now gathered into that repo.
-Please update your links, and direct new contributions there.</p> <p>!!!</p> <hr> <p>This document was archived from https://github.com/ipld/specs/issues/94 and was originally part of the <a href="https://github.com/ipld/specs/pull/75" target="_blank" rel="noopener noreferrer">Graphsync (b) proposal<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a> by @jbenet.</p> <h2 id="approach-selector-types"><a href="#approach-selector-types" class="header-anchor">#</a> Approach: Selector Types</h2> <p>The requirements stated <a href="/design/history/exploration-reports/2018.10-selectors-design-goals.html#selector-requirements">here</a> are hard to meet. We have spent lots of time in the last few years trying to reconcile them into one language and syntax, with no success. Earlier this year (2018) we recognized that the solution to this problem should be flexibility and interoperability: let many selector languages and syntaxes flourish, and let them evolve over time. This would allow us to satisfy all constraints, including both a permanent model that can also improve over time. And it reduces the core of our system into three components:</p> <ul><li>(1) A system of selector types, that allows creating new selector languages and syntaxes, and can compose them.</li> <li>(2) An easy path for plugging selector types into IPLD libraries and other consumers of IPLD Selectors.</li> <li>(3) A light process for testing and admitting new selector types into standard IPLD libraries.</li></ul> <p>These components imply or expand into the following things:</p> <ul><li>Well-defined binary and human-readable type self-description (codes in multicodec).</li> <li>A narrow <code>Selector</code> interface for most uses of selectors, agnostic to selector type.</li> <li>A standard way to add selector type implementations to IPLD libraries</li> <li>IPLD libraries that pervasively uses the abstract  <code>Selector</code> type, and can plug in concrete types.</li> <li>A few simple selector types that cover most common cases (cid, path, glob, ...)</li> <li>A selector type to allow composing selectors (MultiSelector)</li> <li>Aim for language independent implementations of selector implementations (parsers, execution, etc). (WASM?)</li> <li>Allow language-specific implementations of selectors (parsers, execution, etc).</li> <li>(IMPORTANT) Well-designed set of test vectors representing a variety of use cases for IPLD Selectors.</li> <li>A recommended structure for implementing a selector type, with an easy to use test suite.</li></ul> <h2 id="selector-types"><a href="#selector-types" class="header-anchor">#</a> Selector Types</h2> <p>Selectors have multiple types</p> <div class="language- extra-class"><pre class="language-text"><code>&lt;selector-code&gt; &lt;selector-string-code&gt; &lt;selector-type&gt;
-0, null, selects the empty set
-1, cid, selects a specific cid
-2, path, selects an ipld path
-3, glob, selects a unix-style glob
-4, multi, combines multiple selectors
-5, css, selects in css style
-6, git, selects with git tilde notation
-7, bitfield, selects all the nodes expressed in a bitfield
-</code></pre></div><p><strong>TODO</strong>: put selectors into the grand magnificent global universal multicodec table...</p> <h3 id="cid-selector"><a href="#cid-selector" class="header-anchor">#</a> Cid Selector</h3> <p>This is a basic selector, that means exactly a single CID, and thus a single graph node. Nothing more.</p> <div class="language-go extra-class"><pre class="language-go"><code><span class="token comment">// Binary: &lt;selector-code&gt;&lt;length&gt;&lt;cid-selector-code&gt;&lt;binary-cid&gt;</span>
-<span class="token comment">//     or: &lt;cid-selector-code&gt;&lt;binary-cid&gt;</span>
-<span class="token comment">// String: /sel/cid/&lt;multibase-encoded-cid&gt;</span>
-<span class="token keyword">type</span> CidSelector <span class="token keyword">struct</span> <span class="token punctuation">{</span>
-  Cid Cid <span class="token comment">// el cid</span>
-<span class="token punctuation">}</span>
-</code></pre></div><h3 id="path-selector"><a href="#path-selector" class="header-anchor">#</a> Path Selector</h3> <p>This is a selector w/ a path. Absolute ones must start with a CID</p> <div class="language-go extra-class"><pre class="language-go"><code><span class="token comment">// Binary: &lt;selector-code&gt;&lt;length&gt;&lt;path-selector-code&gt;&lt;binary-cid&gt;&lt;binary-path&gt;</span>
-<span class="token comment">//     or: &lt;path-selector-code&gt;&lt;length&gt;&lt;binary-path&gt;</span>
-<span class="token comment">// String: /sel/path/&lt;multibase-encoded-cid&gt;/a/b/c/d/...</span>
-<span class="token keyword">type</span> PathSelector <span class="token keyword">struct</span> <span class="token punctuation">{</span>
-  Path Path
-<span class="token punctuation">}</span>
-</code></pre></div><h3 id="glob-selector"><a href="#glob-selector" class="header-anchor">#</a> Glob Selector</h3> <p>This is a selector with a <a href="https://en.wikipedia.org/wiki/Glob_(programming)" target="_blank" rel="noopener noreferrer">unix shell glob<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a> style thing. Absolute ones must start with a CID. It supports the following syntax:</p> <ul><li><code>*</code> - means any number of single characters, except <code>/</code> -- ie matches any link within a level (as in shell <code>*</code>)</li> <li><code>**</code> - means any decendant (as in shell <code>**</code>)</li> <li><code>?</code> - matches any single character</li> <li><code>{abc,def}</code> - means either <code>abc</code> or <code>def</code></li> <li>[abc] - matches one character in the bracket set.</li> <li>[a-z] - matches one character from the (locale-dependent) range given in the bracket.</li></ul> <div class="language-go extra-class"><pre class="language-go"><code><span class="token comment">// Binary: &lt;selector-code&gt;&lt;length&gt;&lt;glob-selector-code&gt;&lt;binary-cid&gt;&lt;binary-path&gt;</span>
-<span class="token comment">//     or: &lt;glob-selector-code&gt;&lt;length&gt;&lt;binary-path&gt;</span>
-<span class="token comment">// String: /sel/path/&lt;multibase-encoded-cid&gt;/a/*/**</span>
-<span class="token keyword">type</span> GlobSelector <span class="token keyword">struct</span> <span class="token punctuation">{</span>
-    Glob Path
-<span class="token punctuation">}</span>
-</code></pre></div><h3 id="multi-selector"><a href="#multi-selector" class="header-anchor">#</a> Multi Selector</h3> <p>This is a selector that combines other selectors. It is a set expression.</p> <ul><li><code>union</code> ($$ A \cup B $$) - takes all nodes expressed by either selectors (A <em>or</em> B)</li> <li><code>intersection</code> ($$ A \cap B $$) - takes all nodes expressed by both selectors (A <em>and</em> B)</li> <li><code>difference</code> ($$ A - B $$) - takes all nodes expressed in A, except those expressed in B (A <em>except</em> B)</li></ul> <div class="language-go extra-class"><pre class="language-go"><code><span class="token comment">// Binary: &lt;selector-code&gt;&lt;length&gt;&lt;multi-selector-code&gt;&lt;sel-sexp&gt;</span>
-<span class="token comment">//     or: &lt;multi-selector-code&gt;&lt;length&gt;&lt;sel-sexp&gt;</span>
-<span class="token comment">// String: /sel/multi/(string sel sexp)</span>
-<span class="token comment">//       no can do</span>
-<span class="token keyword">type</span> MultiSelector <span class="token keyword">struct</span> <span class="token punctuation">{</span>
-  Op   Operator
-    Sels <span class="token punctuation">[</span><span class="token punctuation">]</span>Selector
-<span class="token punctuation">}</span>
-
-<span class="token keyword">type</span> Operator <span class="token builtin">int</span>
-<span class="token keyword">const</span> <span class="token punctuation">(</span>
-  OpUnion        Operator <span class="token operator">=</span> <span class="token number">1</span>
-    OpIntersection Operator <span class="token operator">=</span> <span class="token number">2</span>
-    OpDifference   Operator <span class="token operator">=</span> <span class="token number">3</span>
-<span class="token punctuation">)</span>
-</code></pre></div><h4 id="selector-s-expressions-sel-sexp"><a href="#selector-s-expressions-sel-sexp" class="header-anchor">#</a> Selector S-expressions (<code>sel-sexp</code>)</h4> <p><a href="https://en.wikipedia.org/wiki/S-expression" target="_blank" rel="noopener noreferrer">S-expressions<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a> are a simple way to combine objects into nested expressions. We define this in order to have Multi Selectors. A selector s-expression (<code>sel-sexp</code>) is defined as follows.</p> <p>Option 1 - simpler, need to nest another multiselector to nest another expression (this seems better).</p> <div class="language- extra-class"><pre class="language-text"><code>&lt;sel-sexp&gt;  ::= &lt;varint-2+&gt;&lt;operator&gt;(&lt;selector&gt;)+
-</code></pre></div><p>Option 2: more complicated at the <code>sel-sexp</code> level, but avoids having to embed the multiselector preamble.</p> <div class="language- extra-class"><pre class="language-text"><code>&lt;sel-sexp&gt;  ::= &lt;varint-0&gt; |
-                &lt;varint-1&gt;&lt;selector&gt; |
-                &lt;varint-2+&gt;&lt;operator&gt;(&lt;sel-sexp&gt;)+
-
-&lt;operator&gt;  ::= 1 (union) | 2 (intersection) | 3 (difference)
-&lt;varint-0&gt;  ::= 0
-&lt;varint-1&gt;  ::= 1
-&lt;varint-2+&gt; ::= 2 or more (in a varint)
-</code></pre></div><h2 id="ipld-interfaces-in-go-with-selectors"><a href="#ipld-interfaces-in-go-with-selectors" class="header-anchor">#</a> IPLD Interfaces in Go with Selectors</h2> <p>This section presents a set of possible interfaces in Go, using IPLD dags and selectors. The main purpose of this example is to show how the Selector interfaces might work in practice.</p> <div class="language-go extra-class"><pre class="language-go"><code><span class="token keyword">const</span> <span class="token punctuation">(</span>
-    <span class="token comment">// ErrNotFound is returned when an object is not found at a particular dag.</span>
-    ErrNotFound <span class="token operator">=</span> errors<span class="token punctuation">.</span><span class="token function">New</span><span class="token punctuation">(</span><span class="token string">&quot;not found&quot;</span><span class="token punctuation">)</span>
-
-    <span class="token comment">// ErrInvalidPath is returned when a path is not</span>
-    ErrInvalidPath <span class="token operator">=</span> errors<span class="token punctuation">.</span><span class="token function">New</span><span class="token punctuation">(</span><span class="token string">&quot;invalid path&quot;</span><span class="token punctuation">)</span>
-<span class="token punctuation">)</span>
-
-<span class="token comment">// DAG is an object that provides access to an entire IPLD dag.</span>
-<span class="token comment">// It provides a handle to a set of data, all of which is rooted at one</span>
-<span class="token comment">// node (the Root).</span>
-<span class="token comment">// The interface is very simple, it only provides the Root, GetNode to retrieve</span>
-<span class="token comment">// any sub-object by path, and Traverse, to use in algorithms that need to</span>
-<span class="token comment">// sub-select or visit the entire dag.</span>
-<span class="token comment">// This could be entirely in memory, lazy-loaded, backed by a DagService,</span>
-<span class="token comment">// or be a proxy to a remote dag.</span>
-<span class="token keyword">type</span> DAG <span class="token keyword">interface</span> <span class="token punctuation">{</span>
-    <span class="token comment">// Root returns the Path of the ipld node that is the root of this DAG</span>
-    <span class="token comment">// We return the Path to avoid returning an error, as returning</span>
-    <span class="token comment">// the node itself may fail.</span>
-    <span class="token function">Root</span><span class="token punctuation">(</span><span class="token punctuation">)</span> Path
-
-    <span class="token comment">// GetNode returns an object identified by path.</span>
-    <span class="token comment">// Path may be absolute (start with a CID), or relative (from the root),</span>
-    <span class="token comment">// similar to how directories work in Unix filesystems.</span>
-    <span class="token comment">// Either way, the node returned MUST be a descendant of Root().</span>
-    <span class="token comment">// rest is the remainder if the Path, if any is left. if rest is not empty,</span>
-    <span class="token comment">// then err is not nil (ErrInvalidPath or ErrNotFound).</span>
-    <span class="token comment">// The return error may be ErrNotFound, ErrInvalidPath, or errors</span>
-    <span class="token comment">// propagated from underlying systems.</span>
-    <span class="token function">GetNode</span><span class="token punctuation">(</span>path Path<span class="token punctuation">)</span> <span class="token punctuation">(</span>n Node<span class="token punctuation">,</span> rest Path<span class="token punctuation">,</span> err <span class="token builtin">error</span><span class="token punctuation">)</span>
-
-    <span class="token comment">// Traverse returns a Traverser object to walk through this whole Dag.</span>
-    <span class="token comment">// See the Traverser documentation for how to use it.</span>
-    <span class="token function">Traverse</span><span class="token punctuation">(</span><span class="token punctuation">)</span> Traverser
-<span class="token punctuation">}</span>
-
-
-<span class="token comment">// Traverser is an object that traverses a particular dag. Think of it like</span>
-<span class="token comment">// an iterator over the whole dag. This object is in principle similar to</span>
-<span class="token comment">// traversals like os.Walk, to iterators in c++/rust, to generators in Python,</span>
-<span class="token comment">// etc.</span>
-<span class="token comment">//</span>
-<span class="token comment">// The implementation of a traverser is highly Dag depenedent, thus usually</span>
-<span class="token comment">// an implementation of Dag will have a specific Traverser associated with it.</span>
-<span class="token comment">//</span>
-<span class="token comment">// Traversers support filtering via selectors, which is an important feature.</span>
-<span class="token comment">// Instead of requiring wrapping/nesting traversers (expensive), we allow</span>
-<span class="token comment">// filtering a single traverser with multiple selectors instead (much cheaper).</span>
-<span class="token comment">// This allows the logic of checking whether to consider a node to be applied</span>
-<span class="token comment">// efficiently, ideally before the node is fetched.</span>
-<span class="token comment">//</span>
-<span class="token comment">// TODO:</span>
-<span class="token comment">// - address skipping links, as in os.Walk. Maybe turn into a walk function.</span>
-<span class="token comment">// - return only the Path, not the node (avoid retrieving it if not needed?).</span>
-<span class="token comment">//   this is similar to how os.Walk works.</span>
-<span class="token keyword">type</span> Traverser <span class="token keyword">interface</span> <span class="token punctuation">{</span>
-  <span class="token comment">// Next returns the next node visited by this Traverser</span>
-  <span class="token function">Next</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">(</span>Path<span class="token punctuation">,</span> Node<span class="token punctuation">,</span> <span class="token builtin">error</span><span class="token punctuation">)</span>
-
-  <span class="token comment">// Filter adds a new selector to filter the nodes the Traverser will return</span>
-  <span class="token function">Filter</span><span class="token punctuation">(</span>sel Selector<span class="token punctuation">)</span>
-<span class="token punctuation">}</span>
-
-<span class="token comment">// Selector is an object that expresses a sub-selection on a graph.</span>
-<span class="token comment">//</span>
-<span class="token comment">// For a more complete articulation of selectiors, read the IPLD selector</span>
-<span class="token comment">// design document.</span>
-<span class="token comment">//</span>
-<span class="token comment">// Note that selectors have different types, and each type will need its</span>
-<span class="token comment">// own Go object. User code should use the selector interface and avoid</span>
-<span class="token comment">// assuming a specific type of selector. Types are identified using a code,</span>
-<span class="token comment">// agreed upon in the multicodec table.</span>
-<span class="token comment">//</span>
-<span class="token comment">// The selector interface in Go is a simple construct that enables reducing</span>
-<span class="token comment">// a dag to a subset represented in a concise selector expression. All it</span>
-<span class="token comment">// does is check whether a path is included in the selector (IncludesPath).</span>
-<span class="token comment">// Using this, other objects (like the Traverser) can reduce a Dag to only</span>
-<span class="token comment">// the subdag represented by the selector.</span>
-<span class="token comment">//</span>
-<span class="token comment">// Important note: selectors select a subdag that is also connected to the</span>
-<span class="token comment">// same dag root. Whatever nodes are selected by the selector must</span>
-<span class="token comment">// include paths going all the way back to the root. There are no nodes</span>
-<span class="token comment">// selected that are disconnected from the root -- at least one of their parents</span>
-<span class="token comment">// (linked-from relationship) must also be selected.</span>
-<span class="token comment">//</span>
-<span class="token comment">// Serialization</span>
-<span class="token comment">// - Selectors have both string and binary representations. These are canonical</span>
-<span class="token comment">//   and can be used in a variety of places.</span>
-<span class="token comment">// - The binary representation should be used in memory, on the wire, on disk, etc.</span>
-<span class="token comment">// - The string representation should be used whenever a selector is shown to the</span>
-<span class="token comment">//   user, or when the user is inputting a selector. It can also be used in other</span>
-<span class="token comment">//   formats that aim to have high human readability (eg package.json, etc).</span>
-<span class="token keyword">type</span> Selector <span class="token keyword">interface</span> <span class="token punctuation">{</span>
-    <span class="token comment">// IncludesPath returns whether path p is included in this selector,</span>
-    <span class="token comment">// as applied to dag d.</span>
-    <span class="token comment">//</span>
-    <span class="token comment">// d is necessary in order to have a handle to the</span>
-    <span class="token comment">// whole dag. Selector objects themselves should be cheap and not</span>
-    <span class="token comment">// link to huge amounts of data.</span>
-    <span class="token function">IncludesPath</span><span class="token punctuation">(</span>d Dag<span class="token punctuation">,</span> p Path<span class="token punctuation">)</span> <span class="token builtin">bool</span>
-
-    <span class="token comment">// IsAbsolute returns whether the selector is absolute (rooted at a specific</span>
-    <span class="token comment">// cid in the serialized expression) or not. If it's not, it is relative,</span>
-    <span class="token comment">// which means there is no cid in the expression, and thus the selector</span>
-    <span class="token comment">// root is the root of the dag it is applied to. Intuitively, this works</span>
-    <span class="token comment">// exactly the same as shell globs in unix filesystems:</span>
-    <span class="token comment">// - Absolute: /foo/bar/baz/**/*  -&gt; &lt;root-cid&gt;/bar/baz/**/*</span>
-    <span class="token comment">// - Reltaive: baz/**/*           -&gt; baz/**/*</span>
-    <span class="token function">IsAbsolute</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token builtin">bool</span>
-
-    <span class="token comment">// Root returns the root Cid of this selector.</span>
-    <span class="token comment">// It may be nil if the selector is not absolute.</span>
-    <span class="token function">Root</span><span class="token punctuation">(</span><span class="token punctuation">)</span> Cid
-
-    <span class="token comment">// Type returns the selector type code.</span>
-    <span class="token function">Type</span><span class="token punctuation">(</span><span class="token punctuation">)</span> SelectorType
-
-    <span class="token comment">// Bytes returns the binary packed serialized representation of this selector.</span>
-    <span class="token comment">// Use this for all machine-oriented input/output (on the wire, disk, etc.)</span>
-    <span class="token function">Bytes</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">byte</span>
-
-    <span class="token comment">// String returns the string serialized representation of this selector.</span>
-    <span class="token comment">// Use this for all human readable input/output (terminal, etc).</span>
-    <span class="token function">String</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token builtin">string</span>
-<span class="token punctuation">}</span>
-
-<span class="token comment">// SelectorType is the enum used for selector type codes. These type codes</span>
-<span class="token comment">// are part of the protocol and housed in the multicodec table.</span>
-<span class="token keyword">type</span> SelectorType <span class="token builtin">int</span>
-<span class="token keyword">const</span> <span class="token punctuation">(</span>
-    NullSelector SelectorType <span class="token operator">=</span> <span class="token number">0</span>
-    CidSelector SelectorType <span class="token operator">=</span> <span class="token number">1</span>
-    PathSelector SelectorType <span class="token operator">=</span> <span class="token number">2</span>
-<span class="token punctuation">)</span>
-
-<span class="token comment">// Select is a function that applies a selector to a dag, returning the resulting</span>
-<span class="token comment">// subdag. It is implemented using a Traverser. Given a lazy traverser</span>
-<span class="token comment">// implementation, it should be a lazy application and avoid visiting the whole</span>
-<span class="token comment">// dag until it needs to.</span>
-<span class="token keyword">func</span> <span class="token function">Select</span><span class="token punctuation">(</span>d Dag<span class="token punctuation">,</span> s Selector<span class="token punctuation">)</span> Dag <span class="token punctuation">{</span>
-    t <span class="token operator">:=</span> d<span class="token punctuation">.</span><span class="token function">Traverse</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-    t<span class="token punctuation">.</span><span class="token function">Filter</span><span class="token punctuation">(</span>s<span class="token punctuation">)</span>
-    <span class="token keyword">return</span> <span class="token operator">&amp;</span>traversedDag<span class="token punctuation">{</span>d<span class="token punctuation">,</span> s<span class="token punctuation">,</span> t<span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
-
-<span class="token comment">// traversedDag is a utility dag implementation that uses a traverser to</span>
-<span class="token comment">// to apply a selector. this is what Select uses.</span>
-<span class="token keyword">type</span> traversedDag <span class="token keyword">struct</span> <span class="token punctuation">{</span>
-    d Dag
-    s Selector
-    t Traverser
-<span class="token punctuation">}</span>
-
-<span class="token keyword">func</span> <span class="token punctuation">(</span>d <span class="token operator">*</span>traversedDag<span class="token punctuation">)</span> <span class="token function">Root</span><span class="token punctuation">(</span><span class="token punctuation">)</span> Node <span class="token punctuation">{</span>
-    <span class="token keyword">if</span> d<span class="token punctuation">.</span>s<span class="token punctuation">.</span><span class="token function">IncludesPath</span><span class="token punctuation">(</span>RootPath<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">return</span> d<span class="token punctuation">.</span>d<span class="token punctuation">.</span><span class="token function">Root</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-    <span class="token punctuation">}</span>
-    <span class="token keyword">return</span> <span class="token boolean">nil</span>
-<span class="token punctuation">}</span>
-
-<span class="token keyword">func</span> <span class="token punctuation">(</span>d <span class="token operator">*</span>traversedDag<span class="token punctuation">)</span> <span class="token function">GetNode</span><span class="token punctuation">(</span>path Path<span class="token punctuation">)</span> Node <span class="token punctuation">{</span>
-    <span class="token keyword">if</span> d<span class="token punctuation">.</span>s<span class="token punctuation">.</span><span class="token function">IncludesPath</span><span class="token punctuation">(</span>path<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">return</span> d<span class="token punctuation">.</span>d<span class="token punctuation">.</span><span class="token function">GetNode</span><span class="token punctuation">(</span>path<span class="token punctuation">)</span>
-    <span class="token punctuation">}</span>
-    <span class="token keyword">return</span> <span class="token boolean">nil</span>
-<span class="token punctuation">}</span>
-
-<span class="token keyword">func</span> <span class="token punctuation">(</span>d <span class="token operator">*</span>traversedDag<span class="token punctuation">)</span> <span class="token function">Traverse</span><span class="token punctuation">(</span><span class="token punctuation">)</span> Traverser <span class="token punctuation">{</span>
-    <span class="token keyword">return</span> <span class="token function">WrapTraverser</span><span class="token punctuation">(</span>d<span class="token punctuation">.</span>t<span class="token punctuation">)</span>
-<span class="token punctuation">}</span>
-</code></pre></div></div> <footer class="page-edit"><div class="edit-link"><a href="https://github.com/ipld/specs/edit/master/design/history/exploration-reports/2018.10-selectors.md" target="_blank" rel="noopener noreferrer">Edit this page on GitHub</a> <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></div> <div class="last-updated"><span class="prefix">Last Updated:</span> <span class="time">10/17/2021, 12:12:20 PM</span></div></footer> <!----> </main></div><div class="global-ui"></div></div>
-    <script src="/assets/js/app.56a090d9.js" defer></script><script src="/assets/js/2.fcfe26fc.js" defer></script><script src="/assets/js/54.0a0dbd42.js" defer></script>
-  </body>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>This page has moved...</title>
+  <meta http-equiv="refresh" content="7;url=https://github.com/ipld/ipld/tree/master/notebook/exploration-reports">
+  <link rel="canonical" href="https://github.com/ipld/ipld/tree/master/notebook/exploration-reports">
+  <style type="text/css">
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      font-size: 16px;
+      color: #2c3e50
+    }
+    a {
+      color: #3eaf7c;
+      font-weight: 500;
+      text-decoration: none
+    }
+  </style>
+</head>
+<body>
+  <p>This page has moved to <b><a href="https://github.com/ipld/ipld/tree/master/notebook/exploration-reports">https://github.com/ipld/ipld/tree/master/notebook/exploration-reports</a></b>. You will be redirected in 5 seconds.</p>
+  <script>
+    setTimeout(() => {
+      location.replace('https://github.com/ipld/ipld/tree/master/notebook/exploration-reports')
+    }, 5000)
+  </script>
+</body>
 </html>

@@ -1,166 +1,31 @@
-<!DOCTYPE html>
-<html lang="en-US">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>IPLD Specifications</title>
-    <meta name="generator" content="VuePress 1.8.2">
-    
-    <meta name="description" content="Specifications for the Inter-planetary Linked Data project">
-    
-    <link rel="preload" href="/assets/css/0.styles.1c4fef16.css" as="style"><link rel="preload" href="/assets/js/app.56a090d9.js" as="script"><link rel="preload" href="/assets/js/2.fcfe26fc.js" as="script"><link rel="preload" href="/assets/js/102.e2b58b63.js" as="script"><link rel="prefetch" href="/assets/js/10.53c9867f.js"><link rel="prefetch" href="/assets/js/100.bb687f4e.js"><link rel="prefetch" href="/assets/js/101.25123911.js"><link rel="prefetch" href="/assets/js/103.dc39a996.js"><link rel="prefetch" href="/assets/js/11.562cfd60.js"><link rel="prefetch" href="/assets/js/12.30c04317.js"><link rel="prefetch" href="/assets/js/13.861f55d5.js"><link rel="prefetch" href="/assets/js/14.0c0bcf83.js"><link rel="prefetch" href="/assets/js/15.12e6bfef.js"><link rel="prefetch" href="/assets/js/16.1fd4b009.js"><link rel="prefetch" href="/assets/js/17.7eb7942a.js"><link rel="prefetch" href="/assets/js/18.2d3e02cf.js"><link rel="prefetch" href="/assets/js/19.94e85fad.js"><link rel="prefetch" href="/assets/js/20.7fa209a5.js"><link rel="prefetch" href="/assets/js/21.9516badf.js"><link rel="prefetch" href="/assets/js/22.ba437a9d.js"><link rel="prefetch" href="/assets/js/23.8aad9134.js"><link rel="prefetch" href="/assets/js/24.bda34b45.js"><link rel="prefetch" href="/assets/js/25.e09cf544.js"><link rel="prefetch" href="/assets/js/26.a811ea3d.js"><link rel="prefetch" href="/assets/js/27.14d402ae.js"><link rel="prefetch" href="/assets/js/28.ff17eb99.js"><link rel="prefetch" href="/assets/js/29.a947ac23.js"><link rel="prefetch" href="/assets/js/3.7a717fc5.js"><link rel="prefetch" href="/assets/js/30.2e5469d8.js"><link rel="prefetch" href="/assets/js/31.7a7b4bfc.js"><link rel="prefetch" href="/assets/js/32.61c38d29.js"><link rel="prefetch" href="/assets/js/33.ad9a2031.js"><link rel="prefetch" href="/assets/js/34.8c162294.js"><link rel="prefetch" href="/assets/js/35.74b82d2b.js"><link rel="prefetch" href="/assets/js/36.1ef2b5a0.js"><link rel="prefetch" href="/assets/js/37.87fe33c4.js"><link rel="prefetch" href="/assets/js/38.cc8de423.js"><link rel="prefetch" href="/assets/js/39.c83bd1ec.js"><link rel="prefetch" href="/assets/js/4.fa7bcf0a.js"><link rel="prefetch" href="/assets/js/40.87507b3e.js"><link rel="prefetch" href="/assets/js/41.0ed7d141.js"><link rel="prefetch" href="/assets/js/42.9894e084.js"><link rel="prefetch" href="/assets/js/43.bb7cdbd3.js"><link rel="prefetch" href="/assets/js/44.6995f900.js"><link rel="prefetch" href="/assets/js/45.b2b5724d.js"><link rel="prefetch" href="/assets/js/46.d7270095.js"><link rel="prefetch" href="/assets/js/47.e01cb628.js"><link rel="prefetch" href="/assets/js/48.b927d797.js"><link rel="prefetch" href="/assets/js/49.c94ce1d8.js"><link rel="prefetch" href="/assets/js/5.0ee05b29.js"><link rel="prefetch" href="/assets/js/50.ce57b5ca.js"><link rel="prefetch" href="/assets/js/51.6c577f63.js"><link rel="prefetch" href="/assets/js/52.5636723e.js"><link rel="prefetch" href="/assets/js/53.83d65116.js"><link rel="prefetch" href="/assets/js/54.0a0dbd42.js"><link rel="prefetch" href="/assets/js/55.4dee537c.js"><link rel="prefetch" href="/assets/js/56.187427c3.js"><link rel="prefetch" href="/assets/js/57.7cb6cd68.js"><link rel="prefetch" href="/assets/js/58.239c551f.js"><link rel="prefetch" href="/assets/js/59.0b9bb6f2.js"><link rel="prefetch" href="/assets/js/6.8383fa2a.js"><link rel="prefetch" href="/assets/js/60.6c20aac6.js"><link rel="prefetch" href="/assets/js/61.968602f7.js"><link rel="prefetch" href="/assets/js/62.1b6cac7d.js"><link rel="prefetch" href="/assets/js/63.ea2fb562.js"><link rel="prefetch" href="/assets/js/64.25278b13.js"><link rel="prefetch" href="/assets/js/65.69eb5be2.js"><link rel="prefetch" href="/assets/js/66.9f8b6ff0.js"><link rel="prefetch" href="/assets/js/67.1ad0b2b6.js"><link rel="prefetch" href="/assets/js/68.0f395a44.js"><link rel="prefetch" href="/assets/js/69.a43c7911.js"><link rel="prefetch" href="/assets/js/7.781bc252.js"><link rel="prefetch" href="/assets/js/70.75871870.js"><link rel="prefetch" href="/assets/js/71.148e6ff4.js"><link rel="prefetch" href="/assets/js/72.69176695.js"><link rel="prefetch" href="/assets/js/73.24265001.js"><link rel="prefetch" href="/assets/js/74.ab1f4487.js"><link rel="prefetch" href="/assets/js/75.f765fe47.js"><link rel="prefetch" href="/assets/js/76.63a86cd8.js"><link rel="prefetch" href="/assets/js/77.0863aa53.js"><link rel="prefetch" href="/assets/js/78.26e08ce1.js"><link rel="prefetch" href="/assets/js/79.1a971f83.js"><link rel="prefetch" href="/assets/js/8.ed6f0f70.js"><link rel="prefetch" href="/assets/js/80.179a0331.js"><link rel="prefetch" href="/assets/js/81.e4e39c2e.js"><link rel="prefetch" href="/assets/js/82.3bee9de2.js"><link rel="prefetch" href="/assets/js/83.950da1b2.js"><link rel="prefetch" href="/assets/js/84.0372c0fd.js"><link rel="prefetch" href="/assets/js/85.6f120f50.js"><link rel="prefetch" href="/assets/js/86.864ad350.js"><link rel="prefetch" href="/assets/js/87.2c8b5941.js"><link rel="prefetch" href="/assets/js/88.7f7b8dad.js"><link rel="prefetch" href="/assets/js/89.2c2cc3c7.js"><link rel="prefetch" href="/assets/js/9.b367a0c8.js"><link rel="prefetch" href="/assets/js/90.304a6f3e.js"><link rel="prefetch" href="/assets/js/91.09f58297.js"><link rel="prefetch" href="/assets/js/92.dbb564bb.js"><link rel="prefetch" href="/assets/js/93.a62b8678.js"><link rel="prefetch" href="/assets/js/94.b3e84ab0.js"><link rel="prefetch" href="/assets/js/95.db81aaa0.js"><link rel="prefetch" href="/assets/js/96.e40b62fc.js"><link rel="prefetch" href="/assets/js/97.5d33b7b8.js"><link rel="prefetch" href="/assets/js/98.3036c2ac.js"><link rel="prefetch" href="/assets/js/99.b4491926.js">
-    <link rel="stylesheet" href="/assets/css/0.styles.1c4fef16.css">
-  </head>
-  <body>
-    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/" class="home-link router-link-active"><!----> <span class="site-name">IPLD Specifications</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/" class="nav-link">
-  Home
-</a></div><div class="nav-item"><a href="/schemas/" class="nav-link">
-  IPLD Schemas
-</a></div> <a href="https://github.com/ipld/specs" target="_blank" rel="noopener noreferrer" class="repo-link">
-    GitHub
-    <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/" class="nav-link">
-  Home
-</a></div><div class="nav-item"><a href="/schemas/" class="nav-link">
-  IPLD Schemas
-</a></div> <a href="https://github.com/ipld/specs" target="_blank" rel="noopener noreferrer" class="repo-link">
-    GitHub
-    <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></nav>  <ul class="sidebar-links"><li><section class="sidebar-group depth-0"><p class="sidebar-heading open"><span></span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/selectors/example-selectors.html#examples" class="sidebar-link">Examples</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/selectors/example-selectors.html#deeply-nested-path" class="sidebar-link">Deeply nested path</a></li><li class="sidebar-sub-header"><a href="/selectors/example-selectors.html#getting-a-certain-number-of-parent-blocks-in-a-blockchain" class="sidebar-link">Getting a certain number of parent blocks in a blockchain</a></li><li class="sidebar-sub-header"><a href="/selectors/example-selectors.html#getting-changes-up-to-a-certain-one" class="sidebar-link">Getting changes up to a certain one</a></li><li class="sidebar-sub-header"><a href="/selectors/example-selectors.html#retrieving-data-recursively" class="sidebar-link">Retrieving data recursively</a></li></ul></li></ul></section></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><p>!!!</p> <p>This document has <strong>moved</strong>.</p> <p>You'll now find information like this in the <a href="https://github.com/ipld/ipld/" target="_blank" rel="noopener noreferrer">ipld/ipld<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a> meta-repo,
-and published to the web at https://ipld.io/ .</p> <p>All documentation, fixtures, specifications, and web content is now gathered into that repo.
-Please update your links, and direct new contributions there.</p> <p>!!!</p> <hr> <h1 id="example-selectors"><a href="#example-selectors" class="header-anchor">#</a> Example Selectors</h1> <p>In this document, we will show some examples of selectors.</p> <h4 id="a-quick-note-about-formatting"><a href="#a-quick-note-about-formatting" class="header-anchor">#</a> A quick note about formatting</h4> <p>We will typically show some sample data as JSON encoded documents,
-and show the Selectors as YAML documents.
-<strong>Remember,</strong> any IPLD document can be encoded in any multicodec;
-these examples are JSON for convenience and by convention, but all
-the examples would work the same even if they were in other formats.
-Similarly, <strong>Selectors themselves are just IPLD documents</strong>, so while
-we've written YAML forms here, they could just as well be e.g. JSON or CBOR.
-When we write YAML, we'll also use quoted strings for user-supplied strings,
-and unquoted strings as map keys when it's for a field specified by the schema.</p> <p>For human convenience, we will also pretend there are a few modifications
-to the Selector schema:</p> <ul><li>we will disregard all 'rename' shortenings specified by the schema;</li> <li>and we will use type names for union discriminators,
-instead of the shorter keys specified in the schema for those unions.</li></ul> <p>Therefore, note that the <em>real</em> serialized selectors will be significantly terser!</p> <h2 id="examples"><a href="#examples" class="header-anchor">#</a> Examples</h2> <h3 id="deeply-nested-path"><a href="#deeply-nested-path" class="header-anchor">#</a> Deeply nested path</h3> <p>In some DAG you want to get one specific value you know the path of. Let's say you want to get the birth year of a specific character of a specific show.</p> <p>Example data (as JSON):</p> <div class="language-json extra-class"><pre class="language-json"><code><span class="token punctuation">{</span>
-  <span class="token property">&quot;show&quot;</span><span class="token operator">:</span> <span class="token string">&quot;start-trek-voyager&quot;</span><span class="token punctuation">,</span>
-  <span class="token property">&quot;characters&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-    <span class="token property">&quot;kathryn-janeway&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-      <span class="token property">&quot;birthday&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-        <span class="token property">&quot;day&quot;</span><span class="token operator">:</span> <span class="token number">20</span><span class="token punctuation">,</span>
-        <span class="token property">&quot;month&quot;</span><span class="token operator">:</span> <span class="token number">5</span><span class="token punctuation">,</span>
-        <span class="token property">&quot;year&quot;</span><span class="token operator">:</span> <span class="token number">2328</span>
-      <span class="token punctuation">}</span><span class="token punctuation">,</span>
-      <span class="token property">&quot;rank&quot;</span><span class="token operator">:</span> <span class="token string">&quot;vice admiral&quot;</span>
-    <span class="token punctuation">}</span>
-  <span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
-</code></pre></div><p>A Selector to extract the &quot;year&quot; data could look like this:</p> <div class="language-yaml extra-class"><pre class="language-yaml"><code><span class="token key atrule">Selector</span><span class="token punctuation">:</span>
-  <span class="token key atrule">ExploreFields</span><span class="token punctuation">:</span>
-    <span class="token key atrule">fields</span><span class="token punctuation">:</span>
-      <span class="token key atrule">&quot;characters&quot;</span><span class="token punctuation">:</span>
-        <span class="token key atrule">ExploreFields</span><span class="token punctuation">:</span>
-          <span class="token key atrule">fields</span><span class="token punctuation">:</span>
-            <span class="token key atrule">&quot;kathryn-janeway&quot;</span><span class="token punctuation">:</span>
-              <span class="token key atrule">ExploreFields</span><span class="token punctuation">:</span>
-                <span class="token key atrule">fields</span><span class="token punctuation">:</span>
-                  <span class="token key atrule">&quot;birthday&quot;</span><span class="token punctuation">:</span>
-                    <span class="token key atrule">ExploreFields</span><span class="token punctuation">:</span>
-                      <span class="token key atrule">fields</span><span class="token punctuation">:</span>
-                        <span class="token key atrule">&quot;year&quot;</span><span class="token punctuation">:</span>
-                          <span class="token key atrule">Matcher</span><span class="token punctuation">:</span>
-                            <span class="token punctuation">{</span><span class="token punctuation">}</span>
-</code></pre></div><h3 id="getting-a-certain-number-of-parent-blocks-in-a-blockchain"><a href="#getting-a-certain-number-of-parent-blocks-in-a-blockchain" class="header-anchor">#</a> Getting a certain number of parent blocks in a blockchain</h3> <p>You want to get a certain number of parents from a certain block.</p> <p>The shape of a block could look like this (in JSON):</p> <div class="language-json extra-class"><pre class="language-json"><code><span class="token punctuation">{</span>
-  <span class="token property">&quot;parent&quot;</span><span class="token operator">:</span> <span class="token string">&quot;&lt;cid of similar structure&gt;&quot;</span><span class="token punctuation">,</span>
-  <span class="token property">&quot;time&quot;</span><span class="token operator">:</span> <span class="token number">1549641260</span><span class="token punctuation">,</span>
-  <span class="token property">&quot;none&quot;</span><span class="token operator">:</span> <span class="token number">3423545</span>
-<span class="token punctuation">}</span>
-</code></pre></div><p>If you know you want five parents you could continue to use explicit Field Selectors:</p> <div class="language-yaml extra-class"><pre class="language-yaml"><code><span class="token key atrule">Selector</span><span class="token punctuation">:</span>
-  <span class="token key atrule">ExploreFields</span><span class="token punctuation">:</span>
-    <span class="token key atrule">fields</span><span class="token punctuation">:</span>
-      <span class="token key atrule">&quot;parent&quot;</span><span class="token punctuation">:</span>
-        <span class="token key atrule">ExploreFields</span><span class="token punctuation">:</span>
-          <span class="token key atrule">fields</span><span class="token punctuation">:</span>
-            <span class="token key atrule">&quot;parent&quot;</span><span class="token punctuation">:</span>
-              <span class="token key atrule">ExploreFields</span><span class="token punctuation">:</span>
-                <span class="token key atrule">fields</span><span class="token punctuation">:</span>
-                  <span class="token key atrule">&quot;parent&quot;</span><span class="token punctuation">:</span>
-                    <span class="token key atrule">ExploreFields</span><span class="token punctuation">:</span>
-                      <span class="token key atrule">fields</span><span class="token punctuation">:</span>
-                        <span class="token key atrule">&quot;parent&quot;</span><span class="token punctuation">:</span>
-                          <span class="token key atrule">ExploreFields</span><span class="token punctuation">:</span>
-                            <span class="token key atrule">fields</span><span class="token punctuation">:</span>
-                              <span class="token key atrule">&quot;parent&quot;</span><span class="token punctuation">:</span>
-                                <span class="token key atrule">Matcher</span><span class="token punctuation">:</span>
-                                  <span class="token punctuation">{</span><span class="token punctuation">}</span>
-</code></pre></div><p>This selector matches the fifth-deepest &quot;parent&quot;</p> <p>But this gets a bit verbose.  We can explore the same tree in a similar
-pattern with another mechanism -- recursive exploration:</p> <div class="language-yaml extra-class"><pre class="language-yaml"><code><span class="token key atrule">Selector</span><span class="token punctuation">:</span>
-  <span class="token key atrule">ExploreRecursive</span><span class="token punctuation">:</span>
-    <span class="token key atrule">maxDepth</span><span class="token punctuation">:</span> <span class="token number">5</span>
-    <span class="token key atrule">sequence</span><span class="token punctuation">:</span>
-      <span class="token key atrule">ExploreFields</span><span class="token punctuation">:</span>
-        <span class="token key atrule">fields</span><span class="token punctuation">:</span>
-          <span class="token key atrule">&quot;parent&quot;</span><span class="token punctuation">:</span>
-            ExploreRecursiveEdge
-</code></pre></div><p>This will traverse the same set of nodes as the previous example -- however,
-it has has a <em>slightly</em> different effect.</p> <p>Using a recursive selector in this way matches <em>each</em> of the &quot;parent&quot; nodes,
-up to the depth limit -- meaning it matches five nodes, instead of the
-previous example, which matches only the last one.</p> <p>Implementations that return all visited notes (and not only the matched ones)
-will return the same set of notes for both examples.</p> <h3 id="getting-changes-up-to-a-certain-one"><a href="#getting-changes-up-to-a-certain-one" class="header-anchor">#</a> Getting changes up to a certain one</h3> <p>This use case is inspired by CRDTs, where you have a chain of changes. You observe a new change and want to get all the previous changes up to the one that you have already observed. It is a recursive query with a CID as stopping condition.</p> <p>The shape of a change could look like this (in JSON):</p> <div class="language-json extra-class"><pre class="language-json"><code><span class="token punctuation">{</span>
-  <span class="token property">&quot;prev&quot;</span><span class="token operator">:</span> <span class="token string">&quot;prevcid&quot;</span><span class="token punctuation">,</span>
-  <span class="token property">&quot;timestamp&quot;</span><span class="token operator">:</span> <span class="token number">1549641260</span><span class="token punctuation">,</span>
-  <span class="token property">&quot;value&quot;</span><span class="token operator">:</span> <span class="token string">&quot;abc&quot;</span>
-<span class="token punctuation">}</span>
-</code></pre></div><p>It will be a Recursive Selector following along until it reaches a link of a
-certain value (<code>somecid</code> in this case):</p> <div class="language-yaml extra-class"><pre class="language-yaml"><code><span class="token key atrule">Selector</span><span class="token punctuation">:</span>
-  <span class="token key atrule">ExploreRecursive</span><span class="token punctuation">:</span>
-    <span class="token key atrule">maxDepth</span><span class="token punctuation">:</span> <span class="token number">100</span>
-    <span class="token key atrule">sequence</span><span class="token punctuation">:</span>
-      <span class="token key atrule">ExploreFields</span><span class="token punctuation">:</span>
-        <span class="token key atrule">fields</span><span class="token punctuation">:</span>
-          <span class="token key atrule">&quot;prev&quot;</span><span class="token punctuation">:</span>
-            ExploreRecursiveEdge
-    <span class="token key atrule">stopAt</span><span class="token punctuation">:</span>
-      <span class="token key atrule">TBD</span><span class="token punctuation">:</span> <span class="token comment"># Conditions are specified yet</span>
-</code></pre></div><h3 id="retrieving-data-recursively"><a href="#retrieving-data-recursively" class="header-anchor">#</a> Retrieving data recursively</h3> <p><a href="https://github.com/ipfs/specs/tree/master/unixfs" target="_blank" rel="noopener noreferrer">UnixFSv1<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a> is a good case of a recursive data structure. Any number of links can be used to create deeply nested structures. The following example is inspired by UnixFSv1, but uses a simplified structure, so that we don't get lost in UnixFSv1 specific implementation details.</p> <p>The basic structure described by an <a href="../schemas">IPLD Schema</a>:</p> <div class="language-ipldsch extra-class"><pre class="language-ipldsch"><code><span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">FileSystem</span></span> <span class="token builtin">struct</span> <span class="token punctuation">{</span>
-  <span class="token comment"># Only leaf nodes have data</span>
-  data <span class="token keyword">optional</span> Bytes
-  links <span class="token punctuation">[</span>Link<span class="token punctuation">]</span>
-<span class="token punctuation">}</span>
-
-<span class="token typedef"><span class="token keyword">type</span> <span class="token class-name">Link</span></span> <span class="token builtin">struct</span> <span class="token punctuation">{</span>
-  name String
-  cid <span class="token punctuation">&amp;</span>FileSystem
-<span class="token punctuation">}</span>
-</code></pre></div><p>The recursion comes into play with the <code>cid</code> field that points to another block that has exactly the same structure. As you can transparently path through IPLD structures that are composed of several blocks, we just omit those in the following example and pretend that we have a single large object describing our file system.</p> <div class="language-json extra-class"><pre class="language-json"><code><span class="token punctuation">{</span>
-  <span class="token property">&quot;links&quot;</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">{</span>
-    <span class="token property">&quot;name&quot;</span><span class="token operator">:</span> <span class="token string">&quot;subdir1&quot;</span><span class="token punctuation">,</span>
-    <span class="token property">&quot;cid&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-      <span class="token property">&quot;links&quot;</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">{</span>
-        <span class="token property">&quot;name&quot;</span><span class="token operator">:</span> <span class="token string">&quot;somedata.txt&quot;</span><span class="token punctuation">,</span>
-        <span class="token property">&quot;cid&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-          <span class="token property">&quot;data&quot;</span><span class="token operator">:</span> <span class="token string">&quot;74686572652773206461746120696e2068657265&quot;</span><span class="token punctuation">,</span>
-          <span class="token property">&quot;links&quot;</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
-        <span class="token punctuation">}</span>
-      <span class="token punctuation">}</span><span class="token punctuation">]</span>
-    <span class="token punctuation">}</span>
-  <span class="token punctuation">}</span><span class="token punctuation">,</span><span class="token punctuation">{</span>
-    <span class="token property">&quot;name&quot;</span><span class="token operator">:</span> <span class="token string">&quot;subdir2&quot;</span><span class="token punctuation">,</span>
-    <span class="token property">&quot;cid&quot;</span><span class="token operator">:</span> …
-  <span class="token punctuation">}</span><span class="token punctuation">]</span>
-<span class="token punctuation">}</span>
-
-</code></pre></div><p>The following selector visits all <code>links</code> and matches all <code>data</code> fields:</p> <div class="language-yaml extra-class"><pre class="language-yaml"><code><span class="token key atrule">Selector</span><span class="token punctuation">:</span>
-  <span class="token key atrule">ExploreRecursive</span><span class="token punctuation">:</span>
-    <span class="token key atrule">maxDepth</span><span class="token punctuation">:</span> <span class="token number">1000</span>
-    <span class="token key atrule">sequence</span><span class="token punctuation">:</span>
-      <span class="token key atrule">ExploreFields</span><span class="token punctuation">:</span>
-        <span class="token key atrule">fields</span><span class="token punctuation">:</span>
-          <span class="token key atrule">&quot;data&quot;</span><span class="token punctuation">:</span>
-            <span class="token key atrule">Matcher</span><span class="token punctuation">:</span>
-              <span class="token punctuation">{</span><span class="token punctuation">}</span>
-          <span class="token key atrule">&quot;links&quot;</span><span class="token punctuation">:</span>
-            <span class="token key atrule">ExploreAll</span><span class="token punctuation">:</span>
-              <span class="token key atrule">next</span><span class="token punctuation">:</span>
-                <span class="token key atrule">ExploreFields</span><span class="token punctuation">:</span>
-                  <span class="token key atrule">fields</span><span class="token punctuation">:</span>
-                    <span class="token key atrule">&quot;cid&quot;</span><span class="token punctuation">:</span>
-                      ExploreRecursiveEdge
-</code></pre></div></div> <footer class="page-edit"><div class="edit-link"><a href="https://github.com/ipld/specs/edit/master/selectors/example-selectors.md" target="_blank" rel="noopener noreferrer">Edit this page on GitHub</a> <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></div> <div class="last-updated"><span class="prefix">Last Updated:</span> <span class="time">10/17/2021, 12:12:20 PM</span></div></footer> <!----> </main></div><div class="global-ui"></div></div>
-    <script src="/assets/js/app.56a090d9.js" defer></script><script src="/assets/js/2.fcfe26fc.js" defer></script><script src="/assets/js/102.e2b58b63.js" defer></script>
-  </body>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>This page has moved...</title>
+  <meta http-equiv="refresh" content="7;url=https://ipld.io/specs/selectors/">
+  <link rel="canonical" href="https://ipld.io/specs/selectors/">
+  <style type="text/css">
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      font-size: 16px;
+      color: #2c3e50
+    }
+    a {
+      color: #3eaf7c;
+      font-weight: 500;
+      text-decoration: none
+    }
+  </style>
+</head>
+<body>
+  <p>This page has moved to <b><a href="https://ipld.io/specs/selectors/">https://ipld.io/specs/selectors/</a></b>. You will be redirected in 5 seconds.</p>
+  <script>
+    setTimeout(() => {
+      location.replace('https://ipld.io/specs/selectors/')
+    }, 5000)
+  </script>
+</body>
 </html>
