@@ -3,6 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <title>This page has moved...</title>
+  <meta http-equiv="refresh" content="7;url={{redirectUrl}}">
+  <link rel="canonical" href="{{redirectUrl}}">
   <style type="text/css">
     body {
       font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
@@ -22,7 +24,7 @@
   <p>This page has moved to <b><a href="{{redirectUrl}}">{{redirectUrl}}</a></b>. You will be redirected in 5 seconds.</p>
   <script>
     setTimeout(() => {
-      location.href = '{{redirectUrl}}'
+      location.replace('{{redirectUrl}}')
     }, 5000)
   </script>
 </body>
