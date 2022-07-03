@@ -40,6 +40,8 @@ The responder node will execute the selector query as it would normally. However
 
 ### Response Metadata
 
+***Legacy Graphsync Protocol 1.0.0 Only***
+
 Extension Name: `graphsync/response-metadata`
 
 What it does:

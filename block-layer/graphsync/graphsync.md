@@ -74,6 +74,80 @@ type GraphSyncNet interface {
 
 ## Network Messages
 
+### Protocol Version 1.1.0
+
+Graphsync network messages are encoded in DAG-CBOR. They have the following schema
+
+```ipldsch
+type GraphSyncExtensions {String:Any}
+type GraphSyncRequestID int
+type GraphSyncPriority int
+
+type GraphSyncMetadatum struct {
+  link         &Any
+  blockPresent Bool
+} representation tuple
+
+type GraphSyncMetadata [GraphsyncMetadatum]
+
+type GraphSyncResponseCode enum {
+  # Informational Codes (request in progress)
+
+  | RequestAcknowledged ("10")
+  | AdditionalPeers ("11")
+  | NotEnoughGas ("12")
+  | OtherProtocol ("13")
+  | PartialResponse ("14")
+  | RequestPaused ("15")
+
+  # Success Response Codes (request terminated)
+
+  | RequestCompletedFull ("20")
+  | RequestCompletedPartial ("21")
+
+  # Error Response Codes (request terminated)
+
+  | RequestRejected ("30")
+  | RequestFailedBusy ("31")
+  | RequestFailedUnknown ("32")
+  | RequestFailedLegal ("33")
+  | RequestFailedContentNotFound ("34")
+  | RequestCancelled ("35")
+} representation int
+
+type GraphSyncRequest struct {
+  id          GraphSyncRequestID  (rename "ID")   # unique id set on the requester side
+  root        &Any                (rename "Root") # a CID for the root node in the query
+  selector    Selector            (rename "Sel")  # see https://github.com/ipld/specs/blob/master/selectors/selectors.md
+  extensions  GraphSyncExtensions (rename "Ext")  # side channel information
+  priority    GraphsyncPriority   (rename "Pri")  # the priority (normalized). default to 1
+  cancel      Bool                (rename "Canc") # whether this cancels a request
+  update      Bool                (rename "Updt") # whether this is an update to an in progress request
+} representation map
+
+type GraphSyncResponse struct {
+  id          GraphSyncRequestID          (rename "ID")   # the request id we are responding to
+  status      GraphSyncResponseStatusCode (rename "Stat") # a status code.
+  metadata    GraphSyncMetadata           (rename "Meta") # metadata about response
+  extensions  GraphSyncExtensions         (rename "Ext")  # side channel information
+} representation map
+
+type GraphSyncBlock struct {
+  prefix  Bytes (rename "Pre") # CID prefix (cid version, multicodec and multihash prefix (type + length)
+  data    Bytes (rename "Data")
+} representation map
+
+type GraphSyncMessage struct {
+  requests  [GraphSyncRequest]  (rename "Reqs")
+  responses [GraphSyncResponse] (rename "Rsps")
+  blocks    [GraphSyncBlock]    (rename "Blks")
+} representation map
+```
+
+### Legacy Protocol Version 1.0.0
+
+An earlier version of graphsync encoded messages using protobufs
+
 ```protobuf
 message GraphsyncMessage {
 
@@ -106,7 +180,6 @@ message GraphsyncMessage {
 }
 ```
 
-
 ### Extensions
 
 The Graphsync protocol is extensible. A graphsync request and a graphsync response contain an `extensions` field, which is a map type. Each key of the extensions field specifies the name of the extension, while the value is data (serialized as bytes) relevant to that extension.
@@ -127,23 +200,25 @@ The update mechanism in conjunction with the paused response code can also be us
 
 ```
 # info - partial
-10   Request Acknowledged. Working on it.
-11   Additional Peers. PeerIDs in extra.
-12   Not enough vespene gas ($)
-13   Other Protocol - info in extra.
-14   Partial Response w/ metadata, may include blocks
-15   Request Paused, pending update, see extensions for info
+10    Request acknowledged, indicates request was received and is being worked on
+11    Additional peers, indicates additional peers were found that may be able to satisfy the request and contained in the extensions block of the response
+12    Not enough gas, fulfilling this request requires payment
+13    Other protocol, indicates a different type of response than GraphSync is contained in extensions
+14    Partial response, includes blocks and metadata about the in progress response
+15    Request paused, indicates a request is paused and will not send any more data until unpaused
 
 # success - terminal
-20   Request Completed, full content.
-21   Request Completed, partial content.
+
+20   Request completed, entire fulfillment of the GraphSync request was sent back.
+21   Request completed, partial fulfillment of the GraphSync request was sent back, but not the complete request.
 
 # error - terminal
-30   Request Rejected. NOT working on it.
-31   Request failed, busy, try again later (getting dosed. backoff in extra).
-32   Request failed, for unknown reason. Extra may have more info.
-33   Request failed, for legal reasons.
-34   Request failed, content not found.
+30   Request rejected, indicates the node did not accept the incoming request.
+31   Request failed, indiciates the node is too busy, try again later. Backoff may be contained in extensions.
+32   Request failed for unknown reasons, may contain data about why in extensions.
+33   Request failed for legal reasons.
+34   Request failed because respondent does not have the content.
+35   Request cancelled, indicates the responder was processing the request but decided to stop. Extensions may contain information about reason for cancellation
 ```
 
 ## Example Use Cases
